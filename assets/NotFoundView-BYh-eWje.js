@@ -1,1 +1,0 @@
-import{Gt as e,R as t,b as n,d as r,m as i,t as a,ut as o}from"./_plugin-vue_export-helper-zVL9qZGT.js";var s={class:`not-found`},c=a(n({__name:`NotFoundView`,setup(n){let a=o(`404 - 页面不存在`);return(n,o)=>(t(),i(`div`,s,[r(`h1`,null,e(a.value),1)]))}}),[[`__scopeId`,`data-v-ae8a360d`]]);export{c as default};
