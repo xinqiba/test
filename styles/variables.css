@@ -1,0 +1,126 @@
+/* ============================================
+   慧眼 - 能力管理与发展系统
+   设计系统变量
+   美学方向：深海能源蓝 + 琥珀金奢华工业风
+   ============================================ */
+
+:root {
+  /* ---- 核心色彩系统 ---- */
+  --deep-ocean: #060d1a;
+  --abyss: #0a1628;
+  --midnight: #0f1f3a;
+  --energy-blue: #1e3a5f;
+  --steel-blue: #2a4a73;
+  --ocean-surface: #3a6088;
+
+  --amber-gold: #c8956c;
+  --amber-light: #d4a574;
+  --amber-dark: #a67c52;
+  --amber-glow: rgba(200, 149, 108, 0.15);
+
+  --steel-gray: #8a9ab0;
+  --silver: #b0c0d4;
+  --pearl: #d8e4f0;
+  --white: #f0f5fa;
+
+  /* 功能色 */
+  --success: #4caf7a;
+  --success-dim: rgba(76, 175, 122, 0.12);
+  --warning: #e6a23c;
+  --warning-dim: rgba(230, 162, 60, 0.12);
+  --danger: #e05d5d;
+  --danger-dim: rgba(224, 93, 93, 0.12);
+  --info: #5b9bd5;
+  --info-dim: rgba(91, 155, 213, 0.12);
+
+  /* ---- 渐变 ---- */
+  --gradient-hero: linear-gradient(135deg, var(--abyss) 0%, var(--energy-blue) 50%, var(--midnight) 100%);
+  --gradient-gold: linear-gradient(135deg, var(--amber-gold) 0%, var(--amber-light) 100%);
+  --gradient-card: linear-gradient(180deg, rgba(30, 58, 95, 0.4) 0%, rgba(10, 22, 40, 0.8) 100%);
+  --gradient-glass: linear-gradient(180deg, rgba(30, 58, 95, 0.2) 0%, rgba(10, 22, 40, 0.4) 100%);
+
+  /* ---- 字体系统 ---- */
+  --font-display: 'Playfair Display', 'Noto Serif SC', serif;
+  --font-body: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+
+  --text-h1: 2.5rem;
+  --text-h2: 2rem;
+  --text-h3: 1.5rem;
+  --text-h4: 1.25rem;
+  --text-body: 1rem;
+  --text-small: 0.875rem;
+  --text-xs: 0.75rem;
+
+  --weight-bold: 700;
+  --weight-medium: 500;
+  --weight-regular: 400;
+
+  --line-height-tight: 1.2;
+  --line-height-normal: 1.6;
+  --line-height-relaxed: 1.8;
+
+  /* ---- 间距系统 ---- */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-2xl: 3rem;
+  --space-3xl: 4rem;
+  --space-4xl: 6rem;
+
+  /* ---- 布局 ---- */
+  --sidebar-width: 260px;
+  --sidebar-collapsed: 72px;
+  --topbar-height: 64px;
+  --container-max: 1400px;
+  --grid-gap: 1.5rem;
+
+  /* ---- 圆角 ---- */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+
+  /* ---- 阴影 ---- */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.4);
+  --shadow-gold: 0 4px 20px rgba(200, 149, 108, 0.2);
+
+  /* ---- 动画 ---- */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --duration-fast: 0.15s;
+  --duration-normal: 0.3s;
+  --duration-slow: 0.5s;
+}
+
+/* ---- 响应式断点 ---- */
+@media (max-width: 1440px) {
+  :root {
+    --container-max: 1200px;
+  }
+}
+
+@media (max-width: 1200px) {
+  :root {
+    --sidebar-width: 240px;
+  }
+}
+
+@media (max-width: 992px) {
+  :root {
+    --sidebar-width: 200px;
+  }
+}
+
+@media (max-width: 768px) {
+  :root {
+    --text-h1: 2rem;
+    --text-h2: 1.5rem;
+    --text-h3: 1.25rem;
+    --sidebar-width: 0px;
+  }
+}
