@@ -5,1554 +5,1673 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>知识矩阵 - 慧眼能力管理与发展系统</title>
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        /* ============================================
+           基础重置与设计令牌
+           ============================================ */
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
         body {
             font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
-            background-color: #f5f7fa;
-            color: #1a202c;
-            line-height: 1.6;
+            font-size: 14px; line-height: 1.6;
+            color: #1a202c; background: #f5f7fa;
+            min-height: 100vh; overflow-x: hidden;
+        }
+        a { color: inherit; text-decoration: none; }
+        button { font-family: inherit; cursor: pointer; border: none; background: none; }
+        ul, ol { list-style: none; }
+
+        :root {
+            --sidebar-width: 260px; --sidebar-collapsed: 72px; --topbar-height: 64px;
+            --amber: #c8956c; --amber-light: #d4a574; --deep-blue: #1a365d;
+            --disc-blue: #3b82f6; --disc-orange: #f97316; --disc-green: #22c55e;
+            --disc-red: #ef4444; --disc-cyan: #06b6d4; --disc-amber: #f59e0b;
+            --disc-slate: #64748b; --disc-purple: #8b5cf6;
         }
 
-        /* 顶部导航栏 */
-        .top-navbar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 64px;
-            background: #ffffff;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 24px;
-            z-index: 1000;
+        /* ---- 顶部导航栏 ---- */
+        .topbar {
+            position: fixed; top: 0; left: 0; right: 0; height: var(--topbar-height);
+            background: rgba(255,255,255,0.95); backdrop-filter: blur(20px);
+            border-bottom: 1px solid #e2e8f0; box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+            z-index: 1000; display: flex; align-items: center; justify-content: space-between; padding: 0 24px;
         }
-
-        .nav-left {
-            display: flex;
-            align-items: center;
-            gap: 20px;
+        .topbar-left { display: flex; align-items: center; gap: 20px; }
+        .menu-toggle {
+            display: none; width: 40px; height: 40px; align-items: center; justify-content: center;
+            color: #1a202c; font-size: 1.25rem; border-radius: 8px; transition: background 0.15s;
         }
-
-        .hamburger-btn {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 24px;
-            color: #1a202c;
-            cursor: pointer;
-            padding: 4px;
+        .menu-toggle:hover { background: rgba(0,0,0,0.04); }
+        .brand { display: flex; align-items: center; gap: 8px; }
+        .brand-logo {
+            width: 36px; height: 36px; background: linear-gradient(135deg, var(--amber) 0%, var(--amber-light) 100%);
+            border-radius: 8px; display: flex; align-items: center; justify-content: center;
+            font-size: 1.125rem; font-weight: 700; color: var(--deep-blue);
         }
-
-        .logo {
-            font-size: 22px;
-            font-weight: 700;
-            color: #1a365d;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+        .brand-text { font-size: 1.25rem; font-weight: 600; color: var(--deep-blue); letter-spacing: 0.5px; }
+        .brand-text span { color: var(--amber); }
+        .topbar-nav { display: flex; align-items: center; gap: 4px; }
+        .topbar-nav a {
+            padding: 8px 16px; font-size: 0.875rem; font-weight: 500; color: #64748b;
+            border-radius: 8px; transition: all 0.2s;
         }
-
-        .logo i {
-            color: #c8956c;
-            font-size: 26px;
-        }
-
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            list-style: none;
-            margin-left: 16px;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: #64748b;
-            font-size: 14px;
-            font-weight: 500;
-            padding: 8px 16px;
-            border-radius: 8px;
-            transition: all 0.2s;
-        }
-
-        .nav-links a:hover {
-            color: #1a202c;
-            background: #f1f5f9;
-        }
-
-        .nav-links a.active {
-            color: #1a365d;
-            background: #f1f5f9;
-            font-weight: 600;
-        }
-
-        .nav-right {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-
-        .search-box {
-            position: relative;
-        }
-
+        .topbar-nav a:hover { color: #1e293b; background: rgba(0,0,0,0.04); }
+        .topbar-nav a.active { color: var(--deep-blue); background: rgba(26,54,93,0.08); font-weight: 600; }
+        .topbar-right { display: flex; align-items: center; gap: 16px; }
+        .search-box { position: relative; width: 220px; }
         .search-box input {
-            width: 240px;
-            height: 38px;
-            border: 1px solid #e2e8f0;
-            border-radius: 8px;
-            padding: 0 36px 0 12px;
-            font-size: 14px;
-            font-family: inherit;
-            background: #f8fafc;
-            transition: all 0.2s;
+            width: 100%; padding: 8px 12px 8px 36px; font-size: 0.875rem; color: #1e293b;
+            background: #f1f5f9; border: 1px solid transparent; border-radius: 8px;
+            transition: all 0.3s; font-family: inherit;
         }
-
-        .search-box input:focus {
-            outline: none;
-            border-color: #c8956c;
-            background: #ffffff;
-            box-shadow: 0 0 0 3px rgba(200, 149, 108, 0.1);
-        }
-
-        .search-box i {
-            position: absolute;
-            right: 12px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #94a3b8;
-            font-size: 16px;
-        }
-
-        .user-info {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            cursor: pointer;
-            padding: 4px 8px;
-            border-radius: 8px;
-            transition: background 0.2s;
-        }
-
-        .user-info:hover {
-            background: #f1f5f9;
-        }
-
+        .search-box input:focus { outline: none; border-color: var(--amber); background: #fff; }
+        .search-box i { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: #94a3b8; font-size: 0.875rem; }
+        .user-menu { display: flex; align-items: center; gap: 8px; padding: 6px; border-radius: 8px; cursor: pointer; transition: background 0.15s; }
+        .user-menu:hover { background: rgba(0,0,0,0.04); }
         .user-avatar {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            background: #1a365d;
-            color: #ffffff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 14px;
-            font-weight: 600;
+            width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, var(--amber), var(--amber-light));
+            display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; color: var(--deep-blue);
         }
+        .user-name { font-size: 0.875rem; font-weight: 500; color: #334155; }
+        .user-dropdown { position: absolute; top: 56px; right: 24px; background: #fff; border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.12); min-width: 200px; padding: 8px; z-index: 1100; display: none; }
+        .user-dropdown.show { display: block; animation: fadeIn 0.2s ease; }
+        .user-dropdown a { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 8px; font-size: 0.875rem; color: #334155; transition: all 0.15s; }
+        .user-dropdown a:hover { background: #f1f5f9; color: var(--deep-blue); }
+        .user-dropdown a i { font-size: 1rem; color: #94a3b8; width: 20px; text-align: center; }
 
-        .user-name {
-            font-size: 14px;
-            font-weight: 500;
-            color: #1a202c;
-        }
-
-        /* 侧边栏 */
+        /* ---- 侧边栏 ---- */
         .sidebar {
-            position: fixed;
-            top: 64px;
-            left: 0;
-            bottom: 0;
-            width: 260px;
-            background: #f8fafc;
-            border-right: 1px solid #e2e8f0;
-            display: flex;
-            flex-direction: column;
-            z-index: 999;
-            transition: transform 0.3s ease;
+            position: fixed; top: var(--topbar-height); left: 0;
+            width: var(--sidebar-width); height: calc(100vh - var(--topbar-height));
+            background: rgba(255,255,255,0.95); backdrop-filter: blur(20px);
+            border-right: 1px solid #e2e8f0; z-index: 900;
+            display: flex; flex-direction: column; transition: width 0.5s cubic-bezier(0.16,1,0.3,1); overflow: hidden;
         }
-
-        .sidebar.collapsed {
-            transform: translateX(-100%);
-        }
-
+        .sidebar.collapsed { width: var(--sidebar-collapsed); }
+        .sidebar-header { padding: 24px 20px; border-bottom: 1px solid #e2e8f0; display: flex; align-items: center; justify-content: space-between; }
+        .sidebar.collapsed .sidebar-header { justify-content: center; padding: 24px 0; }
+        .sidebar-label { font-size: 0.75rem; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px; }
+        .sidebar.collapsed .sidebar-label { display: none; }
         .sidebar-toggle {
-            position: absolute;
-            right: -28px;
-            top: 16px;
-            width: 28px;
-            height: 28px;
-            background: #ffffff;
-            border: 1px solid #e2e8f0;
-            border-radius: 0 6px 6px 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            font-size: 14px;
-            color: #64748b;
-            box-shadow: 1px 1px 3px rgba(0,0,0,0.08);
+            width: 28px; height: 28px; display: flex; align-items: center; justify-content: center;
+            color: #94a3b8; border-radius: 6px; transition: all 0.15s;
         }
-
-        .sidebar-content {
-            flex: 1;
-            overflow-y: auto;
-            padding: 16px 0;
+        .sidebar-toggle:hover { color: #1e293b; background: rgba(0,0,0,0.04); }
+        .sidebar.collapsed .sidebar-toggle { transform: rotate(180deg); }
+        .sidebar-nav { flex: 1; overflow-y: auto; padding: 12px 8px; }
+        .nav-section { margin-bottom: 20px; }
+        .nav-section-title {
+            padding: 0 12px; margin-bottom: 8px; font-size: 0.7rem; font-weight: 700;
+            color: #94a3b8; text-transform: uppercase; letter-spacing: 1px;
+            transition: opacity 0.3s;
         }
-
-        .sidebar-section {
-            margin-bottom: 8px;
+        .sidebar.collapsed .nav-section-title { opacity: 0; height: 0; margin: 0; overflow: hidden; }
+        .nav-item {
+            display: flex; align-items: center; gap: 12px; padding: 8px 12px; margin-bottom: 2px;
+            font-size: 0.875rem; font-weight: 500; color: #64748b; border-radius: 8px;
+            transition: all 0.15s; position: relative; white-space: nowrap;
         }
-
-        .sidebar-title {
-            font-size: 11px;
-            font-weight: 600;
-            color: #94a3b8;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            padding: 8px 20px;
+        .nav-item i { font-size: 1.125rem; min-width: 24px; text-align: center; flex-shrink: 0; }
+        .nav-item:hover { color: #1e293b; background: rgba(0,0,0,0.04); }
+        .nav-item.active { color: var(--deep-blue); background: rgba(26,54,93,0.08); }
+        .nav-item.active::before {
+            content: ''; position: absolute; left: 0; top: 50%; transform: translateY(-50%);
+            width: 3px; height: 20px; background: linear-gradient(180deg, var(--amber), var(--amber-light));
+            border-radius: 0 2px 2px 0;
         }
-
-        .sidebar-menu {
-            list-style: none;
+        .sidebar.collapsed .nav-item { justify-content: center; padding: 8px; }
+        .sidebar.collapsed .nav-item span { display: none; }
+        .nav-badge {
+            margin-left: auto; font-size: 10px; padding: 1px 6px;
+            background: rgba(224,93,93,0.12); color: #e05d5d; border-radius: 100px; flex-shrink: 0;
         }
-
-        .sidebar-menu li a {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 10px 20px;
-            text-decoration: none;
-            color: #475569;
-            font-size: 14px;
-            font-weight: 500;
-            transition: all 0.2s;
-            position: relative;
-        }
-
-        .sidebar-menu li a:hover {
-            background: #f1f5f9;
-            color: #1a202c;
-        }
-
-        .sidebar-menu li a.active {
-            background: #f1f5f9;
-            color: #1a365d;
-            font-weight: 600;
-        }
-
-        .sidebar-menu li a.active::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 3px;
-            background: #c8956c;
-        }
-
-        .sidebar-menu li a i {
-            font-size: 18px;
-            width: 20px;
-            text-align: center;
-        }
-
+        .sidebar.collapsed .nav-badge { display: none; }
         .sidebar-footer {
-            padding: 16px 20px;
-            border-top: 1px solid #e2e8f0;
+            padding: 20px; border-top: 1px solid #e2e8f0;
+            display: flex; flex-direction: column; gap: 12px;
+        }
+        .sidebar.collapsed .sidebar-footer { display: none; }
+        .sidebar-progress-label { display: flex; justify-content: space-between; font-size: 0.75rem; margin-bottom: 6px; }
+        .sidebar-progress-label span:first-child { color: #64748b; }
+        .sidebar-progress-label span:last-child { color: var(--amber); font-weight: 600; }
+        .sidebar-progress-bar {
+            height: 4px; background: #e2e8f0; border-radius: 2px; overflow: hidden;
+        }
+        .sidebar-progress-fill {
+            height: 100%; background: linear-gradient(90deg, var(--amber), var(--amber-light));
+            border-radius: 2px; transition: width 0.6s ease;
         }
 
-        .progress-item {
-            margin-bottom: 12px;
-        }
-
-        .progress-item:last-child {
-            margin-bottom: 0;
-        }
-
-        .progress-label {
-            display: flex;
-            justify-content: space-between;
-            font-size: 12px;
-            color: #64748b;
-            margin-bottom: 6px;
-        }
-
-        .progress-label span:last-child {
-            color: #1a365d;
-            font-weight: 600;
-        }
-
-        .progress-bar {
-            height: 6px;
-            background: #e2e8f0;
-            border-radius: 3px;
-            overflow: hidden;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: #c8956c;
-            border-radius: 3px;
-            transition: width 0.5s ease;
-        }
-
-        /* 主内容区 */
+        /* ---- 主内容区 ---- */
         .main-content {
-            margin-left: 260px;
-            margin-top: 64px;
-            padding: 24px;
-            min-height: calc(100vh - 64px);
-            transition: margin-left 0.3s ease;
-        }
-
-        .main-content.full {
-            margin-left: 0;
-        }
-
-        /* 页面标题区 */
-        .page-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 24px;
-            flex-wrap: wrap;
-            gap: 16px;
-        }
-
-        .page-title-area h1 {
-            font-size: 28px;
-            font-weight: 700;
-            color: #1a202c;
-            margin-bottom: 8px;
-        }
-
-        .breadcrumb {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 13px;
-            color: #64748b;
-        }
-
-        .breadcrumb a {
-            color: #64748b;
-            text-decoration: none;
-            transition: color 0.2s;
-        }
-
-        .breadcrumb a:hover {
-            color: #1a365d;
-        }
-
-        .breadcrumb i {
-            font-size: 12px;
-            color: #94a3b8;
-        }
-
-        .breadcrumb span {
-            color: #1a202c;
-            font-weight: 500;
-        }
-
-        .page-header-search {
-            position: relative;
-        }
-
-        .page-header-search input {
-            width: 280px;
-            height: 40px;
-            border: 1px solid #e2e8f0;
-            border-radius: 8px;
-            padding: 0 36px 0 14px;
-            font-size: 14px;
-            font-family: inherit;
-            background: #ffffff;
-            transition: all 0.2s;
-        }
-
-        .page-header-search input:focus {
-            outline: none;
-            border-color: #c8956c;
-            box-shadow: 0 0 0 3px rgba(200, 149, 108, 0.1);
-        }
-
-        .page-header-search i {
-            position: absolute;
-            right: 12px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #94a3b8;
-            font-size: 16px;
-        }
-
-        /* 学习进度概览卡片 */
-        .overview-card {
-            background: #ffffff;
-            border-radius: 12px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
-            padding: 28px 32px;
-            display: flex;
-            align-items: center;
-            gap: 40px;
-            margin-bottom: 24px;
-            flex-wrap: wrap;
-        }
-
-        .progress-ring-area {
-            display: flex;
-            align-items: center;
-            gap: 24px;
-        }
-
-        .progress-ring {
-            position: relative;
-            width: 120px;
-            height: 120px;
-        }
-
-        .progress-ring svg {
-            transform: rotate(-90deg);
-        }
-
-        .progress-ring-bg {
-            fill: none;
-            stroke: #e2e8f0;
-            stroke-width: 8;
-        }
-
-        .progress-ring-fill {
-            fill: none;
-            stroke: #c8956c;
-            stroke-width: 8;
-            stroke-linecap: round;
-            transition: stroke-dashoffset 1s ease;
-        }
-
-        .progress-ring-text {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            text-align: center;
-        }
-
-        .progress-ring-text .percent {
-            font-size: 24px;
-            font-weight: 700;
-            color: #1a365d;
-        }
-
-        .progress-ring-text .label {
-            font-size: 11px;
-            color: #64748b;
-        }
-
-        .progress-info h3 {
-            font-size: 16px;
-            font-weight: 600;
-            color: #1a202c;
-            margin-bottom: 4px;
-        }
-
-        .progress-info p {
-            font-size: 13px;
-            color: #64748b;
-        }
-
-        .stats-divider {
-            width: 1px;
-            height: 80px;
-            background: #e2e8f0;
-        }
-
-        .stats-area {
-            display: flex;
-            gap: 40px;
-            flex: 1;
-            justify-content: center;
-        }
-
-        .stat-item {
-            text-align: center;
-        }
-
-        .stat-number {
-            font-size: 32px;
-            font-weight: 700;
-            color: #1a365d;
-            line-height: 1.2;
-        }
-
-        .stat-label {
-            font-size: 13px;
-            color: #64748b;
-            margin-top: 4px;
-        }
-
-        /* 筛选+课程列表区 */
-        .content-layout {
-            display: flex;
-            gap: 24px;
-        }
-
-        /* 左侧筛选栏 */
-        .filter-sidebar {
-            width: 240px;
-            flex-shrink: 0;
-        }
-
-        .filter-card {
-            background: #ffffff;
-            border-radius: 12px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
-            padding: 20px;
-        }
-
-        .filter-section {
-            margin-bottom: 20px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid #f1f5f9;
-        }
-
-        .filter-section:last-of-type {
-            border-bottom: none;
-            margin-bottom: 16px;
-        }
-
-        .filter-title {
-            font-size: 14px;
-            font-weight: 600;
-            color: #1a202c;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .filter-title i {
-            font-size: 12px;
-            color: #94a3b8;
-            cursor: pointer;
-        }
-
-        .filter-options {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .filter-option {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            cursor: pointer;
-            padding: 4px 0;
-        }
-
-        .filter-option input[type="checkbox"],
-        .filter-option input[type="radio"] {
-            width: 16px;
-            height: 16px;
-            accent-color: #c8956c;
-            cursor: pointer;
-        }
-
-        .filter-option label {
-            font-size: 13px;
-            color: #475569;
-            cursor: pointer;
-            flex: 1;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .filter-option label .count {
-            font-size: 12px;
-            color: #94a3b8;
-        }
-
-        .filter-option:hover label {
-            color: #1a202c;
-        }
-
-        .reset-btn {
-            width: 100%;
-            height: 40px;
-            border: 1px solid #e2e8f0;
-            border-radius: 8px;
-            background: #ffffff;
-            color: #64748b;
-            font-size: 14px;
-            font-family: inherit;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-        }
-
-        .reset-btn:hover {
-            border-color: #c8956c;
-            color: #c8956c;
-            background: #fefcf9;
-        }
-
-        /* 右侧课程列表 */
-        .course-area {
-            flex: 1;
-            min-width: 0;
-        }
-
-        .course-toolbar {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 16px;
-        }
-
-        .course-count {
-            font-size: 14px;
-            color: #64748b;
-        }
-
-        .course-count strong {
-            color: #1a202c;
-        }
-
-        .sort-select {
-            height: 36px;
-            border: 1px solid #e2e8f0;
-            border-radius: 8px;
-            padding: 0 32px 0 12px;
-            font-size: 13px;
-            font-family: inherit;
-            color: #475569;
-            background: #ffffff;
-            cursor: pointer;
-            appearance: none;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: right 10px center;
-        }
-
-        .sort-select:focus {
-            outline: none;
-            border-color: #c8956c;
-        }
-
-        .course-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-        }
-
-        .course-card {
-            background: #ffffff;
-            border-radius: 12px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
-            overflow: hidden;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .course-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-        }
-
-        .course-card.hidden {
-            display: none;
-        }
-
-        .course-top-bar {
-            height: 4px;
-            position: relative;
-        }
-
-        .course-header {
-            padding: 16px 20px 0;
-            display: flex;
-            align-items: flex-start;
-            justify-content: space-between;
-            margin-bottom: 12px;
-        }
-
-        .course-level {
-            font-size: 11px;
-            font-weight: 600;
-            padding: 4px 10px;
-            border-radius: 20px;
-            background: #f1f5f9;
-            color: #475569;
-        }
-
-        .course-body {
-            padding: 0 20px;
-        }
-
-        .course-name {
-            font-size: 16px;
-            font-weight: 600;
-            color: #1a202c;
-            margin-bottom: 8px;
-            line-height: 1.4;
-        }
-
-        .course-tag {
-            display: inline-block;
-            font-size: 12px;
-            padding: 3px 10px;
-            border-radius: 4px;
-            margin-bottom: 12px;
-            font-weight: 500;
-        }
-
-        .course-meta {
-            display: flex;
-            gap: 16px;
-            margin-bottom: 14px;
-        }
-
-        .course-meta-item {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            font-size: 13px;
-            color: #64748b;
-        }
-
-        .course-meta-item i {
-            font-size: 14px;
-            color: #94a3b8;
-        }
-
-        .course-progress-area {
-            margin-bottom: 16px;
-        }
-
-        .course-progress-header {
-            display: flex;
-            justify-content: space-between;
-            font-size: 12px;
-            margin-bottom: 6px;
-        }
-
-        .course-progress-header .progress-text {
-            color: #64748b;
-        }
-
-        .course-progress-header .progress-percent {
-            color: #1a365d;
-            font-weight: 600;
-        }
-
-        .course-progress-bar {
-            height: 6px;
-            background: #e2e8f0;
-            border-radius: 3px;
-            overflow: hidden;
-        }
-
-        .course-progress-fill {
-            height: 100%;
-            border-radius: 3px;
-            transition: width 0.5s ease;
-        }
-
-        .course-footer {
-            padding: 0 20px 20px;
-        }
-
-        .course-btn {
-            width: 100%;
-            height: 40px;
-            border: none;
-            border-radius: 8px;
-            font-size: 14px;
-            font-family: inherit;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-        }
-
-        .course-btn.primary {
-            background: #1a365d;
-            color: #ffffff;
-        }
-
-        .course-btn.primary:hover {
-            background: #234876;
-        }
-
-        .course-btn.secondary {
-            background: #f1f5f9;
-            color: #1a365d;
-        }
-
-        .course-btn.secondary:hover {
-            background: #e2e8f0;
-        }
+            margin-left: var(--sidebar-width); margin-top: var(--topbar-height);
+            min-height: calc(100vh - var(--topbar-height)); padding: 32px;
+            transition: margin-left 0.5s cubic-bezier(0.16,1,0.3,1);
+        }
+        .sidebar.collapsed ~ .main-content { margin-left: var(--sidebar-collapsed); }
+        .sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 850; backdrop-filter: blur(4px); }
+        .sidebar-overlay.active { display: block; }
+
+        /* ---- 页面头部 ---- */
+        .page-header { margin-bottom: 28px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+        .page-title { font-size: 1.5rem; font-weight: 700; color: #0f172a; }
+        .breadcrumb { display: flex; align-items: center; gap: 6px; font-size: 0.8rem; color: #94a3b8; }
+        .breadcrumb a { color: #64748b; transition: color 0.15s; }
+        .breadcrumb a:hover { color: var(--amber); }
+        .breadcrumb i { font-size: 0.7rem; }
+        .breadcrumb .current { color: var(--deep-blue); font-weight: 500; }
+        .header-actions { display: flex; gap: 10px; }
+
+        /* ---- 按钮 ---- */
+        .btn {
+            display: inline-flex; align-items: center; gap: 6px; padding: 10px 20px;
+            font-size: 0.875rem; font-weight: 500; border-radius: 8px; transition: all 0.2s;
+            white-space: nowrap;
+        }
+        .btn-primary { background: linear-gradient(135deg, var(--amber), var(--amber-light)); color: #fff; box-shadow: 0 2px 8px rgba(200,149,108,0.25); }
+        .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(200,149,108,0.4); }
+        .btn-secondary { background: #fff; color: var(--deep-blue); border: 1px solid #e2e8f0; }
+        .btn-secondary:hover { background: #f8fafc; border-color: #cbd5e1; }
+        .btn-ghost { color: #64748b; }
+        .btn-ghost:hover { color: var(--deep-blue); background: rgba(0,0,0,0.04); }
+        .btn-sm { padding: 6px 12px; font-size: 0.8rem; }
+        .btn-lg { padding: 14px 28px; font-size: 1rem; }
+
+        /* ---- 学科卡片网格 ---- */
+        .view-container { display: none; }
+        .view-container.active { display: block; animation: fadeInUp 0.4s ease; }
+        .discipline-grid {
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;
+        }
+        .disc-card {
+            background: #fff; border-radius: 16px; padding: 24px; cursor: pointer;
+            border: 1px solid #e2e8f0; transition: all 0.3s ease; position: relative; overflow: hidden;
+        }
+        .disc-card::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+            transition: height 0.3s ease;
+        }
+        .disc-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.1); border-color: transparent; }
+        .disc-card:hover::before { height: 6px; }
+        .disc-card .card-icon {
+            width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center;
+            font-size: 1.5rem; margin-bottom: 16px;
+        }
+        .disc-card .card-title { font-size: 1rem; font-weight: 600; color: #0f172a; margin-bottom: 6px; }
+        .disc-card .card-meta { font-size: 0.8rem; color: #94a3b8; margin-bottom: 14px; }
+        .disc-card .card-stats { display: flex; align-items: center; gap: 16px; }
+        .disc-card .stat-item { display: flex; flex-direction: column; }
+        .disc-card .stat-value { font-size: 1.125rem; font-weight: 700; color: #0f172a; }
+        .disc-card .stat-label { font-size: 0.7rem; color: #94a3b8; }
+        .disc-card .mini-ring { width: 52px; height: 52px; flex-shrink: 0; margin-left: auto; }
 
         /* 学科颜色 */
-        .subject-hse .course-top-bar { background: #10b981; }
-        .subject-hse .course-tag { background: #d1fae5; color: #047857; }
-        .subject-hse .course-progress-fill { background: #10b981; }
+        .disc-wells::before { background: var(--disc-blue); }
+        .disc-wells .card-icon { background: rgba(59,130,246,0.1); color: var(--disc-blue); }
+        .disc-hse::before { background: var(--disc-orange); }
+        .disc-hse .card-icon { background: rgba(249,115,22,0.1); color: var(--disc-orange); }
+        .disc-mechanical::before { background: var(--disc-green); }
+        .disc-mechanical .card-icon { background: rgba(34,197,94,0.1); color: var(--disc-green); }
+        .disc-ic::before { background: var(--disc-red); }
+        .disc-ic .card-icon { background: rgba(239,68,68,0.1); color: var(--disc-red); }
+        .disc-process::before { background: var(--disc-cyan); }
+        .disc-process .card-icon { background: rgba(6,182,212,0.1); color: var(--disc-cyan); }
+        .disc-electrical::before { background: var(--disc-amber); }
+        .disc-electrical .card-icon { background: rgba(245,158,11,0.1); color: var(--disc-amber); }
+        .disc-intro::before { background: var(--disc-slate); }
+        .disc-intro .card-icon { background: rgba(100,116,139,0.1); color: var(--disc-slate); }
+        .disc-btec::before { background: var(--disc-purple); }
+        .disc-btec .card-icon { background: rgba(139,92,246,0.1); color: var(--disc-purple); }
 
-        .subject-well .course-top-bar { background: #f59e0b; }
-        .subject-well .course-tag { background: #fef3c7; color: #b45309; }
-        .subject-well .course-progress-fill { background: #f59e0b; }
+        /* ---- 进度仪表盘 ---- */
+        .progress-dashboard { display: grid; grid-template-columns: 320px 1fr; gap: 24px; margin-bottom: 28px; }
+        .progress-ring-card {
+            background: #fff; border-radius: 16px; padding: 32px; border: 1px solid #e2e8f0;
+            display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
+        }
+        .ring-container { position: relative; width: 180px; height: 180px; margin-bottom: 16px; }
+        .ring-container svg { transform: rotate(-90deg); }
+        .ring-bg { fill: none; stroke: #e2e8f0; stroke-width: 10; }
+        .ring-fill { fill: none; stroke: var(--amber); stroke-width: 10; stroke-linecap: round; transition: stroke-dashoffset 1s ease; }
+        .ring-center { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .ring-pct { font-size: 2rem; font-weight: 700; color: #0f172a; font-family: 'Playfair Display', serif; }
+        .ring-sub { font-size: 0.75rem; color: #94a3b8; }
+        .progress-summary-card {
+            background: #fff; border-radius: 16px; padding: 24px; border: 1px solid #e2e8f0;
+        }
+        .summary-title { font-size: 0.875rem; font-weight: 600; color: #0f172a; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
 
-        .subject-mechanical .course-top-bar { background: #3b82f6; }
-        .subject-mechanical .course-tag { background: #dbeafe; color: #1d4ed8; }
-        .subject-mechanical .course-progress-fill { background: #3b82f6; }
+        /* ---- 学科进度条 ---- */
+        .disc-progress-list { display: flex; flex-direction: column; gap: 12px; }
+        .disc-progress-item { display: flex; align-items: center; gap: 12px; cursor: pointer; padding: 8px; border-radius: 8px; transition: background 0.15s; }
+        .disc-progress-item:hover { background: #f8fafc; }
+        .disc-progress-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+        .disc-progress-name { width: 130px; font-size: 0.8rem; font-weight: 500; color: #334155; flex-shrink: 0; }
+        .disc-progress-bar-wrap { flex: 1; height: 6px; background: #e2e8f0; border-radius: 3px; overflow: hidden; }
+        .disc-progress-bar-fill { height: 100%; border-radius: 3px; transition: width 0.8s ease; }
+        .disc-progress-pct { width: 40px; text-align: right; font-size: 0.8rem; font-weight: 600; color: #64748b; flex-shrink: 0; }
 
-        .subject-electrical .course-top-bar { background: #8b5cf6; }
-        .subject-electrical .course-tag { background: #ede9fe; color: #6d28d9; }
-        .subject-electrical .course-progress-fill { background: #8b5cf6; }
+        /* ---- 三级树导航（学科详情） ---- */
+        .discipline-detail { display: grid; grid-template-columns: 300px 1fr; gap: 24px; }
+        .tree-panel {
+            background: #fff; border-radius: 16px; border: 1px solid #e2e8f0; padding: 16px 0;
+            max-height: calc(100vh - 180px); overflow-y: auto; position: sticky; top: 96px;
+        }
+        .tree-header {
+            padding: 0 16px 12px; border-bottom: 1px solid #e2e8f0; margin-bottom: 8px;
+            font-size: 0.875rem; font-weight: 600; color: #0f172a;
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        .tree-collapse-btn {
+            font-size: 0.75rem; color: var(--amber); cursor: pointer; padding: 4px 8px; border-radius: 4px; transition: background 0.15s;
+        }
+        .tree-collapse-btn:hover { background: rgba(200,149,108,0.1); }
+        .subject-group { margin-bottom: 4px; }
+        .subject-header {
+            display: flex; align-items: center; gap: 8px; padding: 10px 16px; cursor: pointer;
+            font-size: 0.85rem; font-weight: 600; color: #334155; transition: background 0.15s;
+        }
+        .subject-header:hover { background: #f8fafc; }
+        .subject-header i { font-size: 0.7rem; color: #94a3b8; transition: transform 0.2s; }
+        .subject-header.expanded i { transform: rotate(90deg); }
+        .subject-meta { font-size: 0.7rem; color: #94a3b8; margin-left: auto; }
+        .unit-list { display: none; }
+        .unit-list.open { display: block; }
+        .unit-item {
+            display: flex; align-items: center; gap: 10px; padding: 8px 16px 8px 40px; cursor: pointer;
+            font-size: 0.8rem; color: #64748b; transition: all 0.15s; border-left: 2px solid transparent;
+        }
+        .unit-item:hover { background: #f8fafc; color: #334155; }
+        .unit-item.active { background: rgba(26,54,93,0.06); color: var(--deep-blue); border-left-color: var(--amber); font-weight: 500; }
+        .unit-item.unit-completed { color: #22c55e; }
+        .unit-status-icon { font-size: 0.85rem; width: 18px; text-align: center; flex-shrink: 0; }
+        .unit-status-icon.completed { color: #22c55e; }
+        .unit-status-icon.test { color: var(--amber); }
+        .unit-score-badge {
+            margin-left: auto; font-size: 0.65rem; padding: 2px 6px; border-radius: 100px;
+            background: rgba(34,197,94,0.1); color: #22c55e; font-weight: 600;
+        }
+        .detail-panel { min-height: 400px; }
 
-        .subject-pipeline .course-top-bar { background: #ef4444; }
-        .subject-pipeline .course-tag { background: #fee2e2; color: #b91c1c; }
-        .subject-pipeline .course-progress-fill { background: #ef4444; }
+        /* ---- 幻灯片播放器 ---- */
+        .slide-player {
+            background: #fff; border-radius: 16px; border: 1px solid #e2e8f0; overflow: hidden;
+        }
+        .slide-header {
+            padding: 16px 24px; border-bottom: 1px solid #e2e8f0;
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        .slide-title { font-size: 1.125rem; font-weight: 600; color: #0f172a; }
+        .slide-counter { font-size: 0.8rem; color: #94a3b8; }
+        .slide-body {
+            padding: 40px 48px; min-height: 400px; display: flex; flex-direction: column; align-items: center;
+            transition: opacity 0.3s ease;
+        }
+        .slide-body.switching { opacity: 0; }
+        .slide-content { max-width: 800px; width: 100%; }
+        .slide-content h2 { font-size: 1.5rem; font-weight: 700; color: #0f172a; margin-bottom: 16px; }
+        .slide-content h3 { font-size: 1.125rem; font-weight: 600; color: #334155; margin-bottom: 12px; }
+        .slide-content p { color: #475569; line-height: 1.8; margin-bottom: 12px; }
+        .slide-content img { max-width: 100%; border-radius: 12px; margin: 16px 0; }
+        .slide-content .highlight-box {
+            background: rgba(200,149,108,0.08); border-left: 3px solid var(--amber);
+            padding: 16px 20px; border-radius: 0 8px 8px 0; margin: 16px 0;
+        }
+        .slide-footer {
+            padding: 16px 24px; border-top: 1px solid #e2e8f0;
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        .slide-dots { display: flex; gap: 8px; }
+        .slide-dot {
+            width: 8px; height: 8px; border-radius: 50%; background: #e2e8f0;
+            cursor: pointer; transition: all 0.2s;
+        }
+        .slide-dot.active { background: var(--amber); width: 24px; border-radius: 4px; }
+        .slide-dot.completed { background: #22c55e; }
+        .slide-nav-btns { display: flex; gap: 8px; }
 
-        .subject-marine .course-top-bar { background: #06b6d4; }
-        .subject-marine .course-tag { background: #cffafe; color: #0e7490; }
-        .subject-marine .course-progress-fill { background: #06b6d4; }
+        /* 继续/重新开始入口 */
+        .resume-banner {
+            background: linear-gradient(135deg, rgba(200,149,108,0.08), rgba(200,149,108,0.02));
+            border: 1px solid rgba(200,149,108,0.2); border-radius: 12px; padding: 16px 20px;
+            display: flex; align-items: center; gap: 16px; margin-bottom: 20px;
+        }
+        .resume-banner i { font-size: 1.25rem; color: var(--amber); }
+        .resume-banner .resume-text { flex: 1; }
+        .resume-banner .resume-title { font-weight: 600; color: #0f172a; font-size: 0.875rem; }
+        .resume-banner .resume-desc { font-size: 0.8rem; color: #64748b; }
+        .resume-btns { display: flex; gap: 8px; }
 
-        /* 移动端遮罩 */
-        .sidebar-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0,0,0,0.4);
-            z-index: 998;
+        /* ---- 测试系统 ---- */
+        .test-player {
+            background: #fff; border-radius: 16px; border: 1px solid #e2e8f0; overflow: hidden;
+        }
+        .test-header {
+            padding: 16px 24px; border-bottom: 1px solid #e2e8f0;
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        .test-progress-bar {
+            height: 4px; background: #e2e8f0; margin: 0 24px;
+        }
+        .test-progress-fill {
+            height: 100%; background: var(--amber); border-radius: 2px; transition: width 0.3s ease;
+        }
+        .test-body {
+            padding: 32px 48px; min-height: 300px;
+        }
+        .question-num {
+            font-size: 0.8rem; font-weight: 600; color: var(--amber); margin-bottom: 12px;
+        }
+        .question-text {
+            font-size: 1.1rem; font-weight: 500; color: #0f172a; margin-bottom: 24px; line-height: 1.7;
+        }
+        .question-media { margin-bottom: 20px; }
+        .question-media img { max-width: 100%; border-radius: 12px; max-height: 300px; }
+        .question-media audio { width: 100%; margin-top: 8px; }
+        .option-list { display: flex; flex-direction: column; gap: 10px; }
+        .option-item {
+            display: flex; align-items: center; gap: 12px; padding: 14px 18px;
+            border: 2px solid #e2e8f0; border-radius: 10px; cursor: pointer; transition: all 0.2s;
+            font-size: 0.9rem; color: #334155;
+        }
+        .option-item:hover { border-color: #cbd5e1; background: #f8fafc; }
+        .option-item.selected { border-color: var(--amber); background: rgba(200,149,108,0.06); }
+        .option-item.correct { border-color: #22c55e; background: rgba(34,197,94,0.06); }
+        .option-item.wrong { border-color: #ef4444; background: rgba(239,68,68,0.06); }
+        .option-radio {
+            width: 20px; height: 20px; border-radius: 50%; border: 2px solid #cbd5e1;
+            display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all 0.2s;
+        }
+        .option-item.selected .option-radio { border-color: var(--amber); background: var(--amber); }
+        .option-item.selected .option-radio::after { content: ''; width: 6px; height: 6px; background: #fff; border-radius: 50%; }
+        .option-item.correct .option-radio { border-color: #22c55e; background: #22c55e; }
+        .option-item.wrong .option-radio { border-color: #ef4444; background: #ef4444; }
+        .option-checkbox {
+            width: 20px; height: 20px; border-radius: 4px; border: 2px solid #cbd5e1;
+            display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all 0.2s;
+        }
+        .option-item.selected .option-checkbox { border-color: var(--amber); background: var(--amber); }
+        .option-item.selected .option-checkbox::after { content: '✓'; color: #fff; font-size: 0.7rem; font-weight: 700; }
+        .option-hint { font-size: 0.75rem; color: #94a3b8; margin-bottom: 16px; }
+        .test-footer { padding: 16px 24px; border-top: 1px solid #e2e8f0; display: flex; align-items: center; justify-content: space-between; }
+        .test-result {
+            text-align: center; padding: 40px;
+        }
+        .test-score {
+            font-size: 3rem; font-weight: 700; font-family: 'Playfair Display', serif;
+            margin-bottom: 8px;
+        }
+        .test-score.pass { color: #22c55e; }
+        .test-score.fail { color: #ef4444; }
+        .test-msg { font-size: 1rem; color: #64748b; margin-bottom: 20px; }
+        .test-review { text-align: left; max-width: 600px; margin: 0 auto; }
+        .review-item { padding: 12px; border-radius: 8px; margin-bottom: 8px; font-size: 0.85rem; }
+        .review-item.correct-r { background: rgba(34,197,94,0.06); border: 1px solid rgba(34,197,94,0.2); }
+        .review-item.wrong-r { background: rgba(239,68,68,0.06); border: 1px solid rgba(239,68,68,0.2); }
+
+        /* ---- 统计表格 ---- */
+        .data-table-wrap { overflow-x: auto; }
+        .data-table {
+            width: 100%; border-collapse: collapse; font-size: 0.825rem;
+        }
+        .data-table th {
+            text-align: left; padding: 12px 16px; background: #f8fafc; color: #64748b;
+            font-weight: 600; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px;
+            border-bottom: 2px solid #e2e8f0; white-space: nowrap;
+        }
+        .data-table td {
+            padding: 12px 16px; border-bottom: 1px solid #f1f5f9; color: #334155;
+        }
+        .data-table tbody tr { transition: background 0.15s; }
+        .data-table tbody tr:hover { background: #f8fafc; }
+        .data-table tbody tr.total-row { background: #fafafa; font-weight: 600; border-top: 2px solid #e2e8f0; }
+        .table-link { color: var(--deep-blue); font-weight: 500; cursor: pointer; }
+        .table-link:hover { color: var(--amber); text-decoration: underline; }
+        .pct-cell { font-weight: 600; }
+        .pct-cell.high { color: #22c55e; }
+        .pct-cell.mid { color: var(--amber); }
+        .pct-cell.low { color: #94a3b8; }
+
+        /* ---- 时间轴 ---- */
+        .timeline { position: relative; padding-left: 24px; }
+        .timeline::before {
+            content: ''; position: absolute; left: 7px; top: 4px; bottom: 4px;
+            width: 2px; background: #e2e8f0;
+        }
+        .timeline-item { position: relative; padding-bottom: 20px; }
+        .timeline-item:last-child { padding-bottom: 0; }
+        .timeline-dot {
+            position: absolute; left: -20px; top: 4px;
+            width: 12px; height: 12px; border-radius: 50%; border: 2px solid var(--amber); background: #fff;
+        }
+        .timeline-item.completed-tl .timeline-dot { background: #22c55e; border-color: #22c55e; }
+        .timeline-content { background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; padding: 14px 18px; }
+        .timeline-code { font-size: 0.7rem; color: #94a3b8; font-family: 'JetBrains Mono', monospace; }
+        .timeline-activity { font-size: 0.85rem; font-weight: 500; color: #0f172a; }
+        .timeline-meta { display: flex; gap: 16px; margin-top: 6px; font-size: 0.75rem; color: #94a3b8; }
+        .status-badge {
+            display: inline-flex; align-items: center; gap: 4px; padding: 2px 8px; border-radius: 100px;
+            font-size: 0.7rem; font-weight: 600;
+        }
+        .status-badge.started { background: rgba(245,158,11,0.12); color: #f59e0b; }
+        .status-badge.completed { background: rgba(34,197,94,0.12); color: #22c55e; }
+
+        /* ---- Tab 组件 ---- */
+        .tabs-container { margin-bottom: 20px; }
+        .tabs { display: flex; gap: 4px; border-bottom: 2px solid #e2e8f0; }
+        .tab {
+            padding: 10px 20px; font-size: 0.875rem; font-weight: 500; color: #94a3b8;
+            cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -2px;
+            transition: all 0.2s;
+        }
+        .tab:hover { color: #64748b; }
+        .tab.active { color: var(--deep-blue); border-bottom-color: var(--amber); }
+        .tab-panel { display: none; }
+        .tab-panel.active { display: block; animation: fadeInUp 0.3s ease; }
+
+        /* ---- Toast ---- */
+        .toast {
+            position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%);
+            background: #0f172a; color: #fff; padding: 12px 24px; border-radius: 10px;
+            font-size: 0.875rem; z-index: 2000; opacity: 0; transition: opacity 0.3s ease;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+        }
+        .toast.show { opacity: 1; }
+
+        /* ---- 空状态 ---- */
+        .empty-state {
+            text-align: center; padding: 60px 20px; color: #94a3b8;
+        }
+        .empty-state i { font-size: 3rem; margin-bottom: 12px; display: block; }
+        .empty-state p { font-size: 0.9rem; }
+
+        /* ---- 动画 ---- */
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes shimmer {
+            0% { background-position: -200px 0; }
+            100% { background-position: calc(200px + 100%) 0; }
         }
 
-        .sidebar-overlay.active {
-            display: block;
+        /* ---- 响应式 ---- */
+        @media (max-width: 1440px) {
+            .discipline-grid { grid-template-columns: repeat(4, 1fr); }
         }
-
-        /* 响应式 */
-        @media (max-width: 1024px) {
-            .course-grid {
-                grid-template-columns: 1fr;
-            }
+        @media (max-width: 1200px) {
+            .topbar-nav { display: none; }
+            .discipline-grid { grid-template-columns: repeat(3, 1fr); }
+            .progress-dashboard { grid-template-columns: 1fr; }
+            .discipline-detail { grid-template-columns: 260px 1fr; }
         }
-
+        @media (max-width: 992px) {
+            .menu-toggle { display: flex; }
+            .sidebar { transform: translateX(-100%); width: var(--sidebar-width) !important; }
+            .sidebar.mobile-open { transform: translateX(0); }
+            .main-content { margin-left: 0 !important; }
+            .discipline-grid { grid-template-columns: repeat(2, 1fr); }
+            .discipline-detail { grid-template-columns: 1fr; }
+            .tree-panel { position: static; max-height: none; margin-bottom: 16px; }
+            .slide-body { padding: 24px; }
+            .test-body { padding: 24px; }
+        }
         @media (max-width: 768px) {
-            .hamburger-btn {
-                display: block;
-            }
-
-            .nav-links {
-                display: none;
-            }
-
-            .search-box {
-                display: none;
-            }
-
-            .sidebar {
-                transform: translateX(-100%);
-            }
-
-            .sidebar.mobile-open {
-                transform: translateX(0);
-            }
-
-            .main-content {
-                margin-left: 0;
-            }
-
-            .overview-card {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .stats-divider {
-                width: 100%;
-                height: 1px;
-            }
-
-            .stats-area {
-                width: 100%;
-                justify-content: space-around;
-            }
-
-            .content-layout {
-                flex-direction: column;
-            }
-
-            .filter-sidebar {
-                width: 100%;
-            }
-
-            .page-header-search input {
-                width: 200px;
-            }
+            .brand-text { display: none; }
+            .discipline-grid { grid-template-columns: 1fr; }
+            .main-content { padding: 16px; }
+            .page-header { flex-direction: column; align-items: flex-start; }
+            .slide-body { padding: 16px; }
+            .test-body { padding: 16px; }
+            .resume-banner { flex-direction: column; text-align: center; }
         }
+        @media (min-width: 993px) { .sidebar-overlay { display: none !important; } }
     </style>
 </head>
 <body>
-    <!-- 顶部导航栏 -->
-    <nav class="top-navbar">
-        <div class="nav-left">
-            <button class="hamburger-btn" id="hamburgerBtn" aria-label="打开菜单">
-                <i class="ri-menu-line"></i>
-            </button>
-            <div class="logo">
-                <i class="ri-eye-line"></i>
-                慧眼
-            </div>
-            <ul class="nav-links">
-                <li><a href="../index.html">首页</a></li>
-                <li><a href="knowledge.html" class="active">知识矩阵</a></li>
-                <li><a href="skill.html">技能矩阵</a></li>
-                <li><a href="workshop.html">经验工作坊</a></li>
-                <li><a href="news.html">新闻公告</a></li>
-            </ul>
-        </div>
-        <div class="nav-right">
-            <div class="search-box">
-                <input type="text" placeholder="搜索课程、技能..." id="topSearch">
-                <i class="ri-search-line"></i>
-            </div>
-            <div class="user-info">
-                <div class="user-avatar">张</div>
-                <span class="user-name">张工程师</span>
-            </div>
-        </div>
-    </nav>
 
-    <!-- 侧边栏遮罩 -->
-    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+<!-- 顶部导航栏 -->
+<nav class="topbar">
+    <div class="topbar-left">
+        <button class="menu-toggle" id="menuToggle" aria-label="菜单"><i class="ri-menu-line"></i></button>
+        <div class="brand">
+            <div class="brand-logo">慧</div>
+            <div class="brand-text">慧眼 <span>系统</span></div>
+        </div>
+        <div class="topbar-nav">
+            <a href="../index.html">首页</a>
+            <a href="knowledge.html" class="active">知识矩阵</a>
+            <a href="skill.html">技能矩阵</a>
+            <a href="workshop.html">经验工作坊</a>
+            <a href="news.html">新闻公告</a>
+            <a href="about.html">关于我们</a>
+        </div>
+    </div>
+    <div class="topbar-right">
+        <div class="search-box">
+            <input type="text" placeholder="搜索课程..." id="globalSearch">
+            <i class="ri-search-line"></i>
+        </div>
+        <div class="user-menu" id="userMenuBtn">
+            <div class="user-avatar">张</div>
+            <span class="user-name">张工程师</span>
+            <i class="ri-arrow-down-s-line" style="font-size:0.75rem;color:#94a3b8;"></i>
+        </div>
+        <div class="user-dropdown" id="userDropdown">
+            <a href="my-learning.html"><i class="ri-history-line"></i> 我的进度</a>
+            <a href="my-skills.html"><i class="ri-medal-line"></i> 我的能力矩阵</a>
+            <a href="profile.html"><i class="ri-user-line"></i> 个人资料</a>
+            <a href="login.html"><i class="ri-logout-box-line"></i> 退出</a>
+        </div>
+    </div>
+</nav>
 
-    <!-- 侧边栏 -->
-    <aside class="sidebar" id="sidebar">
-        <div class="sidebar-toggle" id="sidebarToggle" title="收起/展开侧边栏">
-            <i class="ri-arrow-left-s-line" id="toggleIcon"></i>
-        </div>
-        <div class="sidebar-content">
-            <div class="sidebar-section">
-                <div class="sidebar-title">核心模块</div>
-                <ul class="sidebar-menu">
-                    <li><a href="knowledge.html" class="active"><i class="ri-book-open-line"></i> 知识矩阵</a></li>
-                    <li><a href="skill.html"><i class="ri-tools-line"></i> 技能矩阵</a></li>
-                    <li><a href="workshop.html"><i class="ri-group-line"></i> 经验工作坊</a></li>
-                    <li><a href="assessment.html"><i class="ri-award-line"></i> 评估认证</a></li>
-                </ul>
-            </div>
-            <div class="sidebar-section">
-                <div class="sidebar-title">运营管理</div>
-                <ul class="sidebar-menu">
-                    <li><a href="ptw.html"><i class="ri-file-list-3-line"></i> 工作许可证</a></li>
-                    <li><a href="compliance.html"><i class="ri-shield-check-line"></i> 合规管理</a></li>
-                    <li><a href="reports.html"><i class="ri-bar-chart-box-line"></i> 数据报表</a></li>
-                </ul>
-            </div>
-            <div class="sidebar-section">
-                <div class="sidebar-title">个人中心</div>
-                <ul class="sidebar-menu">
-                    <li><a href="profile.html"><i class="ri-user-line"></i> 个人资料</a></li>
-                    <li><a href="my-learning.html"><i class="ri-progress-7-line"></i> 学习进度</a></li>
-                    <li><a href="my-skills.html"><i class="ri-profile-line"></i> 技能档案</a></li>
-                    <li><a href="my-workshops.html"><i class="ri-calendar-check-line"></i> 我的报名</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="sidebar-footer">
-            <div class="progress-item">
-                <div class="progress-label">
-                    <span>学习进度</span>
-                    <span>23%</span>
-                </div>
-                <div class="progress-bar">
-                    <div class="progress-fill" style="width: 23%"></div>
-                </div>
-            </div>
-            <div class="progress-item">
-                <div class="progress-label">
-                    <span>技能认证</span>
-                    <span>5/12</span>
-                </div>
-                <div class="progress-bar">
-                    <div class="progress-fill" style="width: 41.7%"></div>
-                </div>
-            </div>
-        </div>
-    </aside>
+<!-- 侧边栏遮罩 -->
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
 
-    <!-- 主内容区 -->
-    <main class="main-content" id="mainContent">
-        <!-- 页面标题区 -->
-        <div class="page-header">
-            <div class="page-title-area">
-                <h1>知识矩阵</h1>
-                <div class="breadcrumb">
-                    <a href="../index.html">首页</a>
-                    <i class="ri-arrow-right-s-line"></i>
-                    <span>知识矩阵</span>
-                </div>
-            </div>
-            <div class="page-header-search">
-                <input type="text" placeholder="搜索课程名称..." id="courseSearch">
-                <i class="ri-search-line"></i>
+<!-- 侧边栏 -->
+<aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+        <span class="sidebar-label">导航菜单</span>
+        <button class="sidebar-toggle" id="sidebarToggle" title="折叠侧边栏">
+            <i class="ri-arrow-left-s-line"></i>
+        </button>
+    </div>
+    <div class="sidebar-nav">
+        <div class="nav-section">
+            <div class="nav-section-title">核心模块</div>
+            <a href="knowledge.html" class="nav-item active"><i class="ri-book-open-line"></i><span>知识矩阵</span></a>
+            <a href="skill.html" class="nav-item"><i class="ri-award-line"></i><span>技能矩阵</span><span class="nav-badge">3</span></a>
+            <a href="workshop.html" class="nav-item"><i class="ri-team-line"></i><span>经验工作坊</span></a>
+            <a href="assessment.html" class="nav-item"><i class="ri-task-line"></i><span>评估认证</span></a>
+        </div>
+        <div class="nav-section">
+            <div class="nav-section-title">运营管理</div>
+            <a href="ptw.html" class="nav-item"><i class="ri-shield-check-line"></i><span>工作许可证</span></a>
+            <a href="compliance.html" class="nav-item"><i class="ri-verified-badge-line"></i><span>合规管理</span></a>
+            <a href="reports.html" class="nav-item"><i class="ri-bar-chart-2-line"></i><span>数据报表</span></a>
+        </div>
+        <div class="nav-section">
+            <div class="nav-section-title">个人中心</div>
+            <a href="profile.html" class="nav-item"><i class="ri-user-line"></i><span>个人资料</span></a>
+            <a href="my-learning.html" class="nav-item"><i class="ri-history-line"></i><span>学习进度</span></a>
+            <a href="my-skills.html" class="nav-item"><i class="ri-medal-line"></i><span>技能档案</span></a>
+            <a href="my-workshops.html" class="nav-item"><i class="ri-calendar-check-line"></i><span>我的报名</span></a>
+        </div>
+    </div>
+    <div class="sidebar-footer">
+        <div>
+            <div class="sidebar-progress-label"><span>学习进度</span><span>4%</span></div>
+            <div class="sidebar-progress-bar"><div class="sidebar-progress-fill" style="width:4%"></div></div>
+        </div>
+        <div>
+            <div class="sidebar-progress-label"><span>技能认证</span><span>0/12</span></div>
+            <div class="sidebar-progress-bar"><div class="sidebar-progress-fill" style="width:0%"></div></div>
+        </div>
+    </div>
+</aside>
+
+<!-- 主内容区 -->
+<main class="main-content" id="mainContent">
+    <!-- 页面头部 -->
+    <div class="page-header">
+        <div>
+            <h1 class="page-title" id="pageTitle">知识矩阵</h1>
+            <div class="breadcrumb" id="breadcrumb">
+                <a href="#" data-view="disciplines">首页</a>
+                <i class="ri-arrow-right-s-line"></i>
+                <span class="current">知识矩阵</span>
             </div>
         </div>
+        <div class="header-actions">
+            <button class="btn btn-secondary btn-sm" id="btnMyProgress"><i class="ri-pie-chart-line"></i> 我的进度</button>
+        </div>
+    </div>
 
-        <!-- 学习进度概览卡片 -->
-        <div class="overview-card">
-            <div class="progress-ring-area">
-                <div class="progress-ring">
-                    <svg width="120" height="120" viewBox="0 0 120 120">
-                        <circle class="progress-ring-bg" cx="60" cy="60" r="52"></circle>
-                        <circle class="progress-ring-fill" cx="60" cy="60" r="52"
-                            stroke-dasharray="326.73"
-                            stroke-dashoffset="251.58"
-                            id="ringFill"></circle>
+    <!-- 视图1: 学科卡片网格 -->
+    <div class="view-container active" id="view-disciplines">
+        <div class="discipline-grid" id="disciplineGrid"></div>
+    </div>
+
+    <!-- 视图2: 学科详情（科目+单元树） -->
+    <div class="view-container" id="view-subject">
+        <div class="discipline-detail">
+            <div class="tree-panel" id="treePanel"></div>
+            <div class="detail-panel" id="detailPanel">
+                <div class="empty-state" id="detailEmpty">
+                    <i class="ri-arrow-left-line"></i>
+                    <p>从左侧选择一个学习单元开始学习</p>
+                </div>
+                <!-- 幻灯片播放器 -->
+                <div class="slide-player" id="slidePlayer" style="display:none;">
+                    <div class="slide-header">
+                        <span class="slide-title" id="slideUnitTitle"></span>
+                        <span class="slide-counter" id="slideCounter"></span>
+                    </div>
+                    <div class="slide-body" id="slideBody"></div>
+                    <div class="slide-footer">
+                        <div class="slide-dots" id="slideDots"></div>
+                        <div class="slide-nav-btns">
+                            <button class="btn btn-secondary btn-sm" id="btnPrevSlide" disabled><i class="ri-arrow-left-line"></i> 上一页</button>
+                            <button class="btn btn-primary btn-sm" id="btnNextSlide">下一页 <i class="ri-arrow-right-line"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <!-- 测试播放器 -->
+                <div class="test-player" id="testPlayer" style="display:none;">
+                    <div class="test-header">
+                        <span class="slide-title" id="testUnitTitle"></span>
+                        <span class="slide-counter" id="testCounter"></span>
+                    </div>
+                    <div class="test-progress-bar"><div class="test-progress-fill" id="testProgressFill" style="width:0%"></div></div>
+                    <div class="test-body" id="testBody"></div>
+                    <div class="test-footer">
+                        <button class="btn btn-secondary btn-sm" id="btnPrevQuestion" disabled><i class="ri-arrow-left-line"></i> 上一题</button>
+                        <button class="btn btn-primary btn-sm" id="btnNextQuestion">下一题 <i class="ri-arrow-right-line"></i></button>
+                        <button class="btn btn-primary btn-sm" id="btnSubmitTest" style="display:none;">提交 <i class="ri-check-line"></i></button>
+                    </div>
+                </div>
+                <!-- 测试结果 -->
+                <div class="test-player" id="testResult" style="display:none;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 视图3: 我的进度仪表盘 -->
+    <div class="view-container" id="view-progress">
+        <div class="progress-dashboard">
+            <div class="progress-ring-card">
+                <div class="ring-container">
+                    <svg viewBox="0 0 160 160" width="160" height="160">
+                        <circle class="ring-bg" cx="80" cy="80" r="70"/>
+                        <circle class="ring-fill" id="overallRing" cx="80" cy="80" r="70"
+                                stroke-dasharray="439.8" stroke-dashoffset="439.8"/>
                     </svg>
-                    <div class="progress-ring-text">
-                        <div class="percent" id="ringPercent">23%</div>
-                        <div class="label">已完成</div>
+                    <div class="ring-center">
+                        <span class="ring-pct" id="overallPct">4%</span>
+                        <span class="ring-sub">总进度</span>
                     </div>
                 </div>
-                <div class="progress-info">
-                    <h3>学习总览</h3>
-                    <p>已完成 34/149 单元</p>
+                <div style="display:flex;gap:20px;font-size:0.8rem;color:#64748b;">
+                    <span><span style="color:#22c55e;font-weight:600;" id="completedCount">4</span> 已完成</span>
+                    <span><span style="color:#f59e0b;font-weight:600;" id="activeCount">16</span> 学习中</span>
                 </div>
             </div>
-            <div class="stats-divider"></div>
-            <div class="stats-area">
-                <div class="stat-item">
-                    <div class="stat-number">12</div>
-                    <div class="stat-label">进行中</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number">34</div>
-                    <div class="stat-label">已完成</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number">103</div>
-                    <div class="stat-label">未开始</div>
-                </div>
+            <div class="progress-summary-card">
+                <div class="summary-title"><i class="ri-bar-chart-horizontal-line"></i> 各学科进度</div>
+                <div class="disc-progress-list" id="discProgressList"></div>
             </div>
         </div>
 
-        <!-- 筛选+课程列表区 -->
-        <div class="content-layout">
-            <!-- 左侧筛选栏 -->
-            <aside class="filter-sidebar">
-                <div class="filter-card">
-                    <div class="filter-section">
-                        <div class="filter-title">
-                            学科分类
-                            <i class="ri-arrow-down-s-line"></i>
-                        </div>
-                        <div class="filter-options">
-                            <div class="filter-option">
-                                <input type="checkbox" id="sub-hse" value="hse" checked data-filter="subject">
-                                <label for="sub-hse">HSE <span class="count">(32)</span></label>
-                            </div>
-                            <div class="filter-option">
-                                <input type="checkbox" id="sub-well" value="well" checked data-filter="subject">
-                                <label for="sub-well">井工程 <span class="count">(48)</span></label>
-                            </div>
-                            <div class="filter-option">
-                                <input type="checkbox" id="sub-mechanical" value="mechanical" checked data-filter="subject">
-                                <label for="sub-mechanical">机械工程 <span class="count">(24)</span></label>
-                            </div>
-                            <div class="filter-option">
-                                <input type="checkbox" id="sub-electrical" value="electrical" checked data-filter="subject">
-                                <label for="sub-electrical">电气工程 <span class="count">(18)</span></label>
-                            </div>
-                            <div class="filter-option">
-                                <input type="checkbox" id="sub-pipeline" value="pipeline" checked data-filter="subject">
-                                <label for="sub-pipeline">管道工程 <span class="count">(15)</span></label>
-                            </div>
-                            <div class="filter-option">
-                                <input type="checkbox" id="sub-marine" value="marine" checked data-filter="subject">
-                                <label for="sub-marine">海洋工程 <span class="count">(12)</span></label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="filter-section">
-                        <div class="filter-title">
-                            等级筛选
-                            <i class="ri-arrow-down-s-line"></i>
-                        </div>
-                        <div class="filter-options">
-                            <div class="filter-option">
-                                <input type="radio" name="level" id="level-all" value="all" checked data-filter="level">
-                                <label for="level-all">全部等级</label>
-                            </div>
-                            <div class="filter-option">
-                                <input type="radio" name="level" id="level-2" value="2" data-filter="level">
-                                <label for="level-2">Level 2</label>
-                            </div>
-                            <div class="filter-option">
-                                <input type="radio" name="level" id="level-3" value="3" data-filter="level">
-                                <label for="level-3">Level 3</label>
-                            </div>
-                            <div class="filter-option">
-                                <input type="radio" name="level" id="level-4" value="4" data-filter="level">
-                                <label for="level-4">Level 4</label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="filter-section">
-                        <div class="filter-title">
-                            进度筛选
-                            <i class="ri-arrow-down-s-line"></i>
-                        </div>
-                        <div class="filter-options">
-                            <div class="filter-option">
-                                <input type="radio" name="progress" id="progress-all" value="all" checked data-filter="progress">
-                                <label for="progress-all">全部进度</label>
-                            </div>
-                            <div class="filter-option">
-                                <input type="radio" name="progress" id="progress-not" value="not-started" data-filter="progress">
-                                <label for="progress-not">未开始</label>
-                            </div>
-                            <div class="filter-option">
-                                <input type="radio" name="progress" id="progress-in" value="in-progress" data-filter="progress">
-                                <label for="progress-in">进行中</label>
-                            </div>
-                            <div class="filter-option">
-                                <input type="radio" name="progress" id="progress-done" value="completed" data-filter="progress">
-                                <label for="progress-done">已完成</label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <button class="reset-btn" id="resetBtn">
-                        <i class="ri-restart-line"></i>
-                        重置筛选
-                    </button>
-                </div>
-            </aside>
-
-            <!-- 右侧课程列表 -->
-            <div class="course-area">
-                <div class="course-toolbar">
-                    <div class="course-count">共找到 <strong id="courseCount">6</strong> 门课程</div>
-                    <select class="sort-select" id="sortSelect">
-                        <option value="default">默认排序</option>
-                        <option value="progress-desc">进度从高到低</option>
-                        <option value="progress-asc">进度从低到高</option>
-                        <option value="name-asc">名称 A-Z</option>
-                    </select>
-                </div>
-
-                <div class="course-grid" id="courseGrid">
-                    <!-- 课程卡片 1 -->
-                    <div class="course-card subject-hse" data-subject="hse" data-level="2,3,4" data-progress="45">
-                        <div class="course-top-bar"></div>
-                        <div class="course-header">
-                            <span class="course-tag">HSE</span>
-                            <span class="course-level">Level 2-4</span>
-                        </div>
-                        <div class="course-body">
-                            <h3 class="course-name">HSE安全管理体系</h3>
-                            <div class="course-meta">
-                                <div class="course-meta-item">
-                                    <i class="ri-stack-line"></i>
-                                    <span>32单元</span>
-                                </div>
-                                <div class="course-meta-item">
-                                    <i class="ri-time-line"></i>
-                                    <span>48学时</span>
-                                </div>
-                            </div>
-                            <div class="course-progress-area">
-                                <div class="course-progress-header">
-                                    <span class="progress-text">学习进度</span>
-                                    <span class="progress-percent">45%</span>
-                                </div>
-                                <div class="course-progress-bar">
-                                    <div class="course-progress-fill" style="width: 45%"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="course-footer">
-                            <button class="course-btn secondary">
-                                <i class="ri-play-circle-line"></i>
-                                继续学习
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- 课程卡片 2 -->
-                    <div class="course-card subject-well" data-subject="well" data-level="3,4" data-progress="0">
-                        <div class="course-top-bar"></div>
-                        <div class="course-header">
-                            <span class="course-tag">井工程</span>
-                            <span class="course-level">Level 3-4</span>
-                        </div>
-                        <div class="course-body">
-                            <h3 class="course-name">钻井工程核心技术</h3>
-                            <div class="course-meta">
-                                <div class="course-meta-item">
-                                    <i class="ri-stack-line"></i>
-                                    <span>48单元</span>
-                                </div>
-                                <div class="course-meta-item">
-                                    <i class="ri-time-line"></i>
-                                    <span>72学时</span>
-                                </div>
-                            </div>
-                            <div class="course-progress-area">
-                                <div class="course-progress-header">
-                                    <span class="progress-text">学习进度</span>
-                                    <span class="progress-percent">0%</span>
-                                </div>
-                                <div class="course-progress-bar">
-                                    <div class="course-progress-fill" style="width: 0%"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="course-footer">
-                            <button class="course-btn primary">
-                                <i class="ri-play-circle-line"></i>
-                                开始学习
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- 课程卡片 3 -->
-                    <div class="course-card subject-mechanical" data-subject="mechanical" data-level="2,3" data-progress="78">
-                        <div class="course-top-bar"></div>
-                        <div class="course-header">
-                            <span class="course-tag">机械工程</span>
-                            <span class="course-level">Level 2-3</span>
-                        </div>
-                        <div class="course-body">
-                            <h3 class="course-name">油气设备维护与检修</h3>
-                            <div class="course-meta">
-                                <div class="course-meta-item">
-                                    <i class="ri-stack-line"></i>
-                                    <span>24单元</span>
-                                </div>
-                                <div class="course-meta-item">
-                                    <i class="ri-time-line"></i>
-                                    <span>36学时</span>
-                                </div>
-                            </div>
-                            <div class="course-progress-area">
-                                <div class="course-progress-header">
-                                    <span class="progress-text">学习进度</span>
-                                    <span class="progress-percent">78%</span>
-                                </div>
-                                <div class="course-progress-bar">
-                                    <div class="course-progress-fill" style="width: 78%"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="course-footer">
-                            <button class="course-btn secondary">
-                                <i class="ri-play-circle-line"></i>
-                                继续学习
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- 课程卡片 4 -->
-                    <div class="course-card subject-electrical" data-subject="electrical" data-level="2" data-progress="12">
-                        <div class="course-top-bar"></div>
-                        <div class="course-header">
-                            <span class="course-tag">电气工程</span>
-                            <span class="course-level">Level 2</span>
-                        </div>
-                        <div class="course-body">
-                            <h3 class="course-name">电气安全操作规范</h3>
-                            <div class="course-meta">
-                                <div class="course-meta-item">
-                                    <i class="ri-stack-line"></i>
-                                    <span>18单元</span>
-                                </div>
-                                <div class="course-meta-item">
-                                    <i class="ri-time-line"></i>
-                                    <span>24学时</span>
-                                </div>
-                            </div>
-                            <div class="course-progress-area">
-                                <div class="course-progress-header">
-                                    <span class="progress-text">学习进度</span>
-                                    <span class="progress-percent">12%</span>
-                                </div>
-                                <div class="course-progress-bar">
-                                    <div class="course-progress-fill" style="width: 12%"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="course-footer">
-                            <button class="course-btn secondary">
-                                <i class="ri-play-circle-line"></i>
-                                继续学习
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- 课程卡片 5 -->
-                    <div class="course-card subject-pipeline" data-subject="pipeline" data-level="3" data-progress="0">
-                        <div class="course-top-bar"></div>
-                        <div class="course-header">
-                            <span class="course-tag">管道工程</span>
-                            <span class="course-level">Level 3</span>
-                        </div>
-                        <div class="course-body">
-                            <h3 class="course-name">海底管道完整性管理</h3>
-                            <div class="course-meta">
-                                <div class="course-meta-item">
-                                    <i class="ri-stack-line"></i>
-                                    <span>15单元</span>
-                                </div>
-                                <div class="course-meta-item">
-                                    <i class="ri-time-line"></i>
-                                    <span>24学时</span>
-                                </div>
-                            </div>
-                            <div class="course-progress-area">
-                                <div class="course-progress-header">
-                                    <span class="progress-text">学习进度</span>
-                                    <span class="progress-percent">0%</span>
-                                </div>
-                                <div class="course-progress-bar">
-                                    <div class="course-progress-fill" style="width: 0%"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="course-footer">
-                            <button class="course-btn primary">
-                                <i class="ri-play-circle-line"></i>
-                                开始学习
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- 课程卡片 6 -->
-                    <div class="course-card subject-marine" data-subject="marine" data-level="4" data-progress="0">
-                        <div class="course-top-bar"></div>
-                        <div class="course-header">
-                            <span class="course-tag">海洋工程</span>
-                            <span class="course-level">Level 4</span>
-                        </div>
-                        <div class="course-body">
-                            <h3 class="course-name">海洋平台结构与安装</h3>
-                            <div class="course-meta">
-                                <div class="course-meta-item">
-                                    <i class="ri-stack-line"></i>
-                                    <span>12单元</span>
-                                </div>
-                                <div class="course-meta-item">
-                                    <i class="ri-time-line"></i>
-                                    <span>20学时</span>
-                                </div>
-                            </div>
-                            <div class="course-progress-area">
-                                <div class="course-progress-header">
-                                    <span class="progress-text">学习进度</span>
-                                    <span class="progress-percent">0%</span>
-                                </div>
-                                <div class="course-progress-bar">
-                                    <div class="course-progress-fill" style="width: 0%"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="course-footer">
-                            <button class="course-btn primary">
-                                <i class="ri-play-circle-line"></i>
-                                开始学习
-                            </button>
-                        </div>
-                    </div>
-                </div>
+        <div class="tabs-container">
+            <div class="tabs">
+                <button class="tab active" data-tab="tab-summary">Summary 摘要</button>
+                <button class="tab" data-tab="tab-activity">Recent Activity 最近活动</button>
             </div>
         </div>
-    </main>
+        <div class="tab-panel active" id="tab-summary">
+            <div class="data-table-wrap">
+                <table class="data-table" id="summaryTable">
+                    <thead>
+                        <tr>
+                            <th>Code</th><th>Course Name</th><th>Units</th>
+                            <th>Activity</th><th>Completed</th><th>Avg. Test Score</th>
+                            <th>Knowledge Progress</th>
+                        </tr>
+                    </thead>
+                    <tbody id="summaryTbody"></tbody>
+                </table>
+            </div>
+        </div>
+        <div class="tab-panel" id="tab-activity">
+            <div class="timeline" id="activityTimeline"></div>
+        </div>
+    </div>
+</main>
 
-    <script>
-        // 环形进度动画
-        document.addEventListener('DOMContentLoaded', function() {
-            const ringFill = document.getElementById('ringFill');
-            const circumference = 2 * Math.PI * 52; // 326.73
-            const percent = 23;
-            const offset = circumference - (percent / 100) * circumference;
+<!-- Toast -->
+<div class="toast" id="toast"></div>
 
-            // 初始状态
-            ringFill.style.strokeDashoffset = circumference;
+<script src="../app/sidebar.js"></script>
+<script>
+(function() {
+    'use strict';
 
-            // 延迟执行动画
-            setTimeout(() => {
-                ringFill.style.strokeDashoffset = offset;
-            }, 300);
-        });
+    // ==================== 数据层 ====================
+    const DISCIPLINES = [
+        { id: 6,  name: 'Introduction to Oil & Gas', nameCN: '油气入门',       icon: 'ri-oil-line',          cssClass: 'disc-intro',      color: '#64748b', subjects: [] },
+        { id: 1,  name: 'Wells Engineering',            nameCN: '井工程',         icon: 'ri-drill-line',        cssClass: 'disc-wells',      color: '#3b82f6', subjects: [] },
+        { id: 2,  name: 'Health Safety Environment',    nameCN: 'HSE安全管理',    icon: 'ri-shield-star-line',  cssClass: 'disc-hse',        color: '#f97316', subjects: [] },
+        { id: 3,  name: 'Mechanical Engineering',       nameCN: '机械工程',       icon: 'ri-tools-line',        cssClass: 'disc-mechanical', color: '#22c55e', subjects: [] },
+        { id: 4,  name: 'Instrumentation and Controls', nameCN: '仪表与控制',     icon: 'ri-cpu-line',          cssClass: 'disc-ic',         color: '#ef4444', subjects: [] },
+        { id: 5,  name: 'Process Facilities',           nameCN: '工艺设施与气体处理', icon: 'ri-flask-line',     cssClass: 'disc-process',    color: '#06b6d4', subjects: [] },
+        { id: 93, name: 'Electrical',                   nameCN: '电气工程',       icon: 'ri-flashlight-line',   cssClass: 'disc-electrical', color: '#f59e0b', subjects: [] },
+        { id: 389,name: 'BTEC Competences',             nameCN: 'BTEC能力认证',   icon: 'ri-certificate-line',  cssClass: 'disc-btec',       color: '#8b5cf6', subjects: [] }
+    ];
 
-        // 侧边栏折叠
-        const sidebar = document.getElementById('sidebar');
-        const mainContent = document.getElementById('mainContent');
-        const sidebarToggle = document.getElementById('sidebarToggle');
-        const toggleIcon = document.getElementById('toggleIcon');
-        let sidebarCollapsed = false;
+    // Subject & Unit data per discipline
+    function buildSubjectData() {
+        const wells = DISCIPLINES.find(d => d.id === 1);
+        const hse = DISCIPLINES.find(d => d.id === 2);
+        const mech = DISCIPLINES.find(d => d.id === 3);
+        const ic = DISCIPLINES.find(d => d.id === 4);
+        const process = DISCIPLINES.find(d => d.id === 5);
+        const elec = DISCIPLINES.find(d => d.id === 93);
+        const intro = DISCIPLINES.find(d => d.id === 6);
+        const btec = DISCIPLINES.find(d => d.id === 389);
 
-        sidebarToggle.addEventListener('click', function() {
-            sidebarCollapsed = !sidebarCollapsed;
-            if (sidebarCollapsed) {
-                sidebar.classList.add('collapsed');
-                mainContent.classList.add('full');
-                toggleIcon.classList.remove('ri-arrow-left-s-line');
-                toggleIcon.classList.add('ri-arrow-right-s-line');
-            } else {
-                sidebar.classList.remove('collapsed');
-                mainContent.classList.remove('full');
-                toggleIcon.classList.remove('ri-arrow-right-s-line');
-                toggleIcon.classList.add('ri-arrow-left-s-line');
-            }
-        });
+        wells.subjects = [
+            { id: 101, name: 'Introduction to Drilling', units: [
+                { id: 1001, name: 'Prospecting for Petroleum', courseCode: '1.1.1', slides: [
+                    { type: 'styling1', title: 'Prospecting for Petroleum', subtitle: 'Wells Engineering · Introduction to Drilling', content: '<p>Welcome to this learning unit. This unit covers the fundamentals of petroleum prospecting.</p>' },
+                    { type: 'styling2', title: 'Geological Surveys', content: '<h3>Geological Surveys</h3><p>Geological surveys are the first step in identifying potential oil and gas reservoirs. Geologists study surface rock formations, analyze satellite imagery, and conduct field mapping to identify promising areas.</p><div class="highlight-box"><strong>Key Point:</strong> Seismic reflection is the most widely used geophysical method for oil and gas exploration.</div>' },
+                    { type: 'styling2', title: 'Seismic Methods', content: '<h3>Seismic Reflection Methods</h3><p>Seismic waves are sent into the ground and their reflections are recorded. These reflections reveal the structure of subsurface rock layers, helping identify potential traps where oil and gas may accumulate.</p>' },
+                    { type: 'styling2', title: 'Reservoir Analysis', content: '<h3>Reservoir Rock Properties</h3><p>The key properties of a reservoir rock are:</p><ul style="padding-left:20px;color:#475569;"><li>Porosity - the ability to hold fluids</li><li>Permeability - the ability to allow fluid flow</li><li>Saturation - the proportion of pore space filled with hydrocarbons</li></ul>' }
+                ]},
+                { id: 1002, name: 'Subsurface Pressures', courseCode: '1.1.2', slides: [
+                    { type: 'styling1', title: 'Subsurface Pressures', subtitle: 'Understanding formation pressures', content: '<p>This unit covers the types and importance of subsurface pressures in drilling operations.</p>' },
+                    { type: 'styling2', title: 'Pressure Types', content: '<h3>Types of Subsurface Pressures</h3><p>Understanding pressure regimes is critical for safe drilling:</p><div class="highlight-box"><strong>Hydrostatic Pressure:</strong> The pressure exerted by a column of fluid.<br><strong>Formation Pressure:</strong> The pressure of fluids within the pore spaces of rock.<br><strong>Fracture Pressure:</strong> The pressure at which the formation fractures.</div>' }
+                ]},
+                { id: 1003, name: 'Rig Environment', courseCode: '1.1.3', slides: [
+                    { type: 'styling1', title: 'Rig Environment', subtitle: 'Overview of drilling rig components', content: '<p>Learn about the various types of drilling rigs and their operational environments.</p>' }
+                ]},
+                { id: 1004, name: 'Drilling Components and Operations', courseCode: '1.1.4', slides: [
+                    { type: 'styling1', title: 'Drilling Components and Operations', subtitle: 'Detailed look at drilling systems', content: '<p>This unit covers the main components of drilling operations.</p>' }
+                ]},
+                { id: 1005, name: 'The Rig and its Component Systems', courseCode: '1.1.5', slides: [
+                    { type: 'styling1', title: 'The Rig and its Component Systems', subtitle: 'Complete rig system overview', content: '<p>Comprehensive overview of all major rig systems.</p>' }
+                ]}
+            ]},
+            { id: 102, name: 'Wells Engineering - General', units: [
+                { id: 1006, name: 'Well Control Basics', courseCode: '1.2.1', slides: [
+                    { type: 'styling1', title: 'Well Control Basics', subtitle: 'Fundamentals of well control', content: '<p>Introduction to well control principles and equipment.</p>' }
+                ]},
+                { id: 1007, name: 'Casing and Cementing', courseCode: '1.2.2', slides: [
+                    { type: 'styling1', title: 'Casing and Cementing', subtitle: 'Casing design and cementing operations', content: '<p>Learn about casing programs and primary cementing.</p>' }
+                ]}
+            ]},
+            { id: 103, name: 'Knowledge Test - Wells Engineering', isTest: true, units: [
+                { id: 1099, name: 'Wells Engineering Assessment', courseCode: '1.T.1', isTest: true, questions: [
+                    { type: 'single', text: 'What is the most widely used geophysical method for oil and gas exploration?', options: ['Magnetic survey', 'Seismic reflection', 'Gravity survey', 'Electrical survey'], correct: 1 },
+                    { type: 'single', text: 'Which property describes a rock\'s ability to allow fluid flow?', options: ['Porosity', 'Permeability', 'Saturation', 'Density'], correct: 1 },
+                    { type: 'multiple', text: 'Which of the following are types of subsurface pressures? (Choose all correct answers)', options: ['Hydrostatic Pressure', 'Atmospheric Pressure', 'Formation Pressure', 'Fracture Pressure'], correct: [0, 2, 3] },
+                    { type: 'single', text: 'What is the primary purpose of casing in a well?', options: ['Increase production', 'Prevent hole collapse and isolate formations', 'Reduce drilling time', 'Improve seismic data'], correct: 1 }
+                ]}
+            ]}
+        ];
 
-        // 移动端汉堡菜单
-        const hamburgerBtn = document.getElementById('hamburgerBtn');
-        const sidebarOverlay = document.getElementById('sidebarOverlay');
+        hse.subjects = [
+            { id: 201, name: 'HSE Fundamentals', units: [
+                { id: 2001, name: 'Introduction to HSE', courseCode: '2.1.1', slides: [
+                    { type: 'styling1', title: 'Introduction to HSE', subtitle: 'Health, Safety, and Environment fundamentals', content: '<p>This unit provides an overview of HSE principles in the oil and gas industry.</p>' },
+                    { type: 'styling2', title: 'HSE Policy Framework', content: '<h3>HSE Management System</h3><p>An effective HSE management system includes:</p><div class="highlight-box"><strong>Plan:</strong> Risk assessment, legal requirements<br><strong>Do:</strong> Implementation, training, communication<br><strong>Check:</strong> Monitoring, audits, incident investigation<br><strong>Act:</strong> Management review, continual improvement</div>' },
+                    { type: 'styling2', title: 'Risk Assessment', content: '<h3>Risk Assessment Matrix</h3><p>Risk is assessed based on likelihood and consequence. The risk matrix helps prioritize control measures from elimination to PPE.</p>' }
+                ]},
+                { id: 2002, name: 'Occupational Safety', courseCode: '2.1.2', slides: [
+                    { type: 'styling1', title: 'Occupational Safety', subtitle: 'Workplace safety standards', content: '<p>Learn about occupational safety standards and practices.</p>' }
+                ]},
+                { id: 2003, name: 'Environmental Management', courseCode: '2.1.3', slides: [
+                    { type: 'styling1', title: 'Environmental Management', subtitle: 'Environmental protection in O&G', content: '<p>This unit covers environmental impact assessment and management.</p>' }
+                ]}
+            ]},
+            { id: 202, name: 'Knowledge Test - HSE', isTest: true, units: [
+                { id: 2099, name: 'HSE Knowledge Assessment', courseCode: '2.T.1', isTest: true, questions: [
+                    { type: 'single', text: 'What does the "P" stand for in the PDCA cycle of HSE management?', options: ['Prepare', 'Plan', 'Process', 'Prevent'], correct: 1 },
+                    { type: 'multiple', text: 'Which of the following are elements of an HSE management system? (Choose all correct)', options: ['Risk Assessment', 'Emergency Response', 'Financial Auditing', 'Incident Investigation'], correct: [0, 1, 3] }
+                ]}
+            ]}
+        ];
 
-        hamburgerBtn.addEventListener('click', function() {
-            sidebar.classList.add('mobile-open');
-            sidebarOverlay.classList.add('active');
-        });
+        mech.subjects = [
+            { id: 301, name: 'Mechanical Systems', units: [
+                { id: 3001, name: 'Pumps and Compressors', courseCode: '3.1.1', slides: [
+                    { type: 'styling1', title: 'Pumps and Compressors', subtitle: 'Rotating equipment fundamentals', content: '<p>Introduction to pump and compressor types used in oil and gas facilities.</p>' },
+                    { type: 'styling2', title: 'Centrifugal Pumps', content: '<h3>Centrifugal Pump Operation</h3><p>Centrifugal pumps convert rotational kinetic energy to hydrodynamic energy. Key parameters include flow rate, head, and NPSH.</p>' }
+                ]},
+                { id: 3002, name: 'Valves and Piping', courseCode: '3.1.2', slides: [
+                    { type: 'styling1', title: 'Valves and Piping', subtitle: 'Piping system components', content: '<p>Overview of valve types and piping system design.</p>' }
+                ]}
+            ]}
+        ];
 
-        sidebarOverlay.addEventListener('click', function() {
-            sidebar.classList.remove('mobile-open');
-            sidebarOverlay.classList.remove('active');
-        });
+        ic.subjects = [
+            { id: 401, name: 'Control Systems', units: [
+                { id: 4001, name: 'PLC Fundamentals', courseCode: '4.1.1', slides: [
+                    { type: 'styling1', title: 'PLC Fundamentals', subtitle: 'Programmable Logic Controllers', content: '<p>Introduction to PLC architecture and programming concepts.</p>' }
+                ]},
+                { id: 4002, name: 'Instrumentation Basics', courseCode: '4.1.2', slides: [
+                    { type: 'styling1', title: 'Instrumentation Basics', subtitle: 'Sensors and transmitters', content: '<p>Learn about pressure, temperature, level, and flow instrumentation.</p>' }
+                ]}
+            ]}
+        ];
 
-        // 筛选功能
-        const filterInputs = document.querySelectorAll('.filter-option input');
-        const courseCards = document.querySelectorAll('.course-card');
-        const courseCount = document.getElementById('courseCount');
-        const resetBtn = document.getElementById('resetBtn');
+        process.subjects = [
+            { id: 501, name: 'Gas Processing', units: [
+                { id: 5001, name: 'Gas Sweetening', courseCode: '5.1.1', slides: [
+                    { type: 'styling1', title: 'Gas Sweetening', subtitle: 'Acid gas removal processes', content: '<p>Introduction to amine treating and other acid gas removal technologies.</p>' }
+                ]},
+                { id: 5002, name: 'Dehydration', courseCode: '5.1.2', slides: [
+                    { type: 'styling1', title: 'Gas Dehydration', subtitle: 'Water removal from natural gas', content: '<p>Learn about glycol dehydration and molecular sieve systems.</p>' }
+                ]}
+            ]}
+        ];
 
-        function applyFilters() {
-            // 获取选中的学科
-            const selectedSubjects = Array.from(document.querySelectorAll('input[data-filter="subject"]:checked')).map(cb => cb.value);
+        elec.subjects = [
+            { id: 601, name: 'Electrical Systems', units: [
+                { id: 6001, name: 'Power Distribution', courseCode: '6.1.1', slides: [
+                    { type: 'styling1', title: 'Power Distribution', subtitle: 'Electrical power in oil & gas', content: '<p>Overview of electrical power distribution systems.</p>' }
+                ]}
+            ]}
+        ];
 
-            // 获取选中的等级
-            const selectedLevelEl = document.querySelector('input[name="level"]:checked');
-            const selectedLevel = selectedLevelEl ? selectedLevelEl.value : 'all';
+        intro.subjects = [
+            { id: 701, name: 'Oil & Gas Industry Overview', units: [
+                { id: 7001, name: 'The Petroleum Industry', courseCode: '0.1.1', slides: [
+                    { type: 'styling1', title: 'The Petroleum Industry', subtitle: 'An overview of upstream, midstream, and downstream', content: '<p>Introduction to the oil and gas value chain from exploration to distribution.</p>' },
+                    { type: 'styling2', title: 'Upstream Operations', content: '<h3>Upstream: Exploration & Production</h3><p>Upstream involves searching for potential underground or underwater crude oil and natural gas fields, drilling exploratory wells, and subsequently drilling and operating the wells that recover and bring the crude oil or raw natural gas to the surface.</p>' },
+                    { type: 'styling2', title: 'Midstream & Downstream', content: '<h3>Midstream & Downstream</h3><p><strong>Midstream</strong> involves the transportation, storage, and wholesale marketing of crude or refined petroleum products.<br><strong>Downstream</strong> includes refining crude oil and processing natural gas into finished products.</p>' }
+                ]},
+                { id: 7002, name: 'Industry Terminology', courseCode: '0.1.2', slides: [
+                    { type: 'styling1', title: 'Industry Terminology', subtitle: 'Key terms and definitions', content: '<p>Learn essential terminology used throughout the oil and gas industry.</p>' }
+                ]}
+            ]}
+        ];
 
-            // 获取选中的进度
-            const selectedProgressEl = document.querySelector('input[name="progress"]:checked');
-            const selectedProgress = selectedProgressEl ? selectedProgressEl.value : 'all';
+        btec.subjects = [
+            { id: 801, name: 'BTEC Level 3 Competence', units: [
+                { id: 8001, name: 'Unit 1: Working Safely', courseCode: 'B.1.1', slides: [
+                    { type: 'styling1', title: 'Unit 1: Working Safely', subtitle: 'BTEC Competence Assessment', content: '<p>This unit assesses your ability to work safely in an industrial environment.</p>' }
+                ]}
+            ]}
+        ];
+    }
+    buildSubjectData();
 
-            let visibleCount = 0;
+    // User progress simulation
+    const userProgress = {
+        units: {
+            1001: { status: 'completed', score: null, lastSlide: 3, startDate: '2026-03-15 09:30:00', endDate: '2026-03-15 10:45:00' },
+            1002: { status: 'started', score: null, lastSlide: 1, startDate: '2026-04-22 14:00:00', endDate: null },
+            2001: { status: 'completed', score: null, lastSlide: 2, startDate: '2026-01-10 08:00:00', endDate: '2026-01-10 09:30:00' },
+            7001: { status: 'completed', score: null, lastSlide: 2, startDate: '2026-02-05 11:00:00', endDate: '2026-02-05 12:15:00' },
+            1099: { status: 'completed', score: 67, lastSlide: null, startDate: '2026-04-01 15:00:00', endDate: '2026-04-01 15:45:00' },
+            1003: { status: 'started', score: null, lastSlide: 0, startDate: '2026-05-10 09:00:00', endDate: null },
+            3001: { status: 'started', score: null, lastSlide: 1, startDate: '2026-05-20 13:30:00', endDate: null },
+            2002: { status: 'started', score: null, lastSlide: 0, startDate: '2026-05-28 10:00:00', endDate: null }
+        }
+    };
 
-            courseCards.forEach(card => {
-                const subject = card.dataset.subject;
-                const levels = card.dataset.level.split(',');
-                const progress = parseInt(card.dataset.progress);
+    // ==================== 状态 ====================
+    let currentView = 'disciplines';
+    let currentDiscipline = null;
+    let currentUnit = null;
+    let currentSlideIdx = 0;
+    let currentQuestionIdx = 0;
+    let testAnswers = {};
+    let testSubmitted = false;
+    let sidebarCollapsed = localStorage.getItem('sidebarCollapsed') === 'true';
 
-                let subjectMatch = selectedSubjects.includes(subject);
-                let levelMatch = selectedLevel === 'all' || levels.includes(selectedLevel);
-                let progressMatch = true;
+    // ==================== DOM引用 ====================
+    const $ = (s) => document.querySelector(s);
+    const $$ = (s) => document.querySelectorAll(s);
 
-                if (selectedProgress === 'not-started') {
-                    progressMatch = progress === 0;
-                } else if (selectedProgress === 'in-progress') {
-                    progressMatch = progress > 0 && progress < 100;
-                } else if (selectedProgress === 'completed') {
-                    progressMatch = progress === 100;
-                }
+    const sidebar = $('#sidebar');
+    const mainContent = $('#mainContent');
+    const sidebarOverlay = $('#sidebarOverlay');
 
-                if (subjectMatch && levelMatch && progressMatch) {
-                    card.classList.remove('hidden');
-                    visibleCount++;
-                } else {
-                    card.classList.add('hidden');
-                }
+    // ==================== 侧边栏交互 ====================
+    function toggleSidebar() {
+        sidebarCollapsed = !sidebarCollapsed;
+        sidebar.classList.toggle('collapsed', sidebarCollapsed);
+        localStorage.setItem('sidebarCollapsed', sidebarCollapsed);
+    }
+
+    $('#sidebarToggle').addEventListener('click', toggleSidebar);
+    if (sidebarCollapsed) sidebar.classList.add('collapsed');
+
+    // 移动端
+    $('#menuToggle').addEventListener('click', () => {
+        sidebar.classList.add('mobile-open');
+        sidebarOverlay.classList.add('active');
+    });
+    sidebarOverlay.addEventListener('click', () => {
+        sidebar.classList.remove('mobile-open');
+        sidebarOverlay.classList.remove('active');
+    });
+
+    // 用户菜单
+    $('#userMenuBtn').addEventListener('click', (e) => {
+        e.stopPropagation();
+        $('#userDropdown').classList.toggle('show');
+    });
+    document.addEventListener('click', () => $('#userDropdown').classList.remove('show'));
+
+    // ==================== Toast ====================
+    let toastTimer;
+    function showToast(msg) {
+        const toast = $('#toast');
+        toast.textContent = msg;
+        toast.classList.add('show');
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => toast.classList.remove('show'), 2500);
+    }
+
+    // ==================== 视图切换 ====================
+    function switchView(view) {
+        currentView = view;
+        $$('.view-container').forEach(v => v.classList.remove('active'));
+        const target = $('#view-' + view);
+        if (target) target.classList.add('active');
+
+        if (view === 'disciplines') {
+            $('#pageTitle').textContent = '知识矩阵';
+            $('#breadcrumb').innerHTML = '<a href="#" data-view="disciplines">首页</a><i class="ri-arrow-right-s-line"></i><span class="current">知识矩阵</span>';
+            $('#btnMyProgress').style.display = '';
+        } else if (view === 'progress') {
+            $('#pageTitle').textContent = '我的进度';
+            $('#breadcrumb').innerHTML = '<a href="#" data-view="disciplines">知识矩阵</a><i class="ri-arrow-right-s-line"></i><span class="current">我的进度</span>';
+            $('#btnMyProgress').style.display = 'none';
+            renderProgressDashboard();
+        }
+        rebindBreadcrumbs();
+    }
+
+    function rebindBreadcrumbs() {
+        $$('.breadcrumb a').forEach(a => {
+            a.addEventListener('click', (e) => {
+                e.preventDefault();
+                const v = a.dataset.view;
+                if (v === 'disciplines') switchView('disciplines');
+                else if (v === 'subject') showDiscipline(currentDiscipline);
             });
+        });
+    }
 
-            courseCount.textContent = visibleCount;
+    // ==================== 学科卡片 ====================
+    function renderDisciplines() {
+        const grid = $('#disciplineGrid');
+        grid.innerHTML = DISCIPLINES.map(d => {
+            const discProgress = calcDiscProgress(d);
+            const pct = discProgress.pct;
+            const offset = 439.8 * (1 - pct / 100);
+            return `
+            <div class="disc-card ${d.cssClass}" data-disc="${d.id}" onclick="window._showDiscipline(${d.id})">
+                <div class="card-icon"><i class="${d.icon}"></i></div>
+                <div class="card-title">${d.nameCN}</div>
+                <div class="card-meta">${d.name} · ${discProgress.totalUnits} 个学习单元</div>
+                <div class="card-stats">
+                    <div class="stat-item">
+                        <span class="stat-value">${discProgress.completed}</span>
+                        <span class="stat-label">已完成</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value">${discProgress.active}</span>
+                        <span class="stat-label">进行中</span>
+                    </div>
+                    <div class="mini-ring">
+                        <svg viewBox="0 0 52 52" width="52" height="52">
+                            <circle cx="26" cy="26" r="22" fill="none" stroke="#e2e8f0" stroke-width="4"/>
+                            <circle cx="26" cy="26" r="22" fill="none" stroke="${d.color}" stroke-width="4"
+                                    stroke-dasharray="138.2" stroke-dashoffset="${138.2 * (1 - pct / 100)}"
+                                    stroke-linecap="round" transform="rotate(-90 26 26)" style="transition: stroke-dashoffset 1s ease;"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>`;
+        }).join('');
+    }
+
+    function calcDiscProgress(disc) {
+        let totalUnits = 0, completed = 0, active = 0;
+        disc.subjects.forEach(s => {
+            s.units.forEach(u => {
+                totalUnits++;
+                const p = userProgress.units[u.id];
+                if (p && p.status === 'completed') completed++;
+                else if (p && p.status === 'started') active++;
+            });
+        });
+        return { totalUnits, completed, active, pct: totalUnits > 0 ? Math.round((completed / totalUnits) * 100) : 0 };
+    }
+
+    window._showDiscipline = function(discId) {
+        currentDiscipline = DISCIPLINES.find(d => d.id === discId);
+        if (!currentDiscipline) return;
+        currentView = 'subject';
+        $$('.view-container').forEach(v => v.classList.remove('active'));
+        $('#view-subject').classList.add('active');
+        $('#pageTitle').textContent = currentDiscipline.nameCN;
+        $('#breadcrumb').innerHTML = `<a href="#" data-view="disciplines">知识矩阵</a><i class="ri-arrow-right-s-line"></i><span class="current">${currentDiscipline.nameCN}</span>`;
+        $('#btnMyProgress').style.display = '';
+        rebindBreadcrumbs();
+        renderSubjectTree();
+        // Reset detail panel
+        $('#detailEmpty').style.display = '';
+        $('#slidePlayer').style.display = 'none';
+        $('#testPlayer').style.display = 'none';
+        $('#testResult').style.display = 'none';
+    };
+
+    // Expose showDiscipline globally for onclick
+    function showDiscipline(discId) { window._showDiscipline(discId); }
+
+    // ==================== 学科树 ====================
+    function renderSubjectTree() {
+        const panel = $('#treePanel');
+        if (!currentDiscipline) return;
+        const allExpanded = currentDiscipline.subjects.length <= 3;
+        panel.innerHTML = `
+            <div class="tree-header">
+                <span>Subject List</span>
+                <span class="tree-collapse-btn" id="treeCollapseAll">${allExpanded ? '折叠全部' : '展开全部'}</span>
+            </div>
+            ${currentDiscipline.subjects.map((s, si) => `
+                <div class="subject-group">
+                    <div class="subject-header ${allExpanded ? 'expanded' : ''}" data-subj-idx="${si}">
+                        <i class="ri-arrow-right-s-line"></i>
+                        <span>${s.name}</span>
+                        ${s.isTest ? '<span class="subject-meta" style="color:#f59e0b;"><i class="ri-pencil-line"></i> Test</span>' : ''}
+                        <span class="subject-meta">${s.units.length} units</span>
+                    </div>
+                    <div class="unit-list ${allExpanded ? 'open' : ''}">
+                        ${s.units.map(u => renderUnitItem(u)).join('')}
+                    </div>
+                </div>
+            `).join('')}
+        `;
+
+        // Event: subject header click
+        panel.querySelectorAll('.subject-header').forEach(header => {
+            header.addEventListener('click', function() {
+                this.classList.toggle('expanded');
+                this.nextElementSibling.classList.toggle('open');
+            });
+        });
+
+        // Event: unit click
+        panel.querySelectorAll('.unit-item').forEach(item => {
+            item.addEventListener('click', function() {
+                const unitId = parseInt(this.dataset.unitId);
+                selectUnit(unitId);
+            });
+        });
+
+        // Collapse/expand all
+        const collapseBtn = $('#treeCollapseAll');
+        if (collapseBtn) {
+            collapseBtn.addEventListener('click', function() {
+                const isAllOpen = panel.querySelectorAll('.unit-list.open').length === currentDiscipline.subjects.length;
+                panel.querySelectorAll('.subject-header').forEach(h => {
+                    if (isAllOpen) { h.classList.remove('expanded'); } else { h.classList.add('expanded'); }
+                });
+                panel.querySelectorAll('.unit-list').forEach(l => {
+                    if (isAllOpen) { l.classList.remove('open'); } else { l.classList.add('open'); }
+                });
+                this.textContent = isAllOpen ? '展开全部' : '折叠全部';
+            });
+        }
+    }
+
+    function renderUnitItem(u) {
+        const prog = userProgress.units[u.id];
+        let statusClass = '', statusIcon = '', scoreBadge = '';
+        if (u.isTest) {
+            statusIcon = '<i class="ri-pencil-line unit-status-icon test"></i>';
+            if (prog && prog.status === 'completed' && prog.score !== null) {
+                statusClass = 'unit-completed';
+                scoreBadge = `<span class="unit-score-badge">Score: ${prog.score}%</span>`;
+            }
+        } else {
+            if (prog && prog.status === 'completed') {
+                statusClass = 'unit-completed';
+                statusIcon = '<i class="ri-check-line unit-status-icon completed"></i>';
+            } else if (prog && prog.status === 'started') {
+                statusIcon = '<i class="ri-file-line unit-status-icon" style="color:#f59e0b;"></i>';
+            } else {
+                statusIcon = '<i class="ri-file-line unit-status-icon" style="color:#94a3b8;"></i>';
+            }
+        }
+        return `
+            <div class="unit-item ${statusClass} ${currentUnit && currentUnit.id === u.id ? 'active' : ''}" data-unit-id="${u.id}">
+                ${statusIcon}
+                <span>${u.name}</span>
+                ${scoreBadge}
+            </div>`;
+    }
+
+    function selectUnit(unitId) {
+        // Find the unit
+        let unit = null;
+        for (const d of DISCIPLINES) {
+            for (const s of d.subjects) {
+                const found = s.units.find(u => u.id === unitId);
+                if (found) { unit = found; break; }
+            }
+            if (unit) break;
+        }
+        if (!unit) return;
+
+        currentUnit = unit;
+        currentSlideIdx = 0;
+        currentQuestionIdx = 0;
+        testAnswers = {};
+        testSubmitted = false;
+
+        // Update active state in tree
+        $$('.unit-item').forEach(el => el.classList.remove('active'));
+        const activeEl = document.querySelector(`.unit-item[data-unit-id="${unitId}"]`);
+        if (activeEl) activeEl.classList.add('active');
+
+        // Update breadcrumb
+        const subject = findSubjectForUnit(unit);
+        $('#breadcrumb').innerHTML = `<a href="#" data-view="disciplines">知识矩阵</a><i class="ri-arrow-right-s-line"></i><a href="#" data-view="subject">${currentDiscipline.nameCN}</a><i class="ri-arrow-right-s-line"></i><span class="current">${subject ? subject.name : unit.name}</span>`;
+
+        if (unit.isTest) {
+            showTestPlayer(unit);
+        } else if (unit.slides && unit.slides.length > 0) {
+            showSlidePlayer(unit);
+        } else {
+            $('#detailEmpty').style.display = '';
+            $('#slidePlayer').style.display = 'none';
+            $('#testPlayer').style.display = 'none';
+            $('#testResult').style.display = 'none';
+        }
+        rebindBreadcrumbs();
+    }
+
+    function findSubjectForUnit(unit) {
+        for (const d of DISCIPLINES) {
+            for (const s of d.subjects) {
+                if (s.units.some(u => u.id === unit.id)) return s;
+            }
+        }
+        return null;
+    }
+
+    // ==================== 幻灯片播放器 ====================
+    function showSlidePlayer(unit) {
+        $('#detailEmpty').style.display = 'none';
+        $('#testPlayer').style.display = 'none';
+        $('#testResult').style.display = 'none';
+        $('#slidePlayer').style.display = '';
+        $('#slideUnitTitle').textContent = unit.name;
+
+        const prog = userProgress.units[unit.id];
+        const savedSlide = prog ? prog.lastSlide : 0;
+
+        // Resume banner
+        if (savedSlide > 0 && savedSlide < unit.slides.length - 1) {
+            const banner = document.createElement('div');
+            banner.className = 'resume-banner';
+            banner.id = 'resumeBanner';
+            banner.innerHTML = `
+                <i class="ri-history-line"></i>
+                <div class="resume-text">
+                    <div class="resume-title">上次学习记录</div>
+                    <div class="resume-desc">您上次停在第 ${savedSlide + 1} 张幻灯片（${unit.slides[savedSlide].title}）</div>
+                </div>
+                <div class="resume-btns">
+                    <button class="btn btn-secondary btn-sm" id="btnStartAgain">重新开始</button>
+                    <button class="btn btn-primary btn-sm" id="btnContinue">继续学习</button>
+                </div>
+            `;
+            const slideBody = $('#slideBody');
+            slideBody.innerHTML = '';
+            slideBody.appendChild(banner);
+
+            document.getElementById('btnContinue').addEventListener('click', () => {
+                currentSlideIdx = savedSlide;
+                renderSlide(unit);
+            });
+            document.getElementById('btnStartAgain').addEventListener('click', () => {
+                currentSlideIdx = 0;
+                renderSlide(unit);
+            });
+            $('#slideDots').innerHTML = '';
+            $('#btnPrevSlide').disabled = true;
+            $('#btnNextSlide').disabled = true;
+            $('#slideCounter').textContent = '';
+        } else {
+            currentSlideIdx = 0;
+            renderSlide(unit);
+        }
+    }
+
+    function renderSlide(unit) {
+        const slide = unit.slides[currentSlideIdx];
+        if (!slide) return;
+
+        // Remove resume banner
+        const banner = $('#resumeBanner');
+        if (banner) banner.remove();
+
+        $('#slideBody').innerHTML = `
+            <div class="slide-content">
+                ${slide.type === 'styling1' ? `<h2>${slide.title}</h2><p style="color:#94a3b8;">${slide.subtitle || ''}</p>` : `<h2>${slide.title}</h2>`}
+                ${slide.content}
+            </div>`;
+        $('#slideCounter').textContent = `${currentSlideIdx + 1} / ${unit.slides.length}`;
+
+        // Dots
+        $('#slideDots').innerHTML = unit.slides.map((_, i) =>
+            `<div class="slide-dot${i === currentSlideIdx ? ' active' : ''}${i < currentSlideIdx ? ' completed' : ''}" data-dot="${i}"></div>`
+        ).join('');
+
+        // Dot clicks
+        $$('.slide-dot').forEach(dot => {
+            dot.addEventListener('click', function() {
+                currentSlideIdx = parseInt(this.dataset.dot);
+                renderSlide(unit);
+            });
+        });
+
+        // Nav buttons
+        $('#btnPrevSlide').disabled = currentSlideIdx === 0;
+        $('#btnNextSlide').style.display = currentSlideIdx === unit.slides.length - 1 ? 'none' : '';
+        if (currentSlideIdx === unit.slides.length - 1) {
+            // Last slide - show complete button
+            const nextBtn = $('#btnNextSlide');
+            nextBtn.textContent = '完成学习';
+            nextBtn.style.display = '';
+            nextBtn.className = 'btn btn-primary btn-sm';
+            nextBtn.onclick = () => completeUnit(unit);
         }
 
-        filterInputs.forEach(input => {
-            input.addEventListener('change', applyFilters);
+        // Save progress
+        if (!userProgress.units[unit.id]) {
+            userProgress.units[unit.id] = { status: 'started', score: null, lastSlide: currentSlideIdx, startDate: new Date().toISOString().replace('T',' ').substring(0,19), endDate: null };
+        } else {
+            userProgress.units[unit.id].lastSlide = currentSlideIdx;
+            userProgress.units[unit.id].status = 'started';
+        }
+    }
+
+    $('#btnPrevSlide').addEventListener('click', () => {
+        if (currentUnit && currentSlideIdx > 0) {
+            currentSlideIdx--;
+            renderSlide(currentUnit);
+        }
+    });
+
+    $('#btnNextSlide').addEventListener('click', () => {
+        if (!currentUnit) return;
+        if (currentSlideIdx < currentUnit.slides.length - 1) {
+            currentSlideIdx++;
+            renderSlide(currentUnit);
+        }
+    });
+
+    function completeUnit(unit) {
+        userProgress.units[unit.id] = {
+            ...userProgress.units[unit.id],
+            status: 'completed',
+            endDate: new Date().toISOString().replace('T',' ').substring(0,19)
+        };
+        showToast('单元学习完成！');
+        renderSubjectTree();
+        // Show completed state
+        $('#slideBody').innerHTML = `
+            <div style="text-align:center;padding:40px;">
+                <i class="ri-checkbox-circle-line" style="font-size:4rem;color:#22c55e;"></i>
+                <h2 style="margin-top:16px;color:#0f172a;">学习完成</h2>
+                <p style="color:#64748b;margin-top:8px;">您已完成 "${unit.name}" 的学习</p>
+                <button class="btn btn-primary" style="margin-top:20px;" onclick="window._showDiscipline(${currentDiscipline.id})">返回学科</button>
+            </div>`;
+        $('#btnPrevSlide').disabled = true;
+        $('#btnNextSlide').style.display = 'none';
+        $('#slideDots').innerHTML = '';
+        $('#slideCounter').textContent = '已完成';
+    }
+
+    // ==================== 测试播放器 ====================
+    function showTestPlayer(unit) {
+        $('#detailEmpty').style.display = 'none';
+        $('#slidePlayer').style.display = 'none';
+        $('#testResult').style.display = 'none';
+        $('#testPlayer').style.display = '';
+        $('#testUnitTitle').textContent = unit.name;
+        currentQuestionIdx = 0;
+        testAnswers = {};
+        testSubmitted = false;
+        renderQuestion(unit);
+    }
+
+    function renderQuestion(unit) {
+        if (!unit.questions || unit.questions.length === 0) return;
+        const q = unit.questions[currentQuestionIdx];
+        const total = unit.questions.length;
+        $('#testCounter').textContent = `Question ${currentQuestionIdx + 1} of ${total}`;
+        $('#testProgressFill').style.width = `${((currentQuestionIdx + 1) / total) * 100}%`;
+
+        const hint = q.type === 'multiple' ? '<div class="option-hint">Choose all correct answers</div>' : '<div class="option-hint">Choose Correct</div>';
+        const inputType = q.type === 'multiple' ? 'checkbox' : 'radio';
+        const inputClass = q.type === 'multiple' ? 'option-checkbox' : 'option-radio';
+
+        let bodyHTML = `
+            <div class="question-num">Question ${currentQuestionIdx + 1}</div>
+            <div class="question-text">${q.text}</div>
+            ${q.image ? `<div class="question-media"><img src="${q.image}" alt="question image"></div>` : ''}
+            ${q.audio ? `<div class="question-media"><audio controls src="${q.audio}"></audio></div>` : ''}
+            ${hint}
+            <div class="option-list">`;
+
+        q.options.forEach((opt, i) => {
+            const saved = testAnswers[currentQuestionIdx];
+            let selected = false;
+            if (q.type === 'multiple' && saved) selected = saved.includes(i);
+            else if (saved !== undefined) selected = saved === i;
+            bodyHTML += `
+                <label class="option-item ${selected ? 'selected' : ''}" data-opt="${i}">
+                    <div class="${inputClass}"></div>
+                    <span>${opt}</span>
+                </label>`;
         });
+        bodyHTML += '</div>';
+        $('#testBody').innerHTML = bodyHTML;
 
-        // 重置筛选
-        resetBtn.addEventListener('click', function() {
-            document.querySelectorAll('input[data-filter="subject"]').forEach(cb => cb.checked = true);
-            document.getElementById('level-all').checked = true;
-            document.getElementById('progress-all').checked = true;
-            applyFilters();
-        });
-
-        // 排序功能
-        const sortSelect = document.getElementById('sortSelect');
-        const courseGrid = document.getElementById('courseGrid');
-
-        sortSelect.addEventListener('change', function() {
-            const cards = Array.from(courseCards);
-            const sortValue = this.value;
-
-            cards.sort((a, b) => {
-                if (sortValue === 'progress-desc') {
-                    return parseInt(b.dataset.progress) - parseInt(a.dataset.progress);
-                } else if (sortValue === 'progress-asc') {
-                    return parseInt(a.dataset.progress) - parseInt(b.dataset.progress);
-                } else if (sortValue === 'name-asc') {
-                    const nameA = a.querySelector('.course-name').textContent;
-                    const nameB = b.querySelector('.course-name').textContent;
-                    return nameA.localeCompare(nameB, 'zh-CN');
-                }
-                return 0;
-            });
-
-            cards.forEach(card => courseGrid.appendChild(card));
-        });
-
-        // 搜索框聚焦效果已在CSS中实现
-        // 课程搜索（按名称过滤）
-        const courseSearch = document.getElementById('courseSearch');
-        courseSearch.addEventListener('input', function() {
-            const keyword = this.value.trim().toLowerCase();
-            let visibleCount = 0;
-
-            courseCards.forEach(card => {
-                const name = card.querySelector('.course-name').textContent.toLowerCase();
-                if (name.includes(keyword)) {
-                    if (!card.classList.contains('hidden')) {
-                        visibleCount++;
-                    }
+        // Option click handlers
+        $('#testBody').querySelectorAll('.option-item').forEach(item => {
+            item.addEventListener('click', function(e) {
+                if (testSubmitted) return;
+                const optIdx = parseInt(this.dataset.opt);
+                if (q.type === 'multiple') {
+                    if (!testAnswers[currentQuestionIdx]) testAnswers[currentQuestionIdx] = [];
+                    const arr = testAnswers[currentQuestionIdx];
+                    const idx = arr.indexOf(optIdx);
+                    if (idx >= 0) arr.splice(idx, 1); else arr.push(optIdx);
+                    this.classList.toggle('selected');
                 } else {
-                    card.classList.add('hidden');
+                    testAnswers[currentQuestionIdx] = optIdx;
+                    $('#testBody').querySelectorAll('.option-item').forEach(el => el.classList.remove('selected'));
+                    this.classList.add('selected');
                 }
             });
-
-            if (keyword === '') {
-                applyFilters();
-            } else {
-                courseCount.textContent = visibleCount;
-            }
         });
-    </script>
-  <script src="../app/sidebar.js"></script>
+
+        // Nav buttons
+        $('#btnPrevQuestion').disabled = currentQuestionIdx === 0;
+        $('#btnPrevQuestion').style.display = '';
+        if (currentQuestionIdx === total - 1) {
+            $('#btnNextQuestion').style.display = 'none';
+            $('#btnSubmitTest').style.display = '';
+        } else {
+            $('#btnNextQuestion').style.display = '';
+            $('#btnSubmitTest').style.display = 'none';
+        }
+    }
+
+    $('#btnPrevQuestion').addEventListener('click', () => {
+        if (currentUnit && currentQuestionIdx > 0) {
+            currentQuestionIdx--;
+            renderQuestion(currentUnit);
+        }
+    });
+
+    $('#btnNextQuestion').addEventListener('click', () => {
+        if (!currentUnit || !currentUnit.questions) return;
+        if (currentQuestionIdx < currentUnit.questions.length - 1) {
+            currentQuestionIdx++;
+            renderQuestion(currentUnit);
+        }
+    });
+
+    $('#btnSubmitTest').addEventListener('click', () => {
+        if (!currentUnit || !currentUnit.questions) return;
+        // Check all answered
+        const unanswered = [];
+        currentUnit.questions.forEach((q, i) => {
+            const ans = testAnswers[i];
+            if (ans === undefined || (Array.isArray(ans) && ans.length === 0)) unanswered.push(i + 1);
+        });
+        if (unanswered.length > 0) {
+            showToast(`请完成第 ${unanswered.join(', ')} 题`);
+            return;
+        }
+        showTestResult(currentUnit);
+    });
+
+    function showTestResult(unit) {
+        testSubmitted = true;
+        let correct = 0;
+        const total = unit.questions.length;
+        const review = [];
+
+        unit.questions.forEach((q, i) => {
+            const userAns = testAnswers[i];
+            let isCorrect = false;
+            if (q.type === 'multiple') {
+                const correctSet = new Set(q.correct);
+                const userSet = new Set(userAns || []);
+                isCorrect = correctSet.size === userSet.size && [...correctSet].every(v => userSet.has(v));
+            } else {
+                isCorrect = userAns === q.correct;
+            }
+            if (isCorrect) correct++;
+
+            let correctAnsText;
+            if (q.type === 'multiple') {
+                correctAnsText = q.correct.map(c => q.options[c]).join(', ');
+            } else {
+                correctAnsText = q.options[q.correct];
+            }
+            review.push({ q, userAns, isCorrect, correctAnsText });
+        });
+
+        const score = Math.round((correct / total) * 100);
+        const passed = score >= 60;
+
+        // Save
+        userProgress.units[unit.id] = {
+            ...userProgress.units[unit.id],
+            status: 'completed',
+            score: score,
+            endDate: new Date().toISOString().replace('T',' ').substring(0,19)
+        };
+
+        $('#testPlayer').style.display = 'none';
+        $('#testResult').style.display = '';
+        $('#testResult').innerHTML = `
+            <div class="test-result">
+                <i class="ri-${passed ? 'checkbox-circle-line' : 'close-circle-line'}" style="font-size:3.5rem;color:${passed ? '#22c55e' : '#ef4444'};"></i>
+                <div class="test-score ${passed ? 'pass' : 'fail'}">${score}%</div>
+                <div class="test-msg">${passed ? '恭喜通过测试！' : '未达到及格线（60%），请重新尝试'} · ${correct}/${total} 题正确</div>
+                <div class="test-review">
+                    <h4 style="margin-bottom:12px;">答题回顾</h4>
+                    ${review.map((r, i) => `
+                        <div class="review-item ${r.isCorrect ? 'correct-r' : 'wrong-r'}">
+                            <strong>Q${i + 1}:</strong> ${r.q.text}<br>
+                            <span style="color:${r.isCorrect ? '#22c55e' : '#ef4444'};">
+                                ${r.isCorrect ? '✓ 正确' : `✗ 错误 · 正确答案: ${r.correctAnsText}`}
+                            </span>
+                        </div>
+                    `).join('')}
+                </div>
+                <div style="margin-top:20px;display:flex;gap:10px;justify-content:center;">
+                    <button class="btn btn-secondary" onclick="window._retryTest()">Try Again</button>
+                    <button class="btn btn-primary" onclick="window._showDiscipline(${currentDiscipline.id})">返回学科</button>
+                </div>
+            </div>`;
+
+        renderSubjectTree();
+    }
+
+    window._retryTest = function() {
+        testAnswers = {};
+        testSubmitted = false;
+        currentQuestionIdx = 0;
+        showTestPlayer(currentUnit);
+    };
+
+    // ==================== 进度仪表盘 ====================
+    function renderProgressDashboard() {
+        const allUnits = getAllUnits();
+        const total = allUnits.length;
+        let completed = 0, active = 0;
+        allUnits.forEach(u => {
+            const p = userProgress.units[u.id];
+            if (p && p.status === 'completed') completed++;
+            else if (p && p.status === 'started') active++;
+        });
+
+        // Ring
+        const pct = total > 0 ? Math.round((completed / total) * 100) : 0;
+        const offset = 439.8 * (1 - pct / 100);
+        $('#overallRing').setAttribute('stroke-dashoffset', offset);
+        $('#overallPct').textContent = pct + '%';
+        $('#completedCount').textContent = completed;
+        $('#activeCount').textContent = active;
+
+        // Discipline progress bars
+        $('#discProgressList').innerHTML = DISCIPLINES.map(d => {
+            const dp = calcDiscProgress(d);
+            return `
+            <div class="disc-progress-item" data-disc="${d.id}" onclick="window._showDiscipline(${d.id});switchView('subject');">
+                <div class="disc-progress-dot" style="background:${d.color};"></div>
+                <div class="disc-progress-name">${d.nameCN}</div>
+                <div class="disc-progress-bar-wrap">
+                    <div class="disc-progress-bar-fill" style="width:${dp.pct}%;background:${d.color};"></div>
+                </div>
+                <div class="disc-progress-pct">${dp.pct}%</div>
+            </div>`;
+        }).join('');
+
+        // Summary Table
+        const rows = DISCIPLINES.map(d => {
+            let totalU = 0, activeU = 0, completedU = 0, totalScore = 0, scoreCount = 0;
+            d.subjects.forEach(s => {
+                s.units.forEach(u => {
+                    totalU++;
+                    const p = userProgress.units[u.id];
+                    if (p && p.status === 'completed') completedU++;
+                    if (p && (p.status === 'completed' || p.status === 'started')) activeU++;
+                    if (p && p.score !== null && p.score !== undefined) { totalScore += p.score; scoreCount++; }
+                });
+            });
+            const avgScore = scoreCount > 0 ? Math.round(totalScore / scoreCount) : 0;
+            const progressPct = totalU > 0 ? Math.round((completedU / totalU) * 100) : 0;
+            const pctClass = progressPct >= 50 ? 'high' : progressPct >= 20 ? 'mid' : 'low';
+            return { code: d.id, name: d.nameCN, totalU, activeU, completedU, avgScore, progressPct, pctClass };
+        });
+
+        const totalRow = {
+            code: '', name: 'OVERALL',
+            totalU: rows.reduce((s, r) => s + r.totalU, 0),
+            activeU: rows.reduce((s, r) => s + r.activeU, 0),
+            completedU: rows.reduce((s, r) => s + r.completedU, 0),
+            avgScore: rows.filter(r => r.avgScore > 0).length > 0
+                ? Math.round(rows.reduce((s, r) => s + r.avgScore, 0) / rows.filter(r => r.avgScore > 0).length)
+                : 0,
+            progressPct: rows.reduce((s, r) => s + r.totalU, 0) > 0
+                ? Math.round(rows.reduce((s, r) => s + r.completedU, 0) / rows.reduce((s, r) => s + r.totalU, 0) * 100)
+                : 0,
+            pctClass: 'mid', isTotal: true
+        };
+
+        $('#summaryTbody').innerHTML = [...rows, totalRow].map(r => `
+            <tr class="${r.isTotal ? 'total-row' : ''}">
+                <td>${r.code}</td>
+                <td>${r.isTotal ? r.name : `<span class="table-link" onclick="window._showDiscipline(${r.code});switchView('subject');">${r.name}</span>`}</td>
+                <td>${r.totalU}</td>
+                <td>${r.activeU}</td>
+                <td>${r.completedU}</td>
+                <td>${r.avgScore}</td>
+                <td><span class="pct-cell ${r.pctClass}">${r.progressPct}%</span></td>
+            </tr>
+        `).join('');
+
+        // Activity Timeline
+        const activities = [
+            { code: '2.1.3.mc1', name: 'Environmental Management', unitId: 2003, date: '2026-05-28 10:00:00', endDate: null, score: null, status: 'Started' },
+            { code: '3.1.1.mc1', name: 'Pumps and Compressors', unitId: 3001, date: '2026-05-20 13:30:00', endDate: null, score: null, status: 'Started' },
+            { code: '1.1.3.mc1', name: 'Rig Environment', unitId: 1003, date: '2026-05-10 09:00:00', endDate: null, score: null, status: 'Started' },
+            { code: '1.T.1', name: 'Wells Engineering Assessment', unitId: 1099, date: '2026-04-01 15:00:00', endDate: '2026-04-01 15:45:00', score: 67, status: 'Completed' },
+            { code: '1.1.2.mc1', name: 'Subsurface Pressures', unitId: 1002, date: '2026-04-22 14:00:00', endDate: null, score: null, status: 'Started' },
+            { code: '1.1.1.mc1', name: 'Prospecting for Petroleum', unitId: 1001, date: '2026-03-15 09:30:00', endDate: '2026-03-15 10:45:00', score: null, status: 'Completed' },
+            { code: '0.1.1.mc1', name: 'The Petroleum Industry', unitId: 7001, date: '2026-02-05 11:00:00', endDate: '2026-02-05 12:15:00', score: null, status: 'Completed' },
+            { code: '2.1.1.mc1', name: 'Introduction to HSE', unitId: 2001, date: '2026-01-10 08:00:00', endDate: '2026-01-10 09:30:00', score: null, status: 'Completed' },
+        ];
+
+        $('#activityTimeline').innerHTML = activities.map(a => `
+            <div class="timeline-item ${a.status === 'Completed' ? 'completed-tl' : ''}">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-code">${a.code}</div>
+                    <div class="timeline-activity">${a.name}</div>
+                    <div class="timeline-meta">
+                        <span><i class="ri-calendar-line"></i> ${a.date}</span>
+                        ${a.endDate ? `<span><i class="ri-check-line"></i> ${a.endDate}</span>` : ''}
+                        ${a.score !== null ? `<span><i class="ri-bar-chart-line"></i> Score: ${a.score}%</span>` : ''}
+                        <span class="status-badge ${a.status.toLowerCase()}">${a.status}</span>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    function getAllUnits() {
+        const units = [];
+        DISCIPLINES.forEach(d => d.subjects.forEach(s => s.units.forEach(u => units.push(u))));
+        return units;
+    }
+
+    // ==================== Tab 切换 ====================
+    document.addEventListener('click', function(e) {
+        if (e.target.classList.contains('tab')) {
+            const tabGroup = e.target.parentElement;
+            const panelContainer = tabGroup.parentElement.parentElement;
+            tabGroup.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            e.target.classList.add('active');
+            const tabId = e.target.dataset.tab;
+            panelContainer.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+            const targetPanel = document.getElementById(tabId);
+            if (targetPanel) targetPanel.classList.add('active');
+        }
+    });
+
+    // ==================== 按钮事件 ====================
+    $('#btnMyProgress').addEventListener('click', () => switchView('progress'));
+
+    // 全局搜索
+    $('#globalSearch').addEventListener('input', function() {
+        const query = this.value.toLowerCase().trim();
+        if (!query) { renderDisciplines(); return; }
+        // Search units
+        const results = [];
+        DISCIPLINES.forEach(d => {
+            d.subjects.forEach(s => {
+                s.units.forEach(u => {
+                    if (u.name.toLowerCase().includes(query) || u.courseCode.toLowerCase().includes(query)) {
+                        results.push({ disc: d, subject: s, unit: u });
+                    }
+                });
+            });
+        });
+        if (results.length > 0) {
+            const first = results[0];
+            currentDiscipline = first.disc;
+            window._showDiscipline(first.disc.id);
+            setTimeout(() => selectUnit(first.unit.id), 300);
+        } else {
+            showToast('未找到匹配的学习单元');
+        }
+    });
+
+    // ==================== 键盘导航 ====================
+    document.addEventListener('keydown', function(e) {
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+        if (currentView === 'subject' && currentUnit && !currentUnit.isTest) {
+            if (e.key === 'ArrowLeft') $('#btnPrevSlide').click();
+            if (e.key === 'ArrowRight') $('#btnNextSlide').click();
+        }
+    });
+
+    // ==================== 初始化 ====================
+    function init() {
+        renderDisciplines();
+        switchView('disciplines');
+    }
+
+    init();
+})();
+</script>
 </body>
 </html>

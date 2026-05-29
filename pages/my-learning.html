@@ -395,13 +395,7 @@
       border-radius: 100px;
     }
 
-    /* ---- 进度概览区 ---- */
-    .overview-grid {
-      display: grid;
-      grid-template-columns: 1fr 2fr;
-      gap: 24px;
-      margin-bottom: 28px;
-    }
+    /* ---- 卡片 ---- */
     .card {
       background: #ffffff;
       border-radius: 16px;
@@ -413,6 +407,75 @@
       font-weight: 600;
       color: #1a202c;
       margin-bottom: 20px;
+    }
+
+    /* ============================================
+       标签页切换
+       ============================================ */
+    .tab-nav {
+      display: flex;
+      gap: 4px;
+      background: #ffffff;
+      border-radius: 16px 16px 0 0;
+      padding: 8px 32px 0;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+      margin-bottom: 0;
+    }
+    .tab-btn {
+      padding: 14px 28px;
+      font-size: 0.9375rem;
+      font-weight: 500;
+      color: #64748b;
+      border-bottom: 3px solid transparent;
+      margin-bottom: 0;
+      transition: all 0.2s;
+      cursor: pointer;
+      position: relative;
+      background: none;
+      border-top: none;
+      border-left: none;
+      border-right: none;
+      font-family: inherit;
+    }
+    .tab-btn:hover { color: #1a365d; }
+    .tab-btn.active {
+      color: #1a365d;
+      font-weight: 600;
+      border-bottom-color: #c8956c;
+    }
+    .tab-btn .tab-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.6875rem;
+      font-weight: 600;
+      min-width: 20px;
+      height: 20px;
+      padding: 0 6px;
+      border-radius: 100px;
+      margin-left: 8px;
+      background: rgba(200,149,108,0.12);
+      color: #c8956c;
+    }
+    .tab-btn.active .tab-badge {
+      background: rgba(200,149,108,0.2);
+    }
+
+    .tab-panel {
+      display: none;
+    }
+    .tab-panel.active {
+      display: block;
+    }
+
+    /* ============================================
+       Summary 标签页 - 概览区
+       ============================================ */
+    .summary-top-row {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 24px;
+      margin-bottom: 24px;
     }
 
     /* 环形图 */
@@ -449,6 +512,11 @@
       font-size: 0.75rem;
       color: #94a3b8;
       margin-top: 4px;
+    }
+    .ring-chart-sub {
+      font-size: 0.6875rem;
+      color: #94a3b8;
+      margin-top: 2px;
     }
     .ring-legend {
       display: flex;
@@ -517,130 +585,213 @@
       margin-top: 4px;
     }
 
-    /* ---- 学科细分 ---- */
-    .subject-list {
-      display: flex;
-      flex-direction: column;
-      gap: 18px;
+    /* ============================================
+       Summary 统计表格
+       ============================================ */
+    .table-wrapper {
+      overflow-x: auto;
+      margin-top: 24px;
     }
-    .subject-item {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-    .subject-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .subject-name {
-      font-size: 0.9375rem;
-      font-weight: 500;
-      color: #1a202c;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .subject-name i { color: #c8956c; font-size: 1rem; }
-    .subject-percent {
-      font-size: 0.875rem;
-      font-weight: 600;
-      color: #1a365d;
-    }
-    .subject-bar-wrap {
+    .summary-table {
       width: 100%;
+      border-collapse: collapse;
+      font-size: 0.875rem;
+    }
+    .summary-table thead th {
+      background: #f1f5f9;
+      padding: 14px 16px;
+      text-align: left;
+      font-weight: 600;
+      color: #475569;
+      font-size: 0.8125rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border-bottom: 2px solid #e2e8f0;
+      white-space: nowrap;
+    }
+    .summary-table thead th:first-child {
+      border-radius: 8px 0 0 0;
+    }
+    .summary-table thead th:last-child {
+      border-radius: 0 8px 0 0;
+    }
+    .summary-table tbody td {
+      padding: 14px 16px;
+      border-bottom: 1px solid #f1f5f9;
+      color: #1a202c;
+      vertical-align: middle;
+    }
+    .summary-table tbody tr:hover {
+      background: #fafbfc;
+    }
+    .summary-table tbody tr:last-child td {
+      border-bottom: none;
+    }
+    .summary-table .col-code {
+      font-weight: 600;
+      color: #64748b;
+      font-size: 0.8125rem;
+      white-space: nowrap;
+    }
+    .summary-table .col-name a {
+      color: #1a365d;
+      font-weight: 500;
+      transition: color 0.15s;
+    }
+    .summary-table .col-name a:hover {
+      color: #c8956c;
+      text-decoration: underline;
+    }
+    .summary-table .col-units,
+    .summary-table .col-activity,
+    .summary-table .col-completed {
+      text-align: center;
+      font-weight: 500;
+    }
+    .summary-table .col-score {
+      text-align: center;
+      font-weight: 600;
+    }
+    .summary-table .col-progress {
+      min-width: 160px;
+    }
+    .table-progress-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .table-progress-bar {
+      flex: 1;
       height: 8px;
       background: #f1f5f9;
       border-radius: 4px;
       overflow: hidden;
     }
-    .subject-bar {
+    .table-progress-fill {
       height: 100%;
       border-radius: 4px;
       transition: width 1s cubic-bezier(0.16,1,0.3,1);
     }
-    .subject-bar.hse { background: linear-gradient(90deg, #c8956c, #d4a574); }
-    .subject-bar.drill { background: linear-gradient(90deg, #1a365d, #2a4a73); }
-    .subject-bar.mech { background: linear-gradient(90deg, #059669, #10b981); }
-    .subject-bar.elec { background: linear-gradient(90deg, #7c3aed, #a78bfa); }
-    .subject-bar.geo { background: linear-gradient(90deg, #ea580c, #fb923c); }
-    .subject-footer {
-      display: flex;
-      justify-content: space-between;
-      font-size: 0.75rem;
-      color: #94a3b8;
+    .table-progress-pct {
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: #1a365d;
+      min-width: 36px;
+      text-align: right;
     }
 
-    /* ---- 学习时间线 ---- */
-    .timeline {
-      position: relative;
-      padding-left: 24px;
-    }
-    .timeline::before {
-      content: '';
-      position: absolute;
-      left: 6px;
-      top: 6px;
-      bottom: 6px;
-      width: 2px;
-      background: #e2e8f0;
-      border-radius: 1px;
-    }
-    .timeline-item {
-      position: relative;
-      padding-bottom: 24px;
-    }
-    .timeline-item:last-child { padding-bottom: 0; }
-    .timeline-dot {
-      position: absolute;
-      left: -24px;
-      top: 4px;
-      width: 14px; height: 14px;
+    /* 8种学科颜色 */
+    .disc-color-1 { background: linear-gradient(90deg, #c8956c, #d4a574); }
+    .disc-color-2 { background: linear-gradient(90deg, #059669, #10b981); }
+    .disc-color-3 { background: linear-gradient(90deg, #1a365d, #2a4a73); }
+    .disc-color-4 { background: linear-gradient(90deg, #7c3aed, #a78bfa); }
+    .disc-color-5 { background: linear-gradient(90deg, #ea580c, #fb923c); }
+    .disc-color-6 { background: linear-gradient(90deg, #2563eb, #60a5fa); }
+    .disc-color-93 { background: linear-gradient(90deg, #e05d5d, #f87171); }
+    .disc-color-389 { background: linear-gradient(90deg, #0891b2, #22d3ee); }
+
+    .disc-dot {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
       border-radius: 50%;
+      margin-right: 6px;
+      flex-shrink: 0;
+    }
+    .disc-dot-1 { background: #c8956c; }
+    .disc-dot-2 { background: #059669; }
+    .disc-dot-3 { background: #1a365d; }
+    .disc-dot-4 { background: #7c3aed; }
+    .disc-dot-5 { background: #ea580c; }
+    .disc-dot-6 { background: #2563eb; }
+    .disc-dot-93 { background: #e05d5d; }
+    .disc-dot-389 { background: #0891b2; }
+
+    /* ============================================
+       Recent Activity 标签页 - 时间线
+       ============================================ */
+    .activity-card {
       background: #ffffff;
-      border: 3px solid #c8956c;
-      z-index: 1;
+      border-radius: 0 0 16px 16px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+      padding: 28px 32px;
     }
-    .timeline-dot.completed { border-color: #c8956c; }
-    .timeline-dot.ongoing { border-color: #1a365d; background: #1a365d; }
-    .timeline-content {
-      background: #f8fafc;
-      border-radius: 10px;
-      padding: 14px 18px;
+
+    .activity-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.875rem;
     }
-    .timeline-title {
-      font-size: 0.9375rem;
-      font-weight: 500;
+    .activity-table thead th {
+      background: #f1f5f9;
+      padding: 14px 16px;
+      text-align: left;
+      font-weight: 600;
+      color: #475569;
+      font-size: 0.8125rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border-bottom: 2px solid #e2e8f0;
+      white-space: nowrap;
+    }
+    .activity-table thead th:first-child {
+      border-radius: 8px 0 0 0;
+    }
+    .activity-table thead th:last-child {
+      border-radius: 0 8px 0 0;
+    }
+    .activity-table tbody td {
+      padding: 14px 16px;
+      border-bottom: 1px solid #f1f5f9;
       color: #1a202c;
-      margin-bottom: 4px;
+      vertical-align: middle;
     }
-    .timeline-meta {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-size: 0.75rem;
-      color: #94a3b8;
+    .activity-table tbody tr:hover {
+      background: #fafbfc;
     }
-    .timeline-meta span {
-      display: flex;
-      align-items: center;
-      gap: 4px;
+    .activity-table tbody tr:last-child td {
+      border-bottom: none;
     }
-    .timeline-badge {
+    .activity-table .act-code {
+      font-weight: 600;
+      color: #64748b;
+      font-size: 0.8125rem;
+      white-space: nowrap;
+    }
+    .activity-table .act-name a {
+      color: #1a365d;
+      font-weight: 500;
+      transition: color 0.15s;
+    }
+    .activity-table .act-name a:hover {
+      color: #c8956c;
+      text-decoration: underline;
+    }
+    .activity-table .act-date {
+      color: #64748b;
+      font-size: 0.8125rem;
+      white-space: nowrap;
+    }
+    .activity-table .act-score {
+      text-align: center;
+      font-weight: 600;
+    }
+
+    .status-badge {
       display: inline-flex;
       align-items: center;
       gap: 4px;
-      padding: 2px 8px;
-      font-size: 0.6875rem;
+      padding: 3px 10px;
+      font-size: 0.75rem;
       font-weight: 600;
       border-radius: 100px;
-      margin-top: 8px;
+      white-space: nowrap;
     }
-    .timeline-badge.done {
-      background: rgba(200,149,108,0.12);
-      color: #c8956c;
+    .status-badge.completed {
+      background: rgba(76,175,122,0.12);
+      color: #4caf7a;
     }
-    .timeline-badge.ongoing {
+    .status-badge.started {
       background: rgba(26,54,93,0.1);
       color: #1a365d;
     }
@@ -667,19 +818,13 @@
       box-shadow: 0 4px 12px rgba(26,54,93,0.25);
     }
 
-    /* ---- 两栏布局 ---- */
-    .two-col {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 24px;
-    }
-
     /* ============================================
        响应式
        ============================================ */
     @media (max-width: 1200px) {
       .topbar-nav { display: none; }
       .search-box { width: 180px; }
+      .summary-top-row { grid-template-columns: 1fr; }
     }
     @media (max-width: 992px) {
       .menu-toggle { display: flex; }
@@ -691,8 +836,7 @@
       .sidebar.collapsed { transform: translateX(-100%); }
       .main-content { margin-left: 0 !important; }
       .search-box { display: none; }
-      .overview-grid { grid-template-columns: 1fr; }
-      .two-col { grid-template-columns: 1fr; }
+      .summary-top-row { grid-template-columns: 1fr; }
     }
     @media (max-width: 768px) {
       .topbar { padding: 0 16px; }
@@ -705,6 +849,9 @@
       .stats-grid { grid-template-columns: 1fr; }
       .ring-chart-wrap { justify-content: center; }
       .card { padding: 20px; }
+      .tab-nav { padding: 8px 16px 0; }
+      .tab-btn { padding: 12px 16px; font-size: 0.8125rem; }
+      .activity-card { padding: 20px; }
     }
     @media (min-width: 993px) {
       .sidebar-overlay { display: none !important; }
@@ -812,10 +959,10 @@
       <div class="sidebar-progress">
         <div class="sidebar-progress-header">
           <span>总学习进度</span>
-          <span>23%</span>
+          <span>4%</span>
         </div>
         <div class="progress-bar">
-          <div class="progress-bar-fill" style="width:23%"></div>
+          <div class="progress-bar-fill" style="width:4%"></div>
         </div>
       </div>
       <div class="sidebar-progress">
@@ -876,217 +1023,457 @@
         </div>
       </div>
 
-      <!-- 进度概览 -->
-      <div class="overview-grid">
-        <div class="card">
-          <div class="card-title">总体进度</div>
-          <div class="ring-chart-wrap">
-            <div class="ring-chart">
-              <svg width="160" height="160" viewBox="0 0 160 160">
-                <circle cx="80" cy="80" r="70" fill="none" stroke="#e2e8f0" stroke-width="12"/>
-                <circle id="ringProgress" cx="80" cy="80" r="70" fill="none" stroke="#c8956c" stroke-width="12"
-                  stroke-dasharray="440" stroke-dashoffset="338" stroke-linecap="round"/>
-              </svg>
-              <div class="ring-chart-center">
-                <div class="ring-chart-value" id="totalPercent">23%</div>
-                <div class="ring-chart-label">已完成</div>
+      <!-- ======== 标签页导航 ======== -->
+      <div class="tab-nav" id="tabNav">
+        <button class="tab-btn active" data-tab="summary">
+          <i class="ri-bar-chart-box-line" style="margin-right:6px;"></i>
+          知识统计总表
+          <span class="tab-badge" id="badgeDisciplines">8</span>
+        </button>
+        <button class="tab-btn" data-tab="activity">
+          <i class="ri-history-line" style="margin-right:6px;"></i>
+          最近活动
+          <span class="tab-badge" id="badgeActivities">8</span>
+        </button>
+      </div>
+
+      <!-- ================================================================ -->
+      <!-- SUMMARY 标签页 -->
+      <!-- ================================================================ -->
+      <div class="tab-panel active" id="panelSummary">
+        <div class="card" style="border-radius: 0 0 16px 16px; border-top: none;">
+
+          <!-- 概览区：环形图 + 统计卡片 -->
+          <div class="summary-top-row">
+            <div class="card" style="box-shadow: none; padding: 20px 0 0 0;">
+              <div class="card-title">总体进度</div>
+              <div class="ring-chart-wrap">
+                <div class="ring-chart">
+                  <svg width="160" height="160" viewBox="0 0 160 160">
+                    <circle cx="80" cy="80" r="70" fill="none" stroke="#e2e8f0" stroke-width="12"/>
+                    <circle id="ringProgress" cx="80" cy="80" r="70" fill="none" stroke="#c8956c" stroke-width="12"
+                      stroke-dasharray="440" stroke-dashoffset="430" stroke-linecap="round"/>
+                  </svg>
+                  <div class="ring-chart-center">
+                    <div class="ring-chart-value" id="totalPercent">4%</div>
+                    <div class="ring-chart-label">已完成</div>
+                    <div class="ring-chart-sub">共 149 单元</div>
+                  </div>
+                </div>
+                <div class="ring-legend">
+                  <div class="legend-item">
+                    <div class="legend-dot done"></div>
+                    <span>已完成单元</span>
+                    <span class="legend-value">3</span>
+                  </div>
+                  <div class="legend-item">
+                    <div class="legend-dot ongoing"></div>
+                    <span>进行中</span>
+                    <span class="legend-value">14</span>
+                  </div>
+                  <div class="legend-item">
+                    <div class="legend-dot pending"></div>
+                    <span>未开始</span>
+                    <span class="legend-value">132</span>
+                  </div>
+                </div>
               </div>
             </div>
-            <div class="ring-legend">
-              <div class="legend-item">
-                <div class="legend-dot done"></div>
-                <span>已完成单元</span>
-                <span class="legend-value">12</span>
-              </div>
-              <div class="legend-item">
-                <div class="legend-dot ongoing"></div>
-                <span>进行中</span>
-                <span class="legend-value">5</span>
-              </div>
-              <div class="legend-item">
-                <div class="legend-dot pending"></div>
-                <span>未开始</span>
-                <span class="legend-value">28</span>
+            <div class="card" style="box-shadow: none; padding: 20px 0 0 0;">
+              <div class="card-title">学习统计</div>
+              <div class="stats-grid">
+                <div class="stat-card">
+                  <div class="stat-icon done"><i class="ri-checkbox-circle-line"></i></div>
+                  <div class="stat-value">3</div>
+                  <div class="stat-label">已完成单元</div>
+                </div>
+                <div class="stat-card">
+                  <div class="stat-icon ongoing"><i class="ri-time-line"></i></div>
+                  <div class="stat-value">14</div>
+                  <div class="stat-label">进行中</div>
+                </div>
+                <div class="stat-card">
+                  <div class="stat-icon pending"><i class="ri-play-circle-line"></i></div>
+                  <div class="stat-value">132</div>
+                  <div class="stat-label">未开始</div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="card">
-          <div class="card-title">学习统计</div>
-          <div class="stats-grid">
-            <div class="stat-card">
-              <div class="stat-icon done"><i class="ri-checkbox-circle-line"></i></div>
-              <div class="stat-value">12</div>
-              <div class="stat-label">已完成单元</div>
+
+          <!-- 8学科统计表格 -->
+          <div style="margin-top: 12px;">
+            <div class="card-title" style="margin-bottom: 16px;">学科明细</div>
+            <div class="table-wrapper">
+              <table class="summary-table">
+                <thead>
+                  <tr>
+                    <th>编码</th>
+                    <th>学科名称</th>
+                    <th style="text-align:center;">总单元数</th>
+                    <th style="text-align:center;">进行中活动</th>
+                    <th style="text-align:center;">已完成</th>
+                    <th style="text-align:center;">平均测试分</th>
+                    <th>知识进度</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="col-code">1</td>
+                    <td class="col-name"><a href="knowledge.html">Wells Engineering（井工程）</a></td>
+                    <td class="col-units">21</td>
+                    <td class="col-activity">5</td>
+                    <td class="col-completed">1</td>
+                    <td class="col-score" style="color:#94a3b8;">-</td>
+                    <td class="col-progress">
+                      <div class="table-progress-wrap">
+                        <div class="table-progress-bar">
+                          <div class="table-progress-fill disc-color-1" style="width:0%" data-width="5%"></div>
+                        </div>
+                        <span class="table-progress-pct">5%</span>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-code">2</td>
+                    <td class="col-name"><a href="knowledge.html">Health Safety Environment（HSE安全）</a></td>
+                    <td class="col-units">15</td>
+                    <td class="col-activity">3</td>
+                    <td class="col-completed">1</td>
+                    <td class="col-score" style="color:#94a3b8;">-</td>
+                    <td class="col-progress">
+                      <div class="table-progress-wrap">
+                        <div class="table-progress-bar">
+                          <div class="table-progress-fill disc-color-2" style="width:0%" data-width="7%"></div>
+                        </div>
+                        <span class="table-progress-pct">7%</span>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-code">3</td>
+                    <td class="col-name"><a href="knowledge.html">Mechanical Engineering（机械工程）</a></td>
+                    <td class="col-units">18</td>
+                    <td class="col-activity">2</td>
+                    <td class="col-completed">0</td>
+                    <td class="col-score" style="color:#94a3b8;">-</td>
+                    <td class="col-progress">
+                      <div class="table-progress-wrap">
+                        <div class="table-progress-bar">
+                          <div class="table-progress-fill disc-color-3" style="width:0%" data-width="0%"></div>
+                        </div>
+                        <span class="table-progress-pct">0%</span>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-code">4</td>
+                    <td class="col-name"><a href="knowledge.html">Instrumentation and Controls（仪控工程）</a></td>
+                    <td class="col-units">14</td>
+                    <td class="col-activity">1</td>
+                    <td class="col-completed">0</td>
+                    <td class="col-score" style="color:#94a3b8;">-</td>
+                    <td class="col-progress">
+                      <div class="table-progress-wrap">
+                        <div class="table-progress-bar">
+                          <div class="table-progress-fill disc-color-4" style="width:0%" data-width="0%"></div>
+                        </div>
+                        <span class="table-progress-pct">0%</span>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-code">5</td>
+                    <td class="col-name"><a href="knowledge.html">Process Facilities（工艺设施）</a></td>
+                    <td class="col-units">20</td>
+                    <td class="col-activity">0</td>
+                    <td class="col-completed">0</td>
+                    <td class="col-score" style="color:#94a3b8;">-</td>
+                    <td class="col-progress">
+                      <div class="table-progress-wrap">
+                        <div class="table-progress-bar">
+                          <div class="table-progress-fill disc-color-5" style="width:0%" data-width="0%"></div>
+                        </div>
+                        <span class="table-progress-pct">0%</span>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-code">6</td>
+                    <td class="col-name"><a href="knowledge.html">Introduction to Oil &amp; Gas（油气概论）</a></td>
+                    <td class="col-units">8</td>
+                    <td class="col-activity">3</td>
+                    <td class="col-completed">1</td>
+                    <td class="col-score">3</td>
+                    <td class="col-progress">
+                      <div class="table-progress-wrap">
+                        <div class="table-progress-bar">
+                          <div class="table-progress-fill disc-color-6" style="width:0%" data-width="13%"></div>
+                        </div>
+                        <span class="table-progress-pct">13%</span>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-code">93</td>
+                    <td class="col-name"><a href="knowledge.html">Electrical（电气工程）</a></td>
+                    <td class="col-units">12</td>
+                    <td class="col-activity">0</td>
+                    <td class="col-completed">0</td>
+                    <td class="col-score" style="color:#94a3b8;">-</td>
+                    <td class="col-progress">
+                      <div class="table-progress-wrap">
+                        <div class="table-progress-bar">
+                          <div class="table-progress-fill disc-color-93" style="width:0%" data-width="0%"></div>
+                        </div>
+                        <span class="table-progress-pct">0%</span>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-code">389</td>
+                    <td class="col-name"><a href="knowledge.html">BTEC Competences（BTEC能力）</a></td>
+                    <td class="col-units">41</td>
+                    <td class="col-activity">0</td>
+                    <td class="col-completed">0</td>
+                    <td class="col-score" style="color:#94a3b8;">-</td>
+                    <td class="col-progress">
+                      <div class="table-progress-wrap">
+                        <div class="table-progress-bar">
+                          <div class="table-progress-fill disc-color-389" style="width:0%" data-width="0%"></div>
+                        </div>
+                        <span class="table-progress-pct">0%</span>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+                <tfoot>
+                  <tr style="background: #f8fafc; font-weight: 600;">
+                    <td colspan="2" style="color:#1a365d; padding: 14px 16px;">合计</td>
+                    <td style="text-align:center;">149</td>
+                    <td style="text-align:center;">14</td>
+                    <td style="text-align:center;">3</td>
+                    <td style="text-align:center; font-weight: 700; color: #1a365d;">-</td>
+                    <td>
+                      <div class="table-progress-wrap">
+                        <div class="table-progress-bar">
+                          <div class="table-progress-fill disc-color-1" style="width:0%" data-width="4%"></div>
+                        </div>
+                        <span class="table-progress-pct">4%</span>
+                      </div>
+                    </td>
+                  </tr>
+                </tfoot>
+              </table>
             </div>
-            <div class="stat-card">
-              <div class="stat-icon ongoing"><i class="ri-time-line"></i></div>
-              <div class="stat-value">5</div>
-              <div class="stat-label">进行中</div>
-            </div>
-            <div class="stat-card">
-              <div class="stat-icon pending"><i class="ri-play-circle-line"></i></div>
-              <div class="stat-value">28</div>
-              <div class="stat-label">未开始</div>
+          </div>
+
+          <!-- 学科进度条（视觉化） -->
+          <div style="margin-top: 28px;">
+            <div class="card-title" style="margin-bottom: 16px;">学科进度概览</div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 18px;">
+              <div class="disc-progress-item">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+                  <span style="display:flex;align-items:center;gap:8px;font-size:0.875rem;font-weight:500;color:#1a202c;">
+                    <span class="disc-dot disc-dot-1"></span> Wells Engineering
+                  </span>
+                  <span style="font-size:0.8125rem;font-weight:600;color:#c8956c;">5%</span>
+                </div>
+                <div class="table-progress-bar" style="height:8px;">
+                  <div class="table-progress-fill disc-color-1" style="width:0%" data-width="5%"></div>
+                </div>
+                <div style="display:flex;justify-content:space-between;font-size:0.6875rem;color:#94a3b8;margin-top:4px;">
+                  <span>已完成 1 / 21</span><span>5 项进行中</span>
+                </div>
+              </div>
+              <div class="disc-progress-item">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+                  <span style="display:flex;align-items:center;gap:8px;font-size:0.875rem;font-weight:500;color:#1a202c;">
+                    <span class="disc-dot disc-dot-2"></span> HSE Safety
+                  </span>
+                  <span style="font-size:0.8125rem;font-weight:600;color:#059669;">7%</span>
+                </div>
+                <div class="table-progress-bar" style="height:8px;">
+                  <div class="table-progress-fill disc-color-2" style="width:0%" data-width="7%"></div>
+                </div>
+                <div style="display:flex;justify-content:space-between;font-size:0.6875rem;color:#94a3b8;margin-top:4px;">
+                  <span>已完成 1 / 15</span><span>3 项进行中</span>
+                </div>
+              </div>
+              <div class="disc-progress-item">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+                  <span style="display:flex;align-items:center;gap:8px;font-size:0.875rem;font-weight:500;color:#1a202c;">
+                    <span class="disc-dot disc-dot-3"></span> Mechanical Engineering
+                  </span>
+                  <span style="font-size:0.8125rem;font-weight:600;color:#1a365d;">0%</span>
+                </div>
+                <div class="table-progress-bar" style="height:8px;">
+                  <div class="table-progress-fill disc-color-3" style="width:0%" data-width="0%"></div>
+                </div>
+                <div style="display:flex;justify-content:space-between;font-size:0.6875rem;color:#94a3b8;margin-top:4px;">
+                  <span>已完成 0 / 18</span><span>2 项进行中</span>
+                </div>
+              </div>
+              <div class="disc-progress-item">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+                  <span style="display:flex;align-items:center;gap:8px;font-size:0.875rem;font-weight:500;color:#1a202c;">
+                    <span class="disc-dot disc-dot-4"></span> I&amp;C Engineering
+                  </span>
+                  <span style="font-size:0.8125rem;font-weight:600;color:#7c3aed;">0%</span>
+                </div>
+                <div class="table-progress-bar" style="height:8px;">
+                  <div class="table-progress-fill disc-color-4" style="width:0%" data-width="0%"></div>
+                </div>
+                <div style="display:flex;justify-content:space-between;font-size:0.6875rem;color:#94a3b8;margin-top:4px;">
+                  <span>已完成 0 / 14</span><span>1 项进行中</span>
+                </div>
+              </div>
+              <div class="disc-progress-item">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+                  <span style="display:flex;align-items:center;gap:8px;font-size:0.875rem;font-weight:500;color:#1a202c;">
+                    <span class="disc-dot disc-dot-5"></span> Process Facilities
+                  </span>
+                  <span style="font-size:0.8125rem;font-weight:600;color:#ea580c;">0%</span>
+                </div>
+                <div class="table-progress-bar" style="height:8px;">
+                  <div class="table-progress-fill disc-color-5" style="width:0%" data-width="0%"></div>
+                </div>
+                <div style="display:flex;justify-content:space-between;font-size:0.6875rem;color:#94a3b8;margin-top:4px;">
+                  <span>已完成 0 / 20</span><span>暂无活动</span>
+                </div>
+              </div>
+              <div class="disc-progress-item">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+                  <span style="display:flex;align-items:center;gap:8px;font-size:0.875rem;font-weight:500;color:#1a202c;">
+                    <span class="disc-dot disc-dot-6"></span> Intro to Oil &amp; Gas
+                  </span>
+                  <span style="font-size:0.8125rem;font-weight:600;color:#2563eb;">13%</span>
+                </div>
+                <div class="table-progress-bar" style="height:8px;">
+                  <div class="table-progress-fill disc-color-6" style="width:0%" data-width="13%"></div>
+                </div>
+                <div style="display:flex;justify-content:space-between;font-size:0.6875rem;color:#94a3b8;margin-top:4px;">
+                  <span>已完成 1 / 8</span><span>3 项进行中</span>
+                </div>
+              </div>
+              <div class="disc-progress-item">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+                  <span style="display:flex;align-items:center;gap:8px;font-size:0.875rem;font-weight:500;color:#1a202c;">
+                    <span class="disc-dot disc-dot-93"></span> Electrical
+                  </span>
+                  <span style="font-size:0.8125rem;font-weight:600;color:#e05d5d;">0%</span>
+                </div>
+                <div class="table-progress-bar" style="height:8px;">
+                  <div class="table-progress-fill disc-color-93" style="width:0%" data-width="0%"></div>
+                </div>
+                <div style="display:flex;justify-content:space-between;font-size:0.6875rem;color:#94a3b8;margin-top:4px;">
+                  <span>已完成 0 / 12</span><span>暂无活动</span>
+                </div>
+              </div>
+              <div class="disc-progress-item">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+                  <span style="display:flex;align-items:center;gap:8px;font-size:0.875rem;font-weight:500;color:#1a202c;">
+                    <span class="disc-dot disc-dot-389"></span> BTEC Competences
+                  </span>
+                  <span style="font-size:0.8125rem;font-weight:600;color:#0891b2;">0%</span>
+                </div>
+                <div class="table-progress-bar" style="height:8px;">
+                  <div class="table-progress-fill disc-color-389" style="width:0%" data-width="0%"></div>
+                </div>
+                <div style="display:flex;justify-content:space-between;font-size:0.6875rem;color:#94a3b8;margin-top:4px;">
+                  <span>已完成 0 / 41</span><span>暂无活动</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- 学科细分 + 时间线 -->
-      <div class="two-col">
-        <div class="card">
-          <div class="card-title">学科细分</div>
-          <div class="subject-list">
-            <div class="subject-item">
-              <div class="subject-header">
-                <div class="subject-name"><i class="ri-shield-check-line"></i> HSE安全</div>
-                <div class="subject-percent">45%</div>
-              </div>
-              <div class="subject-bar-wrap">
-                <div class="subject-bar hse" style="width:0%" data-width="45%"></div>
-              </div>
-              <div class="subject-footer">
-                <span>已完成 9 / 20 单元</span>
-                <span>最近学习: 2天前</span>
-              </div>
-            </div>
-            <div class="subject-item">
-              <div class="subject-header">
-                <div class="subject-name"><i class="ri-oil-line"></i> 井工程</div>
-                <div class="subject-percent">12%</div>
-              </div>
-              <div class="subject-bar-wrap">
-                <div class="subject-bar drill" style="width:0%" data-width="12%"></div>
-              </div>
-              <div class="subject-footer">
-                <span>已完成 2 / 17 单元</span>
-                <span>最近学习: 1周前</span>
-              </div>
-            </div>
-            <div class="subject-item">
-              <div class="subject-header">
-                <div class="subject-name"><i class="ri-settings-3-line"></i> 机械工程</div>
-                <div class="subject-percent">78%</div>
-              </div>
-              <div class="subject-bar-wrap">
-                <div class="subject-bar mech" style="width:0%" data-width="78%"></div>
-              </div>
-              <div class="subject-footer">
-                <span>已完成 14 / 18 单元</span>
-                <span>最近学习: 昨天</span>
-              </div>
-            </div>
-            <div class="subject-item">
-              <div class="subject-header">
-                <div class="subject-name"><i class="ri-flashlight-line"></i> 电气工程</div>
-                <div class="subject-percent">30%</div>
-              </div>
-              <div class="subject-bar-wrap">
-                <div class="subject-bar elec" style="width:0%" data-width="30%"></div>
-              </div>
-              <div class="subject-footer">
-                <span>已完成 3 / 10 单元</span>
-                <span>最近学习: 3天前</span>
-              </div>
-            </div>
-            <div class="subject-item">
-              <div class="subject-header">
-                <div class="subject-name"><i class="ri-earth-line"></i> 地质勘探</div>
-                <div class="subject-percent">8%</div>
-              </div>
-              <div class="subject-bar-wrap">
-                <div class="subject-bar geo" style="width:0%" data-width="8%"></div>
-              </div>
-              <div class="subject-footer">
-                <span>已完成 1 / 13 单元</span>
-                <span>最近学习: 2周前</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="card">
-          <div class="card-title">学习记录</div>
-          <div class="timeline">
-            <div class="timeline-item">
-              <div class="timeline-dot completed"></div>
-              <div class="timeline-content">
-                <div class="timeline-title">机械工程 - 泵阀维护与检修</div>
-                <div class="timeline-meta">
-                  <span><i class="ri-calendar-line"></i> 2026-04-22</span>
-                  <span><i class="ri-time-line"></i> 2.5 小时</span>
-                </div>
-                <div class="timeline-badge done">
-                  <i class="ri-checkbox-circle-line"></i> 已完成
-                </div>
-              </div>
-            </div>
-            <div class="timeline-item">
-              <div class="timeline-dot completed"></div>
-              <div class="timeline-content">
-                <div class="timeline-title">HSE安全 - 井场消防安全管理</div>
-                <div class="timeline-meta">
-                  <span><i class="ri-calendar-line"></i> 2026-04-20</span>
-                  <span><i class="ri-time-line"></i> 1.8 小时</span>
-                </div>
-                <div class="timeline-badge done">
-                  <i class="ri-checkbox-circle-line"></i> 已完成
-                </div>
-              </div>
-            </div>
-            <div class="timeline-item">
-              <div class="timeline-dot ongoing"></div>
-              <div class="timeline-content">
-                <div class="timeline-title">电气工程 - 防爆电气设备标准</div>
-                <div class="timeline-meta">
-                  <span><i class="ri-calendar-line"></i> 2026-04-18</span>
-                  <span><i class="ri-time-line"></i> 1.2 小时</span>
-                </div>
-                <div class="timeline-badge ongoing">
-                  <i class="ri-loader-4-line"></i> 进行中
-                </div>
-              </div>
-            </div>
-            <div class="timeline-item">
-              <div class="timeline-dot completed"></div>
-              <div class="timeline-content">
-                <div class="timeline-title">机械工程 - 压缩机故障诊断</div>
-                <div class="timeline-meta">
-                  <span><i class="ri-calendar-line"></i> 2026-04-15</span>
-                  <span><i class="ri-time-line"></i> 3.0 小时</span>
-                </div>
-                <div class="timeline-badge done">
-                  <i class="ri-checkbox-circle-line"></i> 已完成
-                </div>
-              </div>
-            </div>
-            <div class="timeline-item">
-              <div class="timeline-dot completed"></div>
-              <div class="timeline-content">
-                <div class="timeline-title">HSE安全 - 硫化氢防护与应急</div>
-                <div class="timeline-meta">
-                  <span><i class="ri-calendar-line"></i> 2026-04-10</span>
-                  <span><i class="ri-time-line"></i> 2.0 小时</span>
-                </div>
-                <div class="timeline-badge done">
-                  <i class="ri-checkbox-circle-line"></i> 已完成
-                </div>
-              </div>
-            </div>
-            <div class="timeline-item">
-              <div class="timeline-dot completed"></div>
-              <div class="timeline-content">
-                <div class="timeline-title">井工程 - 定向钻井技术基础</div>
-                <div class="timeline-meta">
-                  <span><i class="ri-calendar-line"></i> 2026-04-05</span>
-                  <span><i class="ri-time-line"></i> 2.5 小时</span>
-                </div>
-                <div class="timeline-badge done">
-                  <i class="ri-checkbox-circle-line"></i> 已完成
-                </div>
-              </div>
-            </div>
+      <!-- ================================================================ -->
+      <!-- RECENT ACTIVITY 标签页 -->
+      <!-- ================================================================ -->
+      <div class="tab-panel" id="panelActivity">
+        <div class="activity-card">
+          <div class="card-title" style="margin-bottom: 16px;">最近学习活动</div>
+          <div class="table-wrapper">
+            <table class="activity-table">
+              <thead>
+                <tr>
+                  <th>编码</th>
+                  <th>活动名称</th>
+                  <th>开始日期</th>
+                  <th>结束日期</th>
+                  <th style="text-align:center;">得分</th>
+                  <th style="text-align:center;">状态</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="act-code">3</td>
+                  <td class="act-name"><a href="course-learn.html">Mechanical Engineering（机械工程）</a></td>
+                  <td class="act-date">2026-04-18</td>
+                  <td class="act-date">2026-04-20</td>
+                  <td class="act-score" style="color:#94a3b8;">-</td>
+                  <td style="text-align:center;"><span class="status-badge started"><i class="ri-time-line"></i> Started</span></td>
+                </tr>
+                <tr>
+                  <td class="act-code">1</td>
+                  <td class="act-name"><a href="course-learn.html">Wells Engineering - 井控设备操作</a></td>
+                  <td class="act-date">2026-04-10</td>
+                  <td class="act-date">2026-04-15</td>
+                  <td class="act-score" style="color:#94a3b8;">-</td>
+                  <td style="text-align:center;"><span class="status-badge started"><i class="ri-time-line"></i> Started</span></td>
+                </tr>
+                <tr>
+                  <td class="act-code">2</td>
+                  <td class="act-name"><a href="course-learn.html">HSE Safety - 井场消防安全管理</a></td>
+                  <td class="act-date">2026-04-05</td>
+                  <td class="act-date">2026-04-08</td>
+                  <td class="act-score" style="color:#94a3b8;">-</td>
+                  <td style="text-align:center;"><span class="status-badge completed"><i class="ri-checkbox-circle-line"></i> Completed</span></td>
+                </tr>
+                <tr>
+                  <td class="act-code">6</td>
+                  <td class="act-name"><a href="course-learn.html">Introduction to Oil &amp; Gas - 钻井基础</a></td>
+                  <td class="act-date">2026-03-28</td>
+                  <td class="act-date">2026-04-02</td>
+                  <td class="act-score">3</td>
+                  <td style="text-align:center;"><span class="status-badge completed"><i class="ri-checkbox-circle-line"></i> Completed</span></td>
+                </tr>
+                <tr>
+                  <td class="act-code">1</td>
+                  <td class="act-name"><a href="course-learn.html">Wells Engineering - 定向钻井技术</a></td>
+                  <td class="act-date">2026-03-15</td>
+                  <td class="act-date">2026-03-22</td>
+                  <td class="act-score" style="color:#94a3b8;">-</td>
+                  <td style="text-align:center;"><span class="status-badge started"><i class="ri-time-line"></i> Started</span></td>
+                </tr>
+                <tr>
+                  <td class="act-code">2</td>
+                  <td class="act-name"><a href="course-learn.html">HSE Safety - 硫化氢防护与应急</a></td>
+                  <td class="act-date">2026-03-05</td>
+                  <td class="act-date">2026-03-10</td>
+                  <td class="act-score" style="color:#94a3b8;">-</td>
+                  <td style="text-align:center;"><span class="status-badge started"><i class="ri-time-line"></i> Started</span></td>
+                </tr>
+                <tr>
+                  <td class="act-code">4</td>
+                  <td class="act-name"><a href="course-learn.html">I&amp;C Engineering - PLC基础编程</a></td>
+                  <td class="act-date">2026-02-20</td>
+                  <td class="act-date">2026-02-25</td>
+                  <td class="act-score" style="color:#94a3b8;">-</td>
+                  <td style="text-align:center;"><span class="status-badge started"><i class="ri-time-line"></i> Started</span></td>
+                </tr>
+                <tr>
+                  <td class="act-code">3</td>
+                  <td class="act-name"><a href="course-learn.html">Mechanical Engineering - 泵阀维护与检修</a></td>
+                  <td class="act-date">2026-02-10</td>
+                  <td class="act-date">2026-02-18</td>
+                  <td class="act-score" style="color:#94a3b8;">-</td>
+                  <td style="text-align:center;"><span class="status-badge started"><i class="ri-time-line"></i> Started</span></td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
@@ -1145,22 +1532,57 @@
         });
       }
 
-      // ---- 进度条动画 ----
-      function animateBars() {
-        document.querySelectorAll('.subject-bar').forEach(bar => {
-          const target = bar.dataset.width;
-          setTimeout(() => { bar.style.width = target; }, 200);
+      // ---- 标签页切换 ----
+      const tabBtns = document.querySelectorAll('.tab-btn');
+      const tabPanels = document.querySelectorAll('.tab-panel');
+
+      tabBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const targetTab = btn.dataset.tab;
+
+          // 移除所有 active
+          tabBtns.forEach(b => b.classList.remove('active'));
+          tabPanels.forEach(p => p.classList.remove('active'));
+
+          // 激活当前
+          btn.classList.add('active');
+          const targetPanel = document.getElementById('panel' + targetTab.charAt(0).toUpperCase() + targetTab.slice(1));
+          if (targetPanel) {
+            targetPanel.classList.add('active');
+          }
+
+          // 如果切换到 summary，重新触发进度条动画
+          if (targetTab === 'summary') {
+            setTimeout(animateSummaryBars, 100);
+          }
         });
-      }
+      });
 
       // ---- 环形图动画 ----
       function animateRing() {
         const ring = document.getElementById('ringProgress');
-        const circumference = 2 * Math.PI * 70; // ~440
-        const percent = 23;
+        if (!ring) return;
+        const circumference = 2 * Math.PI * 70;
+        const percent = 4;
         const offset = circumference - (percent / 100) * circumference;
         ring.style.transition = 'stroke-dashoffset 1.2s cubic-bezier(0.16,1,0.3,1)';
         ring.style.strokeDashoffset = offset;
+      }
+
+      // ---- Summary 进度条动画 ----
+      function animateSummaryBars() {
+        // 表格中的进度条
+        document.querySelectorAll('.summary-table .table-progress-fill').forEach(bar => {
+          const target = bar.dataset.width;
+          bar.style.transition = 'width 1s cubic-bezier(0.16,1,0.3,1)';
+          setTimeout(() => { bar.style.width = target; }, 50);
+        });
+        // 学科概览中的进度条
+        document.querySelectorAll('.disc-progress-item .table-progress-fill').forEach(bar => {
+          const target = bar.dataset.width;
+          bar.style.transition = 'width 1s cubic-bezier(0.16,1,0.3,1)';
+          setTimeout(() => { bar.style.width = target; }, 50);
+        });
       }
 
       // ---- 导出报告 ----
@@ -1170,8 +1592,8 @@
 
       // 初始化动画
       window.addEventListener('load', () => {
-        animateBars();
         animateRing();
+        animateSummaryBars();
       });
 
     })();

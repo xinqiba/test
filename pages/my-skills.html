@@ -334,6 +334,316 @@
     .breadcrumb a:hover { color: #1a365d; }
     .breadcrumb i { font-size: 0.75rem; color: #94a3b8; }
 
+    /* ---- 角色横幅 ---- */
+    .role-banner {
+      background: linear-gradient(135deg, #1a365d 0%, #2a4a73 50%, #1e3a5f 100%);
+      border-radius: 16px;
+      padding: 20px 28px;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      box-shadow: 0 2px 8px rgba(26,54,93,0.15);
+      position: relative;
+      overflow: hidden;
+    }
+    .role-banner::before {
+      content: '';
+      position: absolute;
+      top: -50%; right: -30px;
+      width: 200px; height: 200px;
+      border-radius: 50%;
+      background: rgba(200,149,108,0.08);
+      pointer-events: none;
+    }
+    .role-banner-avatar {
+      width: 56px; height: 56px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #c8956c 0%, #d4a574 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #1a365d;
+      flex-shrink: 0;
+      z-index: 1;
+    }
+    .role-banner-info { z-index: 1; flex: 1; }
+    .role-banner-greeting {
+      font-size: 0.8125rem;
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 4px;
+    }
+    .role-banner-name {
+      font-size: 1.125rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 4px;
+    }
+    .role-banner-role {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 3px 12px;
+      background: rgba(200,149,108,0.2);
+      border: 1px solid rgba(200,149,108,0.3);
+      color: #d4a574;
+      font-size: 0.75rem;
+      font-weight: 600;
+      border-radius: 100px;
+    }
+    .role-banner-meta {
+      display: flex;
+      gap: 24px;
+      align-items: center;
+      z-index: 1;
+    }
+    .role-meta-item {
+      text-align: center;
+    }
+    .role-meta-value {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #ffffff;
+      line-height: 1.2;
+    }
+    .role-meta-label {
+      font-size: 0.6875rem;
+      color: rgba(255,255,255,0.5);
+    }
+
+    /* ---- 统计行 ---- */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+    .stat-card {
+      background: #ffffff;
+      border-radius: 14px;
+      padding: 20px 24px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      transition: all 0.3s;
+    }
+    .stat-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+    .stat-icon {
+      width: 44px; height: 44px;
+      border-radius: 11px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      flex-shrink: 0;
+    }
+    .stat-icon.total { background: rgba(26,54,93,0.1); color: #1a365d; }
+    .stat-icon.completed { background: rgba(76,175,122,0.12); color: #4caf7a; }
+    .stat-icon.inprogress { background: rgba(230,162,60,0.12); color: #e6a23c; }
+    .stat-icon.overall { background: rgba(200,149,108,0.12); color: #c8956c; }
+    .stat-info { flex: 1; }
+    .stat-value {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #1a202c;
+      line-height: 1.2;
+    }
+    .stat-label {
+      font-size: 0.8125rem;
+      color: #94a3b8;
+      margin-top: 2px;
+    }
+
+    /* ---- 区块标题 ---- */
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    .section-title {
+      font-size: 1.125rem;
+      font-weight: 700;
+      color: #1a202c;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .section-title i { color: #c8956c; font-size: 1.25rem; }
+    .section-subtitle {
+      font-size: 0.8125rem;
+      color: #94a3b8;
+      font-weight: 400;
+    }
+
+    /* ---- 能力组合卡片网格 ---- */
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 36px;
+    }
+    .portfolio-card {
+      background: #ffffff;
+      border-radius: 14px;
+      padding: 20px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+      cursor: pointer;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid transparent;
+      border-top: 3px solid transparent;
+    }
+    .portfolio-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+    }
+    .portfolio-card.expanded {
+      border-color: #e2e8f0;
+      box-shadow: 0 8px 28px rgba(0,0,0,0.12);
+    }
+    .portfolio-card-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+    .portfolio-card-icon {
+      width: 44px; height: 44px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      flex-shrink: 0;
+      color: #ffffff;
+    }
+    .portfolio-card-info { flex: 1; min-width: 0; }
+    .portfolio-card-name {
+      font-size: 0.9375rem;
+      font-weight: 700;
+      color: #1a202c;
+      line-height: 1.3;
+      margin-bottom: 2px;
+    }
+    .portfolio-card-version {
+      font-size: 0.75rem;
+      color: #94a3b8;
+      margin-bottom: 6px;
+    }
+    .portfolio-card-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .portfolio-card-meta .badge-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      font-size: 0.6875rem;
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-weight: 500;
+    }
+    .badge-units {
+      background: rgba(26,54,93,0.06);
+      color: #1a365d;
+    }
+    .badge-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.6875rem;
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-weight: 600;
+    }
+    .badge-status.competent { background: rgba(76,175,122,0.12); color: #4caf7a; }
+    .badge-status.in-progress { background: rgba(230,162,60,0.12); color: #e6a23c; }
+    .badge-status.not-started { background: rgba(148,163,184,0.15); color: #64748b; }
+    .portfolio-progress-wrap { margin-bottom: 8px; }
+    .portfolio-progress-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.6875rem;
+      color: #94a3b8;
+      margin-bottom: 5px;
+    }
+    .portfolio-progress-bar {
+      width: 100%;
+      height: 5px;
+      background: #f1f5f9;
+      border-radius: 3px;
+      overflow: hidden;
+    }
+    .portfolio-progress-fill {
+      height: 100%;
+      border-radius: 3px;
+      transition: width 0.8s cubic-bezier(0.16,1,0.3,1);
+    }
+    .portfolio-expand-icon {
+      position: absolute;
+      bottom: 12px; right: 16px;
+      font-size: 0.75rem;
+      color: #94a3b8;
+      transition: transform 0.3s;
+    }
+    .portfolio-card.expanded .portfolio-expand-icon {
+      transform: rotate(180deg);
+    }
+
+    /* ---- 能力单元表格（展开区） ---- */
+    .portfolio-units {
+      display: none;
+      margin-top: 16px;
+      border-top: 1px solid #f1f5f9;
+      padding-top: 16px;
+    }
+    .portfolio-card.expanded .portfolio-units {
+      display: block;
+    }
+    .units-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.8125rem;
+    }
+    .units-table th {
+      text-align: left;
+      padding: 10px 12px;
+      font-size: 0.6875rem;
+      font-weight: 700;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border-bottom: 2px solid #f1f5f9;
+      background: #fafbfc;
+    }
+    .units-table td {
+      padding: 10px 12px;
+      border-bottom: 1px solid #f8fafc;
+      color: #334155;
+    }
+    .units-table tr:hover td { background: #fafbfc; }
+    .unit-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 2px 8px;
+      border-radius: 100px;
+      font-size: 0.6875rem;
+      font-weight: 600;
+    }
+    .unit-status.competent { background: rgba(76,175,122,0.1); color: #4caf7a; }
+    .unit-status.in-progress { background: rgba(230,162,60,0.1); color: #e6a23c; }
+    .unit-status.not-started { background: rgba(148,163,184,0.1); color: #64748b; }
+
     /* ---- 概览卡片 ---- */
     .overview-cards {
       display: grid;
@@ -461,13 +771,13 @@
       background: rgba(26,54,93,0.08);
       color: #1a365d;
     }
-    .badge-status {
+    .badge-status.sk {
       background: rgba(200,149,108,0.12);
       color: #c8956c;
     }
-    .badge-status.pending { background: rgba(26,54,93,0.1); color: #1a365d; }
-    .badge-status.rejected { background: rgba(224,93,93,0.1); color: #e05d5d; }
-    .badge-status.notstarted { background: rgba(148,163,184,0.12); color: #94a3b8; }
+    .badge-status.sk-pending { background: rgba(26,54,93,0.1); color: #1a365d; }
+    .badge-status.sk-rejected { background: rgba(224,93,93,0.1); color: #e05d5d; }
+    .badge-status.sk-notstarted { background: rgba(148,163,184,0.12); color: #94a3b8; }
     .skill-meta {
       display: flex;
       flex-direction: column;
@@ -506,9 +816,9 @@
       border-radius: 3px;
       transition: width 0.8s cubic-bezier(0.16,1,0.3,1);
     }
-    .skill-progress-fill.pending { background: linear-gradient(90deg, #1a365d, #2a4a73); }
-    .skill-progress-fill.rejected { background: linear-gradient(90deg, #e05d5d, #f87171); }
-    .skill-progress-fill.notstarted { background: #e2e8f0; }
+    .skill-progress-fill.sk-pending { background: linear-gradient(90deg, #1a365d, #2a4a73); }
+    .skill-progress-fill.sk-rejected { background: linear-gradient(90deg, #e05d5d, #f87171); }
+    .skill-progress-fill.sk-notstarted { background: #e2e8f0; }
     .skill-action {
       display: inline-flex;
       align-items: center;
@@ -562,13 +872,24 @@
       color: #64748b;
     }
 
+    /* ---- 分隔线 ---- */
+    .section-divider {
+      border: none;
+      border-top: 1px solid #e2e8f0;
+      margin: 36px 0;
+    }
+
     /* ============================================
        响应式
        ============================================ */
+    @media (max-width: 1400px) {
+      .portfolio-grid { grid-template-columns: repeat(3, 1fr); }
+    }
     @media (max-width: 1200px) {
       .topbar-nav { display: none; }
       .search-box { width: 180px; }
       .skill-grid { grid-template-columns: repeat(2, 1fr); }
+      .portfolio-grid { grid-template-columns: repeat(2, 1fr); }
     }
     @media (max-width: 992px) {
       .menu-toggle { display: flex; }
@@ -580,7 +901,9 @@
       .sidebar.collapsed { transform: translateX(-100%); }
       .main-content { margin-left: 0 !important; }
       .search-box { display: none; }
+      .stats-row { grid-template-columns: repeat(2, 1fr); }
       .overview-cards { grid-template-columns: repeat(2, 1fr); }
+      .role-banner-meta { display: none; }
     }
     @media (max-width: 768px) {
       .topbar { padding: 0 16px; }
@@ -588,10 +911,13 @@
       .user-name { display: none; }
       .content-wrapper { padding: 20px; }
       .page-header { flex-direction: column; align-items: flex-start; }
+      .stats-row { grid-template-columns: 1fr; }
+      .portfolio-grid { grid-template-columns: 1fr; }
       .overview-cards { grid-template-columns: 1fr; }
       .skill-grid { grid-template-columns: 1fr; }
       .filter-tabs { gap: 6px; }
       .filter-tab { padding: 6px 12px; font-size: 0.8125rem; }
+      .role-banner { padding: 16px 20px; flex-wrap: wrap; }
     }
     @media (min-width: 993px) {
       .sidebar-overlay { display: none !important; }
@@ -738,6 +1064,699 @@
         </div>
       </div>
 
+      <!-- ============================================ -->
+      <!-- 角色横幅 -->
+      <!-- ============================================ -->
+      <div class="role-banner">
+        <div class="role-banner-avatar">张</div>
+        <div class="role-banner-info">
+          <div class="role-banner-greeting">当前角色</div>
+          <div class="role-banner-name">张工程师</div>
+          <div class="role-banner-role">
+            <i class="ri-user-3-line"></i> Candidate
+          </div>
+        </div>
+        <div class="role-banner-meta">
+          <div class="role-meta-item">
+            <div class="role-meta-value">8</div>
+            <div class="role-meta-label">能力组合</div>
+          </div>
+          <div class="role-meta-item">
+            <div class="role-meta-value">48</div>
+            <div class="role-meta-label">能力单元</div>
+          </div>
+          <div class="role-meta-item">
+            <div class="role-meta-value">65%</div>
+            <div class="role-meta-label">整体进度</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============================================ -->
+      <!-- 统计行 -->
+      <!-- ============================================ -->
+      <div class="stats-row">
+        <div class="stat-card">
+          <div class="stat-icon total"><i class="ri-stack-line"></i></div>
+          <div class="stat-info">
+            <div class="stat-value">48</div>
+            <div class="stat-label">总能力单元</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon completed"><i class="ri-check-double-line"></i></div>
+          <div class="stat-info">
+            <div class="stat-value">21</div>
+            <div class="stat-label">已完成</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon inprogress"><i class="ri-time-line"></i></div>
+          <div class="stat-info">
+            <div class="stat-value">14</div>
+            <div class="stat-label">进行中</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon overall"><i class="ri-pie-chart-line"></i></div>
+          <div class="stat-info">
+            <div class="stat-value">65%</div>
+            <div class="stat-label">整体完成率</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============================================ -->
+      <!-- 能力组合分组视图 -->
+      <!-- ============================================ -->
+      <div class="section-header">
+        <div class="section-title">
+          <i class="ri-layout-grid-line"></i>
+          能力组合
+          <span class="section-subtitle">Portfolio</span>
+        </div>
+      </div>
+
+      <div class="portfolio-grid" id="portfolioGrid">
+
+        <!-- 1. OIM (v1-v6) -->
+        <div class="portfolio-card" data-portfolio="oim">
+          <div class="portfolio-card-header">
+            <div class="portfolio-card-icon" style="background:#3b82f6;">
+              <i class="ri-ship-line"></i>
+            </div>
+            <div class="portfolio-card-info">
+              <div class="portfolio-card-name">OIM</div>
+              <div class="portfolio-card-version">v1 - v6</div>
+              <div class="portfolio-card-meta">
+                <span class="badge-item badge-units"><i class="ri-file-list-3-line"></i> 6 单元</span>
+                <span class="badge-status in-progress"><i class="ri-time-line"></i> 进行中</span>
+              </div>
+            </div>
+          </div>
+          <div class="portfolio-progress-wrap">
+            <div class="portfolio-progress-header"><span>完成进度</span><span>67%</span></div>
+            <div class="portfolio-progress-bar">
+              <div class="portfolio-progress-fill" style="width:67%; background:linear-gradient(90deg, #3b82f6, #60a5fa);"></div>
+            </div>
+          </div>
+          <div class="portfolio-expand-icon"><i class="ri-arrow-down-s-line"></i></div>
+          <div class="portfolio-units">
+            <table class="units-table">
+              <thead>
+                <tr><th>单元代码</th><th>单元名称</th><th>状态</th><th>证据</th><th>最近更新</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>OIM-001</strong></td>
+                  <td>海工平台结构完整性管理</td>
+                  <td><span class="unit-status competent"><i class="ri-checkbox-circle-fill"></i> Competent</span></td>
+                  <td>4 份</td>
+                  <td>2026-03-15</td>
+                </tr>
+                <tr>
+                  <td><strong>OIM-002</strong></td>
+                  <td>海上设施HSE管理体系</td>
+                  <td><span class="unit-status competent"><i class="ri-checkbox-circle-fill"></i> Competent</span></td>
+                  <td>3 份</td>
+                  <td>2026-02-20</td>
+                </tr>
+                <tr>
+                  <td><strong>OIM-003</strong></td>
+                  <td>应急响应与危机管理</td>
+                  <td><span class="unit-status competent"><i class="ri-checkbox-circle-fill"></i> Competent</span></td>
+                  <td>5 份</td>
+                  <td>2026-01-10</td>
+                </tr>
+                <tr>
+                  <td><strong>OIM-004</strong></td>
+                  <td>油气生产操作指挥</td>
+                  <td><span class="unit-status competent"><i class="ri-checkbox-circle-fill"></i> Competent</span></td>
+                  <td>4 份</td>
+                  <td>2025-12-05</td>
+                </tr>
+                <tr>
+                  <td><strong>OIM-005</strong></td>
+                  <td>海事法规与港口国监督</td>
+                  <td><span class="unit-status in-progress"><i class="ri-loader-4-line"></i> In Progress</span></td>
+                  <td>2 份</td>
+                  <td>2026-04-18</td>
+                </tr>
+                <tr>
+                  <td><strong>OIM-006</strong></td>
+                  <td>重大事故情景模拟与演练</td>
+                  <td><span class="unit-status not-started"><i class="ri-circle-line"></i> Not Started</span></td>
+                  <td>0 份</td>
+                  <td>--</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- 2. PSMS (v1-v3) -->
+        <div class="portfolio-card" data-portfolio="psms">
+          <div class="portfolio-card-header">
+            <div class="portfolio-card-icon" style="background:#22c55e;">
+              <i class="ri-shield-flash-line"></i>
+            </div>
+            <div class="portfolio-card-info">
+              <div class="portfolio-card-name">PSMS</div>
+              <div class="portfolio-card-version">v1 - v3</div>
+              <div class="portfolio-card-meta">
+                <span class="badge-item badge-units"><i class="ri-file-list-3-line"></i> 8 单元</span>
+                <span class="badge-status competent"><i class="ri-checkbox-circle-fill"></i> 已达标</span>
+              </div>
+            </div>
+          </div>
+          <div class="portfolio-progress-wrap">
+            <div class="portfolio-progress-header"><span>完成进度</span><span>88%</span></div>
+            <div class="portfolio-progress-bar">
+              <div class="portfolio-progress-fill" style="width:88%; background:linear-gradient(90deg, #22c55e, #4ade80);"></div>
+            </div>
+          </div>
+          <div class="portfolio-expand-icon"><i class="ri-arrow-down-s-line"></i></div>
+          <div class="portfolio-units">
+            <table class="units-table">
+              <thead>
+                <tr><th>单元代码</th><th>单元名称</th><th>状态</th><th>证据</th><th>最近更新</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>PSMS-001</strong></td>
+                  <td>工艺安全管理体系框架</td>
+                  <td><span class="unit-status competent"><i class="ri-checkbox-circle-fill"></i> Competent</span></td>
+                  <td>3 份</td>
+                  <td>2026-04-01</td>
+                </tr>
+                <tr>
+                  <td><strong>PSMS-002</strong></td>
+                  <td>工艺危害分析 (PHA)</td>
+                  <td><span class="unit-status competent"><i class="ri-checkbox-circle-fill"></i> Competent</span></td>
+                  <td>5 份</td>
+                  <td>2026-03-10</td>
+                </tr>
+                <tr>
+                  <td><strong>PSMS-003</strong></td>
+                  <td>操作规程与安全作业程序</td>
+                  <td><span class="unit-status competent"><i class="ri-checkbox-circle-fill"></i> Competent</span></td>
+                  <td>4 份</td>
+                  <td>2026-02-25</td>
+                </tr>
+                <tr>
+                  <td><strong>PSMS-004</strong></td>
+                  <td>变更管理 (MOC)</td>
+                  <td><span class="unit-status competent"><i class="ri-checkbox-circle-fill"></i> Competent</span></td>
+                  <td>3 份</td>
+                  <td>2026-01-30</td>
+                </tr>
+                <tr>
+                  <td><strong>PSMS-005</strong></td>
+                  <td>机械完整性管理</td>
+                  <td><span class="unit-status competent"><i class="ri-checkbox-circle-fill"></i> Competent</span></td>
+                  <td>4 份</td>
+                  <td>2025-12-20</td>
+                </tr>
+                <tr>
+                  <td><strong>PSMS-006</strong></td>
+                  <td>承包商安全管理</td>
+                  <td><span class="unit-status competent"><i class="ri-checkbox-circle-fill"></i> Competent</span></td>
+                  <td>3 份</td>
+                  <td>2025-11-15</td>
+                </tr>
+                <tr>
+                  <td><strong>PSMS-007</strong></td>
+                  <td>事故调查与根因分析</td>
+                  <td><span class="unit-status competent"><i class="ri-checkbox-circle-fill"></i> Competent</span></td>
+                  <td>5 份</td>
+                  <td>2025-10-08</td>
+                </tr>
+                <tr>
+                  <td><strong>PSMS-008</strong></td>
+                  <td>工艺安全关键绩效指标</td>
+                  <td><span class="unit-status in-progress"><i class="ri-loader-4-line"></i> In Progress</span></td>
+                  <td>2 份</td>
+                  <td>2026-04-22</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- 3. IV (Internal Verifier) -->
+        <div class="portfolio-card" data-portfolio="iv">
+          <div class="portfolio-card-header">
+            <div class="portfolio-card-icon" style="background:#8b5cf6;">
+              <i class="ri-verified-badge-line"></i>
+            </div>
+            <div class="portfolio-card-info">
+              <div class="portfolio-card-name">IV</div>
+              <div class="portfolio-card-version">Internal Verifier</div>
+              <div class="portfolio-card-meta">
+                <span class="badge-item badge-units"><i class="ri-file-list-3-line"></i> 5 单元</span>
+                <span class="badge-status competent"><i class="ri-checkbox-circle-fill"></i> 已达标</span>
+              </div>
+            </div>
+          </div>
+          <div class="portfolio-progress-wrap">
+            <div class="portfolio-progress-header"><span>完成进度</span><span>100%</span></div>
+            <div class="portfolio-progress-bar">
+              <div class="portfolio-progress-fill" style="width:100%; background:linear-gradient(90deg, #8b5cf6, #a78bfa);"></div>
+            </div>
+          </div>
+          <div class="portfolio-expand-icon"><i class="ri-arrow-down-s-line"></i></div>
+          <div class="portfolio-units">
+            <table class="units-table">
+              <thead>
+                <tr><th>单元代码</th><th>单元名称</th><th>状态</th><th>证据</th><th>最近更新</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>IV-001</strong></td>
+                  <td>内部验证原则与流程</td>
+                  <td><span class="unit-status competent"><i class="ri-checkbox-circle-fill"></i> Competent</span></td>
+                  <td>4 份</td>
+                  <td>2026-03-05</td>
+                </tr>
+                <tr>
+                  <td><strong>IV-002</strong></td>
+                  <td>评估证据质量判定</td>
+                  <td><span class="unit-status competent"><i class="ri-checkbox-circle-fill"></i> Competent</span></td>
+                  <td>3 份</td>
+                  <td>2026-02-14</td>
+                </tr>
+                <tr>
+                  <td><strong>IV-003</strong></td>
+                  <td>验证抽样与抽样策略</td>
+                  <td><span class="unit-status competent"><i class="ri-checkbox-circle-fill"></i> Competent</span></td>
+                  <td>5 份</td>
+                  <td>2026-01-22</td>
+                </tr>
+                <tr>
+                  <td><strong>IV-004</strong></td>
+                  <td>验证报告撰写与反馈</td>
+                  <td><span class="unit-status competent"><i class="ri-checkbox-circle-fill"></i> Competent</span></td>
+                  <td>3 份</td>
+                  <td>2025-12-10</td>
+                </tr>
+                <tr>
+                  <td><strong>IV-005</strong></td>
+                  <td>不符合项管理与纠正措施</td>
+                  <td><span class="unit-status competent"><i class="ri-checkbox-circle-fill"></i> Competent</span></td>
+                  <td>4 份</td>
+                  <td>2025-11-18</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- 4. Assessor -->
+        <div class="portfolio-card" data-portfolio="assessor">
+          <div class="portfolio-card-header">
+            <div class="portfolio-card-icon" style="background:#f59e0b;">
+              <i class="ri-user-star-line"></i>
+            </div>
+            <div class="portfolio-card-info">
+              <div class="portfolio-card-name">Assessor</div>
+              <div class="portfolio-card-version">评估师</div>
+              <div class="portfolio-card-meta">
+                <span class="badge-item badge-units"><i class="ri-file-list-3-line"></i> 6 单元</span>
+                <span class="badge-status in-progress"><i class="ri-time-line"></i> 进行中</span>
+              </div>
+            </div>
+          </div>
+          <div class="portfolio-progress-wrap">
+            <div class="portfolio-progress-header"><span>完成进度</span><span>50%</span></div>
+            <div class="portfolio-progress-bar">
+              <div class="portfolio-progress-fill" style="width:50%; background:linear-gradient(90deg, #f59e0b, #fbbf24);"></div>
+            </div>
+          </div>
+          <div class="portfolio-expand-icon"><i class="ri-arrow-down-s-line"></i></div>
+          <div class="portfolio-units">
+            <table class="units-table">
+              <thead>
+                <tr><th>单元代码</th><th>单元名称</th><th>状态</th><th>证据</th><th>最近更新</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>ASR-001</strong></td>
+                  <td>评估原则与方法论</td>
+                  <td><span class="unit-status competent"><i class="ri-checkbox-circle-fill"></i> Competent</span></td>
+                  <td>4 份</td>
+                  <td>2026-02-28</td>
+                </tr>
+                <tr>
+                  <td><strong>ASR-002</strong></td>
+                  <td>评估计划制定</td>
+                  <td><span class="unit-status competent"><i class="ri-checkbox-circle-fill"></i> Competent</span></td>
+                  <td>3 份</td>
+                  <td>2026-01-15</td>
+                </tr>
+                <tr>
+                  <td><strong>ASR-003</strong></td>
+                  <td>证据收集与审查</td>
+                  <td><span class="unit-status competent"><i class="ri-checkbox-circle-fill"></i> Competent</span></td>
+                  <td>5 份</td>
+                  <td>2025-12-01</td>
+                </tr>
+                <tr>
+                  <td><strong>ASR-004</strong></td>
+                  <td>评估判断与反馈沟通</td>
+                  <td><span class="unit-status in-progress"><i class="ri-loader-4-line"></i> In Progress</span></td>
+                  <td>2 份</td>
+                  <td>2026-04-10</td>
+                </tr>
+                <tr>
+                  <td><strong>ASR-005</strong></td>
+                  <td>评估标准化与一致性</td>
+                  <td><span class="unit-status not-started"><i class="ri-circle-line"></i> Not Started</span></td>
+                  <td>0 份</td>
+                  <td>--</td>
+                </tr>
+                <tr>
+                  <td><strong>ASR-006</strong></td>
+                  <td>多元化评估方法应用</td>
+                  <td><span class="unit-status not-started"><i class="ri-circle-line"></i> Not Started</span></td>
+                  <td>0 份</td>
+                  <td>--</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- 5. Operator Tech Level 2/3 -->
+        <div class="portfolio-card" data-portfolio="operator">
+          <div class="portfolio-card-header">
+            <div class="portfolio-card-icon" style="background:#06b6d4;">
+              <i class="ri-tools-line"></i>
+            </div>
+            <div class="portfolio-card-info">
+              <div class="portfolio-card-name">Operator Tech</div>
+              <div class="portfolio-card-version">Level 2 / 3</div>
+              <div class="portfolio-card-meta">
+                <span class="badge-item badge-units"><i class="ri-file-list-3-line"></i> 7 单元</span>
+                <span class="badge-status in-progress"><i class="ri-time-line"></i> 进行中</span>
+              </div>
+            </div>
+          </div>
+          <div class="portfolio-progress-wrap">
+            <div class="portfolio-progress-header"><span>完成进度</span><span>57%</span></div>
+            <div class="portfolio-progress-bar">
+              <div class="portfolio-progress-fill" style="width:57%; background:linear-gradient(90deg, #06b6d4, #22d3ee);"></div>
+            </div>
+          </div>
+          <div class="portfolio-expand-icon"><i class="ri-arrow-down-s-line"></i></div>
+          <div class="portfolio-units">
+            <table class="units-table">
+              <thead>
+                <tr><th>单元代码</th><th>单元名称</th><th>状态</th><th>证据</th><th>最近更新</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>OPT-001</strong></td>
+                  <td>过程控制系统操作</td>
+                  <td><span class="unit-status competent"><i class="ri-checkbox-circle-fill"></i> Competent</span></td>
+                  <td>4 份</td>
+                  <td>2026-04-05</td>
+                </tr>
+                <tr>
+                  <td><strong>OPT-002</strong></td>
+                  <td>设备启停与操作程序</td>
+                  <td><span class="unit-status competent"><i class="ri-checkbox-circle-fill"></i> Competent</span></td>
+                  <td>3 份</td>
+                  <td>2026-03-12</td>
+                </tr>
+                <tr>
+                  <td><strong>OPT-003</strong></td>
+                  <td>仪表与警报管理</td>
+                  <td><span class="unit-status competent"><i class="ri-checkbox-circle-fill"></i> Competent</span></td>
+                  <td>5 份</td>
+                  <td>2026-02-20</td>
+                </tr>
+                <tr>
+                  <td><strong>OPT-004</strong></td>
+                  <td>正常操作参数监控</td>
+                  <td><span class="unit-status competent"><i class="ri-checkbox-circle-fill"></i> Competent</span></td>
+                  <td>3 份</td>
+                  <td>2026-01-08</td>
+                </tr>
+                <tr>
+                  <td><strong>OPT-005</strong></td>
+                  <td>异常工况处置</td>
+                  <td><span class="unit-status in-progress"><i class="ri-loader-4-line"></i> In Progress</span></td>
+                  <td>2 份</td>
+                  <td>2026-04-15</td>
+                </tr>
+                <tr>
+                  <td><strong>OPT-006</strong></td>
+                  <td>设备维护与润滑管理</td>
+                  <td><span class="unit-status not-started"><i class="ri-circle-line"></i> Not Started</span></td>
+                  <td>0 份</td>
+                  <td>--</td>
+                </tr>
+                <tr>
+                  <td><strong>OPT-007</strong></td>
+                  <td>安全联锁与紧急停车</td>
+                  <td><span class="unit-status not-started"><i class="ri-circle-line"></i> Not Started</span></td>
+                  <td>0 份</td>
+                  <td>--</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- 6. General Staff -->
+        <div class="portfolio-card" data-portfolio="staff">
+          <div class="portfolio-card-header">
+            <div class="portfolio-card-icon" style="background:#64748b;">
+              <i class="ri-team-line"></i>
+            </div>
+            <div class="portfolio-card-info">
+              <div class="portfolio-card-name">General Staff</div>
+              <div class="portfolio-card-version">通用员工</div>
+              <div class="portfolio-card-meta">
+                <span class="badge-item badge-units"><i class="ri-file-list-3-line"></i> 6 单元</span>
+                <span class="badge-status competent"><i class="ri-checkbox-circle-fill"></i> 已达标</span>
+              </div>
+            </div>
+          </div>
+          <div class="portfolio-progress-wrap">
+            <div class="portfolio-progress-header"><span>完成进度</span><span>83%</span></div>
+            <div class="portfolio-progress-bar">
+              <div class="portfolio-progress-fill" style="width:83%; background:linear-gradient(90deg, #64748b, #94a3b8);"></div>
+            </div>
+          </div>
+          <div class="portfolio-expand-icon"><i class="ri-arrow-down-s-line"></i></div>
+          <div class="portfolio-units">
+            <table class="units-table">
+              <thead>
+                <tr><th>单元代码</th><th>单元名称</th><th>状态</th><th>证据</th><th>最近更新</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>GS-001</strong></td>
+                  <td>办公室安全与消防基础</td>
+                  <td><span class="unit-status competent"><i class="ri-checkbox-circle-fill"></i> Competent</span></td>
+                  <td>3 份</td>
+                  <td>2026-04-12</td>
+                </tr>
+                <tr>
+                  <td><strong>GS-002</strong></td>
+                  <td>ERP系统基础操作</td>
+                  <td><span class="unit-status competent"><i class="ri-checkbox-circle-fill"></i> Competent</span></td>
+                  <td>4 份</td>
+                  <td>2026-03-22</td>
+                </tr>
+                <tr>
+                  <td><strong>GS-003</strong></td>
+                  <td>公文写作与沟通技能</td>
+                  <td><span class="unit-status competent"><i class="ri-checkbox-circle-fill"></i> Competent</span></td>
+                  <td>2 份</td>
+                  <td>2026-02-15</td>
+                </tr>
+                <tr>
+                  <td><strong>GS-004</strong></td>
+                  <td>信息安全与保密协议</td>
+                  <td><span class="unit-status competent"><i class="ri-checkbox-circle-fill"></i> Competent</span></td>
+                  <td>3 份</td>
+                  <td>2026-01-20</td>
+                </tr>
+                <tr>
+                  <td><strong>GS-005</strong></td>
+                  <td>企业文化与职业道德</td>
+                  <td><span class="unit-status competent"><i class="ri-checkbox-circle-fill"></i> Competent</span></td>
+                  <td>4 份</td>
+                  <td>2025-12-15</td>
+                </tr>
+                <tr>
+                  <td><strong>GS-006</strong></td>
+                  <td>持续改进与创新思维</td>
+                  <td><span class="unit-status in-progress"><i class="ri-loader-4-line"></i> In Progress</span></td>
+                  <td>1 份</td>
+                  <td>2026-04-25</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- 7. CRO -->
+        <div class="portfolio-card" data-portfolio="cro">
+          <div class="portfolio-card-header">
+            <div class="portfolio-card-icon" style="background:#ef4444;">
+              <i class="ri-computer-line"></i>
+            </div>
+            <div class="portfolio-card-info">
+              <div class="portfolio-card-name">CRO</div>
+              <div class="portfolio-card-version">控制室操作</div>
+              <div class="portfolio-card-meta">
+                <span class="badge-item badge-units"><i class="ri-file-list-3-line"></i> 5 单元</span>
+                <span class="badge-status not-started"><i class="ri-circle-line"></i> 未开始</span>
+              </div>
+            </div>
+          </div>
+          <div class="portfolio-progress-wrap">
+            <div class="portfolio-progress-header"><span>完成进度</span><span>20%</span></div>
+            <div class="portfolio-progress-bar">
+              <div class="portfolio-progress-fill" style="width:20%; background:linear-gradient(90deg, #ef4444, #f87171);"></div>
+            </div>
+          </div>
+          <div class="portfolio-expand-icon"><i class="ri-arrow-down-s-line"></i></div>
+          <div class="portfolio-units">
+            <table class="units-table">
+              <thead>
+                <tr><th>单元代码</th><th>单元名称</th><th>状态</th><th>证据</th><th>最近更新</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>CRO-001</strong></td>
+                  <td>DCS集散控制系统操作</td>
+                  <td><span class="unit-status competent"><i class="ri-checkbox-circle-fill"></i> Competent</span></td>
+                  <td>3 份</td>
+                  <td>2026-03-18</td>
+                </tr>
+                <tr>
+                  <td><strong>CRO-002</strong></td>
+                  <td>报警优先级与响应策略</td>
+                  <td><span class="unit-status in-progress"><i class="ri-loader-4-line"></i> In Progress</span></td>
+                  <td>1 份</td>
+                  <td>2026-04-20</td>
+                </tr>
+                <tr>
+                  <td><strong>CRO-003</strong></td>
+                  <td>ESD/F&G系统操作</td>
+                  <td><span class="unit-status not-started"><i class="ri-circle-line"></i> Not Started</span></td>
+                  <td>0 份</td>
+                  <td>--</td>
+                </tr>
+                <tr>
+                  <td><strong>CRO-004</strong></td>
+                  <td>交接班标准化流程</td>
+                  <td><span class="unit-status not-started"><i class="ri-circle-line"></i> Not Started</span></td>
+                  <td>0 份</td>
+                  <td>--</td>
+                </tr>
+                <tr>
+                  <td><strong>CRO-005</strong></td>
+                  <td>生产日志与数据记录</td>
+                  <td><span class="unit-status not-started"><i class="ri-circle-line"></i> Not Started</span></td>
+                  <td>0 份</td>
+                  <td>--</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- 8. HRC Operation Technicians -->
+        <div class="portfolio-card" data-portfolio="hrc">
+          <div class="portfolio-card-header">
+            <div class="portfolio-card-icon" style="background:#f97316;">
+              <i class="ri-settings-3-line"></i>
+            </div>
+            <div class="portfolio-card-info">
+              <div class="portfolio-card-name">HRC Operation</div>
+              <div class="portfolio-card-version">Technicians</div>
+              <div class="portfolio-card-meta">
+                <span class="badge-item badge-units"><i class="ri-file-list-3-line"></i> 5 单元</span>
+                <span class="badge-status in-progress"><i class="ri-time-line"></i> 进行中</span>
+              </div>
+            </div>
+          </div>
+          <div class="portfolio-progress-wrap">
+            <div class="portfolio-progress-header"><span>完成进度</span><span>40%</span></div>
+            <div class="portfolio-progress-bar">
+              <div class="portfolio-progress-fill" style="width:40%; background:linear-gradient(90deg, #f97316, #fb923c);"></div>
+            </div>
+          </div>
+          <div class="portfolio-expand-icon"><i class="ri-arrow-down-s-line"></i></div>
+          <div class="portfolio-units">
+            <table class="units-table">
+              <thead>
+                <tr><th>单元代码</th><th>单元名称</th><th>状态</th><th>证据</th><th>最近更新</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>HRC-001</strong></td>
+                  <td>高压容器操作规程</td>
+                  <td><span class="unit-status competent"><i class="ri-checkbox-circle-fill"></i> Competent</span></td>
+                  <td>3 份</td>
+                  <td>2026-04-08</td>
+                </tr>
+                <tr>
+                  <td><strong>HRC-002</strong></td>
+                  <td>旋转设备检修安全</td>
+                  <td><span class="unit-status competent"><i class="ri-checkbox-circle-fill"></i> Competent</span></td>
+                  <td>4 份</td>
+                  <td>2026-03-25</td>
+                </tr>
+                <tr>
+                  <td><strong>HRC-003</strong></td>
+                  <td>管线法兰拆装作业</td>
+                  <td><span class="unit-status in-progress"><i class="ri-loader-4-line"></i> In Progress</span></td>
+                  <td>2 份</td>
+                  <td>2026-04-28</td>
+                </tr>
+                <tr>
+                  <td><strong>HRC-004</strong></td>
+                  <td>焊接与切割安全操作</td>
+                  <td><span class="unit-status not-started"><i class="ri-circle-line"></i> Not Started</span></td>
+                  <td>0 份</td>
+                  <td>--</td>
+                </tr>
+                <tr>
+                  <td><strong>HRC-005</strong></td>
+                  <td>起重机与吊装作业</td>
+                  <td><span class="unit-status not-started"><i class="ri-circle-line"></i> Not Started</span></td>
+                  <td>0 份</td>
+                  <td>--</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div><!-- /portfolio-grid -->
+
+      <!-- ============================================ -->
+      <!-- 分隔 -->
+      <!-- ============================================ -->
+      <hr class="section-divider">
+
+      <!-- ============================================ -->
+      <!-- 原有技能列表与证据上传 -->
+      <!-- ============================================ -->
+      <div class="section-header">
+        <div class="section-title">
+          <i class="ri-file-list-3-line"></i>
+          技能记录
+          <span class="section-subtitle">Skills & Evidence</span>
+        </div>
+      </div>
+
       <!-- 概览卡片 -->
       <div class="overview-cards">
         <div class="overview-card">
@@ -788,7 +1807,7 @@
           </div>
           <div class="skill-badges">
             <span class="badge badge-category">HSE类</span>
-            <span class="badge badge-status"><i class="ri-checkbox-circle-line"></i> 已通过</span>
+            <span class="badge badge-status sk"><i class="ri-checkbox-circle-line"></i> 已通过</span>
           </div>
           <div class="skill-meta">
             <div class="skill-meta-row"><i class="ri-calendar-line"></i> 认证日期: 2026-03-15</div>
@@ -808,7 +1827,7 @@
           </div>
           <div class="skill-badges">
             <span class="badge badge-category">机械工程类</span>
-            <span class="badge badge-status"><i class="ri-checkbox-circle-line"></i> 已通过</span>
+            <span class="badge badge-status sk"><i class="ri-checkbox-circle-line"></i> 已通过</span>
           </div>
           <div class="skill-meta">
             <div class="skill-meta-row"><i class="ri-calendar-line"></i> 认证日期: 2026-02-20</div>
@@ -828,7 +1847,7 @@
           </div>
           <div class="skill-badges">
             <span class="badge badge-category">井工程类</span>
-            <span class="badge badge-status"><i class="ri-checkbox-circle-line"></i> 已通过</span>
+            <span class="badge badge-status sk"><i class="ri-checkbox-circle-line"></i> 已通过</span>
           </div>
           <div class="skill-meta">
             <div class="skill-meta-row"><i class="ri-calendar-line"></i> 认证日期: 2025-11-08</div>
@@ -848,7 +1867,7 @@
           </div>
           <div class="skill-badges">
             <span class="badge badge-category">HSE类</span>
-            <span class="badge badge-status"><i class="ri-checkbox-circle-line"></i> 已通过</span>
+            <span class="badge badge-status sk"><i class="ri-checkbox-circle-line"></i> 已通过</span>
           </div>
           <div class="skill-meta">
             <div class="skill-meta-row"><i class="ri-calendar-line"></i> 认证日期: 2025-09-12</div>
@@ -868,7 +1887,7 @@
           </div>
           <div class="skill-badges">
             <span class="badge badge-category">电气工程类</span>
-            <span class="badge badge-status"><i class="ri-checkbox-circle-line"></i> 已通过</span>
+            <span class="badge badge-status sk"><i class="ri-checkbox-circle-line"></i> 已通过</span>
           </div>
           <div class="skill-meta">
             <div class="skill-meta-row"><i class="ri-calendar-line"></i> 认证日期: 2025-06-30</div>
@@ -889,7 +1908,7 @@
           </div>
           <div class="skill-badges">
             <span class="badge badge-category">机械工程类</span>
-            <span class="badge badge-status pending"><i class="ri-time-line"></i> 待审核</span>
+            <span class="badge badge-status sk-pending"><i class="ri-time-line"></i> 待审核</span>
           </div>
           <div class="skill-meta">
             <div class="skill-meta-row"><i class="ri-calendar-line"></i> 提交日期: 2026-04-10</div>
@@ -898,7 +1917,7 @@
           </div>
           <div class="skill-progress-wrap">
             <div class="skill-progress-header"><span>认证进度</span><span>80%</span></div>
-            <div class="skill-progress-bar"><div class="skill-progress-fill pending" style="width:80%"></div></div>
+            <div class="skill-progress-bar"><div class="skill-progress-fill sk-pending" style="width:80%"></div></div>
           </div>
           <button class="skill-action secondary">查看进度</button>
         </div>
@@ -909,7 +1928,7 @@
           </div>
           <div class="skill-badges">
             <span class="badge badge-category">井工程类</span>
-            <span class="badge badge-status pending"><i class="ri-time-line"></i> 待审核</span>
+            <span class="badge badge-status sk-pending"><i class="ri-time-line"></i> 待审核</span>
           </div>
           <div class="skill-meta">
             <div class="skill-meta-row"><i class="ri-calendar-line"></i> 提交日期: 2026-04-05</div>
@@ -918,7 +1937,7 @@
           </div>
           <div class="skill-progress-wrap">
             <div class="skill-progress-header"><span>认证进度</span><span>75%</span></div>
-            <div class="skill-progress-bar"><div class="skill-progress-fill pending" style="width:75%"></div></div>
+            <div class="skill-progress-bar"><div class="skill-progress-fill sk-pending" style="width:75%"></div></div>
           </div>
           <button class="skill-action secondary">查看进度</button>
         </div>
@@ -929,7 +1948,7 @@
           </div>
           <div class="skill-badges">
             <span class="badge badge-category">HSE类</span>
-            <span class="badge badge-status pending"><i class="ri-time-line"></i> 待审核</span>
+            <span class="badge badge-status sk-pending"><i class="ri-time-line"></i> 待审核</span>
           </div>
           <div class="skill-meta">
             <div class="skill-meta-row"><i class="ri-calendar-line"></i> 提交日期: 2026-03-28</div>
@@ -938,7 +1957,7 @@
           </div>
           <div class="skill-progress-wrap">
             <div class="skill-progress-header"><span>认证进度</span><span>60%</span></div>
-            <div class="skill-progress-bar"><div class="skill-progress-fill pending" style="width:60%"></div></div>
+            <div class="skill-progress-bar"><div class="skill-progress-fill sk-pending" style="width:60%"></div></div>
           </div>
           <button class="skill-action secondary">查看进度</button>
         </div>
@@ -950,7 +1969,7 @@
           </div>
           <div class="skill-badges">
             <span class="badge badge-category">电气工程类</span>
-            <span class="badge badge-status rejected"><i class="ri-close-circle-line"></i> 已驳回</span>
+            <span class="badge badge-status sk-rejected"><i class="ri-close-circle-line"></i> 已驳回</span>
           </div>
           <div class="skill-meta">
             <div class="skill-meta-row"><i class="ri-calendar-line"></i> 提交日期: 2026-02-15</div>
@@ -959,7 +1978,7 @@
           </div>
           <div class="skill-progress-wrap">
             <div class="skill-progress-header"><span>认证进度</span><span>30%</span></div>
-            <div class="skill-progress-bar"><div class="skill-progress-fill rejected" style="width:30%"></div></div>
+            <div class="skill-progress-bar"><div class="skill-progress-fill sk-rejected" style="width:30%"></div></div>
           </div>
           <button class="skill-action danger">重新提交</button>
         </div>
@@ -971,7 +1990,7 @@
           </div>
           <div class="skill-badges">
             <span class="badge badge-category">井工程类</span>
-            <span class="badge badge-status notstarted"><i class="ri-play-circle-line"></i> 未开始</span>
+            <span class="badge badge-status sk-notstarted"><i class="ri-play-circle-line"></i> 未开始</span>
           </div>
           <div class="skill-meta">
             <div class="skill-meta-row"><i class="ri-calendar-line"></i> 计划日期: 2026-05-01</div>
@@ -980,7 +1999,7 @@
           </div>
           <div class="skill-progress-wrap">
             <div class="skill-progress-header"><span>认证进度</span><span>0%</span></div>
-            <div class="skill-progress-bar"><div class="skill-progress-fill notstarted" style="width:0%"></div></div>
+            <div class="skill-progress-bar"><div class="skill-progress-fill sk-notstarted" style="width:0%"></div></div>
           </div>
           <button class="skill-action">开始学习</button>
         </div>
@@ -991,7 +2010,7 @@
           </div>
           <div class="skill-badges">
             <span class="badge badge-category">机械工程类</span>
-            <span class="badge badge-status notstarted"><i class="ri-play-circle-line"></i> 未开始</span>
+            <span class="badge badge-status sk-notstarted"><i class="ri-play-circle-line"></i> 未开始</span>
           </div>
           <div class="skill-meta">
             <div class="skill-meta-row"><i class="ri-calendar-line"></i> 计划日期: 2026-06-15</div>
@@ -1000,7 +2019,7 @@
           </div>
           <div class="skill-progress-wrap">
             <div class="skill-progress-header"><span>认证进度</span><span>0%</span></div>
-            <div class="skill-progress-bar"><div class="skill-progress-fill notstarted" style="width:0%"></div></div>
+            <div class="skill-progress-bar"><div class="skill-progress-fill sk-notstarted" style="width:0%"></div></div>
           </div>
           <button class="skill-action">开始学习</button>
         </div>
@@ -1011,7 +2030,7 @@
           </div>
           <div class="skill-badges">
             <span class="badge badge-category">HSE类</span>
-            <span class="badge badge-status notstarted"><i class="ri-play-circle-line"></i> 未开始</span>
+            <span class="badge badge-status sk-notstarted"><i class="ri-play-circle-line"></i> 未开始</span>
           </div>
           <div class="skill-meta">
             <div class="skill-meta-row"><i class="ri-calendar-line"></i> 计划日期: 2026-07-01</div>
@@ -1020,7 +2039,7 @@
           </div>
           <div class="skill-progress-wrap">
             <div class="skill-progress-header"><span>认证进度</span><span>0%</span></div>
-            <div class="skill-progress-bar"><div class="skill-progress-fill notstarted" style="width:0%"></div></div>
+            <div class="skill-progress-bar"><div class="skill-progress-fill sk-notstarted" style="width:0%"></div></div>
           </div>
           <button class="skill-action">开始学习</button>
         </div>
@@ -1080,6 +2099,21 @@
         });
       }
 
+      // ---- 能力组合卡片展开/折叠 ----
+      const portfolioCards = document.querySelectorAll('.portfolio-card');
+      portfolioCards.forEach(card => {
+        card.addEventListener('click', function(e) {
+          // 防止点击表格内元素时折叠
+          if (e.target.closest('table') || e.target.closest('.portfolio-units')) {
+            return;
+          }
+          // 切换当前卡片的展开状态
+          this.classList.toggle('expanded');
+          // 可选：关闭其他已展开的卡片（手风琴模式）
+          // portfolioCards.forEach(c => { if (c !== this) c.classList.remove('expanded'); });
+        });
+      });
+
       // ---- 筛选标签切换 ----
       const filterTabs = document.querySelectorAll('.filter-tab');
       const skillCards = document.querySelectorAll('.skill-card');
@@ -1102,7 +2136,8 @@
 
       // ---- 技能卡片按钮交互 ----
       document.querySelectorAll('.skill-action').forEach(btn => {
-        btn.addEventListener('click', function() {
+        btn.addEventListener('click', function(e) {
+          e.stopPropagation();
           const card = this.closest('.skill-card');
           const skillName = card.querySelector('.skill-name').textContent;
           if (this.textContent.includes('开始学习')) {

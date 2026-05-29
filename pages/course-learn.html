@@ -1,1540 +1,704 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>课程学习 - HSE安全管理体系 - 慧眼能力管理与发展系统</title>
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
-            background-color: #f5f7fa;
-            color: #1a202c;
-            line-height: 1.6;
-        }
-
-        /* 顶部导航栏 */
-        .top-navbar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 64px;
-            background: #ffffff;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 24px;
-            z-index: 1000;
-        }
-
-        .nav-left {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .hamburger-btn {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 24px;
-            color: #1a202c;
-            cursor: pointer;
-            padding: 4px;
-        }
-
-        .logo {
-            font-size: 22px;
-            font-weight: 700;
-            color: #1a365d;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            text-decoration: none;
-        }
-
-        .logo i {
-            color: #c8956c;
-            font-size: 26px;
-        }
-
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            list-style: none;
-            margin-left: 16px;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: #64748b;
-            font-size: 14px;
-            font-weight: 500;
-            padding: 8px 16px;
-            border-radius: 8px;
-            transition: all 0.2s;
-        }
-
-        .nav-links a:hover {
-            color: #1a202c;
-            background: #f1f5f9;
-        }
-
-        .nav-links a.active {
-            color: #1a365d;
-            background: #f1f5f9;
-            font-weight: 600;
-        }
-
-        .nav-right {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-
-        .search-box {
-            position: relative;
-        }
-
-        .search-box input {
-            width: 240px;
-            height: 38px;
-            border: 1px solid #e2e8f0;
-            border-radius: 8px;
-            padding: 0 36px 0 12px;
-            font-size: 14px;
-            font-family: inherit;
-            background: #f8fafc;
-            transition: all 0.2s;
-        }
-
-        .search-box input:focus {
-            outline: none;
-            border-color: #c8956c;
-            background: #ffffff;
-            box-shadow: 0 0 0 3px rgba(200, 149, 108, 0.1);
-        }
-
-        .search-box i {
-            position: absolute;
-            right: 12px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #94a3b8;
-            font-size: 16px;
-        }
-
-        .user-info {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            cursor: pointer;
-            padding: 4px 8px;
-            border-radius: 8px;
-            transition: background 0.2s;
-        }
-
-        .user-info:hover {
-            background: #f1f5f9;
-        }
-
-        .user-avatar {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            background: #1a365d;
-            color: #ffffff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 14px;
-            font-weight: 600;
-        }
-
-        .user-name {
-            font-size: 14px;
-            font-weight: 500;
-            color: #1a202c;
-        }
-
-        /* 主内容区 - 全宽无侧边栏 */
-        .main-content {
-            margin-top: 64px;
-            padding: 24px;
-            min-height: calc(100vh - 64px);
-        }
-
-        /* 顶部课程信息条 */
-        .course-info-bar {
-            background: #ffffff;
-            border-radius: 12px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
-            padding: 20px 24px;
-            margin-bottom: 20px;
-        }
-
-        .course-info-top {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 12px;
-            flex-wrap: wrap;
-        }
-
-        .back-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 6px 14px;
-            border: 1px solid #e2e8f0;
-            border-radius: 8px;
-            background: #ffffff;
-            color: #64748b;
-            font-size: 13px;
-            font-family: inherit;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.2s;
-            text-decoration: none;
-        }
-
-        .back-btn:hover {
-            border-color: #c8956c;
-            color: #c8956c;
-            background: #fefcf9;
-        }
-
-        .breadcrumb {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 13px;
-            color: #64748b;
-        }
-
-        .breadcrumb a {
-            color: #64748b;
-            text-decoration: none;
-            transition: color 0.2s;
-        }
-
-        .breadcrumb a:hover {
-            color: #1a365d;
-        }
-
-        .breadcrumb i {
-            font-size: 12px;
-            color: #94a3b8;
-        }
-
-        .breadcrumb span {
-            color: #1a202c;
-            font-weight: 500;
-        }
-
-        .course-title-main {
-            font-size: 22px;
-            font-weight: 700;
-            color: #1a202c;
-            line-height: 1.4;
-        }
-
-        /* 三栏布局 */
-        .learn-layout {
-            display: flex;
-            gap: 20px;
-            align-items: flex-start;
-        }
-
-        /* 左侧目录栏 */
-        .toc-sidebar {
-            width: 260px;
-            flex-shrink: 0;
-            background: #ffffff;
-            border-radius: 12px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
-            max-height: calc(100vh - 200px);
-            overflow-y: auto;
-            position: sticky;
-            top: 88px;
-        }
-
-        .toc-header {
-            padding: 20px;
-            border-bottom: 1px solid #f1f5f9;
-        }
-
-        .toc-progress-label {
-            display: flex;
-            justify-content: space-between;
-            font-size: 13px;
-            color: #64748b;
-            margin-bottom: 10px;
-        }
-
-        .toc-progress-label span:last-child {
-            color: #1a365d;
-            font-weight: 600;
-        }
-
-        .toc-progress-bar {
-            height: 8px;
-            background: #e2e8f0;
-            border-radius: 4px;
-            overflow: hidden;
-        }
-
-        .toc-progress-fill {
-            height: 100%;
-            background: #c8956c;
-            border-radius: 4px;
-            width: 46.9%;
-            transition: width 0.5s ease;
-        }
-
-        .toc-list {
-            padding: 12px 0;
-        }
-
-        .toc-unit {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 12px 20px;
-            cursor: pointer;
-            transition: all 0.2s;
-            border-left: 3px solid transparent;
-            position: relative;
-        }
-
-        .toc-unit:hover {
-            background: #f8fafc;
-        }
-
-        .toc-unit.completed {
-            color: #64748b;
-        }
-
-        .toc-unit.completed .toc-unit-title {
-            color: #64748b;
-            text-decoration: line-through;
-            text-decoration-color: #cbd5e1;
-        }
-
-        .toc-unit.current {
-            background: rgba(200, 149, 108, 0.08);
-            border-left-color: #c8956c;
-        }
-
-        .toc-unit.current .toc-unit-title {
-            color: #1a365d;
-            font-weight: 600;
-        }
-
-        .toc-unit.current .toc-unit-num {
-            background: #c8956c;
-            color: #ffffff;
-        }
-
-        .toc-unit.not-started {
-            color: #94a3b8;
-        }
-
-        .toc-unit.not-started .toc-unit-title {
-            color: #94a3b8;
-        }
-
-        .toc-unit-num {
-            width: 26px;
-            height: 26px;
-            border-radius: 50%;
-            background: #f1f5f9;
-            color: #64748b;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
-            font-weight: 600;
-            flex-shrink: 0;
-        }
-
-        .toc-unit-check {
-            width: 26px;
-            height: 26px;
-            border-radius: 50%;
-            background: #d1fae5;
-            color: #059669;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 14px;
-            flex-shrink: 0;
-        }
-
-        .toc-unit-info {
-            flex: 1;
-            min-width: 0;
-        }
-
-        .toc-unit-title {
-            font-size: 14px;
-            color: #1a202c;
-            line-height: 1.4;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .toc-unit-meta {
-            font-size: 12px;
-            color: #94a3b8;
-            margin-top: 2px;
-        }
-
-        .toc-more {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            padding: 12px 20px;
-            font-size: 13px;
-            color: #94a3b8;
-            cursor: pointer;
-            transition: color 0.2s;
-        }
-
-        .toc-more:hover {
-            color: #64748b;
-        }
-
-        /* 中间学习区 */
-        .learn-area {
-            flex: 1;
-            min-width: 0;
-            background: #ffffff;
-            border-radius: 12px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
-            overflow: hidden;
-        }
-
-        .learn-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 20px 24px;
-            border-bottom: 1px solid #f1f5f9;
-            flex-wrap: wrap;
-            gap: 12px;
-        }
-
-        .learn-header-left {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            flex-wrap: wrap;
-        }
-
-        .learn-unit-title {
-            font-size: 18px;
-            font-weight: 700;
-            color: #1a202c;
-        }
-
-        .learn-timer {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            padding: 6px 14px;
-            background: #f8fafc;
-            border-radius: 20px;
-            font-size: 13px;
-            color: #64748b;
-            font-family: 'Courier New', monospace;
-            font-weight: 600;
-        }
-
-        .learn-timer i {
-            color: #c8956c;
-            font-size: 14px;
-        }
-
-        .learn-header-right {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .font-btn {
-            width: 32px;
-            height: 32px;
-            border: 1px solid #e2e8f0;
-            border-radius: 8px;
-            background: #ffffff;
-            color: #64748b;
-            font-size: 14px;
-            font-family: inherit;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s;
-        }
-
-        .font-btn:hover {
-            border-color: #c8956c;
-            color: #c8956c;
-            background: #fefcf9;
-        }
-
-        .download-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 6px 14px;
-            border: 1px solid #e2e8f0;
-            border-radius: 8px;
-            background: #ffffff;
-            color: #64748b;
-            font-size: 13px;
-            font-family: inherit;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.2s;
-            text-decoration: none;
-        }
-
-        .download-btn:hover {
-            border-color: #c8956c;
-            color: #c8956c;
-            background: #fefcf9;
-        }
-
-        .learn-body {
-            padding: 28px 32px;
-            line-height: 1.8;
-            color: #1a202c;
-        }
-
-        .learn-body h2 {
-            font-size: 20px;
-            font-weight: 700;
-            color: #1a202c;
-            margin-bottom: 16px;
-            margin-top: 0;
-        }
-
-        .learn-body h3 {
-            font-size: 16px;
-            font-weight: 600;
-            color: #1a365d;
-            margin-bottom: 12px;
-            margin-top: 24px;
-        }
-
-        .learn-body p {
-            font-size: 15px;
-            color: #334155;
-            margin-bottom: 16px;
-            text-align: justify;
-        }
-
-        .learn-image-placeholder {
-            width: 100%;
-            height: 280px;
-            background: #f1f5f9;
-            border-radius: 12px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            margin: 24px 0;
-            color: #94a3b8;
-        }
-
-        .learn-image-placeholder i {
-            font-size: 48px;
-            color: #cbd5e1;
-        }
-
-        .learn-image-placeholder span {
-            font-size: 14px;
-            color: #94a3b8;
-        }
-
-        .learn-list {
-            list-style: none;
-            padding: 0;
-            margin: 16px 0;
-        }
-
-        .learn-list li {
-            position: relative;
-            padding-left: 24px;
-            margin-bottom: 10px;
-            font-size: 15px;
-            color: #334155;
-            line-height: 1.7;
-        }
-
-        .learn-list li::before {
-            content: '';
-            position: absolute;
-            left: 6px;
-            top: 10px;
-            width: 7px;
-            height: 7px;
-            border-radius: 50%;
-            background: #c8956c;
-        }
-
-        .learn-tip {
-            border-left: 4px solid #c8956c;
-            background: rgba(200, 149, 108, 0.06);
-            padding: 16px 20px;
-            border-radius: 0 12px 12px 0;
-            margin: 24px 0;
-        }
-
-        .learn-tip-title {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 14px;
-            font-weight: 600;
-            color: #1a365d;
-            margin-bottom: 8px;
-        }
-
-        .learn-tip-title i {
-            color: #c8956c;
-        }
-
-        .learn-tip p {
-            font-size: 14px;
-            color: #475569;
-            margin-bottom: 0;
-        }
-
-        .learn-footer {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 20px 24px;
-            border-top: 1px solid #f1f5f9;
-            flex-wrap: wrap;
-            gap: 12px;
-        }
-
-        .nav-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 10px 20px;
-            border-radius: 8px;
-            font-size: 14px;
-            font-family: inherit;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .nav-btn.prev {
-            border: 1px solid #e2e8f0;
-            background: #ffffff;
-            color: #64748b;
-        }
-
-        .nav-btn.prev:hover {
-            border-color: #c8956c;
-            color: #c8956c;
-            background: #fefcf9;
-        }
-
-        .nav-btn.next {
-            border: none;
-            background: #1a365d;
-            color: #ffffff;
-        }
-
-        .nav-btn.next:hover {
-            background: #234876;
-        }
-
-        .nav-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        /* 右侧工具栏 */
-        .tools-sidebar {
-            width: 280px;
-            flex-shrink: 0;
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-            position: sticky;
-            top: 88px;
-        }
-
-        .tool-card {
-            background: #ffffff;
-            border-radius: 12px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
-            padding: 20px;
-        }
-
-        .tool-card-title {
-            font-size: 14px;
-            font-weight: 600;
-            color: #1a202c;
-            margin-bottom: 16px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .tool-card-title i {
-            color: #c8956c;
-            font-size: 18px;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-        }
-
-        .stat-box {
-            text-align: center;
-            padding: 12px;
-            background: #f8fafc;
-            border-radius: 10px;
-        }
-
-        .stat-box-number {
-            font-size: 22px;
-            font-weight: 700;
-            color: #1a365d;
-            line-height: 1.2;
-        }
-
-        .stat-box-label {
-            font-size: 12px;
-            color: #64748b;
-            margin-top: 4px;
-        }
-
-        .note-textarea {
-            width: 100%;
-            min-height: 120px;
-            border: 1px solid #e2e8f0;
-            border-radius: 8px;
-            padding: 12px;
-            font-size: 14px;
-            font-family: inherit;
-            color: #1a202c;
-            resize: vertical;
-            transition: all 0.2s;
-        }
-
-        .note-textarea:focus {
-            outline: none;
-            border-color: #c8956c;
-            box-shadow: 0 0 0 3px rgba(200, 149, 108, 0.1);
-        }
-
-        .note-textarea::placeholder {
-            color: #94a3b8;
-        }
-
-        .save-note-btn {
-            width: 100%;
-            margin-top: 12px;
-            padding: 10px;
-            border: none;
-            border-radius: 8px;
-            background: #1a365d;
-            color: #ffffff;
-            font-size: 14px;
-            font-family: inherit;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-        }
-
-        .save-note-btn:hover {
-            background: #234876;
-        }
-
-        .tool-btn {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #e2e8f0;
-            border-radius: 8px;
-            background: #ffffff;
-            color: #1a202c;
-            font-size: 14px;
-            font-family: inherit;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            margin-bottom: 10px;
-        }
-
-        .tool-btn:hover {
-            border-color: #c8956c;
-            color: #c8956c;
-            background: #fefcf9;
-        }
-
-        .tool-btn:last-child {
-            margin-bottom: 0;
-        }
-
-        .tool-btn.disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            color: #94a3b8;
-        }
-
-        .tool-btn.disabled:hover {
-            border-color: #e2e8f0;
-            color: #94a3b8;
-            background: #ffffff;
-        }
-
-        .tool-hint {
-            font-size: 12px;
-            color: #94a3b8;
-            text-align: center;
-            margin-top: 8px;
-        }
-
-        /* 移动端浮动按钮 */
-        .mobile-float-tools {
-            display: none;
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 999;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .float-btn {
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            background: #1a365d;
-            color: #ffffff;
-            border: none;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .float-btn:hover {
-            background: #234876;
-            transform: scale(1.05);
-        }
-
-        /* 移动端目录遮罩 */
-        .toc-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0,0,0,0.4);
-            z-index: 998;
-        }
-
-        .toc-overlay.active {
-            display: block;
-        }
-
-        /* 移动端目录面板 */
-        .toc-sidebar.mobile-panel {
-            position: fixed;
-            top: 0;
-            left: 0;
-            bottom: 0;
-            z-index: 999;
-            border-radius: 0;
-            max-height: 100vh;
-            transform: translateX(-100%);
-            transition: transform 0.3s ease;
-        }
-
-        .toc-sidebar.mobile-panel.open {
-            transform: translateX(0);
-        }
-
-        /* 响应式 */
-        @media (max-width: 1200px) {
-            .tools-sidebar {
-                width: 240px;
-            }
-        }
-
-        @media (max-width: 1024px) {
-            .learn-layout {
-                flex-direction: column;
-            }
-
-            .toc-sidebar {
-                display: none;
-            }
-
-            .toc-sidebar.mobile-panel {
-                display: block;
-                width: 280px;
-            }
-
-            .tools-sidebar {
-                display: none;
-            }
-
-            .learn-area {
-                width: 100%;
-            }
-
-            .mobile-float-tools {
-                display: flex;
-            }
-
-            .mobile-toc-btn {
-                display: inline-flex;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .hamburger-btn {
-                display: block;
-            }
-
-            .nav-links {
-                display: none;
-            }
-
-            .search-box {
-                display: none;
-            }
-
-            .main-content {
-                padding: 16px;
-            }
-
-            .course-title-main {
-                font-size: 18px;
-            }
-
-            .learn-body {
-                padding: 20px;
-            }
-
-            .learn-header {
-                padding: 16px 20px;
-            }
-
-            .learn-footer {
-                padding: 16px 20px;
-            }
-
-            .learn-image-placeholder {
-                height: 200px;
-            }
-        }
-
-        /* 字体大小类 */
-        .font-small .learn-body p,
-        .font-small .learn-body li {
-            font-size: 14px;
-        }
-
-        .font-small .learn-body h2 {
-            font-size: 18px;
-        }
-
-        .font-small .learn-body h3 {
-            font-size: 15px;
-        }
-
-        .font-large .learn-body p,
-        .font-large .learn-body li {
-            font-size: 17px;
-        }
-
-        .font-large .learn-body h2 {
-            font-size: 22px;
-        }
-
-        .font-large .learn-body h3 {
-            font-size: 18px;
-        }
-
-        /* 保存提示 */
-        .toast {
-            position: fixed;
-            bottom: 32px;
-            left: 50%;
-            transform: translateX(-50%) translateY(100px);
-            background: #1a365d;
-            color: #ffffff;
-            padding: 12px 24px;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: 500;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            z-index: 2000;
-            opacity: 0;
-            transition: all 0.3s ease;
-            pointer-events: none;
-        }
-
-        .toast.show {
-            transform: translateX(-50%) translateY(0);
-            opacity: 1;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>课程学习 - 慧眼系统</title>
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+    body {
+      font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 14px; line-height: 1.6; color: #1a202c; background: #f5f7fa;
+      min-height: 100vh; overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+    button { font-family: inherit; cursor: pointer; border: none; background: none; }
+    ul, ol { list-style: none; }
+    :root {
+      --sidebar-width: 260px; --sidebar-collapsed: 72px; --topbar-height: 64px;
+      --amber: #c8956c; --amber-light: #d4a574; --deep-blue: #1a365d;
+    }
+
+    /* Topbar */
+    .topbar {
+      position: fixed; top: 0; left: 0; right: 0; height: var(--topbar-height);
+      background: rgba(255,255,255,0.95); backdrop-filter: blur(20px);
+      border-bottom: 1px solid #e2e8f0; box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+      z-index: 1000; display: flex; align-items: center; justify-content: space-between; padding: 0 24px;
+    }
+    .topbar-left { display: flex; align-items: center; gap: 20px; }
+    .menu-toggle { display: none; width: 40px; height: 40px; align-items: center; justify-content: center;
+      color: #1a202c; font-size: 1.25rem; border-radius: 8px; transition: background 0.15s; }
+    .menu-toggle:hover { background: rgba(0,0,0,0.04); }
+    .brand { display: flex; align-items: center; gap: 8px; }
+    .brand-logo { width: 36px; height: 36px; background: linear-gradient(135deg, var(--amber), var(--amber-light));
+      border-radius: 8px; display: flex; align-items: center; justify-content: center;
+      font-size: 1.125rem; font-weight: 700; color: var(--deep-blue); }
+    .brand-text { font-size: 1.25rem; font-weight: 600; color: var(--deep-blue); letter-spacing: 0.5px; }
+    .brand-text span { color: var(--amber); }
+    .topbar-nav { display: flex; align-items: center; gap: 4px; }
+    .topbar-nav a { padding: 8px 16px; font-size: 0.875rem; font-weight: 500; color: #64748b; border-radius: 8px; transition: all 0.2s; }
+    .topbar-nav a:hover { color: #1e293b; background: rgba(0,0,0,0.04); }
+    .topbar-nav a.active { color: var(--deep-blue); background: rgba(26,54,93,0.08); font-weight: 600; }
+    .topbar-right { display: flex; align-items: center; gap: 12px; }
+    .user-menu { display: flex; align-items: center; gap: 8px; padding: 6px; border-radius: 8px; cursor: pointer; }
+    .user-menu:hover { background: rgba(0,0,0,0.04); }
+    .user-avatar { width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, var(--amber), var(--amber-light));
+      display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; color: var(--deep-blue); }
+    .user-name { font-size: 0.875rem; font-weight: 500; color: #334155; }
+    .timer-display { font-size: 0.8rem; font-weight: 600; color: #64748b; font-variant-numeric: tabular-nums; }
+
+    /* Sidebar */
+    .sidebar {
+      position: fixed; top: var(--topbar-height); left: 0;
+      width: var(--sidebar-width); height: calc(100vh - var(--topbar-height));
+      background: rgba(255,255,255,0.95); backdrop-filter: blur(20px);
+      border-right: 1px solid #e2e8f0; z-index: 900;
+      display: flex; flex-direction: column; transition: width 0.5s cubic-bezier(0.16,1,0.3,1); overflow: hidden;
+    }
+    .sidebar.collapsed { width: var(--sidebar-collapsed); }
+    .sidebar-nav { flex: 1; overflow-y: auto; padding: 12px 8px; }
+    .nav-section { margin-bottom: 20px; }
+    .nav-section-title { padding: 0 12px; margin-bottom: 8px; font-size: 0.7rem; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px; }
+    .sidebar.collapsed .nav-section-title { opacity: 0; height: 0; margin: 0; overflow: hidden; }
+    .nav-item { display: flex; align-items: center; gap: 12px; padding: 8px 12px; margin-bottom: 2px;
+      font-size: 0.875rem; font-weight: 500; color: #64748b; border-radius: 8px; transition: all 0.15s; position: relative; white-space: nowrap; }
+    .nav-item i { font-size: 1.125rem; min-width: 24px; text-align: center; flex-shrink: 0; }
+    .nav-item:hover { color: #1e293b; background: rgba(0,0,0,0.04); }
+    .nav-item.active { color: var(--deep-blue); background: rgba(26,54,93,0.08); }
+    .nav-item.active::before { content: ''; position: absolute; left: 0; top: 50%; transform: translateY(-50%);
+      width: 3px; height: 20px; background: linear-gradient(180deg, var(--amber), var(--amber-light)); border-radius: 0 2px 2px 0; }
+    .sidebar.collapsed .nav-item { justify-content: center; padding: 8px; }
+    .sidebar.collapsed .nav-item span { display: none; }
+    .sidebar-toggle {
+      position: absolute; top: 50%; right: -12px; transform: translateY(-50%);
+      width: 24px; height: 24px; background: #fff; border: 1px solid #e2e8f0; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center; color: #94a3b8; font-size: 0.7rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08); z-index: 10;
+    }
+    .sidebar.collapsed .sidebar-toggle { transform: translateY(-50%) rotate(180deg); }
+
+    /* Main Content - 3-col layout */
+    .main-content {
+      margin-left: var(--sidebar-width); margin-top: var(--topbar-height);
+      height: calc(100vh - var(--topbar-height)); display: flex; overflow: hidden;
+      transition: margin-left 0.5s cubic-bezier(0.16,1,0.3,1);
+    }
+    .sidebar.collapsed ~ .main-content { margin-left: var(--sidebar-collapsed); }
+    .sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 850; backdrop-filter: blur(4px); }
+    .sidebar-overlay.active { display: block; }
+
+    /* Left TOC */
+    .learn-toc {
+      width: 280px; background: #fff; border-right: 1px solid #e2e8f0;
+      display: flex; flex-direction: column; overflow: hidden; flex-shrink: 0;
+    }
+    .toc-header { padding: 16px; border-bottom: 1px solid #e2e8f0; display: flex; align-items: center; justify-content: space-between; }
+    .toc-header h3 { font-size: 0.875rem; font-weight: 600; color: #0f172a; }
+    .toc-collapse-btn { font-size: 0.75rem; color: var(--amber); padding: 4px 8px; border-radius: 4px; cursor: pointer; }
+    .toc-collapse-btn:hover { background: rgba(200,149,108,0.1); }
+    .toc-progress { padding: 0 16px 12px; border-bottom: 1px solid #e2e8f0; }
+    .toc-progress-label { display: flex; justify-content: space-between; font-size: 0.7rem; color: #94a3b8; margin-bottom: 6px; }
+    .toc-progress-bar { height: 4px; background: #e2e8f0; border-radius: 2px; overflow: hidden; }
+    .toc-progress-fill { height: 100%; background: var(--amber); border-radius: 2px; transition: width 0.5s ease; }
+    .breadcrumb-toc { padding: 10px 16px; font-size: 0.7rem; color: #94a3b8; border-bottom: 1px solid #e2e8f0; }
+    .breadcrumb-toc a { color: #64748b; }
+    .breadcrumb-toc a:hover { color: var(--amber); }
+    .toc-list { flex: 1; overflow-y: auto; padding: 8px 0; }
+    .toc-subject-header {
+      display: flex; align-items: center; gap: 6px; padding: 8px 16px;
+      font-size: 0.8rem; font-weight: 600; color: #334155; cursor: pointer; transition: background 0.15s;
+    }
+    .toc-subject-header:hover { background: #f8fafc; }
+    .toc-subject-header i { font-size: 0.6rem; color: #94a3b8; transition: transform 0.2s; }
+    .toc-subject-header.expanded i { transform: rotate(90deg); }
+    .toc-subject-meta { font-size: 0.65rem; color: #94a3b8; margin-left: auto; }
+    .toc-unit-list { display: none; }
+    .toc-unit-list.open { display: block; }
+    .toc-unit {
+      display: flex; align-items: center; gap: 8px; padding: 7px 16px 7px 32px;
+      font-size: 0.78rem; color: #64748b; cursor: pointer; transition: all 0.15s; border-left: 2px solid transparent;
+    }
+    .toc-unit:hover { background: #f8fafc; color: #334155; }
+    .toc-unit.active { background: rgba(26,54,93,0.06); color: var(--deep-blue); border-left-color: var(--amber); font-weight: 500; }
+    .toc-unit.toc-completed { color: #22c55e; }
+    .toc-unit-icon { font-size: 0.8rem; width: 16px; text-align: center; flex-shrink: 0; }
+    .toc-unit-icon.done { color: #22c55e; }
+    .toc-unit-icon.test { color: var(--amber); }
+    .toc-unit-score { margin-left: auto; font-size: 0.6rem; padding: 1px 5px; border-radius: 100px;
+      background: rgba(34,197,94,0.1); color: #22c55e; font-weight: 600; }
+
+    /* Center Content */
+    .learn-content {
+      flex: 1; display: flex; flex-direction: column; overflow: hidden; background: #f8fafc;
+    }
+    .content-header {
+      padding: 12px 24px; background: #fff; border-bottom: 1px solid #e2e8f0;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .content-breadcrumb { font-size: 0.78rem; color: #94a3b8; }
+    .content-breadcrumb a { color: #64748b; }
+    .content-breadcrumb a:hover { color: var(--amber); }
+    .content-tools { display: flex; align-items: center; gap: 12px; }
+    .tool-btn {
+      width: 34px; height: 34px; display: flex; align-items: center; justify-content: center;
+      border-radius: 8px; color: #64748b; font-size: 1rem; transition: all 0.15s;
+    }
+    .tool-btn:hover { background: #f1f5f9; color: #1e293b; }
+    .tool-btn.active { color: var(--amber); background: rgba(200,149,108,0.1); }
+    .content-body { flex: 1; overflow-y: auto; padding: 32px 48px; }
+
+    /* Slide elements */
+    .slide-container { max-width: 860px; margin: 0 auto; }
+    .slide-resume-banner {
+      background: linear-gradient(135deg, rgba(200,149,108,0.08), rgba(200,149,108,0.02));
+      border: 1px solid rgba(200,149,108,0.2); border-radius: 12px; padding: 16px 20px;
+      display: flex; align-items: center; gap: 16px; margin-bottom: 28px;
+    }
+    .slide-resume-banner i { font-size: 1.5rem; color: var(--amber); }
+    .resume-text { flex: 1; }
+    .resume-title { font-weight: 600; color: #0f172a; font-size: 0.9rem; }
+    .resume-desc { font-size: 0.8rem; color: #64748b; }
+    .slide-card {
+      background: #fff; border-radius: 16px; border: 1px solid #e2e8f0; padding: 40px 48px;
+      margin-bottom: 24px; transition: opacity 0.3s ease;
+    }
+    .slide-card h2 { font-size: 1.5rem; font-weight: 700; color: #0f172a; margin-bottom: 16px; }
+    .slide-card h3 { font-size: 1.125rem; font-weight: 600; color: #334155; margin-bottom: 12px; }
+    .slide-card p { color: #475569; line-height: 1.8; margin-bottom: 12px; }
+    .slide-card .highlight-box {
+      background: rgba(200,149,108,0.08); border-left: 3px solid var(--amber);
+      padding: 16px 20px; border-radius: 0 8px 8px 0; margin: 16px 0;
+    }
+    .slide-card ul, .slide-card ol { padding-left: 20px; margin-bottom: 12px; color: #475569; }
+    .slide-card li { margin-bottom: 6px; }
+    .slide-navigation {
+      display: flex; align-items: center; justify-content: space-between; max-width: 860px; margin: 0 auto;
+    }
+    .slide-dots { display: flex; gap: 8px; }
+    .slide-dot { width: 8px; height: 8px; border-radius: 50%; background: #e2e8f0; cursor: pointer; transition: all 0.2s; }
+    .slide-dot.active { background: var(--amber); width: 24px; border-radius: 4px; }
+    .slide-dot.done { background: #22c55e; }
+    .completed-state { text-align: center; padding: 40px; max-width: 860px; margin: 0 auto; }
+
+    /* Test elements */
+    .test-container { max-width: 860px; margin: 0 auto; }
+    .test-card { background: #fff; border-radius: 16px; border: 1px solid #e2e8f0; padding: 32px; margin-bottom: 24px; }
+    .test-question-num { font-size: 0.8rem; font-weight: 600; color: var(--amber); margin-bottom: 12px; }
+    .test-question-text { font-size: 1.1rem; font-weight: 500; color: #0f172a; margin-bottom: 24px; line-height: 1.7; }
+    .test-option-hint { font-size: 0.75rem; color: #94a3b8; margin-bottom: 16px; }
+    .test-options { display: flex; flex-direction: column; gap: 10px; }
+    .test-option {
+      display: flex; align-items: center; gap: 12px; padding: 14px 18px;
+      border: 2px solid #e2e8f0; border-radius: 10px; cursor: pointer; transition: all 0.2s; font-size: 0.9rem; color: #334155;
+    }
+    .test-option:hover { border-color: #cbd5e1; background: #f8fafc; }
+    .test-option.selected { border-color: var(--amber); background: rgba(200,149,108,0.06); }
+    .test-option.correct { border-color: #22c55e; background: rgba(34,197,94,0.06); }
+    .test-option.wrong { border-color: #ef4444; background: rgba(239,68,68,0.06); }
+    .test-opt-indicator { width: 20px; height: 20px; border-radius: 50%; border: 2px solid #cbd5e1; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all 0.2s; }
+    .test-option.selected .test-opt-indicator { border-color: var(--amber); background: var(--amber); }
+    .test-option.selected .test-opt-indicator::after { content: ''; width: 6px; height: 6px; background: #fff; border-radius: 50%; }
+    .test-progress-wrap { margin-bottom: 16px; }
+    .test-progress-label { display: flex; justify-content: space-between; font-size: 0.75rem; color: #94a3b8; margin-bottom: 6px; }
+    .test-progress-bar { height: 4px; background: #e2e8f0; border-radius: 2px; overflow: hidden; }
+    .test-progress-fill { height: 100%; background: var(--amber); border-radius: 2px; transition: width 0.3s ease; }
+    .test-result-area { text-align: center; padding: 40px; max-width: 860px; margin: 0 auto; }
+    .test-score-display { font-size: 3rem; font-weight: 700; font-family: 'Playfair Display', serif; margin-bottom: 8px; }
+    .test-score-display.pass { color: #22c55e; } .test-score-display.fail { color: #ef4444; }
+    .review-section { text-align: left; margin-top: 24px; }
+    .review-row { padding: 12px; border-radius: 8px; margin-bottom: 8px; font-size: 0.85rem; }
+    .review-row.good { background: rgba(34,197,94,0.06); border: 1px solid rgba(34,197,94,0.2); }
+    .review-row.bad { background: rgba(239,68,68,0.06); border: 1px solid rgba(239,68,68,0.2); }
+
+    /* Right toolbar */
+    .learn-toolbar {
+      width: 260px; background: #fff; border-left: 1px solid #e2e8f0;
+      display: flex; flex-direction: column; overflow-y: auto; flex-shrink: 0;
+    }
+    .toolbar-section { padding: 16px; border-bottom: 1px solid #e2e8f0; }
+    .toolbar-section h4 { font-size: 0.75rem; font-weight: 600; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px; }
+    .stat-item { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 0.8rem; }
+    .stat-item span:first-child { color: #64748b; } .stat-item span:last-child { color: #0f172a; font-weight: 500; }
+    .toolbar-note { width: 100%; min-height: 120px; padding: 10px; border: 1px solid #e2e8f0; border-radius: 8px; font-size: 0.8rem; font-family: inherit; resize: vertical; color: #334155; }
+    .toolbar-note:focus { outline: none; border-color: var(--amber); }
+
+    /* Buttons */
+    .btn { display: inline-flex; align-items: center; gap: 6px; padding: 10px 20px; font-size: 0.875rem; font-weight: 500; border-radius: 8px; transition: all 0.2s; }
+    .btn-primary { background: linear-gradient(135deg, var(--amber), var(--amber-light)); color: #fff; box-shadow: 0 2px 8px rgba(200,149,108,0.25); }
+    .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(200,149,108,0.4); }
+    .btn-secondary { background: #fff; color: var(--deep-blue); border: 1px solid #e2e8f0; }
+    .btn-secondary:hover { background: #f8fafc; }
+    .btn-sm { padding: 6px 12px; font-size: 0.8rem; }
+    .btn:disabled { opacity: 0.5; cursor: not-allowed; pointer-events: none; }
+
+    /* Toast */
+    .toast { position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%);
+      background: #0f172a; color: #fff; padding: 12px 24px; border-radius: 10px;
+      font-size: 0.875rem; z-index: 2000; opacity: 0; transition: opacity 0.3s ease;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.2); }
+    .toast.show { opacity: 1; }
+
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+    /* Mobile */
+    .mobile-toc-btn { display: none; position: fixed; bottom: 24px; right: 24px; z-index: 500;
+      width: 48px; height: 48px; border-radius: 50%; background: var(--amber); color: #fff;
+      font-size: 1.25rem; box-shadow: 0 4px 16px rgba(200,149,108,0.4); align-items: center; justify-content: center; }
+    .mobile-toc-panel { display: none; position: fixed; top: 0; right: -320px; width: 320px; height: 100vh;
+      background: #fff; z-index: 1500; transition: right 0.3s ease; overflow-y: auto; box-shadow: -4px 0 24px rgba(0,0,0,0.12); }
+    .mobile-toc-panel.open { right: 0; }
+    .mobile-toc-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 1400; }
+
+    @media (max-width: 1200px) {
+      .topbar-nav { display: none; }
+      .learn-toolbar { width: 220px; } .learn-toc { width: 240px; }
+      .content-body { padding: 24px; }
+    }
+    @media (max-width: 992px) {
+      .menu-toggle { display: flex; }
+      .sidebar { transform: translateX(-100%); width: var(--sidebar-width) !important; }
+      .sidebar.mobile-open { transform: translateX(0); }
+      .main-content { margin-left: 0 !important; }
+      .learn-toolbar { display: none; } .learn-toc { display: none; }
+      .mobile-toc-btn { display: flex; }
+      .mobile-toc-panel { display: block; }
+      .content-body { padding: 20px; }
+      .slide-card { padding: 24px; }
+    }
+    @media (max-width: 768px) {
+      .brand-text { display: none; }
+      .content-header { flex-wrap: wrap; gap: 8px; }
+      .content-body { padding: 16px; }
+      .slide-card { padding: 20px; }
+    }
+    @media (min-width: 993px) { .sidebar-overlay { display: none !important; } .mobile-toc-overlay { display: none !important; } }
+  </style>
 </head>
 <body>
-    <!-- 顶部导航栏 -->
-    <nav class="top-navbar">
-        <div class="nav-left">
-            <button class="hamburger-btn" id="hamburgerBtn" aria-label="打开菜单">
-                <i class="ri-menu-line"></i>
-            </button>
-            <a href="../index.html" class="logo">
-                <i class="ri-eye-line"></i>
-                慧眼
-            </a>
-            <ul class="nav-links">
-                <li><a href="../index.html">首页</a></li>
-                <li><a href="knowledge.html" class="active">知识矩阵</a></li>
-                <li><a href="skill.html">技能矩阵</a></li>
-                <li><a href="workshop.html">经验工作坊</a></li>
-                <li><a href="news.html">新闻公告</a></li>
-            </ul>
-        </div>
-        <div class="nav-right">
-            <div class="search-box">
-                <input type="text" placeholder="搜索课程、技能...">
-                <i class="ri-search-line"></i>
-            </div>
-            <div class="user-info">
-                <div class="user-avatar">张</div>
-                <span class="user-name">张工程师</span>
-            </div>
-        </div>
-    </nav>
 
-    <!-- 主内容区 -->
-    <main class="main-content">
-        <!-- 顶部课程信息条 -->
-        <div class="course-info-bar">
-            <div class="course-info-top">
-                <a href="knowledge.html" class="back-btn">
-                    <i class="ri-arrow-left-line"></i>
-                    返回
-                </a>
-                <div class="breadcrumb">
-                    <a href="knowledge.html">知识矩阵</a>
-                    <i class="ri-arrow-right-s-line"></i>
-                    <a href="#">HSE安全管理体系</a>
-                    <i class="ri-arrow-right-s-line"></i>
-                    <span>第4单元</span>
-                </div>
-            </div>
-            <h1 class="course-title-main">HSE安全管理体系 - 单元4：现场作业安全规范</h1>
-        </div>
-
-        <!-- 三栏布局 -->
-        <div class="learn-layout">
-            <!-- 左侧目录栏 -->
-            <aside class="toc-sidebar" id="tocSidebar">
-                <div class="toc-header">
-                    <div class="toc-progress-label">
-                        <span>课程总进度</span>
-                        <span>已完成 15/32 单元</span>
-                    </div>
-                    <div class="toc-progress-bar">
-                        <div class="toc-progress-fill"></div>
-                    </div>
-                </div>
-                <div class="toc-list">
-                    <div class="toc-unit completed" data-unit="1">
-                        <div class="toc-unit-check"><i class="ri-check-line"></i></div>
-                        <div class="toc-unit-info">
-                            <div class="toc-unit-title">HSE概述</div>
-                            <div class="toc-unit-meta">15 分钟</div>
-                        </div>
-                    </div>
-                    <div class="toc-unit completed" data-unit="2">
-                        <div class="toc-unit-check"><i class="ri-check-line"></i></div>
-                        <div class="toc-unit-info">
-                            <div class="toc-unit-title">风险评估</div>
-                            <div class="toc-unit-meta">25 分钟</div>
-                        </div>
-                    </div>
-                    <div class="toc-unit completed" data-unit="3">
-                        <div class="toc-unit-check"><i class="ri-check-line"></i></div>
-                        <div class="toc-unit-info">
-                            <div class="toc-unit-title">安全标识系统</div>
-                            <div class="toc-unit-meta">20 分钟</div>
-                        </div>
-                    </div>
-                    <div class="toc-unit current" data-unit="4">
-                        <div class="toc-unit-num">4</div>
-                        <div class="toc-unit-info">
-                            <div class="toc-unit-title">现场作业安全规范</div>
-                            <div class="toc-unit-meta">学习中...</div>
-                        </div>
-                    </div>
-                    <div class="toc-unit not-started" data-unit="5">
-                        <div class="toc-unit-num">5</div>
-                        <div class="toc-unit-info">
-                            <div class="toc-unit-title">应急响应流程</div>
-                            <div class="toc-unit-meta">30 分钟</div>
-                        </div>
-                    </div>
-                    <div class="toc-unit not-started" data-unit="6">
-                        <div class="toc-unit-num">6</div>
-                        <div class="toc-unit-info">
-                            <div class="toc-unit-title">事故调查与报告</div>
-                            <div class="toc-unit-meta">35 分钟</div>
-                        </div>
-                    </div>
-                    <div class="toc-more" id="tocMore">
-                        <i class="ri-arrow-down-s-line"></i>
-                        展开更多单元
-                    </div>
-                    <div id="tocExtra" style="display: none;">
-                        <div class="toc-unit not-started" data-unit="7">
-                            <div class="toc-unit-num">7</div>
-                            <div class="toc-unit-info">
-                                <div class="toc-unit-title">个人防护装备</div>
-                                <div class="toc-unit-meta">20 分钟</div>
-                            </div>
-                        </div>
-                        <div class="toc-unit not-started" data-unit="8">
-                            <div class="toc-unit-num">8</div>
-                            <div class="toc-unit-info">
-                                <div class="toc-unit-title">危险作业许可</div>
-                                <div class="toc-unit-meta">28 分钟</div>
-                            </div>
-                        </div>
-                        <div class="toc-unit not-started" data-unit="9">
-                            <div class="toc-unit-num">9</div>
-                            <div class="toc-unit-info">
-                                <div class="toc-unit-title">消防安全管理</div>
-                                <div class="toc-unit-meta">22 分钟</div>
-                            </div>
-                        </div>
-                        <div class="toc-unit not-started" data-unit="10">
-                            <div class="toc-unit-num">10</div>
-                            <div class="toc-unit-info">
-                                <div class="toc-unit-title">环境保护要求</div>
-                                <div class="toc-unit-meta">25 分钟</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </aside>
-
-            <!-- 移动端目录遮罩 -->
-            <div class="toc-overlay" id="tocOverlay"></div>
-
-            <!-- 中间学习区 -->
-            <section class="learn-area" id="learnArea">
-                <div class="learn-header">
-                    <div class="learn-header-left">
-                        <h2 class="learn-unit-title">单元4：现场作业安全规范</h2>
-                        <div class="learn-timer">
-                            <i class="ri-time-line"></i>
-                            <span id="studyTimer">已学习 00:23:45</span>
-                        </div>
-                    </div>
-                    <div class="learn-header-right">
-                        <button class="font-btn" id="fontDecrease" title="缩小字体">
-                            <i class="ri-subtract-line"></i>
-                        </button>
-                        <button class="font-btn" id="fontIncrease" title="放大字体">
-                            <i class="ri-add-line"></i>
-                        </button>
-                        <button class="download-btn" id="downloadBtn" title="下载课件">
-                            <i class="ri-file-pdf-line"></i>
-                            课件下载
-                        </button>
-                    </div>
-                </div>
-                <div class="learn-body" id="learnBody">
-                    <h2>一、现场作业安全管理概述</h2>
-                    <p>
-                        现场作业安全管理是HSE管理体系中的核心环节，直接关系到作业人员的生命安全和企业的生产稳定。在石油天然气行业，现场作业环境复杂多变，涉及高温、高压、易燃易爆等多种危险因素，因此建立完善的现场作业安全规范尤为重要。
-                    </p>
-                    <p>
-                        本单元将系统介绍现场作业安全规范的基本要求，包括作业前准备、作业过程控制、作业后检查等关键环节。通过学习，学员将掌握如何识别现场作业中的潜在风险，如何正确使用个人防护装备，以及如何执行标准化的安全作业程序。
-                    </p>
-                    <p>
-                        现场作业安全规范的执行需要全员参与，从管理层到一线作业人员，每个人都应当明确自身的安全职责。企业应当建立安全文化，将安全意识融入日常工作的每一个细节，形成"人人讲安全、事事重安全"的良好氛围。
-                    </p>
-
-                    <div class="learn-image-placeholder">
-                        <i class="ri-image-line"></i>
-                        <span>现场作业安全规范示意图</span>
-                    </div>
-
-                    <h3>二、关键安全要点</h3>
-                    <ul class="learn-list">
-                        <li>作业前必须进行全面的风险评估，识别作业区域内所有潜在危险源</li>
-                        <li>严格执行作业许可证制度，未经许可不得开展任何危险作业</li>
-                        <li>作业人员必须佩戴符合标准的个人防护装备，并确保装备处于良好状态</li>
-                        <li>现场应配备充足的消防器材和应急救援设备，并定期检查维护</li>
-                        <li>建立有效的沟通机制，确保作业团队之间信息传递准确及时</li>
-                        <li>遇到异常情况应立即停止作业，按照应急预案进行处置</li>
-                    </ul>
-
-                    <div class="learn-tip">
-                        <div class="learn-tip-title">
-                            <i class="ri-lightbulb-flash-line"></i>
-                            重要提示
-                        </div>
-                        <p>
-                            在任何现场作业中，安全永远是第一位的。当生产进度与安全要求发生冲突时，必须优先保障安全。任何违反安全规范的行为都可能导致严重的事故后果，不仅危及个人生命安全，还会给企业带来巨大的经济损失和声誉损害。
-                        </p>
-                    </div>
-
-                    <h3>三、作业流程标准化</h3>
-                    <p>
-                        标准化的作业流程是保障现场安全的基础。每一项作业都应当制定详细的作业指导书，明确作业步骤、安全要求、质量控制点和应急措施。作业指导书应当经过审批，并定期根据实际执行情况进行修订完善。
-                    </p>
-                    <p>
-                        作业前的安全交底是标准化流程中的重要环节。班组长或作业负责人应当向所有作业人员详细说明作业内容、安全风险、防护措施和应急程序，确保每位作业人员都清楚了解并能够正确执行。
-                    </p>
-                </div>
-                <div class="learn-footer">
-                    <button class="nav-btn prev" id="prevBtn">
-                        <i class="ri-arrow-left-line"></i>
-                        上一单元
-                    </button>
-                    <button class="nav-btn next" id="nextBtn">
-                        下一单元
-                        <i class="ri-arrow-right-line"></i>
-                    </button>
-                </div>
-            </section>
-
-            <!-- 右侧工具栏 -->
-            <aside class="tools-sidebar" id="toolsSidebar">
-                <!-- 学习时长统计 -->
-                <div class="tool-card">
-                    <div class="tool-card-title">
-                        <i class="ri-bar-chart-box-line"></i>
-                        学习统计
-                    </div>
-                    <div class="stats-grid">
-                        <div class="stat-box">
-                            <div class="stat-box-number" id="statTotalTime">23</div>
-                            <div class="stat-box-label">本次学习(分)</div>
-                        </div>
-                        <div class="stat-box">
-                            <div class="stat-box-number">156</div>
-                            <div class="stat-box-label">累计学习(分)</div>
-                        </div>
-                        <div class="stat-box">
-                            <div class="stat-box-number">4</div>
-                            <div class="stat-box-label">已完成单元</div>
-                        </div>
-                        <div class="stat-box">
-                            <div class="stat-box-number">85%</div>
-                            <div class="stat-box-label">单元掌握度</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 笔记编辑 -->
-                <div class="tool-card">
-                    <div class="tool-card-title">
-                        <i class="ri-draft-line"></i>
-                        学习笔记
-                    </div>
-                    <textarea class="note-textarea" id="noteTextarea" placeholder="在此记录学习心得和重点内容..."></textarea>
-                    <button class="save-note-btn" id="saveNoteBtn">
-                        <i class="ri-save-line"></i>
-                        保存笔记
-                    </button>
-                </div>
-
-                <!-- 功能入口 -->
-                <div class="tool-card">
-                    <div class="tool-card-title">
-                        <i class="ri-tools-line"></i>
-                        学习工具
-                    </div>
-                    <button class="tool-btn" id="askQuestionBtn">
-                        <i class="ri-questionnaire-line"></i>
-                        提交疑问
-                    </button>
-                    <button class="tool-btn disabled" id="unitTestBtn" disabled>
-                        <i class="ri-checkbox-circle-line"></i>
-                        单元测试
-                    </button>
-                    <div class="tool-hint">学完后可进行测试</div>
-                </div>
-            </aside>
-        </div>
-    </main>
-
-    <!-- 移动端浮动按钮 -->
-    <div class="mobile-float-tools" id="mobileFloatTools">
-        <button class="float-btn" id="mobileTocBtn" title="目录">
-            <i class="ri-list-check"></i>
-        </button>
-        <button class="float-btn" id="mobileToolsBtn" title="工具">
-            <i class="ri-tools-line"></i>
-        </button>
+<nav class="topbar">
+  <div class="topbar-left">
+    <button class="menu-toggle" id="menuToggle"><i class="ri-menu-line"></i></button>
+    <div class="brand"><div class="brand-logo">慧</div><div class="brand-text">慧眼 <span>系统</span></div></div>
+    <div class="topbar-nav">
+      <a href="../index.html">首页</a>
+      <a href="knowledge.html" class="active">知识矩阵</a>
+      <a href="skill.html">技能矩阵</a>
+      <a href="workshop.html">经验工作坊</a>
     </div>
+  </div>
+  <div class="topbar-right">
+    <span class="timer-display" id="headerTimer"><i class="ri-timer-line"></i> <span id="timerValue">00:00:00</span></span>
+    <div class="user-menu"><div class="user-avatar">张</div><span class="user-name">张工程师</span></div>
+  </div>
+</nav>
 
-    <!-- 提示消息 -->
-    <div class="toast" id="toast"></div>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
 
-    <script>
-        // 计时器
-        let studySeconds = 23 * 60 + 45; // 从 00:23:45 开始
-        const timerEl = document.getElementById('studyTimer');
-        const statTotalTimeEl = document.getElementById('statTotalTime');
+<aside class="sidebar" id="sidebar">
+  <button class="sidebar-toggle" id="sidebarToggle"><i class="ri-arrow-left-s-line"></i></button>
+  <div class="sidebar-nav">
+    <div class="nav-section">
+      <div class="nav-section-title">核心模块</div>
+      <a href="knowledge.html" class="nav-item active"><i class="ri-book-open-line"></i><span>知识矩阵</span></a>
+      <a href="skill.html" class="nav-item"><i class="ri-award-line"></i><span>技能矩阵</span></a>
+      <a href="workshop.html" class="nav-item"><i class="ri-team-line"></i><span>经验工作坊</span></a>
+      <a href="assessment.html" class="nav-item"><i class="ri-task-line"></i><span>评估认证</span></a>
+    </div>
+  </div>
+</aside>
 
-        function formatTime(totalSeconds) {
-            const hours = Math.floor(totalSeconds / 3600);
-            const minutes = Math.floor((totalSeconds % 3600) / 60);
-            const seconds = totalSeconds % 60;
-            return `已学习 ${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+<main class="main-content" id="mainContent">
+  <aside class="learn-toc" id="learnToc">
+    <div class="toc-header">
+      <h3 id="tocTitle">单元目录</h3>
+      <button class="toc-collapse-btn" id="tocCollapseAll">折叠全部</button>
+    </div>
+    <div class="toc-progress">
+      <div class="toc-progress-label"><span>课程进度</span><span id="tocProgressPct">0%</span></div>
+      <div class="toc-progress-bar"><div class="toc-progress-fill" id="tocProgressFill" style="width:0%"></div></div>
+    </div>
+    <div class="breadcrumb-toc" id="tocBreadcrumb">
+      <a href="knowledge.html">知识矩阵</a> › <span id="tocDiscName">井工程</span>
+    </div>
+    <div class="toc-list" id="tocList"></div>
+  </aside>
+
+  <section class="learn-content" id="learnContent">
+    <div class="content-header">
+      <div class="content-breadcrumb" id="contentBreadcrumb">
+        <a href="knowledge.html">知识矩阵</a> › <span>...</span>
+      </div>
+      <div class="content-tools">
+        <button class="tool-btn" id="btnFontDown" title="缩小字体"><i class="ri-font-size-2"></i></button>
+        <button class="tool-btn" id="btnFontUp" title="放大字体"><i class="ri-font-size"></i></button>
+        <button class="tool-btn" id="btnDarkMode" title="暗色模式"><i class="ri-moon-line"></i></button>
+        <button class="tool-btn" id="btnDownload" title="下载课件"><i class="ri-download-2-line"></i></button>
+      </div>
+    </div>
+    <div class="content-body" id="contentBody">
+      <div class="completed-state">
+        <i class="ri-book-open-line" style="color:#94a3b8;font-size:4rem;"></i>
+        <h3 style="color:#94a3b8;margin-top:16px;">从左侧目录选择一个单元开始学习</h3>
+      </div>
+    </div>
+  </section>
+
+  <aside class="learn-toolbar" id="learnToolbar">
+    <div class="toolbar-section">
+      <h4>学习统计</h4>
+      <div class="stat-item"><span>学习时长</span><span id="statDuration">00:00:00</span></div>
+      <div class="stat-item"><span>已完成单元</span><span id="statCompleted">0</span></div>
+      <div class="stat-item"><span>测试均分</span><span id="statAvgScore">--</span></div>
+    </div>
+    <div class="toolbar-section">
+      <h4>我的笔记</h4>
+      <textarea class="toolbar-note" id="noteArea" placeholder="记录学习要点..."></textarea>
+      <button class="btn btn-secondary btn-sm" id="btnSaveNote" style="margin-top:8px;width:100%;justify-content:center;">保存笔记</button>
+    </div>
+    <div class="toolbar-section">
+      <h4>疑问提交</h4>
+      <button class="btn btn-secondary btn-sm" id="btnAskQuestion" style="width:100%;justify-content:center;"><i class="ri-question-line"></i> 提交疑问给评估师</button>
+    </div>
+    <div class="toolbar-section">
+      <h4>单元操作</h4>
+      <button class="btn btn-primary btn-sm" id="btnMarkComplete" style="width:100%;justify-content:center;margin-bottom:8px;"><i class="ri-check-line"></i> 标记完成</button>
+      <button class="btn btn-secondary btn-sm" id="btnNextUnit" style="width:100%;justify-content:center;">下一个单元 <i class="ri-arrow-right-line"></i></button>
+    </div>
+  </aside>
+</main>
+
+<button class="mobile-toc-btn" id="mobileTocBtn"><i class="ri-list-unordered"></i></button>
+<div class="mobile-toc-overlay" id="mobileTocOverlay"></div>
+<div class="mobile-toc-panel" id="mobileTocPanel"></div>
+
+<div class="toast" id="toast"></div>
+
+<script src="../app/sidebar.js"></script>
+<script>
+(function() {
+  'use strict';
+  const $ = (s) => document.querySelector(s);
+  const $$ = (s) => document.querySelectorAll(s);
+
+  // ==================== Data ====================
+  const CURRICULUM = [
+    { discId: 1, discName: '井工程', subjectName: 'Introduction to Drilling', units: [
+      { id: 1001, name: 'Prospecting for Petroleum', code: '1.1.1', isTest: false, slides: [
+        { title: 'Prospecting for Petroleum', subtitle: 'Wells Engineering · Introduction to Drilling', content: '<p>Welcome to this unit on petroleum prospecting fundamentals. Learn how geologists and geophysicists locate potential oil and gas reserves.</p>' },
+        { title: 'Geological Surveys', content: '<h3>Geological Surveys</h3><p>Geological surveys are the first step in identifying potential oil and gas reservoirs. Geologists study surface rock formations, analyze satellite imagery, and conduct field mapping.</p><div class="highlight-box"><strong>Key Point:</strong> Seismic reflection is the most widely used geophysical method for oil and gas exploration, accounting for over 90% of exploration spending.</div>' },
+        { title: 'Seismic Methods', content: '<h3>Seismic Reflection Methods</h3><p>Seismic waves are sent into the ground via vibrator trucks or explosives. These waves reflect off subsurface rock layers and are recorded by geophones at the surface. The resulting data reveals the structure and depth of potential reservoirs.</p>' },
+        { title: 'Reservoir Analysis', content: '<h3>Reservoir Rock Properties</h3><p>A successful reservoir requires three key properties:</p><ul><li><strong>Porosity</strong> — void space within the rock to hold hydrocarbons</li><li><strong>Permeability</strong> — interconnected pore spaces allowing fluid flow</li><li><strong>Saturation</strong> — the fraction of pore volume filled with hydrocarbons vs. water</li></ul>' }
+      ]},
+      { id: 1002, name: 'Subsurface Pressures', code: '1.1.2', isTest: false, slides: [
+        { title: 'Subsurface Pressures', subtitle: 'Understanding formation pressures in drilling', content: '<p>This unit covers the types, measurement, and importance of subsurface pressures in safe drilling operations.</p>' },
+        { title: 'Pressure Types', content: '<h3>Types of Subsurface Pressures</h3><div class="highlight-box"><strong>Hydrostatic Pressure:</strong> Pressure exerted by a column of fluid.<br><strong>Formation Pressure:</strong> Pressure of fluids within pore spaces of rock.<br><strong>Fracture Pressure:</strong> Pressure at which the formation fractures, causing lost circulation.<br><strong>Overburden Pressure:</strong> Weight of overlying rock and fluids.</div>' }
+      ]},
+      { id: 1003, name: 'Rig Environment', code: '1.1.3', isTest: false, slides: [
+        { title: 'Rig Environment', subtitle: 'Drilling rig types and operations', content: '<p>Learn about various types of drilling rigs—land rigs, jackup rigs, semisubmersibles, and drillships—and their operational environments.</p>' }
+      ]},
+      { id: 1004, name: 'Drilling Components', code: '1.1.4', isTest: false, slides: [
+        { title: 'Drilling Components and Operations', subtitle: 'Key components of the drilling system', content: '<p>This unit covers the drill string, drill bit, hoisting system, rotary system, and mud circulation system—the five core subsystems of any drilling rig.</p>' }
+      ]},
+      { id: 1005, name: 'Rig Component Systems', code: '1.1.5', isTest: false, slides: [
+        { title: 'The Rig and its Component Systems', subtitle: 'Complete rig system overview', content: '<p>Comprehensive overview of all major rig systems including power generation, hoisting, rotation, circulation, BOP, and monitoring systems.</p>' }
+      ]}
+    ]},
+    { discId: 1, discName: '井工程', subjectName: 'Knowledge Test - Wells', isTestSubject: true, units: [
+      { id: 1099, name: 'Wells Engineering Assessment', code: '1.T.1', isTest: true, questions: [
+        { type: 'single', text: 'What is the most widely used geophysical method for oil and gas exploration?', options: ['Magnetic survey', 'Seismic reflection', 'Gravity survey', 'Electrical survey'], correct: 1 },
+        { type: 'single', text: 'Which property describes a rock\'s ability to allow fluid flow?', options: ['Porosity', 'Permeability', 'Saturation', 'Density'], correct: 1 },
+        { type: 'multiple', text: 'Which of the following are types of subsurface pressures? (Choose all correct)', options: ['Hydrostatic Pressure', 'Atmospheric Pressure', 'Formation Pressure', 'Fracture Pressure'], correct: [0, 2, 3] },
+        { type: 'single', text: 'What is the primary purpose of casing in a well?', options: ['Increase production', 'Prevent hole collapse and isolate formations', 'Reduce drilling time', 'Improve seismic data'], correct: 1 }
+      ]}
+    ]}
+  ];
+
+  const userProgress = { units: { 1001: { status: 'completed', score: null, lastSlide: 3 }, 1002: { status: 'started', score: null, lastSlide: 1 }, 1099: { status: 'completed', score: 67 } } };
+
+  // ==================== State ====================
+  let currentUnit = null, currentSlideIdx = 0, currentQuestionIdx = 0, testAnswers = {}, testSubmitted = false;
+  let timerSeconds = 0, timerInterval = null, fontSize = 16, darkMode = false;
+
+  // ==================== Sidebar ====================
+  let sidebarCollapsed = localStorage.getItem('sidebarCollapsed') === 'true';
+  if (sidebarCollapsed) $('#sidebar').classList.add('collapsed');
+  $('#sidebarToggle').addEventListener('click', () => {
+    sidebarCollapsed = !sidebarCollapsed;
+    $('#sidebar').classList.toggle('collapsed', sidebarCollapsed);
+    localStorage.setItem('sidebarCollapsed', sidebarCollapsed);
+  });
+  $('#menuToggle').addEventListener('click', () => {
+    $('#sidebar').classList.add('mobile-open'); $('#sidebarOverlay').classList.add('active');
+  });
+  $('#sidebarOverlay').addEventListener('click', () => {
+    $('#sidebar').classList.remove('mobile-open'); $('#sidebarOverlay').classList.remove('active');
+  });
+
+  // ==================== Toast ====================
+  let toastTimer;
+  function showToast(msg) {
+    const t = $('#toast'); t.textContent = msg; t.classList.add('show');
+    clearTimeout(toastTimer); toastTimer = setTimeout(() => t.classList.remove('show'), 2500);
+  }
+
+  // ==================== Build TOC ====================
+  function buildTOC() {
+    const list = $('#tocList');
+    const allExpanded = true;
+    list.innerHTML = CURRICULUM.map((subj, si) => `
+      <div class="toc-subject-header ${allExpanded ? 'expanded' : ''}" data-subj="${si}">
+        <i class="ri-arrow-right-s-line"></i>
+        <span>${subj.subjectName}</span>
+        <span class="toc-subject-meta">${subj.units.length}${subj.isTestSubject ? ' · Test' : ''}</span>
+      </div>
+      <div class="toc-unit-list ${allExpanded ? 'open' : ''}">
+        ${subj.units.map(u => {
+          const p = userProgress.units[u.id];
+          let cls = '', icon = '', badge = '';
+          if (u.isTest) {
+            icon = '<i class="ri-pencil-line toc-unit-icon test"></i>';
+            if (p && p.status === 'completed' && p.score !== null) { cls = 'toc-completed'; badge = `<span class="toc-unit-score">${p.score}%</span>`; }
+          } else {
+            if (p && p.status === 'completed') { cls = 'toc-completed'; icon = '<i class="ri-check-line toc-unit-icon done"></i>'; }
+            else if (p && p.status === 'started') icon = '<i class="ri-file-line toc-unit-icon" style="color:#f59e0b;"></i>';
+            else icon = '<i class="ri-file-line toc-unit-icon" style="color:#94a3b8;"></i>';
+          }
+          return `<div class="toc-unit ${cls} ${currentUnit && currentUnit.id === u.id ? 'active' : ''}" data-unit-id="${u.id}">${icon}<span>${u.name}</span>${badge}</div>`;
+        }).join('')}
+      </div>
+    `).join('');
+
+    list.querySelectorAll('.toc-subject-header').forEach(h => {
+      h.addEventListener('click', function() { this.classList.toggle('expanded'); this.nextElementSibling.classList.toggle('open'); });
+    });
+    list.querySelectorAll('.toc-unit').forEach(u => {
+      u.addEventListener('click', function() { selectUnit(parseInt(this.dataset.unitId)); });
+    });
+    $('#tocCollapseAll').addEventListener('click', function() {
+      const anyOpen = list.querySelector('.toc-unit-list.open');
+      list.querySelectorAll('.toc-subject-header').forEach(h => anyOpen ? h.classList.remove('expanded') : h.classList.add('expanded'));
+      list.querySelectorAll('.toc-unit-list').forEach(l => anyOpen ? l.classList.remove('open') : l.classList.add('open'));
+      this.textContent = anyOpen ? '展开全部' : '折叠全部';
+    });
+  }
+
+  function updateTOCProgress() {
+    let total = 0, completed = 0, scoreTotal = 0, scoreCount = 0;
+    CURRICULUM.forEach(s => s.units.forEach(u => {
+      total++;
+      const p = userProgress.units[u.id];
+      if (p && p.status === 'completed') completed++;
+      if (p && p.score !== null) { scoreTotal += p.score; scoreCount++; }
+    }));
+    $('#tocProgressPct').textContent = (total > 0 ? Math.round(completed / total * 100) : 0) + '%';
+    $('#tocProgressFill').style.width = (total > 0 ? Math.round(completed / total * 100) : 0) + '%';
+    $('#statCompleted').textContent = completed;
+    $('#statAvgScore').textContent = scoreCount > 0 ? Math.round(scoreTotal / scoreCount) + '%' : '--';
+  }
+
+  // ==================== Select unit ====================
+  function selectUnit(unitId) {
+    let unit = null;
+    for (const s of CURRICULUM) {
+      const found = s.units.find(u => u.id === unitId);
+      if (found) { unit = found; break; }
+    }
+    if (!unit) { showToast('单元未找到'); return; }
+    currentUnit = unit; currentSlideIdx = 0; currentQuestionIdx = 0; testAnswers = {}; testSubmitted = false;
+    buildTOC();
+    const activeEl = document.querySelector(`.toc-unit[data-unit-id="${unitId}"]`);
+    if (activeEl) activeEl.classList.add('active');
+    const discName = CURRICULUM[0].discName;
+    $('#tocDiscName').textContent = discName;
+    $('#contentBreadcrumb').innerHTML = `<a href="knowledge.html">知识矩阵</a> › <span>${discName}</span> › <span>${unit.name}</span>`;
+
+    if (unit.isTest) renderTestPlayer(unit);
+    else if (unit.slides && unit.slides.length > 0) renderSlidePlayer(unit);
+    else $('#contentBody').innerHTML = '<div class="completed-state"><i class="ri-file-line" style="color:#94a3b8;font-size:4rem;"></i><h3 style="color:#94a3b8;margin-top:16px;">暂无学习内容</h3></div>';
+
+    updateTOCProgress();
+    toggleUnitButtons(unit);
+    startTimer();
+  }
+
+  function toggleUnitButtons(unit) {
+    const isCompleted = userProgress.units[unit.id] && userProgress.units[unit.id].status === 'completed';
+    $('#btnMarkComplete').textContent = isCompleted ? '✓ 已完成' : '标记完成';
+    if (isCompleted || unit.isTest) { $('#btnMarkComplete').disabled = true; $('#btnMarkComplete').style.opacity = '0.5'; }
+    else { $('#btnMarkComplete').disabled = false; $('#btnMarkComplete').style.opacity = '1'; }
+  }
+
+  // ==================== Slide Player ====================
+  function renderSlidePlayer(unit) {
+    const prog = userProgress.units[unit.id];
+    const saved = prog ? prog.lastSlide : 0;
+    if (saved > 0 && saved < unit.slides.length - 1) {
+      $('#contentBody').innerHTML = `<div class="slide-container"><div class="slide-resume-banner">
+        <i class="ri-history-line"></i><div class="resume-text"><div class="resume-title">上次学习记录</div><div class="resume-desc">您上次停在第 ${saved + 1} 张幻灯片</div></div>
+        <div style="display:flex;gap:8px;"><button class="btn btn-secondary btn-sm" onclick="window._startOver()">重新开始</button><button class="btn btn-primary btn-sm" onclick="window._continueLearn(${saved})">继续学习</button></div>
+      </div></div>`;
+    } else { currentSlideIdx = 0; renderSlide(unit); }
+  }
+
+  window._startOver = function() { currentSlideIdx = 0; renderSlide(currentUnit); };
+  window._continueLearn = function(i) { currentSlideIdx = i; renderSlide(currentUnit); };
+
+  function renderSlide(unit) {
+    const slide = unit.slides[currentSlideIdx]; if (!slide) return;
+    if (!userProgress.units[unit.id]) userProgress.units[unit.id] = { status: 'started', score: null, lastSlide: currentSlideIdx };
+    else { userProgress.units[unit.id].lastSlide = currentSlideIdx; userProgress.units[unit.id].status = 'started'; }
+    updateTOCProgress();
+
+    const total = unit.slides.length, isLast = currentSlideIdx === total - 1;
+    let html = '<div class="slide-container"><div class="slide-card">';
+    if (slide.subtitle) html += `<p style="color:#94a3b8;font-size:0.9rem;margin-bottom:8px;">${slide.subtitle}</p>`;
+    html += `<h2>${slide.title}</h2>${slide.content}</div><div class="slide-navigation"><div class="slide-dots">`;
+    unit.slides.forEach((_, i) => { html += `<div class="slide-dot${i===currentSlideIdx?' active':''}${i<currentSlideIdx?' done':''}" data-dot="${i}"></div>`; });
+    html += `</div><div class="slide-nav-btns"><button class="btn btn-secondary btn-sm" ${currentSlideIdx===0?'disabled':''} onclick="window._prevSlide()"><i class="ri-arrow-left-line"></i> 上一页</button>`;
+    if (isLast) html += `<button class="btn btn-primary btn-sm" onclick="window._completeUnit()">完成学习 <i class="ri-check-line"></i></button>`;
+    else html += `<button class="btn btn-primary btn-sm" onclick="window._nextSlide()">下一页 <i class="ri-arrow-right-line"></i></button>`;
+    html += '</div></div></div>';
+    $('#contentBody').innerHTML = html;
+
+    $$('.slide-dot').forEach(d => { d.addEventListener('click', function() { currentSlideIdx = parseInt(this.dataset.dot); renderSlide(unit); }); });
+  }
+
+  window._prevSlide = function() { if (currentSlideIdx > 0) { currentSlideIdx--; renderSlide(currentUnit); } };
+  window._nextSlide = function() { if (currentUnit && currentSlideIdx < currentUnit.slides.length - 1) { currentSlideIdx++; renderSlide(currentUnit); } };
+  window._completeUnit = function() {
+    userProgress.units[currentUnit.id] = { ...userProgress.units[currentUnit.id], status: 'completed' };
+    showToast('单元学习完成！'); buildTOC(); updateTOCProgress(); toggleUnitButtons(currentUnit);
+    $('#contentBody').innerHTML = `<div class="completed-state"><i class="ri-checkbox-circle-line" style="color:#22c55e;font-size:4rem;"></i><h2 style="margin-top:16px;">学习完成</h2><p style="color:#64748b;margin-top:8px;">"${currentUnit.name}"</p></div>`;
+  };
+
+  // ==================== Test Player ====================
+  function renderTestPlayer(unit) {
+    if (!unit.questions || !unit.questions.length) return;
+    currentQuestionIdx = 0; testAnswers = {}; testSubmitted = false;
+    renderQuestion(unit);
+  }
+
+  function renderQuestion(unit) {
+    const q = unit.questions[currentQuestionIdx], total = unit.questions.length, isLast = currentQuestionIdx === total - 1;
+    let html = `<div class="test-container"><div class="test-progress-wrap"><div class="test-progress-label"><span>Question ${currentQuestionIdx+1} of ${total}</span><span>${Math.round((currentQuestionIdx+1)/total*100)}%</span></div><div class="test-progress-bar"><div class="test-progress-fill" style="width:${(currentQuestionIdx+1)/total*100}%"></div></div></div><div class="test-card"><div class="test-question-num">Question ${currentQuestionIdx+1}</div><div class="test-question-text">${q.text}</div><div class="test-option-hint">${q.type==='multiple'?'Choose all correct answers':'Choose Correct'}</div><div class="test-options">`;
+    q.options.forEach((opt, i) => {
+      const saved = testAnswers[currentQuestionIdx];
+      let sel = false;
+      if (q.type === 'multiple' && saved) sel = saved.includes(i);
+      else if (saved !== undefined) sel = saved === i;
+      html += `<div class="test-option ${sel?'selected':''}" data-opt="${i}"><div class="test-opt-indicator"></div><span>${opt}</span></div>`;
+    });
+    html += `</div></div><div style="display:flex;gap:8px;justify-content:space-between;max-width:860px;margin:0 auto;"><button class="btn btn-secondary btn-sm" ${currentQuestionIdx===0?'disabled':''} onclick="window._prevQ()"><i class="ri-arrow-left-line"></i> 上一题</button>`;
+    html += isLast ? `<button class="btn btn-primary btn-sm" onclick="window._submitTest()">提交 <i class="ri-check-line"></i></button>` : `<button class="btn btn-primary btn-sm" onclick="window._nextQ()">下一题 <i class="ri-arrow-right-line"></i></button>`;
+    html += '</div></div>';
+    $('#contentBody').innerHTML = html;
+
+    $$('.test-option').forEach(opt => {
+      opt.addEventListener('click', function() {
+        if (testSubmitted) return;
+        const oi = parseInt(this.dataset.opt);
+        if (q.type === 'multiple') {
+          if (!testAnswers[currentQuestionIdx]) testAnswers[currentQuestionIdx] = [];
+          const arr = testAnswers[currentQuestionIdx], idx = arr.indexOf(oi);
+          if (idx >= 0) arr.splice(idx, 1); else arr.push(oi);
+          this.classList.toggle('selected');
+        } else {
+          testAnswers[currentQuestionIdx] = oi;
+          $$('.test-option').forEach(el => el.classList.remove('selected'));
+          this.classList.add('selected');
         }
+      });
+    });
+  }
 
-        setInterval(() => {
-            studySeconds++;
-            timerEl.textContent = formatTime(studySeconds);
-            statTotalTimeEl.textContent = Math.floor(studySeconds / 60);
-        }, 1000);
+  window._prevQ = function() { if (currentQuestionIdx > 0) { currentQuestionIdx--; renderQuestion(currentUnit); } };
+  window._nextQ = function() { if (currentUnit && currentQuestionIdx < currentUnit.questions.length - 1) { currentQuestionIdx++; renderQuestion(currentUnit); } };
+  window._submitTest = function() {
+    const unit = currentUnit;
+    const unanswered = [];
+    unit.questions.forEach((q, i) => { const a = testAnswers[i]; if (a === undefined || (Array.isArray(a) && a.length === 0)) unanswered.push(i + 1); });
+    if (unanswered.length > 0) { showToast(`请完成第 ${unanswered.join(', ')} 题`); return; }
+    testSubmitted = true;
+    let correct = 0; const review = [];
+    unit.questions.forEach((q, i) => {
+      const ua = testAnswers[i]; let ok = false;
+      if (q.type === 'multiple') { const cs = new Set(q.correct), us = new Set(ua || []); ok = cs.size === us.size && [...cs].every(v => us.has(v)); }
+      else ok = ua === q.correct;
+      if (ok) correct++;
+      review.push({ q, ok, correctText: q.type === 'multiple' ? q.correct.map(c => q.options[c]).join(', ') : q.options[q.correct] });
+    });
+    const score = Math.round(correct / unit.questions.length * 100), passed = score >= 60;
+    userProgress.units[unit.id] = { ...userProgress.units[unit.id], status: 'completed', score };
+    let html = `<div class="test-result-area"><i class="ri-${passed?'checkbox-circle-line':'close-circle-line'}" style="font-size:3.5rem;color:${passed?'#22c55e':'#ef4444'};"></i><div class="test-score-display ${passed?'pass':'fail'}">${score}%</div><p style="color:#64748b;margin-bottom:24px;">${passed?'恭喜通过测试！':'未达到及格线（60%）'} · ${correct}/${unit.questions.length} 题正确</p><div class="review-section"><h4 style="margin-bottom:12px;">答题回顾</h4>`;
+    review.forEach((r, i) => { html += `<div class="review-row ${r.ok?'good':'bad'}"><strong>Q${i+1}:</strong> ${r.q.text}<br><span style="color:${r.ok?'#22c55e':'#ef4444'};">${r.ok?'✓ 正确':'✗ 错误 · 正确答案: '+r.correctText}</span></div>`; });
+    html += `</div><div style="display:flex;gap:10px;justify-content:center;margin-top:20px;"><button class="btn btn-secondary btn-sm" onclick="window._retryTest()">Try Again</button><button class="btn btn-primary btn-sm" onclick="location.href='knowledge.html'">返回知识矩阵</button></div></div>`;
+    $('#contentBody').innerHTML = html;
+    buildTOC(); updateTOCProgress(); toggleUnitButtons(unit);
+  };
+  window._retryTest = function() { testAnswers = {}; testSubmitted = false; currentQuestionIdx = 0; renderTestPlayer(currentUnit); };
 
-        // 字体大小控制
-        const learnArea = document.getElementById('learnArea');
-        const fontIncrease = document.getElementById('fontIncrease');
-        const fontDecrease = document.getElementById('fontDecrease');
-        let fontSizeLevel = 0; // 0=normal, -1=small, 1=large
+  // ==================== Timer ====================
+  function startTimer() { if (timerInterval) clearInterval(timerInterval); timerSeconds = 0;
+    timerInterval = setInterval(() => { timerSeconds++;
+      const h = Math.floor(timerSeconds/3600).toString().padStart(2,'0'), m = Math.floor((timerSeconds%3600)/60).toString().padStart(2,'0'), s = (timerSeconds%60).toString().padStart(2,'0');
+      $('#timerValue').textContent = `${h}:${m}:${s}`; $('#statDuration').textContent = `${h}:${m}:${s}`;
+    }, 1000);
+  }
 
-        fontIncrease.addEventListener('click', () => {
-            learnArea.classList.remove('font-small');
-            learnArea.classList.add('font-large');
-            fontSizeLevel = 1;
-        });
+  // ==================== Toolbar ====================
+  $('#btnFontDown').addEventListener('click', () => { fontSize = Math.max(12, fontSize - 2); $('#contentBody').style.fontSize = fontSize + 'px'; });
+  $('#btnFontUp').addEventListener('click', () => { fontSize = Math.min(24, fontSize + 2); $('#contentBody').style.fontSize = fontSize + 'px'; });
+  $('#btnDarkMode').addEventListener('click', function() {
+    darkMode = !darkMode; this.classList.toggle('active', darkMode);
+    $('#learnContent').style.background = darkMode ? '#1a202c' : '#f8fafc';
+    $('#contentBody').style.color = darkMode ? '#e2e8f0' : '#1a202c';
+    this.innerHTML = darkMode ? '<i class="ri-sun-line"></i>' : '<i class="ri-moon-line"></i>';
+  });
+  $('#btnDownload').addEventListener('click', () => showToast('课件下载中...（模拟）'));
+  $('#btnSaveNote').addEventListener('click', () => {
+    const note = $('#noteArea').value;
+    localStorage.setItem('learnNote_' + (currentUnit ? currentUnit.id : '0'), note);
+    showToast('笔记已保存');
+  });
+  $('#btnAskQuestion').addEventListener('click', () => { const q = prompt('请输入您的疑问：'); if (q) showToast('疑问已提交至评估师'); });
+  $('#btnMarkComplete').addEventListener('click', () => {
+    if (!currentUnit) return;
+    userProgress.units[currentUnit.id] = { ...userProgress.units[currentUnit.id], status: 'completed' };
+    showToast('单元已标记为完成'); buildTOC(); updateTOCProgress(); toggleUnitButtons(currentUnit);
+  });
+  $('#btnNextUnit').addEventListener('click', () => {
+    if (!currentUnit) return;
+    let found = false, next = null;
+    for (const s of CURRICULUM) { for (let i = 0; i < s.units.length; i++) { if (found) { next = s.units[i]; break; } if (s.units[i].id === currentUnit.id) found = true; } if (next) break; }
+    if (next) selectUnit(next.id); else showToast('已是最后一个单元');
+  });
 
-        fontDecrease.addEventListener('click', () => {
-            learnArea.classList.remove('font-large');
-            learnArea.classList.add('font-small');
-            fontSizeLevel = -1;
-        });
+  // ==================== Mobile TOC ====================
+  $('#mobileTocBtn').addEventListener('click', () => {
+    $('#mobileTocPanel').classList.add('open'); $('#mobileTocOverlay').style.display = 'block';
+    $('#mobileTocPanel').innerHTML = $('#learnToc').innerHTML;
+  });
+  $('#mobileTocOverlay').addEventListener('click', () => {
+    $('#mobileTocPanel').classList.remove('open'); $('#mobileTocOverlay').style.display = 'none';
+  });
 
-        // 目录展开/折叠
-        const tocMore = document.getElementById('tocMore');
-        const tocExtra = document.getElementById('tocExtra');
-        let tocExpanded = false;
+  // ==================== Keyboard ====================
+  document.addEventListener('keydown', function(e) {
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+    if (currentUnit && !currentUnit.isTest && !testSubmitted) {
+      if (e.key === 'ArrowLeft') window._prevSlide(); if (e.key === 'ArrowRight') window._nextSlide();
+    }
+  });
 
-        tocMore.addEventListener('click', () => {
-            tocExpanded = !tocExpanded;
-            if (tocExpanded) {
-                tocExtra.style.display = 'block';
-                tocMore.innerHTML = '<i class="ri-arrow-up-s-line"></i>收起更多单元';
-            } else {
-                tocExtra.style.display = 'none';
-                tocMore.innerHTML = '<i class="ri-arrow-down-s-line"></i>展开更多单元';
-            }
-        });
-
-        // 目录项点击切换单元
-        const tocUnits = document.querySelectorAll('.toc-unit');
-        tocUnits.forEach(unit => {
-            unit.addEventListener('click', () => {
-                if (unit.classList.contains('not-started')) {
-                    showToast('请先完成前面的单元');
-                    return;
-                }
-                // 移除所有current
-                tocUnits.forEach(u => u.classList.remove('current'));
-                // 添加current到点击的单元
-                unit.classList.add('current');
-                // 更新单元标题
-                const title = unit.querySelector('.toc-unit-title').textContent;
-                document.querySelector('.learn-unit-title').textContent = '单元' + unit.dataset.unit + '：' + title;
-                document.querySelector('.course-title-main').textContent = 'HSE安全管理体系 - 单元' + unit.dataset.unit + '：' + title;
-                // 滚动到顶部
-                document.querySelector('.learn-body').scrollTop = 0;
-                showToast('已切换到：' + title);
-            });
-        });
-
-        // 上一页/下一页
-        const prevBtn = document.getElementById('prevBtn');
-        const nextBtn = document.getElementById('nextBtn');
-
-        prevBtn.addEventListener('click', () => {
-            const current = document.querySelector('.toc-unit.current');
-            const prev = current.previousElementSibling;
-            if (prev && prev.classList.contains('toc-unit')) {
-                prev.click();
-            } else {
-                showToast('已经是第一个单元');
-            }
-        });
-
-        nextBtn.addEventListener('click', () => {
-            const current = document.querySelector('.toc-unit.current');
-            const next = current.nextElementSibling;
-            if (next && next.classList.contains('toc-unit')) {
-                if (next.classList.contains('not-started')) {
-                    showToast('请先完成当前单元');
-                    return;
-                }
-                next.click();
-            } else {
-                showToast('已经是最后一个单元');
-            }
-        });
-
-        // 笔记保存
-        const saveNoteBtn = document.getElementById('saveNoteBtn');
-        const noteTextarea = document.getElementById('noteTextarea');
-
-        saveNoteBtn.addEventListener('click', () => {
-            const content = noteTextarea.value.trim();
-            if (!content) {
-                showToast('请先输入笔记内容');
-                return;
-            }
-            // 模拟保存
-            showToast('笔记保存成功！');
-            noteTextarea.value = '';
-        });
-
-        // 疑问提交
-        const askQuestionBtn = document.getElementById('askQuestionBtn');
-        askQuestionBtn.addEventListener('click', () => {
-            const question = prompt('请输入您的疑问：');
-            if (question && question.trim()) {
-                showToast('疑问已提交，讲师会尽快回复');
-            }
-        });
-
-        // 课件下载
-        const downloadBtn = document.getElementById('downloadBtn');
-        downloadBtn.addEventListener('click', () => {
-            showToast('课件下载中...');
-            setTimeout(() => {
-                showToast('课件下载完成');
-            }, 1500);
-        });
-
-        // Toast提示
-        function showToast(message) {
-            const toast = document.getElementById('toast');
-            toast.textContent = message;
-            toast.classList.add('show');
-            setTimeout(() => {
-                toast.classList.remove('show');
-            }, 2500);
-        }
-
-        // 移动端目录面板
-        const tocSidebar = document.getElementById('tocSidebar');
-        const tocOverlay = document.getElementById('tocOverlay');
-        const mobileTocBtn = document.getElementById('mobileTocBtn');
-
-        // 克隆目录用于移动端
-        const mobileToc = tocSidebar.cloneNode(true);
-        mobileToc.classList.add('mobile-panel');
-        mobileToc.removeAttribute('id');
-        document.body.appendChild(mobileToc);
-
-        // 重新绑定移动端目录事件
-        const mobileTocMore = mobileToc.querySelector('#tocMore');
-        const mobileTocExtra = mobileToc.querySelector('#tocExtra');
-        if (mobileTocMore) {
-            mobileTocMore.addEventListener('click', () => {
-                if (mobileTocExtra.style.display === 'none') {
-                    mobileTocExtra.style.display = 'block';
-                    mobileTocMore.innerHTML = '<i class="ri-arrow-up-s-line"></i>收起更多单元';
-                } else {
-                    mobileTocExtra.style.display = 'none';
-                    mobileTocMore.innerHTML = '<i class="ri-arrow-down-s-line"></i>展开更多单元';
-                }
-            });
-        }
-
-        mobileToc.querySelectorAll('.toc-unit').forEach(unit => {
-            unit.addEventListener('click', () => {
-                if (unit.classList.contains('not-started')) {
-                    showToast('请先完成前面的单元');
-                    return;
-                }
-                mobileToc.querySelectorAll('.toc-unit').forEach(u => u.classList.remove('current'));
-                unit.classList.add('current');
-                const title = unit.querySelector('.toc-unit-title').textContent;
-                document.querySelector('.learn-unit-title').textContent = '单元' + unit.dataset.unit + '：' + title;
-                document.querySelector('.course-title-main').textContent = 'HSE安全管理体系 - 单元' + unit.dataset.unit + '：' + title;
-                closeMobileToc();
-                showToast('已切换到：' + title);
-            });
-        });
-
-        function openMobileToc() {
-            mobileToc.classList.add('open');
-            tocOverlay.classList.add('active');
-        }
-
-        function closeMobileToc() {
-            mobileToc.classList.remove('open');
-            tocOverlay.classList.remove('active');
-        }
-
-        mobileTocBtn.addEventListener('click', openMobileToc);
-        tocOverlay.addEventListener('click', closeMobileToc);
-
-        // 移动端工具面板
-        const mobileToolsBtn = document.getElementById('mobileToolsBtn');
-        mobileToolsBtn.addEventListener('click', () => {
-            showToast('笔记功能请在桌面端使用');
-        });
-
-        // 汉堡菜单（导航）
-        const hamburgerBtn = document.getElementById('hamburgerBtn');
-        hamburgerBtn.addEventListener('click', () => {
-            showToast('导航菜单功能');
-        });
-    </script>
+  // ==================== Init ====================
+  buildTOC(); updateTOCProgress();
+  if (CURRICULUM.length > 0 && CURRICULUM[0].units.length > 0) selectUnit(CURRICULUM[0].units[0].id);
+})();
+</script>
 </body>
 </html>
