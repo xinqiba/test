@@ -29,12 +29,6 @@
       color: #1a202c;
     }
 
-    /* 首页隐藏侧边栏 */
-    #sidebar,
-    .sidebar-overlay {
-      display: none !important;
-    }
-
     .main-content {
       margin-left: 0 !important;
     }
@@ -70,42 +64,6 @@
 
     .user-name {
       color: #334155 !important;
-    }
-
-    /* ---- Sidebar ---- */
-    .sidebar {
-      background: #f8fafc !important;
-      border-right: 1px solid #e2e8f0 !important;
-    }
-
-    .sidebar-header {
-      border-bottom: 1px solid #e2e8f0 !important;
-    }
-
-    .sidebar-title {
-      color: #94a3b8 !important;
-    }
-
-    .nav-item {
-      color: #64748b !important;
-    }
-
-    .nav-item:hover {
-      color: #1e293b !important;
-      background: rgba(0,0,0,0.04) !important;
-    }
-
-    .nav-item.active {
-      color: #1a365d !important;
-      background: rgba(26,54,93,0.08) !important;
-    }
-
-    .sidebar-footer {
-      border-top: 1px solid #e2e8f0 !important;
-    }
-
-    .sidebar-progress-header span:first-child {
-      color: #64748b !important;
     }
 
     /* ---- Hero区域 ---- */
@@ -881,20 +839,44 @@
   <!-- 顶部导航栏 -->
   <header class="topbar" id="topbar">
     <div class="topbar-left">
-      <button class="menu-toggle" id="menuToggle" aria-label="切换菜单">
-        <i class="ri-menu-line"></i>
-      </button>
       <a href="index.html" class="brand">
         <div class="brand-logo"><i class="ri-eye-line"></i></div>
         <span class="brand-text">慧眼 <span>系统</span></span>
       </a>
       <nav class="topbar-nav">
         <a href="index.html" class="active">首页</a>
-        <a href="pages/knowledge.html">知识矩阵</a>
-        <a href="pages/skill.html">技能矩阵</a>
-        <a href="pages/workshop.html">经验工作坊</a>
-        <a href="pages/news.html">新闻公告</a>
         <a href="pages/about.html">关于我们</a>
+        <a href="pages/news.html">新闻公告</a>
+        <div class="nav-dropdown">
+            <a href="#" class="nav-dropdown-toggle">在线学习 <i class="ri-arrow-down-s-line"></i></a>
+            <div class="nav-dropdown-menu">
+                <a href="pages/knowledge.html">知识矩阵</a>
+                <a href="pages/skill.html">技能矩阵</a>
+                <a href="pages/workshop.html">经验工作坊</a>
+                <a href="pages/assessment.html">评估认证</a>
+            </div>
+        </div>
+        <div class="nav-dropdown">
+            <a href="#" class="nav-dropdown-toggle">Insight CA 系统 <i class="ri-arrow-down-s-line"></i></a>
+            <div class="nav-dropdown-menu">
+                <div class="nav-sub-dropdown">
+                    <a href="#" class="nav-sub-toggle">Matrix 管理 <i class="ri-arrow-right-s-line"></i></a>
+                    <div class="nav-sub-menu">
+                        <a href="pages/my-skills.html">档案管理</a>
+                        <a href="pages/reports.html">数据图表</a>
+                        <a href="pages/my-learning.html">课程成绩</a>
+                        <a href="pages/course-learn.html">课程学习</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="nav-dropdown">
+            <a href="#" class="nav-dropdown-toggle">Insight HSSE 管理 <i class="ri-arrow-down-s-line"></i></a>
+            <div class="nav-dropdown-menu">
+                <a href="pages/ptw.html">PTW 作业许可</a>
+                <a href="pages/compliance.html">HSSE Passport</a>
+            </div>
+        </div>
       </nav>
     </div>
     <div class="topbar-right">
@@ -914,94 +896,6 @@
     </div>
   </header>
 
-  <!-- 侧边栏 -->
-  <aside class="sidebar" id="sidebar">
-    <div class="sidebar-header">
-      <span class="sidebar-title">工作台</span>
-      <button class="sidebar-toggle" id="sidebarToggle" aria-label="折叠侧边栏">
-        <i class="ri-arrow-left-s-line"></i>
-      </button>
-    </div>
-    <nav class="sidebar-nav">
-      <div class="nav-section">
-        <div class="nav-section-title">核心模块</div>
-        <a href="pages/knowledge.html" class="nav-item">
-          <i class="ri-book-open-line"></i>
-          <span>知识矩阵</span>
-        </a>
-        <a href="pages/skill.html" class="nav-item">
-          <i class="ri-award-line"></i>
-          <span>技能矩阵</span>
-          <span class="nav-badge">3</span>
-        </a>
-        <a href="pages/workshop.html" class="nav-item">
-          <i class="ri-team-line"></i>
-          <span>经验工作坊</span>
-        </a>
-        <a href="pages/assessment.html" class="nav-item">
-          <i class="ri-file-check-line"></i>
-          <span>评估认证</span>
-        </a>
-      </div>
-      <div class="nav-section">
-        <div class="nav-section-title">运营管理</div>
-        <a href="pages/ptw.html" class="nav-item">
-          <i class="ri-shield-check-line"></i>
-          <span>工作许可证</span>
-        </a>
-        <a href="pages/compliance.html" class="nav-item">
-          <i class="ri-verified-badge-line"></i>
-          <span>合规管理</span>
-        </a>
-        <a href="pages/reports.html" class="nav-item">
-          <i class="ri-bar-chart-2-line"></i>
-          <span>数据报表</span>
-        </a>
-      </div>
-      <div class="nav-section">
-        <div class="nav-section-title">个人中心</div>
-        <a href="pages/profile.html" class="nav-item">
-          <i class="ri-user-line"></i>
-          <span>个人资料</span>
-        </a>
-        <a href="pages/my-learning.html" class="nav-item">
-          <i class="ri-history-line"></i>
-          <span>学习进度</span>
-        </a>
-        <a href="pages/my-skills.html" class="nav-item">
-          <i class="ri-medal-line"></i>
-          <span>技能档案</span>
-        </a>
-        <a href="pages/my-workshops.html" class="nav-item">
-          <i class="ri-calendar-check-line"></i>
-          <span>我的报名</span>
-        </a>
-      </div>
-    </nav>
-    <div class="sidebar-footer">
-      <div class="sidebar-progress">
-        <div class="sidebar-progress-header">
-          <span>总学习进度</span>
-          <span>23%</span>
-        </div>
-        <div class="progress-bar">
-          <div class="progress-bar-fill" style="width:23%"></div>
-        </div>
-      </div>
-      <div class="sidebar-progress">
-        <div class="sidebar-progress-header">
-          <span>技能认证</span>
-          <span>5/12</span>
-        </div>
-        <div class="progress-bar">
-          <div class="progress-bar-fill" style="width:42%"></div>
-        </div>
-      </div>
-    </div>
-  </aside>
-
-  <!-- 移动端遮罩 -->
-  <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
   <!-- 主内容区 -->
   <main class="main-content">
@@ -1057,7 +951,7 @@
                 <i class="ri-book-open-line"></i>
               </div>
               <div class="quick-card-title">知识学习</div>
-              <div class="quick-card-desc">HSE、井工程、机械工程等149+专业课程</div>
+              <div class="quick-card-desc">8大学科领域、149+学习单元，覆盖油气全产业链</div>
             </div>
             <div class="quick-card" onclick="location.href='pages/skill.html'">
               <div class="quick-card-icon gold">
@@ -1124,7 +1018,7 @@
           <div class="section-header reveal">
             <span class="section-label">热门课程</span>
             <h2 class="section-title">推荐学科</h2>
-            <p class="section-desc">涵盖油气行业核心领域，从入门到精通的完整学习路径</p>
+            <p class="section-desc">8大学科领域，从入门到精通的完整学习路径，随时随地自主学习</p>
           </div>
           <div class="courses-grid">
             <div class="course-card reveal reveal-delay-1">
@@ -1136,8 +1030,8 @@
                 <div class="course-category">健康安全环境</div>
                 <h3 class="course-title">HSE 安全管理体系</h3>
                 <div class="course-meta">
-                  <span class="course-meta-item"><i class="ri-bookmark-line"></i> 32单元</span>
-                  <span class="course-meta-item"><i class="ri-time-line"></i> 48学时</span>
+                  <span class="course-meta-item"><i class="ri-bookmark-line"></i> 15单元</span>
+                  <span class="course-meta-item"><i class="ri-time-line"></i> 24学时</span>
                   <span class="course-meta-item"><i class="ri-user-line"></i> 2.3k人学习</span>
                 </div>
                 <div class="course-footer">
@@ -1150,7 +1044,7 @@
                       <div class="progress-bar-fill" style="width:45%"></div>
                     </div>
                   </div>
-                  <a href="pages/course-learn.html" class="btn btn-sm btn-primary">继续学习</a>
+                  <a href="pages/knowledge.html" class="btn btn-sm btn-primary">继续学习</a>
                 </div>
               </div>
             </div>
@@ -1161,10 +1055,10 @@
               </div>
               <div class="course-body">
                 <div class="course-category">井工程</div>
-                <h3 class="course-title">钻井工程核心技术</h3>
+                <h3 class="course-title">Wells Engineering 钻井技术</h3>
                 <div class="course-meta">
-                  <span class="course-meta-item"><i class="ri-bookmark-line"></i> 48单元</span>
-                  <span class="course-meta-item"><i class="ri-time-line"></i> 72学时</span>
+                  <span class="course-meta-item"><i class="ri-bookmark-line"></i> 21单元</span>
+                  <span class="course-meta-item"><i class="ri-time-line"></i> 36学时</span>
                   <span class="course-meta-item"><i class="ri-user-line"></i> 1.8k人学习</span>
                 </div>
                 <div class="course-footer">
@@ -1177,34 +1071,34 @@
                       <div class="progress-bar-fill" style="width:0%"></div>
                     </div>
                   </div>
-                  <a href="pages/course-learn.html" class="btn btn-sm btn-secondary">开始学习</a>
+                  <a href="pages/knowledge.html" class="btn btn-sm btn-secondary">开始学习</a>
                 </div>
               </div>
             </div>
             <div class="course-card reveal reveal-delay-3">
               <div class="course-cover">
-                <i class="ri-settings-3-line course-cover-icon"></i>
+                <i class="ri-cpu-line course-cover-icon"></i>
                 <span class="badge badge-gold course-level">Level 2-3</span>
               </div>
               <div class="course-body">
-                <div class="course-category">机械工程</div>
-                <h3 class="course-title">油气设备维护与检修</h3>
+                <div class="course-category">仪表与控制</div>
+                <h3 class="course-title">I&C 仪表与控制系统</h3>
                 <div class="course-meta">
-                  <span class="course-meta-item"><i class="ri-bookmark-line"></i> 24单元</span>
-                  <span class="course-meta-item"><i class="ri-time-line"></i> 36学时</span>
-                  <span class="course-meta-item"><i class="ri-user-line"></i> 1.5k人学习</span>
+                  <span class="course-meta-item"><i class="ri-bookmark-line"></i> 14单元</span>
+                  <span class="course-meta-item"><i class="ri-time-line"></i> 28学时</span>
+                  <span class="course-meta-item"><i class="ri-user-line"></i> 1.2k人学习</span>
                 </div>
                 <div class="course-footer">
                   <div class="course-progress">
                     <div class="course-progress-header">
                       <span style="font-size:var(--text-xs);color:#64748b">学习进度</span>
-                      <span style="font-size:var(--text-xs);color:#b7791f;font-weight:500">78%</span>
+                      <span style="font-size:var(--text-xs);color:#64748b">未开始</span>
                     </div>
                     <div class="progress-bar">
-                      <div class="progress-bar-fill" style="width:78%"></div>
+                      <div class="progress-bar-fill" style="width:0%"></div>
                     </div>
                   </div>
-                  <a href="pages/course-learn.html" class="btn btn-sm btn-primary">继续学习</a>
+                  <a href="pages/knowledge.html" class="btn btn-sm btn-secondary">开始学习</a>
                 </div>
               </div>
             </div>
@@ -1374,10 +1268,6 @@
 
       // DOM 元素
       const topbar = document.getElementById('topbar');
-      const sidebar = document.getElementById('sidebar');
-      const sidebarToggle = document.getElementById('sidebarToggle');
-      const menuToggle = document.getElementById('menuToggle');
-      const sidebarOverlay = document.getElementById('sidebarOverlay');
       const heroParticles = document.getElementById('heroParticles');
 
       // ---- 顶部导航栏滚动效果 ----
@@ -1391,38 +1281,6 @@
         }
         lastScroll = currentScroll;
       }, { passive: true });
-
-      // ---- 侧边栏折叠（桌面端）----
-      sidebarToggle.addEventListener('click', () => {
-        sidebar.classList.toggle('collapsed');
-        localStorage.setItem('sidebarCollapsed', sidebar.classList.contains('collapsed'));
-      });
-
-      // 恢复侧边栏状态
-      if (localStorage.getItem('sidebarCollapsed') === 'true') {
-        sidebar.classList.add('collapsed');
-      }
-
-      // ---- 移动端菜单 ----
-      menuToggle.addEventListener('click', () => {
-        sidebar.classList.toggle('mobile-open');
-        sidebarOverlay.classList.toggle('active');
-      });
-
-      sidebarOverlay.addEventListener('click', () => {
-        sidebar.classList.remove('mobile-open');
-        sidebarOverlay.classList.remove('active');
-      });
-
-      // ---- 点击侧边栏导航项后关闭移动端菜单 ----
-      document.querySelectorAll('.nav-item').forEach(item => {
-        item.addEventListener('click', () => {
-          if (window.innerWidth <= 992) {
-            sidebar.classList.remove('mobile-open');
-            sidebarOverlay.classList.remove('active');
-          }
-        });
-      });
 
       // ---- Hero粒子效果 ----
       function createParticles() {

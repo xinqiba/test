@@ -3,1015 +3,563 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>数据报表 - 慧眼能力管理与发展系统</title>
+    <title>数据图表 - 慧眼系统</title>
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
-            background-color: #f5f7fa;
+            background: #f0f2f5;
             color: #1a202c;
             line-height: 1.6;
         }
 
-        /* 顶部导航栏 */
-        .top-navbar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 64px;
-            background: #ffffff;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 24px;
-            z-index: 1000;
+        /* ===== 顶部导航栏 ===== */
+        .topbar {
+            position: fixed; top: 0; left: 0; right: 0; height: 64px;
+            background: #ffffff; box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 24px; z-index: 1000;
         }
+        .topbar-left { display: flex; align-items: center; gap: 20px; }
+        .menu-toggle { display: none; background: none; border: none; font-size: 24px; color: #1a202c; cursor: pointer; padding: 4px; }
+        .logo { font-size: 22px; font-weight: 700; color: #1a365d; display: flex; align-items: center; gap: 8px; }
+        .logo i { color: #c8956c; font-size: 26px; }
+        .topbar-nav { display: flex; align-items: center; gap: 4px; list-style: none; margin-left: 16px; }
+        .topbar-nav a { text-decoration: none; color: #64748b; font-size: 14px; font-weight: 500; padding: 8px 16px; border-radius: 8px; transition: all 0.2s; }
+        .topbar-nav a:hover { color: #1a202c; background: #f1f5f9; }
+        .topbar-nav a.active { color: #1a365d; background: #f1f5f9; font-weight: 600; }
+        .topbar-right { display: flex; align-items: center; gap: 16px; }
+        .search-box { position: relative; }
+        .search-box input { width: 240px; height: 38px; border: 1px solid #e2e8f0; border-radius: 8px; padding: 0 36px 0 12px; font-size: 14px; font-family: inherit; background: #f8fafc; transition: all 0.2s; }
+        .search-box input:focus { outline: none; border-color: #c8956c; background: #fff; box-shadow: 0 0 0 3px rgba(200,149,108,0.1); }
+        .search-box i { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); color: #94a3b8; font-size: 16px; }
+        .user-menu { display: flex; align-items: center; gap: 10px; cursor: pointer; padding: 4px 8px; border-radius: 8px; transition: background 0.2s; }
+        .user-menu:hover { background: #f1f5f9; }
+        .user-avatar { width: 36px; height: 36px; border-radius: 50%; background: #1a365d; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 600; }
+        .user-name { font-size: 14px; font-weight: 500; color: #1a202c; }
 
-        .nav-left {
-            display: flex;
-            align-items: center;
-            gap: 20px;
+        /* ---- 导航下拉菜单 ---- */
+        .nav-dropdown { position: relative; }
+        .nav-dropdown-toggle { cursor: pointer; }
+        .nav-dropdown-menu {
+            display: none; position: absolute; top: 100%; left: 0;
+            min-width: 180px; background: #fff; border: 1px solid #e2e8f0;
+            border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+            padding: 6px; z-index: 1100;
         }
-
-        .hamburger-btn {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 24px;
-            color: #1a202c;
-            cursor: pointer;
-            padding: 4px;
+        .nav-dropdown:hover > .nav-dropdown-menu { display: block; }
+        .nav-dropdown-menu a {
+            display: block; padding: 8px 14px; border-radius: 6px;
+            font-size: 13px; color: #475569; white-space: nowrap;
         }
-
-        .logo {
-            font-size: 22px;
-            font-weight: 700;
-            color: #1a365d;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+        .nav-dropdown-menu a:hover { background: #f1f5f9; color: #1a202c; }
+        .nav-dropdown-menu a.active { background: rgba(26,54,93,0.08); color: #1a365d; font-weight: 600; }
+        .nav-sub-dropdown { position: relative; }
+        .nav-sub-toggle { display: flex; align-items: center; justify-content: space-between; }
+        .nav-sub-toggle .ri-arrow-right-s-line { font-size: 14px; margin-left: 8px; }
+        .nav-sub-menu {
+            display: none; position: absolute; top: -6px; left: 100%;
+            min-width: 150px; background: #fff; border: 1px solid #e2e8f0;
+            border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+            padding: 6px; z-index: 1101;
         }
+        .nav-sub-dropdown:hover > .nav-sub-menu { display: block; }
+        .nav-sub-menu a { display: block; padding: 8px 14px; border-radius: 6px; font-size: 13px; color: #475569; }
+        .nav-sub-menu a:hover { background: #f1f5f9; color: #1a202c; }
+        .nav-sub-menu a.active { background: rgba(26,54,93,0.08); color: #1a365d; font-weight: 600; }
+        .nav-dropdown-menu .open { display: block !important; }
+        .nav-sub-menu.open { display: block !important; }
 
-        .logo i {
-            color: #c8956c;
-            font-size: 26px;
+        /* ===== 主内容区 ===== */
+        .main-content { max-width: 1400px; margin: 64px auto 0; padding: 24px 28px; min-height: calc(100vh - 64px); }
+        /* ===== 页面标题 ===== */
+        .page-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; flex-wrap: wrap; gap: 16px; }
+        .page-title-area h1 { font-size: 28px; font-weight: 700; color: #1a202c; margin-bottom: 8px; }
+        .breadcrumb { display: flex; align-items: center; gap: 8px; font-size: 13px; color: #64748b; }
+        .breadcrumb a { color: #64748b; text-decoration: none; transition: color 0.2s; }
+        .breadcrumb a:hover { color: #1a365d; }
+        .breadcrumb i { font-size: 12px; color: #94a3b8; }
+        .breadcrumb span { color: #1a202c; font-weight: 500; }
+        .btn-export { display: inline-flex; align-items: center; gap: 8px; height: 40px; padding: 0 20px; background: #1a365d; color: #fff; border: none; border-radius: 8px; font-size: 14px; font-family: inherit; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+        .btn-export:hover { background: #234876; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(26,54,93,0.3); }
+
+        /* ===== 角色标识条 ===== */
+        .role-banner {
+            background: linear-gradient(135deg, #1a365d 0%, #1e3a5f 100%);
+            border-radius: 12px; padding: 12px 20px; margin-bottom: 20px;
+            display: flex; align-items: center; gap: 12px; color: #fff; font-size: 13px;
+            box-shadow: 0 2px 8px rgba(26,54,93,0.15);
         }
-
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            list-style: none;
-            margin-left: 16px;
+        .role-banner i { font-size: 20px; color: #c8956c; }
+        .role-banner .role-tag {
+            background: rgba(200,149,108,0.2); color: #c8956c;
+            padding: 2px 10px; border-radius: 20px; font-weight: 600; font-size: 12px;
         }
+        .role-banner .divider { color: rgba(255,255,255,0.3); margin: 0 4px; }
 
-        .nav-links a {
-            text-decoration: none;
-            color: #64748b;
-            font-size: 14px;
-            font-weight: 500;
-            padding: 8px 16px;
-            border-radius: 8px;
-            transition: all 0.2s;
+        /* ===== CAS 筛选器栏 ===== */
+        .filter-bar {
+            background: #fff; border-radius: 12px; padding: 16px 20px; margin-bottom: 20px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+            display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
         }
-
-        .nav-links a:hover {
-            color: #1a202c;
-            background: #f1f5f9;
+        .filter-bar .filter-label {
+            font-size: 12px; font-weight: 600; color: #94a3b8; text-transform: uppercase;
+            letter-spacing: 0.5px; margin-right: -4px;
         }
-
-        .nav-links a.active {
-            color: #1a365d;
-            background: #f1f5f9;
-            font-weight: 600;
+        .filter-group { display: flex; align-items: center; gap: 8px; }
+        .filter-group label { font-size: 13px; font-weight: 500; color: #475569; white-space: nowrap; }
+        .filter-select {
+            height: 36px; padding: 0 32px 0 12px; border: 1px solid #e2e8f0; border-radius: 8px;
+            background: #f8fafc; font-size: 13px; font-family: inherit; color: #1a202c;
+            cursor: pointer; appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat; background-position: right 10px center;
+            transition: all 0.2s; min-width: 140px;
         }
+        .filter-select:focus { outline: none; border-color: #c8956c; box-shadow: 0 0 0 3px rgba(200,149,108,0.1); background: #fff; }
+        .filter-select.has-value { border-color: #c8956c; background: #fefcf9; }
+        .filter-divider { width: 1px; height: 24px; background: #e2e8f0; }
 
-        .nav-right {
-            display: flex;
-            align-items: center;
-            gap: 16px;
+        /* Sort 复选框 */
+        .sort-check { display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 13px; color: #475569; user-select: none; }
+        .sort-check input { display: none; }
+        .sort-check .check-box {
+            width: 18px; height: 18px; border: 2px solid #d1d5db; border-radius: 4px;
+            display: flex; align-items: center; justify-content: center; transition: all 0.2s; flex-shrink: 0;
         }
+        .sort-check .check-box i { font-size: 12px; color: #fff; opacity: 0; transition: opacity 0.2s; }
+        .sort-check input:checked + .check-box { background: #1a365d; border-color: #1a365d; }
+        .sort-check input:checked + .check-box i { opacity: 1; }
 
-        .search-box {
-            position: relative;
+        .filter-actions { margin-left: auto; display: flex; gap: 8px; }
+        .btn-filter {
+            height: 36px; padding: 0 16px; border-radius: 8px; font-size: 13px; font-family: inherit;
+            font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; transition: all 0.2s;
+            border: 1px solid #e2e8f0; background: #fff; color: #64748b;
         }
+        .btn-filter:hover { border-color: #c8956c; color: #c8956c; }
+        .btn-filter.primary { background: #1a365d; color: #fff; border-color: #1a365d; }
+        .btn-filter.primary:hover { background: #234876; }
 
-        .search-box input {
-            width: 240px;
-            height: 38px;
-            border: 1px solid #e2e8f0;
-            border-radius: 8px;
-            padding: 0 36px 0 12px;
-            font-size: 14px;
-            font-family: inherit;
-            background: #f8fafc;
-            transition: all 0.2s;
+        /* 筛选 chip 标签 */
+        .filter-chips { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
+        .filter-chip {
+            display: inline-flex; align-items: center; gap: 6px;
+            padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 500;
+            background: #f1f5f9; color: #475569; animation: chipIn 0.3s ease;
         }
+        .filter-chip i { font-size: 14px; cursor: pointer; color: #94a3b8; transition: color 0.2s; }
+        .filter-chip i:hover { color: #e05d5d; }
+        @keyframes chipIn { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
 
-        .search-box input:focus {
-            outline: none;
-            border-color: #c8956c;
-            background: #ffffff;
-            box-shadow: 0 0 0 3px rgba(200, 149, 108, 0.1);
+        /* ===== Tab 切换 ===== */
+        .report-tabs {
+            display: flex; gap: 4px; background: #f1f5f9; border-radius: 10px; padding: 4px;
+            margin-bottom: 20px;
         }
-
-        .search-box i {
-            position: absolute;
-            right: 12px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #94a3b8;
-            font-size: 16px;
+        .report-tab {
+            flex: 1; height: 42px; border: none; border-radius: 8px; font-size: 14px;
+            font-family: inherit; font-weight: 600; cursor: pointer; transition: all 0.25s ease;
+            display: flex; align-items: center; justify-content: center; gap: 8px;
         }
-
-        .user-info {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            cursor: pointer;
-            padding: 4px 8px;
-            border-radius: 8px;
-            transition: background 0.2s;
+        .report-tab:not(.active) { background: transparent; color: #64748b; }
+        .report-tab:not(.active):hover { color: #1a365d; background: rgba(26,54,93,0.04); }
+        .report-tab.active { background: #fff; color: #1a365d; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+        .report-tab .tab-badge {
+            font-size: 11px; padding: 1px 8px; border-radius: 20px; background: #e2e8f0; color: #64748b;
+            transition: all 0.25s ease;
         }
+        .report-tab.active .tab-badge { background: rgba(26,54,93,0.1); color: #1a365d; }
 
-        .user-info:hover {
-            background: #f1f5f9;
+        /* ===== 报表卡片 ===== */
+        .report-card {
+            background: #fff; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+            padding: 24px; margin-bottom: 20px;
         }
+        .report-card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; flex-wrap: wrap; gap: 12px; }
+        .report-card-title { font-size: 18px; font-weight: 700; color: #1a202c; display: flex; align-items: center; gap: 8px; }
+        .report-card-title i { color: #c8956c; font-size: 20px; }
+        .report-card-subtitle { font-size: 13px; color: #94a3b8; margin-top: -12px; margin-bottom: 16px; }
 
-        .user-avatar {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            background: #1a365d;
-            color: #ffffff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 14px;
-            font-weight: 600;
-        }
+        /* ===== 数据表格（CAS风格） ===== */
+        .data-table { width: 100%; border-collapse: collapse; }
+        .data-table th, .data-table td { padding: 12px 16px; text-align: left; font-size: 14px; }
+        .data-table thead th { background: #f8fafc; color: #64748b; font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: 0.3px; border-bottom: 2px solid #e2e8f0; white-space: nowrap; }
+        .data-table tbody tr { border-bottom: 1px solid #f1f5f9; transition: background 0.15s; }
+        .data-table tbody tr:hover { background: #fafbfc; }
+        .data-table tbody td { color: #475569; }
+        .data-table tbody td strong { color: #1a202c; }
+        .data-table .col-cert { text-align: center; }
+        .data-table .col-progress { text-align: right; }
+        .data-table .col-score { text-align: center; }
 
-        .user-name {
-            font-size: 14px;
-            font-weight: 500;
-            color: #1a202c;
-        }
+        /* 认证状态指示器 */
+        .cert-status { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; }
+        .cert-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+        .cert-dot.certified { background: #22c55e; }
+        .cert-dot.pending { background: #e6a23c; }
+        .cert-dot.not-certified { background: #d1d5db; }
 
-        /* 侧边栏 */
-        .sidebar {
-            position: fixed;
-            top: 64px;
-            left: 0;
-            bottom: 0;
-            width: 260px;
-            background: #f8fafc;
-            border-right: 1px solid #e2e8f0;
-            display: flex;
-            flex-direction: column;
-            z-index: 999;
-            transition: transform 0.3s ease;
-        }
+        /* 迷你进度条 */
+        .mini-progress { display: flex; align-items: center; gap: 8px; justify-content: flex-end; }
+        .mini-progress .mp-bar { width: 80px; height: 6px; background: #e2e8f0; border-radius: 3px; overflow: hidden; }
+        .mini-progress .mp-fill { height: 100%; border-radius: 3px; transition: width 0.6s ease; }
+        .mini-progress .mp-val { font-size: 12px; font-weight: 700; color: #1a365d; min-width: 32px; text-align: right; }
 
-        .sidebar.collapsed {
-            transform: translateX(-100%);
-        }
+        /* Badge */
+        .badge { display: inline-flex; align-items: center; padding: 2px 10px; border-radius: 20px; font-size: 12px; font-weight: 600; }
+        .badge-success { background: #d1fae5; color: #047857; }
+        .badge-warning { background: #fef3c7; color: #b45309; }
+        .badge-danger { background: #fee2e2; color: #b91c1c; }
+        .badge-info { background: #dbeafe; color: #1d4ed8; }
+        .badge-slate { background: #f1f5f9; color: #475569; }
 
-        .sidebar-toggle {
-            position: absolute;
-            right: -28px;
-            top: 16px;
-            width: 28px;
-            height: 28px;
-            background: #ffffff;
-            border: 1px solid #e2e8f0;
-            border-radius: 0 6px 6px 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            font-size: 14px;
-            color: #64748b;
-            box-shadow: 1px 1px 3px rgba(0,0,0,0.08);
-        }
-
-        .sidebar-content {
-            flex: 1;
-            overflow-y: auto;
-            padding: 16px 0;
-        }
-
-        .sidebar-section {
-            margin-bottom: 8px;
-        }
-
-        .sidebar-title {
-            font-size: 11px;
-            font-weight: 600;
-            color: #94a3b8;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            padding: 8px 20px;
-        }
-
-        .sidebar-menu {
-            list-style: none;
-        }
-
-        .sidebar-menu li a {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 10px 20px;
-            text-decoration: none;
-            color: #475569;
-            font-size: 14px;
-            font-weight: 500;
-            transition: all 0.2s;
-            position: relative;
-        }
-
-        .sidebar-menu li a:hover {
-            background: #f1f5f9;
-            color: #1a202c;
-        }
-
-        .sidebar-menu li a.active {
-            background: #f1f5f9;
-            color: #1a365d;
-            font-weight: 600;
-        }
-
-        .sidebar-menu li a.active::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 3px;
-            background: #c8956c;
-        }
-
-        .sidebar-menu li a i {
-            font-size: 18px;
-            width: 20px;
-            text-align: center;
-        }
-
-        .sidebar-footer {
-            padding: 16px 20px;
-            border-top: 1px solid #e2e8f0;
-        }
-
-        .progress-item {
-            margin-bottom: 12px;
-        }
-
-        .progress-item:last-child {
-            margin-bottom: 0;
-        }
-
-        .progress-label {
-            display: flex;
-            justify-content: space-between;
-            font-size: 12px;
-            color: #64748b;
-            margin-bottom: 6px;
-        }
-
-        .progress-label span:last-child {
-            color: #1a365d;
-            font-weight: 600;
-        }
-
-        .progress-bar {
-            height: 6px;
-            background: #e2e8f0;
-            border-radius: 3px;
-            overflow: hidden;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: #c8956c;
-            border-radius: 3px;
-            transition: width 0.5s ease;
-        }
-
-        /* 主内容区 */
-        .main-content {
-            margin-left: 260px;
-            margin-top: 64px;
-            padding: 24px;
-            min-height: calc(100vh - 64px);
-            transition: margin-left 0.3s ease;
-        }
-
-        .main-content.full {
-            margin-left: 0;
-        }
-
-        /* 页面标题区 */
-        .page-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 24px;
-            flex-wrap: wrap;
-            gap: 16px;
-        }
-
-        .page-title-area h1 {
-            font-size: 28px;
-            font-weight: 700;
-            color: #1a202c;
-            margin-bottom: 8px;
-        }
-
-        .breadcrumb {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 13px;
-            color: #64748b;
-        }
-
-        .breadcrumb a {
-            color: #64748b;
-            text-decoration: none;
-            transition: color 0.2s;
-        }
-
-        .breadcrumb a:hover {
-            color: #1a365d;
-        }
-
-        .breadcrumb i {
-            font-size: 12px;
-            color: #94a3b8;
-        }
-
-        .breadcrumb span {
-            color: #1a202c;
-            font-weight: 500;
-        }
-
-        .btn-export {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            height: 40px;
-            padding: 0 20px;
-            background: #1a365d;
-            color: #ffffff;
-            border: none;
-            border-radius: 8px;
-            font-size: 14px;
-            font-family: inherit;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .btn-export:hover {
-            background: #234876;
-        }
-
-        /* 快捷图标栏 */
-        .quick-cards {
-            display: grid;
-            grid-template-columns: repeat(6, 1fr);
-            gap: 16px;
-            margin-bottom: 24px;
-        }
-
+        /* ===== 快捷图标栏 ===== */
+        .quick-cards { display: grid; grid-template-columns: repeat(6, 1fr); gap: 16px; margin-bottom: 24px; }
         .quick-card {
-            background: #ffffff;
-            border-radius: 12px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
-            padding: 20px 12px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: 1px solid transparent;
+            background: #fff; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+            padding: 20px 12px; display: flex; flex-direction: column; align-items: center; gap: 10px;
+            cursor: pointer; transition: all 0.3s ease; border: 1px solid transparent;
         }
-
-        .quick-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-            border-color: rgba(200, 149, 108, 0.3);
-        }
-
-        .quick-card-icon {
-            width: 48px;
-            height: 48px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-        }
-
+        .quick-card:hover { transform: translateY(-4px); box-shadow: 0 8px 25px rgba(0,0,0,0.1); border-color: rgba(200,149,108,0.3); }
+        .quick-card-icon { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 24px; }
         .quick-card:nth-child(1) .quick-card-icon { background: #fef3c7; color: #b45309; }
         .quick-card:nth-child(2) .quick-card-icon { background: #dbeafe; color: #1d4ed8; }
         .quick-card:nth-child(3) .quick-card-icon { background: #d1fae5; color: #047857; }
         .quick-card:nth-child(4) .quick-card-icon { background: #ede9fe; color: #6d28d9; }
         .quick-card:nth-child(5) .quick-card-icon { background: #fee2e2; color: #b91c1c; }
         .quick-card:nth-child(6) .quick-card-icon { background: #cffafe; color: #0e7490; }
+        .quick-card-title { font-size: 13px; font-weight: 600; color: #1a202c; text-align: center; }
 
-        .quick-card-title {
-            font-size: 13px;
-            font-weight: 600;
-            color: #1a202c;
-            text-align: center;
-        }
+        /* ===== 图表区 ===== */
+        .time-filter { display: flex; gap: 8px; }
+        .time-filter button { height: 32px; padding: 0 14px; border: 1px solid #e2e8f0; border-radius: 6px; background: #fff; color: #64748b; font-size: 13px; font-family: inherit; cursor: pointer; transition: all 0.2s; }
+        .time-filter button:hover { border-color: #c8956c; color: #c8956c; }
+        .time-filter button.active { background: #1a365d; color: #fff; border-color: #1a365d; }
 
-        /* 报表卡片 */
-        .report-card {
-            background: #ffffff;
-            border-radius: 12px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
-            padding: 24px;
-            margin-bottom: 24px;
-        }
+        .chart-row { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+        .chart-area { min-height: 280px; }
+        .chart-label { font-size: 13px; font-weight: 600; color: #64748b; margin-bottom: 16px; }
 
-        .report-card-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-            gap: 12px;
-        }
+        /* Bar chart */
+        .bar-chart { display: flex; align-items: flex-end; justify-content: space-around; height: 220px; padding: 0 8px; border-bottom: 1px solid #e2e8f0; position: relative; }
+        .bar-item { display: flex; flex-direction: column; align-items: center; gap: 8px; flex: 1; max-width: 60px; }
+        .bar-track { width: 32px; height: 180px; background: #f1f5f9; border-radius: 6px 6px 0 0; position: relative; overflow: hidden; }
+        .bar-fill { position: absolute; bottom: 0; left: 0; right: 0; border-radius: 6px 6px 0 0; transition: height 1s ease; }
+        .bar-value { font-size: 12px; font-weight: 700; color: #1a365d; }
+        .bar-name { font-size: 12px; color: #64748b; text-align: center; white-space: nowrap; }
 
-        .report-card-title {
-            font-size: 18px;
-            font-weight: 700;
-            color: #1a202c;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
+        /* Line chart */
+        .line-chart { height: 220px; position: relative; padding: 0 8px; }
+        .line-chart svg { width: 100%; height: 100%; }
+        .line-chart-grid { stroke: #f1f5f9; stroke-width: 1; }
+        .line-chart-axis { stroke: #e2e8f0; stroke-width: 1; }
+        .line-chart-line { fill: none; stroke: #c8956c; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+        .line-chart-area { fill: rgba(200,149,108,0.1); stroke: none; }
+        .line-chart-dot { fill: #fff; stroke: #c8956c; stroke-width: 2; }
+        .line-chart-label { font-size: 11px; fill: #94a3b8; text-anchor: middle; }
+        .line-chart-value { font-size: 11px; fill: #1a365d; font-weight: 600; text-anchor: middle; }
 
-        .report-card-title i {
-            color: #c8956c;
-            font-size: 20px;
-        }
+        /* Pie chart */
+        .pie-chart-wrap { display: flex; align-items: center; gap: 32px; flex-wrap: wrap; }
+        .pie-chart { width: 200px; height: 200px; flex-shrink: 0; }
+        .pie-chart svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+        .pie-legend { display: flex; flex-direction: column; gap: 12px; }
+        .legend-item { display: flex; align-items: center; gap: 10px; font-size: 14px; color: #475569; }
+        .legend-dot { width: 12px; height: 12px; border-radius: 3px; }
+        .legend-value { font-weight: 700; color: #1a202c; margin-left: auto; padding-left: 24px; }
 
-        .time-filter {
-            display: flex;
-            gap: 8px;
-        }
-
-        .time-filter button {
-            height: 32px;
-            padding: 0 14px;
-            border: 1px solid #e2e8f0;
-            border-radius: 6px;
-            background: #ffffff;
-            color: #64748b;
-            font-size: 13px;
-            font-family: inherit;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .time-filter button:hover {
-            border-color: #c8956c;
-            color: #c8956c;
-        }
-
-        .time-filter button.active {
-            background: #1a365d;
-            color: #ffffff;
-            border-color: #1a365d;
-        }
-
-        /* 图表布局 */
-        .chart-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 24px;
-        }
-
-        .chart-area {
-            min-height: 280px;
-        }
-
-        .chart-label {
-            font-size: 13px;
-            font-weight: 600;
-            color: #64748b;
-            margin-bottom: 16px;
-        }
-
-        /* 柱状图 */
-        .bar-chart {
-            display: flex;
-            align-items: flex-end;
-            justify-content: space-around;
-            height: 220px;
-            padding: 0 8px;
-            border-bottom: 1px solid #e2e8f0;
-            position: relative;
-        }
-
-        .bar-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px;
-            flex: 1;
-            max-width: 60px;
-        }
-
-        .bar-track {
-            width: 32px;
-            height: 180px;
-            background: #f1f5f9;
-            border-radius: 6px 6px 0 0;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .bar-fill {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: #c8956c;
-            border-radius: 6px 6px 0 0;
-            transition: height 1s ease;
-        }
-
-        .bar-value {
-            font-size: 12px;
-            font-weight: 700;
-            color: #1a365d;
-        }
-
-        .bar-name {
-            font-size: 12px;
-            color: #64748b;
-            text-align: center;
-            white-space: nowrap;
-        }
-
-        /* 折线图 */
-        .line-chart {
-            height: 220px;
-            position: relative;
-            padding: 0 8px;
-        }
-
-        .line-chart svg {
-            width: 100%;
-            height: 100%;
-        }
-
-        .line-chart-grid {
-            stroke: #f1f5f9;
-            stroke-width: 1;
-        }
-
-        .line-chart-axis {
-            stroke: #e2e8f0;
-            stroke-width: 1;
-        }
-
-        .line-chart-line {
-            fill: none;
-            stroke: #c8956c;
-            stroke-width: 3;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-        }
-
-        .line-chart-area {
-            fill: rgba(200, 149, 108, 0.1);
-            stroke: none;
-        }
-
-        .line-chart-dot {
-            fill: #ffffff;
-            stroke: #c8956c;
-            stroke-width: 2;
-        }
-
-        .line-chart-label {
-            font-size: 11px;
-            fill: #94a3b8;
-            text-anchor: middle;
-        }
-
-        .line-chart-value {
-            font-size: 11px;
-            fill: #1a365d;
-            font-weight: 600;
-            text-anchor: middle;
-        }
-
-        /* 饼图 */
-        .pie-chart-wrap {
-            display: flex;
-            align-items: center;
-            gap: 32px;
-            flex-wrap: wrap;
-        }
-
-        .pie-chart {
-            width: 200px;
-            height: 200px;
-            flex-shrink: 0;
-        }
-
-        .pie-chart svg {
-            width: 100%;
-            height: 100%;
-            transform: rotate(-90deg);
-        }
-
-        .pie-legend {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .legend-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 14px;
-            color: #475569;
-        }
-
-        .legend-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 3px;
-        }
-
-        .legend-value {
-            font-weight: 700;
-            color: #1a202c;
-            margin-left: auto;
-            padding-left: 24px;
-        }
-
-        /* 表格 */
-        .data-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        .data-table th,
-        .data-table td {
-            padding: 12px 16px;
-            text-align: left;
-            font-size: 14px;
-        }
-
-        .data-table thead th {
-            background: #f8fafc;
-            color: #64748b;
-            font-weight: 600;
-            font-size: 13px;
-            border-bottom: 1px solid #e2e8f0;
-        }
-
-        .data-table tbody tr {
-            border-bottom: 1px solid #f1f5f9;
-            transition: background 0.2s;
-        }
-
-        .data-table tbody tr:hover {
-            background: #f8fafc;
-        }
-
-        .data-table tbody td {
-            color: #475569;
-        }
-
-        .data-table tbody td strong {
-            color: #1a202c;
-        }
-
-        .badge {
-            display: inline-flex;
-            align-items: center;
-            padding: 2px 10px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 600;
-        }
-
-        .badge-success {
-            background: #d1fae5;
-            color: #047857;
-        }
-
-        .badge-warning {
-            background: #fef3c7;
-            color: #b45309;
-        }
-
-        .badge-danger {
-            background: #fee2e2;
-            color: #b91c1c;
-        }
-
-        .badge-info {
-            background: #dbeafe;
-            color: #1d4ed8;
-        }
-
-        /* 工作坊选择 */
         .workshop-select {
-            height: 36px;
-            padding: 0 32px 0 12px;
-            border: 1px solid #e2e8f0;
-            border-radius: 8px;
-            background: #ffffff;
-            font-size: 14px;
-            font-family: inherit;
-            color: #1a202c;
-            cursor: pointer;
-            appearance: none;
+            height: 36px; padding: 0 32px 0 12px; border: 1px solid #e2e8f0; border-radius: 8px;
+            background: #fff; font-size: 14px; font-family: inherit; color: #1a202c; cursor: pointer; appearance: none;
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: right 10px center;
+            background-repeat: no-repeat; background-position: right 10px center;
         }
+        .workshop-select:focus { outline: none; border-color: #c8956c; }
 
-        .workshop-select:focus {
-            outline: none;
-            border-color: #c8956c;
+        .report-footer { display: flex; justify-content: flex-end; margin-top: 16px; padding-top: 16px; border-top: 1px solid #f1f5f9; }
+        .btn-sm { height: 36px; padding: 0 16px; border-radius: 6px; font-size: 13px; font-family: inherit; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; transition: all 0.2s; }
+        .btn-outline { background: #fff; color: #64748b; border: 1px solid #e2e8f0; }
+        .btn-outline:hover { border-color: #c8956c; color: #c8956c; background: #fefcf9; }
+
+        /* ===== 分页 ===== */
+        .pagination { display: flex; align-items: center; justify-content: flex-end; gap: 4px; margin-top: 16px; }
+        .pagination button { min-width: 32px; height: 32px; border: 1px solid #e2e8f0; border-radius: 6px; background: #fff; color: #64748b; font-size: 13px; font-family: inherit; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; }
+        .pagination button:hover { border-color: #c8956c; color: #c8956c; }
+        .pagination button.active { background: #1a365d; color: #fff; border-color: #1a365d; }
+        .pagination .page-info { font-size: 13px; color: #94a3b8; margin-right: 8px; }
+
+        /* ===== Section divider ===== */
+        .section-divider {
+            display: flex; align-items: center; gap: 16px; margin: 32px 0 20px 0;
         }
+        .section-divider .line { flex: 1; height: 1px; background: #e2e8f0; }
+        .section-divider .text { font-size: 13px; font-weight: 600; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; white-space: nowrap; }
 
-        .report-footer {
-            display: flex;
-            justify-content: flex-end;
-            margin-top: 16px;
-            padding-top: 16px;
-            border-top: 1px solid #f1f5f9;
-        }
-
-        .btn-sm {
-            height: 36px;
-            padding: 0 16px;
-            border-radius: 6px;
-            font-size: 13px;
-            font-family: inherit;
-            font-weight: 600;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            transition: all 0.2s;
-        }
-
-        .btn-outline {
-            background: #ffffff;
-            color: #64748b;
-            border: 1px solid #e2e8f0;
-        }
-
-        .btn-outline:hover {
-            border-color: #c8956c;
-            color: #c8956c;
-            background: #fefcf9;
-        }
-
-        /* 移动端遮罩 */
-        .sidebar-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0,0,0,0.4);
-            z-index: 998;
-        }
-
-        .sidebar-overlay.active {
-            display: block;
-        }
-
-        /* 响应式 */
+        /* ===== 响应式 ===== */
         @media (max-width: 1200px) {
-            .quick-cards {
-                grid-template-columns: repeat(3, 1fr);
+            .quick-cards { grid-template-columns: repeat(3, 1fr); }
+            .filter-bar { flex-direction: column; align-items: flex-start; }
+            .filter-actions { margin-left: 0; }
+            .topbar-nav { display: none; }
+            .topbar-nav.mobile-open {
+                display: flex; flex-direction: column; position: fixed;
+                top: 64px; left: 0; right: 0; bottom: 0;
+                background: #fff; padding: 16px; overflow-y: auto;
+                gap: 4px; margin-left: 0; z-index: 999;
             }
+            .nav-dropdown-menu { position: static; box-shadow: none; border: none; padding-left: 12px; }
+            .nav-sub-menu { position: static; box-shadow: none; border: none; padding-left: 12px; }
         }
-
         @media (max-width: 1024px) {
-            .chart-row {
-                grid-template-columns: 1fr;
-            }
+            .chart-row { grid-template-columns: 1fr; }
+            .report-tabs { flex-direction: column; }
         }
-
         @media (max-width: 768px) {
-            .hamburger-btn {
-                display: block;
-            }
-
-            .nav-links {
-                display: none;
-            }
-
-            .search-box {
-                display: none;
-            }
-
-            .sidebar {
-                transform: translateX(-100%);
-            }
-
-            .sidebar.mobile-open {
-                transform: translateX(0);
-            }
-
-            .main-content {
-                margin-left: 0;
-            }
-
-            .quick-cards {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .pie-chart-wrap {
-                justify-content: center;
-            }
+            .menu-toggle { display: block; }
+            .topbar-nav, .search-box { display: none; }
+            .main-content { margin-left: 0; }
+            .quick-cards { grid-template-columns: repeat(2, 1fr); }
+            .pie-chart-wrap { justify-content: center; }
+            .data-table { font-size: 12px; }
+            .data-table th, .data-table td { padding: 8px 10px; }
         }
     </style>
 </head>
 <body>
-    <!-- 顶部导航栏 -->
-    <nav class="top-navbar">
-        <div class="nav-left">
-            <button class="hamburger-btn" id="hamburgerBtn" aria-label="打开菜单">
-                <i class="ri-menu-line"></i>
-            </button>
-            <div class="logo">
-                <i class="ri-eye-line"></i>
-                慧眼
+    <!-- ===== 顶部导航栏 ===== -->
+    <header class="topbar" id="topbar">
+        <div class="topbar-left">
+            <button class="menu-toggle" id="menuToggle" aria-label="打开菜单"><i class="ri-menu-line"></i></button>
+            <div class="logo"><i class="ri-eye-line"></i>慧眼</div>
+            <nav class="topbar-nav">
+        <a href="../index.html">首页</a>
+        <a href="about.html">关于我们</a>
+        <a href="news.html">新闻公告</a>
+        <div class="nav-dropdown">
+            <a href="#" class="nav-dropdown-toggle">在线学习 <i class="ri-arrow-down-s-line"></i></a>
+            <div class="nav-dropdown-menu">
+                <a href="knowledge.html">知识矩阵</a>
+                <a href="skill.html">技能矩阵</a>
+                <a href="workshop.html">经验工作坊</a>
+                <a href="assessment.html">评估认证</a>
             </div>
-            <ul class="nav-links">
-                <li><a href="../index.html">首页</a></li>
-                <li><a href="knowledge.html">知识矩阵</a></li>
-                <li><a href="skill.html">技能矩阵</a></li>
-                <li><a href="workshop.html">经验工作坊</a></li>
-                <li><a href="news.html">新闻公告</a></li>
-            </ul>
         </div>
-        <div class="nav-right">
+        <div class="nav-dropdown">
+            <a href="#" class="nav-dropdown-toggle">Insight CA 系统 <i class="ri-arrow-down-s-line"></i></a>
+            <div class="nav-dropdown-menu">
+                <div class="nav-sub-dropdown">
+                    <a href="#" class="nav-sub-toggle">Matrix 管理 <i class="ri-arrow-right-s-line"></i></a>
+                    <div class="nav-sub-menu">
+                        <a href="my-skills.html">档案管理</a>
+                        <a href="reports.html" class="active">数据图表</a>
+                        <a href="my-learning.html">课程成绩</a>
+                        <a href="course-learn.html">课程学习</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="nav-dropdown">
+            <a href="#" class="nav-dropdown-toggle">Insight HSSE 管理 <i class="ri-arrow-down-s-line"></i></a>
+            <div class="nav-dropdown-menu">
+                <a href="ptw.html">PTW 作业许可</a>
+                <a href="compliance.html">HSSE Passport</a>
+            </div>
+        </div>
+      </nav>
+        </div>
+        <div class="topbar-right">
             <div class="search-box">
                 <input type="text" placeholder="搜索报表、数据..." id="topSearch">
                 <i class="ri-search-line"></i>
             </div>
-            <div class="user-info">
+            <div class="user-menu">
                 <div class="user-avatar">张</div>
                 <span class="user-name">张工程师</span>
             </div>
         </div>
-    </nav>
-
-    <!-- 侧边栏遮罩 -->
-    <div class="sidebar-overlay" id="sidebarOverlay"></div>
-
-    <!-- 侧边栏 -->
-    <aside class="sidebar" id="sidebar">
-        <div class="sidebar-toggle" id="sidebarToggle" title="收起/展开侧边栏">
-            <i class="ri-arrow-left-s-line" id="toggleIcon"></i>
-        </div>
-        <div class="sidebar-content">
-            <div class="sidebar-section">
-                <div class="sidebar-title">核心模块</div>
-                <ul class="sidebar-menu">
-                    <li><a href="knowledge.html"><i class="ri-book-open-line"></i> 知识矩阵</a></li>
-                    <li><a href="skill.html"><i class="ri-tools-line"></i> 技能矩阵</a></li>
-                    <li><a href="workshop.html"><i class="ri-group-line"></i> 经验工作坊</a></li>
-                    <li><a href="#"><i class="ri-award-line"></i> 评估认证</a></li>
-                </ul>
-            </div>
-            <div class="sidebar-section">
-                <div class="sidebar-title">运营管理</div>
-                <ul class="sidebar-menu">
-                    <li><a href="#"><i class="ri-file-list-3-line"></i> 工作许可证</a></li>
-                    <li><a href="#"><i class="ri-shield-check-line"></i> 合规管理</a></li>
-                    <li><a href="reports.html" class="active"><i class="ri-bar-chart-box-line"></i> 数据报表</a></li>
-                </ul>
-            </div>
-            <div class="sidebar-section">
-                <div class="sidebar-title">个人中心</div>
-                <ul class="sidebar-menu">
-                    <li><a href="profile.html"><i class="ri-user-line"></i> 个人资料</a></li>
-                    <li><a href="#"><i class="ri-progress-7-line"></i> 学习进度</a></li>
-                    <li><a href="#"><i class="ri-profile-line"></i> 技能档案</a></li>
-                    <li><a href="#"><i class="ri-calendar-check-line"></i> 我的报名</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="sidebar-footer">
-            <div class="progress-item">
-                <div class="progress-label">
-                    <span>学习进度</span>
-                    <span>23%</span>
-                </div>
-                <div class="progress-bar">
-                    <div class="progress-fill" style="width: 23%"></div>
-                </div>
-            </div>
-            <div class="progress-item">
-                <div class="progress-label">
-                    <span>技能认证</span>
-                    <span>5/12</span>
-                </div>
-                <div class="progress-bar">
-                    <div class="progress-fill" style="width: 41.7%"></div>
-                </div>
-            </div>
-        </div>
-    </aside>
-
-    <!-- 主内容区 -->
+    </header>
+    <!-- ===== 主内容区 ===== -->
     <main class="main-content" id="mainContent">
-        <!-- 页面标题区 -->
+        <!-- 页面标题 -->
         <div class="page-header">
             <div class="page-title-area">
-                <h1>数据报表与统计</h1>
+                <h1>数据图表</h1>
                 <div class="breadcrumb">
-                    <a href="../index.html">首页</a>
-                    <i class="ri-arrow-right-s-line"></i>
-                    <a href="#">运营管理</a>
-                    <i class="ri-arrow-right-s-line"></i>
-                    <span>数据报表</span>
+                    <a href="../index.html">首页</a><i class="ri-arrow-right-s-line"></i>
+                    <span>Insight CA 系统</span><i class="ri-arrow-right-s-line"></i>
+                    <span>Matrix 管理</span><i class="ri-arrow-right-s-line"></i>
+                    <span>数据图表</span>
                 </div>
             </div>
-            <button class="btn-export" id="exportExcelBtn">
-                <i class="ri-file-excel-line"></i>
-                导出Excel
-            </button>
+            <button class="btn-export" id="exportExcelBtn"><i class="ri-file-excel-line"></i>导出Excel</button>
+        </div>
+
+        <!-- 角色标识条 -->
+        <div class="role-banner">
+            <i class="ri-admin-line"></i>
+            <span>当前报表视角：</span>
+            <span class="role-tag">External Verifier</span>
+            <span class="divider">|</span>
+            <span>Name: Standards Verifier</span>
+            <span class="divider">|</span>
+            <span>Company: Humanoid</span>
+        </div>
+
+        <!-- ====== CAS 能力矩阵报表区 ====== -->
+        <div class="report-card" style="border-top: 3px solid #1a365d;">
+            <div class="report-card-header">
+                <div class="report-card-title">
+                    <i class="ri-folder-user-line"></i>CAS 能力矩阵报表
+                </div>
+            </div>
+            <div class="report-card-subtitle">Competence Assurance System — 候选人 / 评估员 / 验证者多维度报表</div>
+
+            <!-- 3层筛选器 -->
+            <div class="filter-bar" id="filterBar">
+                <span class="filter-label">报表筛选</span>
+                <div class="filter-group">
+                    <label>Customer</label>
+                    <select class="filter-select" id="filterCustomer"><option value="">全部客户 (23)</option></select>
+                </div>
+                <div class="filter-group">
+                    <label>Region</label>
+                    <select class="filter-select" id="filterRegion"><option value="">全部区域</option></select>
+                </div>
+                <div class="filter-group">
+                    <label>Portfolio</label>
+                    <select class="filter-select" id="filterPortfolio"><option value="">全部组合</option></select>
+                </div>
+                <div class="filter-divider"></div>
+                <label class="sort-check" title="按是否已认证排序">
+                    <input type="checkbox" id="sortCertified">
+                    <span class="check-box"><i class="ri-check-line"></i></span>
+                    <span>Sort by Certified</span>
+                </label>
+                <div class="filter-actions">
+                    <button class="btn-filter" id="btnResetFilter"><i class="ri-refresh-line"></i>重置</button>
+                    <button class="btn-filter primary" id="btnApplyFilter"><i class="ri-filter-3-line"></i>筛选</button>
+                </div>
+            </div>
+
+            <!-- 活跃筛选条件 chips -->
+            <div class="filter-chips" id="filterChips"></div>
+
+            <!-- Tab 切换 -->
+            <div class="report-tabs" id="reportTabs">
+                <button class="report-tab active" data-tab="candidate">
+                    <i class="ri-user-search-line"></i>Candidate Report
+                    <span class="tab-badge">156</span>
+                </button>
+                <button class="report-tab" data-tab="progress">
+                    <i class="ri-calendar-check-line"></i>Monthly Progress
+                    <span class="tab-badge">12</span>
+                </button>
+                <button class="report-tab" data-tab="assessor">
+                    <i class="ri-user-star-line"></i>Assessor Report
+                    <span class="tab-badge">8</span>
+                </button>
+            </div>
+
+            <!-- Tab 内容区 -->
+            <div id="tabContent">
+                <!-- Candidate Report 表格 -->
+                <div id="tab-candidate" class="tab-panel">
+                    <div style="overflow-x:auto;">
+                        <table class="data-table" id="candidateTable">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Candidate Name</th>
+                                    <th>Company</th>
+                                    <th>Region</th>
+                                    <th>Portfolio</th>
+                                    <th class="col-progress">Progress</th>
+                                    <th class="col-score">Avg Score</th>
+                                    <th class="col-cert">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="candidateTbody"></tbody>
+                        </table>
+                    </div>
+                    <div class="pagination" id="candidatePagination"></div>
+                </div>
+
+                <!-- Monthly Progress 表格 -->
+                <div id="tab-progress" class="tab-panel" style="display:none;">
+                    <div style="overflow-x:auto;">
+                        <table class="data-table" id="progressTable">
+                            <thead>
+                                <tr>
+                                    <th>Month</th>
+                                    <th>Company</th>
+                                    <th>Region</th>
+                                    <th>Portfolio</th>
+                                    <th class="col-progress">New Activities</th>
+                                    <th class="col-progress">Completions</th>
+                                    <th class="col-score">Avg Score</th>
+                                    <th class="col-progress">Progress Δ</th>
+                                </tr>
+                            </thead>
+                            <tbody id="progressTbody"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Assessor Report 表格 -->
+                <div id="tab-assessor" class="tab-panel" style="display:none;">
+                    <div style="overflow-x:auto;">
+                        <table class="data-table" id="assessorTable">
+                            <thead>
+                                <tr>
+                                    <th>Assessor</th>
+                                    <th>Company</th>
+                                    <th class="col-progress">Assigned Candidates</th>
+                                    <th class="col-progress">Assessed This Month</th>
+                                    <th class="col-progress">Pending</th>
+                                    <th class="col-score">Avg Score Given</th>
+                                    <th class="col-cert">Workload</th>
+                                </tr>
+                            </thead>
+                            <tbody id="assessorTbody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="report-footer">
+                <span style="font-size:12px;color:#94a3b8;margin-right:auto;">
+                    数据更新时间：2026-05-29 14:30 UTC+8
+                </span>
+                <button class="btn-sm btn-outline"><i class="ri-download-line"></i>导出当前报表</button>
+            </div>
+        </div>
+
+        <!-- 分隔线 -->
+        <div class="section-divider">
+            <div class="line"></div>
+            <div class="text">培训与运营统计</div>
+            <div class="line"></div>
         </div>
 
         <!-- 快捷图标栏 -->
         <div class="quick-cards">
-            <div class="quick-card">
-                <div class="quick-card-icon">
-                    <i class="ri-line-chart-line"></i>
-                </div>
-                <div class="quick-card-title">培训进度总览</div>
-            </div>
-            <div class="quick-card">
-                <div class="quick-card-icon">
-                    <i class="ri-award-line"></i>
-                </div>
-                <div class="quick-card-title">认证通过率</div>
-            </div>
-            <div class="quick-card">
-                <div class="quick-card-icon">
-                    <i class="ri-group-line"></i>
-                </div>
-                <div class="quick-card-title">工作坊统计</div>
-            </div>
-            <div class="quick-card">
-                <div class="quick-card-icon">
-                    <i class="ri-shield-check-line"></i>
-                </div>
-                <div class="quick-card-title">合规状态</div>
-            </div>
-            <div class="quick-card">
-                <div class="quick-card-icon">
-                    <i class="ri-file-list-3-line"></i>
-                </div>
-                <div class="quick-card-title">PTW审批效率</div>
-            </div>
-            <div class="quick-card">
-                <div class="quick-card-icon">
-                    <i class="ri-user-search-line"></i>
-                </div>
-                <div class="quick-card-title">员工画像</div>
-            </div>
+            <div class="quick-card"><div class="quick-card-icon"><i class="ri-line-chart-line"></i></div><div class="quick-card-title">培训进度总览</div></div>
+            <div class="quick-card"><div class="quick-card-icon"><i class="ri-award-line"></i></div><div class="quick-card-title">认证通过率</div></div>
+            <div class="quick-card"><div class="quick-card-icon"><i class="ri-group-line"></i></div><div class="quick-card-title">工作坊统计</div></div>
+            <div class="quick-card"><div class="quick-card-icon"><i class="ri-shield-check-line"></i></div><div class="quick-card-title">合规状态</div></div>
+            <div class="quick-card"><div class="quick-card-icon"><i class="ri-file-list-3-line"></i></div><div class="quick-card-title">PTW审批效率</div></div>
+            <div class="quick-card"><div class="quick-card-icon"><i class="ri-user-search-line"></i></div><div class="quick-card-title">员工画像</div></div>
         </div>
 
-        <!-- 报表区1 - 培训进度统计 -->
+        <!-- 培训进度统计 -->
         <div class="report-card">
             <div class="report-card-header">
-                <div class="report-card-title">
-                    <i class="ri-bar-chart-grouped-line"></i>
-                    培训进度统计
-                </div>
+                <div class="report-card-title"><i class="ri-bar-chart-grouped-line"></i>培训进度统计</div>
                 <div class="time-filter" id="timeFilter1">
                     <button class="active" data-range="30">近30天</button>
                     <button data-range="90">近90天</button>
@@ -1021,183 +569,44 @@
             <div class="chart-row">
                 <div class="chart-area">
                     <div class="chart-label">各学科培训完成率</div>
-                    <div class="bar-chart" id="barChart">
-                        <div class="bar-item">
-                            <div class="bar-value">78%</div>
-                            <div class="bar-track">
-                                <div class="bar-fill" style="height: 78%"></div>
-                            </div>
-                            <div class="bar-name">HSE</div>
-                        </div>
-                        <div class="bar-item">
-                            <div class="bar-value">45%</div>
-                            <div class="bar-track">
-                                <div class="bar-fill" style="height: 45%"></div>
-                            </div>
-                            <div class="bar-name">井工程</div>
-                        </div>
-                        <div class="bar-item">
-                            <div class="bar-value">62%</div>
-                            <div class="bar-track">
-                                <div class="bar-fill" style="height: 62%"></div>
-                            </div>
-                            <div class="bar-name">机械工程</div>
-                        </div>
-                        <div class="bar-item">
-                            <div class="bar-value">30%</div>
-                            <div class="bar-track">
-                                <div class="bar-fill" style="height: 30%"></div>
-                            </div>
-                            <div class="bar-name">电气工程</div>
-                        </div>
-                        <div class="bar-item">
-                            <div class="bar-value">55%</div>
-                            <div class="bar-track">
-                                <div class="bar-fill" style="height: 55%"></div>
-                            </div>
-                            <div class="bar-name">管道工程</div>
-                        </div>
-                        <div class="bar-item">
-                            <div class="bar-value">25%</div>
-                            <div class="bar-track">
-                                <div class="bar-fill" style="height: 25%"></div>
-                            </div>
-                            <div class="bar-name">海洋工程</div>
-                        </div>
-                    </div>
+                    <div class="bar-chart" id="barChart"></div>
                 </div>
                 <div class="chart-area">
                     <div class="chart-label">近6个月完成人数趋势</div>
-                    <div class="line-chart">
-                        <svg viewBox="0 0 400 220" preserveAspectRatio="none">
-                            <!-- 网格线 -->
-                            <line x1="0" y1="180" x2="400" y2="180" class="line-chart-grid"/>
-                            <line x1="0" y1="135" x2="400" y2="135" class="line-chart-grid"/>
-                            <line x1="0" y1="90" x2="400" y2="90" class="line-chart-grid"/>
-                            <line x1="0" y1="45" x2="400" y2="45" class="line-chart-grid"/>
-                            <!-- 面积 -->
-                            <polygon points="40,180 106,163 172,139 238,118 304,90 370,72 370,180 40,180" class="line-chart-area"/>
-                            <!-- 折线 -->
-                            <polyline points="40,180 106,163 172,139 238,118 304,90 370,72" class="line-chart-line"/>
-                            <!-- 数据点 -->
-                            <circle cx="40" cy="180" r="5" class="line-chart-dot"/>
-                            <circle cx="106" cy="163" r="5" class="line-chart-dot"/>
-                            <circle cx="172" cy="139" r="5" class="line-chart-dot"/>
-                            <circle cx="238" cy="118" r="5" class="line-chart-dot"/>
-                            <circle cx="304" cy="90" r="5" class="line-chart-dot"/>
-                            <circle cx="370" cy="72" r="5" class="line-chart-dot"/>
-                            <!-- 数值标签 -->
-                            <text x="40" y="200" class="line-chart-label">1月</text>
-                            <text x="106" y="200" class="line-chart-label">2月</text>
-                            <text x="172" y="200" class="line-chart-label">3月</text>
-                            <text x="238" y="200" class="line-chart-label">4月</text>
-                            <text x="304" y="200" class="line-chart-label">5月</text>
-                            <text x="370" y="200" class="line-chart-label">6月</text>
-                            <text x="40" y="168" class="line-chart-value">120</text>
-                            <text x="106" y="151" class="line-chart-value">145</text>
-                            <text x="172" y="127" class="line-chart-value">180</text>
-                            <text x="238" y="106" class="line-chart-value">210</text>
-                            <text x="304" y="78" class="line-chart-value">250</text>
-                            <text x="370" y="60" class="line-chart-value">280</text>
-                        </svg>
-                    </div>
+                    <div class="line-chart" id="lineChart"></div>
                 </div>
             </div>
         </div>
 
-        <!-- 报表区2 - 认证通过率统计 -->
+        <!-- 认证通过率统计 -->
         <div class="report-card">
             <div class="report-card-header">
-                <div class="report-card-title">
-                    <i class="ri-pie-chart-line"></i>
-                    认证通过率统计
-                </div>
+                <div class="report-card-title"><i class="ri-pie-chart-line"></i>认证通过率统计</div>
             </div>
             <div class="chart-row">
                 <div class="chart-area">
                     <div class="chart-label">认证状态分布</div>
-                    <div class="pie-chart-wrap">
-                        <div class="pie-chart">
-                            <svg viewBox="0 0 200 200">
-                                <!-- 已通过 58% -->
-                                <circle cx="100" cy="100" r="80" fill="none" stroke="#c8956c" stroke-width="40"
-                                    stroke-dasharray="292.2 209.44" stroke-dashoffset="0"/>
-                                <!-- 待审核 25% -->
-                                <circle cx="100" cy="100" r="80" fill="none" stroke="#3b82f6" stroke-width="40"
-                                    stroke-dasharray="125.66 376" stroke-dashoffset="-292.2"/>
-                                <!-- 未通过 17% -->
-                                <circle cx="100" cy="100" r="80" fill="none" stroke="#94a3b8" stroke-width="40"
-                                    stroke-dasharray="85.45 416.2" stroke-dashoffset="-417.86"/>
-                            </svg>
-                        </div>
-                        <div class="pie-legend">
-                            <div class="legend-item">
-                                <div class="legend-dot" style="background:#c8956c"></div>
-                                <span>已通过</span>
-                                <span class="legend-value">58%</span>
-                            </div>
-                            <div class="legend-item">
-                                <div class="legend-dot" style="background:#3b82f6"></div>
-                                <span>待审核</span>
-                                <span class="legend-value">25%</span>
-                            </div>
-                            <div class="legend-item">
-                                <div class="legend-dot" style="background:#94a3b8"></div>
-                                <span>未通过</span>
-                                <span class="legend-value">17%</span>
-                            </div>
-                        </div>
-                    </div>
+                    <div class="pie-chart-wrap" id="certPie"></div>
                 </div>
                 <div class="chart-area">
                     <div class="chart-label">各等级认证明细</div>
                     <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th>技能等级</th>
-                                <th>总人数</th>
-                                <th>通过人数</th>
-                                <th>通过率</th>
-                            </tr>
-                        </thead>
+                        <thead><tr><th>技能等级</th><th>总人数</th><th>通过人数</th><th>通过率</th></tr></thead>
                         <tbody>
-                            <tr>
-                                <td><strong>Level 2</strong></td>
-                                <td>800</td>
-                                <td>520</td>
-                                <td><span class="badge badge-success">65%</span></td>
-                            </tr>
-                            <tr>
-                                <td><strong>Level 3</strong></td>
-                                <td>450</td>
-                                <td>280</td>
-                                <td><span class="badge badge-warning">62%</span></td>
-                            </tr>
-                            <tr>
-                                <td><strong>Level 4</strong></td>
-                                <td>200</td>
-                                <td>116</td>
-                                <td><span class="badge badge-info">58%</span></td>
-                            </tr>
+                            <tr><td><strong>Level 2</strong></td><td>800</td><td>520</td><td><span class="badge badge-success">65%</span></td></tr>
+                            <tr><td><strong>Level 3</strong></td><td>450</td><td>280</td><td><span class="badge badge-warning">62%</span></td></tr>
+                            <tr><td><strong>Level 4</strong></td><td>200</td><td>116</td><td><span class="badge badge-info">58%</span></td></tr>
                         </tbody>
                     </table>
                 </div>
             </div>
-            <div class="report-footer">
-                <button class="btn-sm btn-outline" onclick="alert('正在导出认证通过率报表...')">
-                    <i class="ri-download-line"></i>
-                    导出认证报表
-                </button>
-            </div>
+            <div class="report-footer"><button class="btn-sm btn-outline"><i class="ri-download-line"></i>导出认证报表</button></div>
         </div>
 
-        <!-- 报表区3 - 工作坊参与统计 -->
+        <!-- 工作坊参与统计 -->
         <div class="report-card">
             <div class="report-card-header">
-                <div class="report-card-title">
-                    <i class="ri-group-2-line"></i>
-                    工作坊参与统计
-                </div>
+                <div class="report-card-title"><i class="ri-group-2-line"></i>工作坊参与统计</div>
                 <select class="workshop-select" id="workshopSelect">
                     <option value="ws1">海上安全操作工作坊</option>
                     <option value="ws2">钻井技术实操工作坊</option>
@@ -1208,181 +617,426 @@
             <div class="chart-row">
                 <div class="chart-area">
                     <div class="chart-label">考核完成率</div>
-                    <div class="pie-chart-wrap">
-                        <div class="pie-chart">
-                            <svg viewBox="0 0 200 200">
-                                <!-- 已考核 72% -->
-                                <circle cx="100" cy="100" r="80" fill="none" stroke="#10b981" stroke-width="40"
-                                    stroke-dasharray="361.91 140.74" stroke-dashoffset="0"/>
-                                <!-- 未考核 28% -->
-                                <circle cx="100" cy="100" r="80" fill="none" stroke="#e2e8f0" stroke-width="40"
-                                    stroke-dasharray="140.74 361.91" stroke-dashoffset="-361.91"/>
-                            </svg>
-                        </div>
-                        <div class="pie-legend">
-                            <div class="legend-item">
-                                <div class="legend-dot" style="background:#10b981"></div>
-                                <span>已考核</span>
-                                <span class="legend-value">72%</span>
-                            </div>
-                            <div class="legend-item">
-                                <div class="legend-dot" style="background:#e2e8f0"></div>
-                                <span>未考核</span>
-                                <span class="legend-value">28%</span>
-                            </div>
-                        </div>
-                    </div>
+                    <div class="pie-chart-wrap" id="workshopPie"></div>
                 </div>
                 <div class="chart-area">
                     <div class="chart-label">学员明细</div>
                     <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th>姓名</th>
-                                <th>是否参加</th>
-                                <th>考核结果</th>
-                            </tr>
-                        </thead>
-                        <tbody id="workshopTableBody">
-                            <tr>
-                                <td><strong>李明</strong></td>
-                                <td><span class="badge badge-success">已参加</span></td>
-                                <td><span class="badge badge-success">通过</span></td>
-                            </tr>
-                            <tr>
-                                <td><strong>王芳</strong></td>
-                                <td><span class="badge badge-success">已参加</span></td>
-                                <td><span class="badge badge-success">通过</span></td>
-                            </tr>
-                            <tr>
-                                <td><strong>张伟</strong></td>
-                                <td><span class="badge badge-success">已参加</span></td>
-                                <td><span class="badge badge-danger">未通过</span></td>
-                            </tr>
-                            <tr>
-                                <td><strong>刘洋</strong></td>
-                                <td><span class="badge badge-success">已参加</span></td>
-                                <td><span class="badge badge-warning">待审核</span></td>
-                            </tr>
-                            <tr>
-                                <td><strong>陈静</strong></td>
-                                <td><span class="badge badge-danger">未参加</span></td>
-                                <td>-</td>
-                            </tr>
-                        </tbody>
+                        <thead><tr><th>姓名</th><th>是否参加</th><th>考核结果</th></tr></thead>
+                        <tbody id="workshopTableBody"></tbody>
                     </table>
                 </div>
             </div>
-            <div class="report-footer">
-                <button class="btn-sm btn-outline" onclick="alert('正在导出工作坊参与报表...')">
-                    <i class="ri-download-line"></i>
-                    导出工作坊报表
-                </button>
-            </div>
+            <div class="report-footer"><button class="btn-sm btn-outline"><i class="ri-download-line"></i>导出工作坊报表</button></div>
         </div>
     </main>
 
     <script>
-        // 侧边栏折叠
-        const sidebar = document.getElementById('sidebar');
-        const mainContent = document.getElementById('mainContent');
-        const sidebarToggle = document.getElementById('sidebarToggle');
-        const toggleIcon = document.getElementById('toggleIcon');
-        let sidebarCollapsed = false;
+    // ==================== 数据 ====================
+    const CUSTOMERS = ['ALL','PETRONAS','SHELL','HESS','CNPC','ConocoPhillips Sabah','Murphy Oil','Woods','BMC','OCN','INSTEP','Hibiscus','ENEOS Xplora','Sarawak Energy Berhad','TAS Academy','NRC','Syarikat Sesco Bhd','Balingian Power Generation','Mukah Power Generation','Mubadala Energy','Hengyuan Refining Company','EPOMS','OTHER','Humanoid'];
 
-        sidebarToggle.addEventListener('click', function() {
-            sidebarCollapsed = !sidebarCollapsed;
-            if (sidebarCollapsed) {
-                sidebar.classList.add('collapsed');
-                mainContent.classList.add('full');
-                toggleIcon.classList.remove('ri-arrow-left-s-line');
-                toggleIcon.classList.add('ri-arrow-right-s-line');
-            } else {
-                sidebar.classList.remove('collapsed');
-                mainContent.classList.remove('full');
-                toggleIcon.classList.remove('ri-arrow-right-s-line');
-                toggleIcon.classList.add('ri-arrow-left-s-line');
-            }
-        });
+    const REGIONS = ['KL','GRPC','GRPC-retired','IA','IA KL','Indonesia','Iraq','JV','JVI','LNG','MLNG','Myanmar','PFLNG','PI','PMA','PMO','SBA','SBO','SKA','SKG','SKO','Sudan','Turkmenistan','UPA'];
 
-        // 移动端汉堡菜单
-        const hamburgerBtn = document.getElementById('hamburgerBtn');
-        const sidebarOverlay = document.getElementById('sidebarOverlay');
+    const PORTFOLIOS = ['OIM v1','OIM v2','OIM v3','OIM v4','OIM v5','OIM v6','PSMS v1','PSMS v2','PSMS v3','IV','Assessor','Operator Tech. Level 2','Operator Tech. Level 3','General Staff','CRO','HRC Operation Technicians'];
 
-        hamburgerBtn.addEventListener('click', function() {
-            sidebar.classList.add('mobile-open');
-            sidebarOverlay.classList.add('active');
-        });
+    // 候选人模拟数据
+    const candidateData = [
+        { name:'Ahmad bin Ismail', company:'PETRONAS', region:'KL', portfolio:'OIM v3', progress:78, score:82, certified:true },
+        { name:'Sarah binti Yusof', company:'SHELL', region:'LNG', portfolio:'PSMS v2', progress:45, score:61, certified:false },
+        { name:'Mohd Faizal bin Rashid', company:'HESS', region:'PI', portfolio:'CRO', progress:92, score:88, certified:true },
+        { name:'Tan Wei Ming', company:'CNPC', region:'Sudan', portfolio:'Operator Tech. Level 2', progress:33, score:55, certified:false },
+        { name:'Nurul Huda binti Ali', company:'PETRONAS', region:'SKA', portfolio:'OIM v1', progress:60, score:70, certified:false },
+        { name:'Rajesh Kumar', company:'Woods', region:'MLNG', portfolio:'General Staff', progress:85, score:90, certified:true },
+        { name:'Lim Chee Hong', company:'PETRONAS', region:'PMO', portfolio:'Assessor', progress:50, score:65, certified:false },
+        { name:'Siti Aminah', company:'SHELL', region:'SBO', portfolio:'PSMS v1', progress:70, score:76, certified:true },
+        { name:'David anak Michael', company:'Murphy Oil', region:'SBA', portfolio:'Operator Tech. Level 3', progress:25, score:40, certified:false },
+        { name:'Priya Devi', company:'INSTEP', region:'KL', portfolio:'HRC Operation Technicians', progress:95, score:93, certified:true },
+        { name:'Azman bin Hassan', company:'BMC', region:'PMA', portfolio:'OIM v6', progress:15, score:30, certified:false },
+        { name:'Wong Kah Fai', company:'Hibiscus', region:'Myanmar', portfolio:'IV', progress:88, score:85, certified:true },
+    ];
 
-        sidebarOverlay.addEventListener('click', function() {
-            sidebar.classList.remove('mobile-open');
-            sidebarOverlay.classList.remove('active');
-        });
+    // 月度进度模拟数据
+    const progressData = [
+        { month:'2026-01', company:'PETRONAS', region:'KL', portfolio:'OIM v3', activities:45, completions:12, score:78, delta:'+5%' },
+        { month:'2026-02', company:'PETRONAS', region:'KL', portfolio:'OIM v3', activities:52, completions:18, score:80, delta:'+8%' },
+        { month:'2026-03', company:'SHELL', region:'LNG', portfolio:'PSMS v2', activities:38, completions:8, score:62, delta:'+3%' },
+        { month:'2026-04', company:'HESS', region:'PI', portfolio:'CRO', activities:60, completions:25, score:85, delta:'+12%' },
+        { month:'2026-05', company:'PETRONAS', region:'SKA', portfolio:'OIM v1', activities:30, completions:6, score:55, delta:'+2%' },
+        { month:'2026-01', company:'CNPC', region:'Sudan', portfolio:'Operator Tech. Level 2', activities:20, completions:3, score:48, delta:'+1%' },
+        { month:'2026-02', company:'Woods', region:'MLNG', portfolio:'General Staff', activities:55, completions:20, score:88, delta:'+10%' },
+        { month:'2026-03', company:'INSTEP', region:'KL', portfolio:'HRC Operation Technicians', activities:70, completions:30, score:91, delta:'+15%' },
+        { month:'2026-04', company:'PETRONAS', region:'PMO', portfolio:'Assessor', activities:25, completions:7, score:62, delta:'+4%' },
+        { month:'2026-05', company:'Hibiscus', region:'Myanmar', portfolio:'IV', activities:42, completions:15, score:83, delta:'+9%' },
+        { month:'2026-03', company:'SHELL', region:'SBO', portfolio:'PSMS v1', activities:33, completions:10, score:74, delta:'+6%' },
+        { month:'2026-04', company:'BMC', region:'PMA', portfolio:'OIM v6', activities:18, completions:2, score:32, delta:'+1%' },
+    ];
 
-        // 时间筛选切换
-        const timeFilter1 = document.getElementById('timeFilter1');
-        timeFilter1.querySelectorAll('button').forEach(btn => {
-            btn.addEventListener('click', function() {
-                timeFilter1.querySelectorAll('button').forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
-                // 模拟数据刷新
-                const range = this.dataset.range;
-                console.log('切换时间范围:', range);
-            });
-        });
+    // 评估员模拟数据
+    const assessorData = [
+        { name:'Dr. Lee Chong Wei', company:'Humanoid', candidates:35, assessedMonth:12, pending:5, avgScore:78, workload:'High' },
+        { name:'Pn. Fatimah binti Omar', company:'Humanoid', candidates:28, assessedMonth:8, pending:3, avgScore:82, workload:'Medium' },
+        { name:'Ir. Tan Sri Ahmad', company:'Humanoid', candidates:22, assessedMonth:15, pending:1, avgScore:75, workload:'High' },
+        { name:'Haji Ismail bin Yaakob', company:'TAS Academy', candidates:18, assessedMonth:6, pending:7, avgScore:68, workload:'Medium' },
+        { name:'Dr. Kavita Menon', company:'Humanoid', candidates:25, assessedMonth:10, pending:2, avgScore:85, workload:'Low' },
+        { name:'En. Ramesh a/l Muthu', company:'NRC', candidates:30, assessedMonth:11, pending:8, avgScore:71, workload:'High' },
+        { name:'Pn. Wong Siew Lan', company:'Humanoid', candidates:20, assessedMonth:9, pending:4, avgScore:80, workload:'Medium' },
+        { name:'Ir. Johan bin Rashid', company:'Syarikat Sesco Bhd', candidates:15, assessedMonth:5, pending:6, avgScore:66, workload:'Low' },
+    ];
 
-        // 工作坊下拉选择
-        const workshopSelect = document.getElementById('workshopSelect');
-        const workshopTableBody = document.getElementById('workshopTableBody');
+    // ==================== 筛选器初始化 ====================
+    const elCustomer = document.getElementById('filterCustomer');
+    const elRegion = document.getElementById('filterRegion');
+    const elPortfolio = document.getElementById('filterPortfolio');
+    const elSortCertified = document.getElementById('sortCertified');
+    const filterChips = document.getElementById('filterChips');
 
-        const workshopData = {
-            ws1: [
-                { name: '李明', attend: '已参加', attendClass: 'badge-success', result: '通过', resultClass: 'badge-success' },
-                { name: '王芳', attend: '已参加', attendClass: 'badge-success', result: '通过', resultClass: 'badge-success' },
-                { name: '张伟', attend: '已参加', attendClass: 'badge-success', result: '未通过', resultClass: 'badge-danger' },
-                { name: '刘洋', attend: '已参加', attendClass: 'badge-success', result: '待审核', resultClass: 'badge-warning' },
-                { name: '陈静', attend: '未参加', attendClass: 'badge-danger', result: '-', resultClass: '' }
-            ],
-            ws2: [
-                { name: '赵强', attend: '已参加', attendClass: 'badge-success', result: '通过', resultClass: 'badge-success' },
-                { name: '孙丽', attend: '已参加', attendClass: 'badge-success', result: '通过', resultClass: 'badge-success' },
-                { name: '周杰', attend: '已参加', attendClass: 'badge-success', result: '通过', resultClass: 'badge-success' },
-                { name: '吴敏', attend: '未参加', attendClass: 'badge-danger', result: '-', resultClass: '' },
-                { name: '郑涛', attend: '已参加', attendClass: 'badge-success', result: '待审核', resultClass: 'badge-warning' }
-            ],
-            ws3: [
-                { name: '钱伟', attend: '已参加', attendClass: 'badge-success', result: '通过', resultClass: 'badge-success' },
-                { name: '冯雪', attend: '已参加', attendClass: 'badge-success', result: '未通过', resultClass: 'badge-danger' },
-                { name: '黄磊', attend: '已参加', attendClass: 'badge-success', result: '通过', resultClass: 'badge-success' },
-                { name: '林峰', attend: '已参加', attendClass: 'badge-success', result: '通过', resultClass: 'badge-success' },
-                { name: '徐倩', attend: '未参加', attendClass: 'badge-danger', result: '-', resultClass: '' }
-            ],
-            ws4: [
-                { name: '马云', attend: '已参加', attendClass: 'badge-success', result: '待审核', resultClass: 'badge-warning' },
-                { name: '朱迪', attend: '已参加', attendClass: 'badge-success', result: '通过', resultClass: 'badge-success' },
-                { name: '何方', attend: '已参加', attendClass: 'badge-success', result: '通过', resultClass: 'badge-success' },
-                { name: '罗丹', attend: '已参加', attendClass: 'badge-success', result: '未通过', resultClass: 'badge-danger' },
-                { name: '高翔', attend: '未参加', attendClass: 'badge-danger', result: '-', resultClass: '' }
-            ]
+    CUSTOMERS.forEach(c => {
+        const opt = document.createElement('option');
+        opt.value = c; opt.textContent = c; elCustomer.appendChild(opt);
+    });
+    REGIONS.forEach(r => {
+        const opt = document.createElement('option');
+        opt.value = r; opt.textContent = r; elRegion.appendChild(opt);
+    });
+    PORTFOLIOS.forEach(p => {
+        const opt = document.createElement('option');
+        opt.value = p; opt.textContent = p; elPortfolio.appendChild(opt);
+    });
+
+    function getActiveFilters() {
+        return {
+            customer: elCustomer.value,
+            region: elRegion.value,
+            portfolio: elPortfolio.value,
+            sortCertified: elSortCertified.checked
         };
+    }
 
-        workshopSelect.addEventListener('change', function() {
-            const data = workshopData[this.value] || workshopData.ws1;
-            workshopTableBody.innerHTML = data.map(item => {
-                const resultCell = item.result === '-' ? '<td>-</td>' : `<td><span class="badge ${item.resultClass}">${item.result}</span></td>`;
-                return `<tr>
-                    <td><strong>${item.name}</strong></td>
-                    <td><span class="badge ${item.attendClass}">${item.attend}</span></td>
-                    ${resultCell}
-                </tr>`;
-            }).join('');
-        });
+    function updateFilterChips() {
+        const f = getActiveFilters();
+        let html = '';
+        if (f.customer) html += `<span class="filter-chip">Customer: ${f.customer} <i class="ri-close-line" onclick="clearFilter('customer')"></i></span>`;
+        if (f.region) html += `<span class="filter-chip">Region: ${f.region} <i class="ri-close-line" onclick="clearFilter('region')"></i></span>`;
+        if (f.portfolio) html += `<span class="filter-chip">Portfolio: ${f.portfolio} <i class="ri-close-line" onclick="clearFilter('portfolio')"></i></span>`;
+        if (f.sortCertified) html += `<span class="filter-chip">Sort by Certified <i class="ri-close-line" onclick="toggleSortCertified()"></i></span>`;
+        filterChips.innerHTML = html;
 
-        // 导出Excel按钮
-        document.getElementById('exportExcelBtn').addEventListener('click', function() {
-            alert('正在导出数据报表，请稍候...');
+        // 高亮有值的下拉框
+        [elCustomer, elRegion, elPortfolio].forEach(el => {
+            el.classList.toggle('has-value', el.value !== '');
         });
+    }
+
+    window.clearFilter = function(type) {
+        if (type === 'customer') elCustomer.value = '';
+        if (type === 'region') elRegion.value = '';
+        if (type === 'portfolio') elPortfolio.value = '';
+        updateFilterChips();
+        applyFilters();
+    };
+
+    window.toggleSortCertified = function() {
+        elSortCertified.checked = !elSortCertified.checked;
+        updateFilterChips();
+        applyFilters();
+    };
+
+    function filterAndSort(data) {
+        const f = getActiveFilters();
+        let result = [...data];
+
+        if (f.customer) result = result.filter(d => d.company === f.customer);
+        if (f.region && data[0].hasOwnProperty('region')) result = result.filter(d => d.region === f.region);
+        if (f.portfolio && data[0].hasOwnProperty('portfolio')) result = result.filter(d => d.portfolio === f.portfolio);
+
+        if (f.sortCertified) {
+            result.sort((a,b) => {
+                if (a.certified && !b.certified) return -1;
+                if (!a.certified && b.certified) return 1;
+                return b.progress - a.progress;
+            });
+        }
+        return result;
+    }
+
+    function applyFilters() {
+        updateFilterChips();
+        // 重新渲染当前 active tab
+        const activeTab = document.querySelector('.report-tab.active');
+        if (activeTab) renderTabContent(activeTab.dataset.tab);
+        // 更新 tab badges
+        updateTabBadges();
+    }
+
+    function updateTabBadges() {
+        const filtered = filterAndSort(candidateData);
+        const filteredProgress = filterAndSort(progressData);
+        const filteredAssessor = filterAndSort(assessorData);
+        document.querySelector('[data-tab="candidate"] .tab-badge').textContent = filtered.length;
+        document.querySelector('[data-tab="progress"] .tab-badge').textContent = filteredProgress.length;
+        document.querySelector('[data-tab="assessor"] .tab-badge').textContent = filteredAssessor.length;
+    }
+
+    document.getElementById('btnApplyFilter').addEventListener('click', applyFilters);
+    document.getElementById('btnResetFilter').addEventListener('click', function() {
+        elCustomer.value = ''; elRegion.value = ''; elPortfolio.value = ''; elSortCertified.checked = false;
+        [elCustomer, elRegion, elPortfolio].forEach(el => el.classList.remove('has-value'));
+        applyFilters();
+    });
+    elSortCertified.addEventListener('change', applyFilters);
+
+    // ==================== Tab 切换 ====================
+    document.getElementById('reportTabs').addEventListener('click', function(e) {
+        const tab = e.target.closest('.report-tab');
+        if (!tab) return;
+        this.querySelectorAll('.report-tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        renderTabContent(tab.dataset.tab);
+    });
+
+    function renderTabContent(tabName) {
+        document.querySelectorAll('.tab-panel').forEach(p => p.style.display = 'none');
+        document.getElementById('tab-' + tabName).style.display = '';
+
+        if (tabName === 'candidate') renderCandidateTable();
+        if (tabName === 'progress') renderProgressTable();
+        if (tabName === 'assessor') renderAssessorTable();
+    }
+
+    // ==================== Candidate Report ====================
+    function renderCandidateTable() {
+        const filtered = filterAndSort(candidateData);
+        const tbody = document.getElementById('candidateTbody');
+        tbody.innerHTML = filtered.map((d,i) => {
+            const progressColor = d.progress >= 80 ? '#22c55e' : d.progress >= 50 ? '#e6a23c' : '#ef4444';
+            const statusHtml = d.certified
+                ? '<span class="cert-status"><span class="cert-dot certified"></span>Certified</span>'
+                : '<span class="cert-status"><span class="cert-dot pending"></span>In Progress</span>';
+            return `<tr>
+                <td>${i+1}</td>
+                <td><strong>${d.name}</strong></td>
+                <td>${d.company}</td>
+                <td>${d.region}</td>
+                <td>${d.portfolio}</td>
+                <td class="col-progress">
+                    <div class="mini-progress">
+                        <div class="mp-bar"><div class="mp-fill" style="width:${d.progress}%;background:${progressColor}"></div></div>
+                        <span class="mp-val">${d.progress}%</span>
+                    </div>
+                </td>
+                <td class="col-score"><span class="badge ${d.score>=80?'badge-success':d.score>=50?'badge-warning':'badge-danger'}">${d.score}%</span></td>
+                <td class="col-cert">${statusHtml}</td>
+            </tr>`;
+        }).join('');
+
+        document.getElementById('candidatePagination').innerHTML = `
+            <span class="page-info">共 ${filtered.length} 条记录</span>
+            <button class="active">1</button>
+            <button>2</button>
+            <button><i class="ri-arrow-right-s-line"></i></button>
+        `;
+    }
+
+    // ==================== Monthly Progress ====================
+    function renderProgressTable() {
+        const filtered = filterAndSort(progressData);
+        const tbody = document.getElementById('progressTbody');
+        tbody.innerHTML = filtered.map(d => {
+            const deltaColor = d.delta.startsWith('+') ? '#22c55e' : '#94a3b8';
+            return `<tr>
+                <td><strong>${d.month}</strong></td>
+                <td>${d.company}</td>
+                <td>${d.region}</td>
+                <td>${d.portfolio}</td>
+                <td class="col-progress"><span class="badge badge-info">${d.activities}</span></td>
+                <td class="col-progress"><span class="badge badge-success">${d.completions}</span></td>
+                <td class="col-score"><strong>${d.score}%</strong></td>
+                <td class="col-progress"><span style="color:${deltaColor};font-weight:700;">${d.delta}</span></td>
+            </tr>`;
+        }).join('');
+    }
+
+    // ==================== Assessor Report ====================
+    function renderAssessorTable() {
+        const filtered = filterAndSort(assessorData);
+        const tbody = document.getElementById('assessorTbody');
+        tbody.innerHTML = filtered.map(d => {
+            const wlColor = d.workload === 'High' ? '#ef4444' : d.workload === 'Medium' ? '#e6a23c' : '#22c55e';
+            return `<tr>
+                <td><strong>${d.name}</strong></td>
+                <td>${d.company}</td>
+                <td class="col-progress"><strong>${d.candidates}</strong></td>
+                <td class="col-progress"><span class="badge badge-info">${d.assessedMonth}</span></td>
+                <td class="col-progress"><span class="badge ${d.pending>5?'badge-danger':'badge-warning'}">${d.pending}</span></td>
+                <td class="col-score"><strong>${d.avgScore}%</strong></td>
+                <td class="col-cert"><span class="badge" style="background:${wlColor}15;color:${wlColor};">${d.workload}</span></td>
+            </tr>`;
+        }).join('');
+    }
+
+    // ==================== 图表渲染 ====================
+    function renderBarChart() {
+        const disciplines = [
+            { name:'HSE', pct:78, color:'#f97316' },
+            { name:'井工程', pct:45, color:'#3b82f6' },
+            { name:'机械工程', pct:62, color:'#22c55e' },
+            { name:'电气工程', pct:30, color:'#f59e0b' },
+            { name:'管道工程', pct:55, color:'#06b6d4' },
+            { name:'海洋工程', pct:25, color:'#8b5cf6' },
+        ];
+        document.getElementById('barChart').innerHTML = disciplines.map(d => `
+            <div class="bar-item">
+                <div class="bar-value">${d.pct}%</div>
+                <div class="bar-track"><div class="bar-fill" style="height:${d.pct}%;background:${d.color};"></div></div>
+                <div class="bar-name">${d.name}</div>
+            </div>
+        `).join('');
+    }
+
+    function renderLineChart() {
+        const pts = [{x:40,y:180,v:120},{x:106,y:163,v:145},{x:172,y:139,v:180},{x:238,y:118,v:210},{x:304,y:90,v:250},{x:370,y:72,v:280}];
+        const months = ['1月','2月','3月','4月','5月','6月'];
+        const pointsStr = pts.map(p => `${p.x},${p.y}`).join(' ');
+        const polylineStr = pts.map(p => `${p.x},${p.y}`).join(' ');
+        const areaStr = `${pts[0].x},180 ${pts.map(p => `${p.x},${p.y}`).join(' ')} ${pts[pts.length-1].x},180`;
+
+        document.getElementById('lineChart').innerHTML = `
+            <svg viewBox="0 0 400 240" preserveAspectRatio="none">
+                <line x1="0" y1="180" x2="400" y2="180" class="line-chart-grid"/>
+                <line x1="0" y1="135" x2="400" y2="135" class="line-chart-grid"/>
+                <line x1="0" y1="90" x2="400" y2="90" class="line-chart-grid"/>
+                <line x1="0" y1="45" x2="400" y2="45" class="line-chart-grid"/>
+                <polygon points="${areaStr}" class="line-chart-area"/>
+                <polyline points="${polylineStr}" class="line-chart-line"/>
+                ${pts.map(p => `<circle cx="${p.x}" cy="${p.y}" r="5" class="line-chart-dot"/>`).join('')}
+                ${months.map((m,i) => `<text x="${pts[i].x}" y="205" class="line-chart-label">${m}</text>`).join('')}
+                ${pts.map(p => `<text x="${p.x}" y="${p.y-10}" class="line-chart-value">${p.v}</text>`).join('')}
+            </svg>`;
+    }
+
+    function renderCertPie() {
+        const segments = [
+            { label:'已通过', pct:58, color:'#c8956c', dash:292.2, offset:0 },
+            { label:'待审核', pct:25, color:'#3b82f6', dash:125.66, offset:-292.2 },
+            { label:'未通过', pct:17, color:'#94a3b8', dash:85.45, offset:-417.86 },
+        ];
+        const circumference = 2 * Math.PI * 80;
+        const total = 502.65;
+        document.getElementById('certPie').innerHTML = `
+            <div class="pie-chart">
+                <svg viewBox="0 0 200 200">
+                    ${segments.map(s => `<circle cx="100" cy="100" r="80" fill="none" stroke="${s.color}" stroke-width="40" stroke-dasharray="${s.dash} ${total-s.dash}" stroke-dashoffset="${s.offset}"/>`).join('')}
+                </svg>
+            </div>
+            <div class="pie-legend">
+                ${segments.map(s => `
+                    <div class="legend-item"><div class="legend-dot" style="background:${s.color}"></div><span>${s.label}</span><span class="legend-value">${s.pct}%</span></div>
+                `).join('')}
+            </div>`;
+    }
+
+    function renderWorkshopPie() {
+        document.getElementById('workshopPie').innerHTML = `
+            <div class="pie-chart">
+                <svg viewBox="0 0 200 200">
+                    <circle cx="100" cy="100" r="80" fill="none" stroke="#10b981" stroke-width="40" stroke-dasharray="361.91 140.74" stroke-dashoffset="0"/>
+                    <circle cx="100" cy="100" r="80" fill="none" stroke="#e2e8f0" stroke-width="40" stroke-dasharray="140.74 361.91" stroke-dashoffset="-361.91"/>
+                </svg>
+            </div>
+            <div class="pie-legend">
+                <div class="legend-item"><div class="legend-dot" style="background:#10b981"></div><span>已考核</span><span class="legend-value">72%</span></div>
+                <div class="legend-item"><div class="legend-dot" style="background:#e2e8f0"></div><span>未考核</span><span class="legend-value">28%</span></div>
+            </div>`;
+    }
+
+    // ==================== 初始化 ====================
+    renderCandidateTable();
+    renderBarChart();
+    renderLineChart();
+    renderCertPie();
+    renderWorkshopPie();
+
+    // ==================== DOM引用 ====================
+    const $ = (s) => document.querySelector(s);
+    const $$ = (s) => document.querySelectorAll(s);
+
+    const mainContent = document.getElementById('mainContent');
+
+    // ==================== 移动端菜单 ====================
+    const topbarNav = document.querySelector('.topbar-nav');
+    const menuToggle = document.getElementById('menuToggle');
+
+    menuToggle.addEventListener('click', () => {
+        topbarNav.classList.toggle('mobile-open');
+    });
+
+    // 移动端子菜单展开/收起（桌面端 hover，移动端 click）
+    topbarNav.querySelectorAll('.nav-dropdown-toggle, .nav-sub-toggle').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            if (window.innerWidth > 1200) return;
+            e.preventDefault();
+            const menu = this.nextElementSibling;
+            if (menu) menu.classList.toggle('open');
+        });
+    });
+
+    // 时间筛选
+    const timeFilter1 = document.getElementById('timeFilter1');
+    timeFilter1.querySelectorAll('button').forEach(btn => {
+        btn.addEventListener('click', function() {
+            timeFilter1.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+        });
+    });
+
+    // 工作坊下拉
+    const workshopSelect = document.getElementById('workshopSelect');
+    const workshopTableBody = document.getElementById('workshopTableBody');
+    const workshopData = {
+        ws1: [
+            { name:'李明', attend:'已参加', attendClass:'badge-success', result:'通过', resultClass:'badge-success' },
+            { name:'王芳', attend:'已参加', attendClass:'badge-success', result:'通过', resultClass:'badge-success' },
+            { name:'张伟', attend:'已参加', attendClass:'badge-success', result:'未通过', resultClass:'badge-danger' },
+            { name:'刘洋', attend:'已参加', attendClass:'badge-success', result:'待审核', resultClass:'badge-warning' },
+            { name:'陈静', attend:'未参加', attendClass:'badge-danger', result:'-', resultClass:'' }
+        ],
+        ws2: [
+            { name:'赵强', attend:'已参加', attendClass:'badge-success', result:'通过', resultClass:'badge-success' },
+            { name:'孙丽', attend:'已参加', attendClass:'badge-success', result:'通过', resultClass:'badge-success' },
+            { name:'周杰', attend:'已参加', attendClass:'badge-success', result:'通过', resultClass:'badge-success' },
+            { name:'吴敏', attend:'未参加', attendClass:'badge-danger', result:'-', resultClass:'' },
+            { name:'郑涛', attend:'已参加', attendClass:'badge-success', result:'待审核', resultClass:'badge-warning' }
+        ],
+        ws3: [
+            { name:'钱伟', attend:'已参加', attendClass:'badge-success', result:'通过', resultClass:'badge-success' },
+            { name:'冯雪', attend:'已参加', attendClass:'badge-success', result:'未通过', resultClass:'badge-danger' },
+            { name:'黄磊', attend:'已参加', attendClass:'badge-success', result:'通过', resultClass:'badge-success' },
+            { name:'林峰', attend:'已参加', attendClass:'badge-success', result:'通过', resultClass:'badge-success' },
+            { name:'徐倩', attend:'未参加', attendClass:'badge-danger', result:'-', resultClass:'' }
+        ],
+        ws4: [
+            { name:'马云', attend:'已参加', attendClass:'badge-success', result:'待审核', resultClass:'badge-warning' },
+            { name:'朱迪', attend:'已参加', attendClass:'badge-success', result:'通过', resultClass:'badge-success' },
+            { name:'何方', attend:'已参加', attendClass:'badge-success', result:'通过', resultClass:'badge-success' },
+            { name:'罗丹', attend:'已参加', attendClass:'badge-success', result:'未通过', resultClass:'badge-danger' },
+            { name:'高翔', attend:'未参加', attendClass:'badge-danger', result:'-', resultClass:'' }
+        ]
+    };
+
+    function renderWorkshopTable(key) {
+        const data = workshopData[key] || workshopData.ws1;
+        workshopTableBody.innerHTML = data.map(item => {
+            const resultCell = item.result === '-' ? '<td>-</td>' : `<td><span class="badge ${item.resultClass}">${item.result}</span></td>`;
+            return `<tr><td><strong>${item.name}</strong></td><td><span class="badge ${item.attendClass}">${item.attend}</span></td>${resultCell}</tr>`;
+        }).join('');
+    }
+    renderWorkshopTable('ws1');
+    workshopSelect.addEventListener('change', function() { renderWorkshopTable(this.value); });
+
+    // 导出按钮
+    document.getElementById('exportExcelBtn').addEventListener('click', function() {
+        alert('正在导出数据报表，请稍候...');
+    });
     </script>
-  <script src="../app/sidebar.js"></script>
-</body>
+    </body>
 </html>
