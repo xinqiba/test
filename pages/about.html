@@ -26,7 +26,8 @@
 
     /* ---- Navigation Dropdown ---- */
     .nav-dropdown { position: relative; }
-    .nav-dropdown-toggle { cursor: pointer; }
+    .nav-dropdown-toggle { cursor: pointer; padding:8px 16px; font-size:14px; color:#64748b; border-radius:8px; display:inline-flex; align-items:center; gap:4px; text-decoration:none; transition:all .15s; }
+    .nav-dropdown-toggle:hover { color:#1e293b; background:rgba(0,0,0,.04); }
     .nav-dropdown-menu {
       display: none; position: absolute; top: 100%; left: 0;
       min-width: 180px; background: #fff; border: 1px solid #e2e8f0;
@@ -54,9 +55,65 @@
     .nav-sub-menu a.active { background: rgba(26,54,93,0.08); color: #1a365d; font-weight: 600; }
 
     .main-content { max-width:1400px; margin:64px auto 0; padding:24px 28px; }
-    .page-header { background:linear-gradient(135deg,#1a365d,#2a4a73); color:#fff; padding:80px 24px; text-align:center; }
-    .page-header h1 { font-size:36px; margin-bottom:12px; }
-    .page-header p { font-size:16px; color:rgba(255,255,255,.7); }
+
+    /* ---- Page Header (light theme) ---- */
+    .page-header {
+      position: relative;
+      background: linear-gradient(135deg, #fefcf9 0%, #fdf6ef 40%, #f8ede0 100%);
+      padding: 72px 24px 64px;
+      text-align: center;
+      overflow: hidden;
+      border-radius: 16px;
+      margin-bottom: 32px;
+    }
+    .page-header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(200,149,108,0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(200,149,108,0.06) 1px, transparent 1px);
+      background-size: 40px 40px;
+      mask-image: radial-gradient(ellipse at center, black 40%, transparent 70%);
+      -webkit-mask-image: radial-gradient(ellipse at center, black 40%, transparent 70%);
+    }
+    .page-header::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 120px;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, #c8956c, transparent);
+      border-radius: 2px;
+    }
+    .page-header h1 {
+      position: relative;
+      z-index: 1;
+      font-size: 32px;
+      font-weight: 700;
+      color: #1a365d;
+      margin-bottom: 8px;
+    }
+    .page-header .breadcrumb {
+      position: relative;
+      z-index: 1;
+      font-size: 13px;
+      color: #94a3b8;
+      margin-bottom: 12px;
+    }
+    .page-header .breadcrumb a { color: #64748b; }
+    .page-header .breadcrumb a:hover { color: #c8956c; }
+    .page-header p {
+      position: relative;
+      z-index: 1;
+      font-size: 15px;
+      color: #94a3b8;
+      max-width: 520px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
 
     .container { max-width:1000px; margin:0 auto; padding:48px 24px; }
     .section { margin-bottom:64px; }
@@ -86,10 +143,31 @@
     .team-name { font-size:16px; font-weight:600; color:#1a365d; }
     .team-role { font-size:14px; color:#64748b; margin-top:4px; }
 
-    .contact-box { background:linear-gradient(135deg,#1a365d,#2a4a73); color:#fff; border-radius:16px; padding:48px; display:grid; grid-template-columns:repeat(3,1fr); gap:32px; text-align:center; }
+    /* ---- Contact Box (light theme) ---- */
+    .contact-box {
+      background: linear-gradient(135deg, #fefcf9 0%, #f8ede0 100%);
+      border: 1px solid rgba(200,149,108,0.15);
+      border-radius: 16px;
+      padding: 48px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .contact-box::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, #c8956c, transparent);
+    }
     .contact-item i { font-size:32px; margin-bottom:12px; display:block; color:#c8956c; }
-    .contact-label { font-size:14px; color:rgba(255,255,255,.7); margin-bottom:4px; }
-    .contact-value { font-size:16px; font-weight:500; }
+    .contact-label { font-size:13px; color:#94a3b8; margin-bottom:4px; }
+    .contact-value { font-size:15px; font-weight:500; color:#1a365d; }
 
     .footer { background:#0f172a; color:#94a3b8; padding:48px 24px 24px; margin-top:64px; }
     .footer-grid { max-width:1000px; margin:0 auto; display:grid; grid-template-columns:2fr 1fr 1fr; gap:48px; margin-bottom:32px; }
@@ -171,9 +249,9 @@
   <main class="main-content">
     <div class="page-header">
       <h1>About Us</h1>
-      <div class="breadcrumb" style="font-size:13px;color:rgba(255,255,255,.6);margin-top:8px;">
-        <a href="../index.html" style="color:rgba(255,255,255,.7);">Home</a>
-        <span style="margin:0 6px;">></span>
+      <div class="breadcrumb">
+        <a href="../index.html">Home</a>
+        <span style="margin:0 6px;color:#cbd5e1;">›</span>
         <span>About Us</span>
       </div>
       <p>Empowering Oil &amp; Gas Talent, Building Professional Certification Systems</p>

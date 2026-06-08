@@ -127,13 +127,18 @@
   position: relative;
 }
 
-/* Dropdown Toggle Link - Inherits Primary Nav Styles */
+/* Dropdown Toggle Link */
 .nav-dropdown-toggle {
   display: flex !important;
   align-items: center;
   gap: 4px;
+  padding: var(--space-sm) var(--space-md);
+  font-size: var(--text-small);
+  font-weight: var(--weight-medium);
+  color: var(--steel-gray);
   cursor: pointer;
   user-select: none;
+  white-space: nowrap;
 }
 
 .nav-dropdown-toggle i {
