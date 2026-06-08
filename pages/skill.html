@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>技能矩阵 - 慧眼系统</title>
+  <title>Skill Matrix - Insight System</title>
   <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
   <style>
@@ -28,16 +28,12 @@
     .topbar-nav a:hover{color:#1e293b;background:rgba(0,0,0,0.04)}
     .topbar-nav a.active{color:var(--deep-blue);background:rgba(26,54,93,0.08);font-weight:600}
     .topbar-right{display:flex;align-items:center;gap:12px}
-    .role-switcher{display:flex;align-items:center;gap:4px;background:#f1f5f9;border-radius:10px;padding:3px}
-    .role-btn{padding:6px 14px;font-size:0.78rem;font-weight:500;color:#64748b;border-radius:8px;transition:all 0.2s;white-space:nowrap}
-    .role-btn:hover{color:#334155}
-    .role-btn.active{background:#fff;color:var(--deep-blue);box-shadow:0 1px 3px rgba(0,0,0,0.1);font-weight:600}
     .user-menu{display:flex;align-items:center;gap:8px;padding:6px;border-radius:8px;cursor:pointer}
     .user-menu:hover{background:rgba(0,0,0,0.04)}
     .user-avatar{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--amber),var(--amber-light));display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:700;color:var(--deep-blue)}
     .user-name{font-size:0.875rem;font-weight:500;color:#334155}
 
-    /* ---- 导航下拉菜单 ---- */
+    /* ---- Nav Dropdown Menu ---- */
     .nav-dropdown{position:relative}
     .nav-dropdown-toggle{cursor:pointer}
     .nav-dropdown-menu{display:none;position:absolute;top:100%;left:0;min-width:180px;background:#fff;border:1px solid #e2e8f0;border-radius:10px;box-shadow:0 10px 30px rgba(0,0,0,0.12);padding:6px;z-index:1100}
@@ -150,6 +146,12 @@
     .tab-panel{display:none}
     .tab-panel.active{display:block;animation:fadeInUp 0.3s ease}
 
+    /* Page-level role tabs */
+    .page-tabs{display:flex;gap:4px;margin-bottom:20px;background:#fff;padding:4px;border-radius:12px;border:1px solid #e2e8f0;box-shadow:0 1px 3px rgba(0,0,0,0.04)}
+    .page-tab{padding:8px 20px;font-size:0.825rem;font-weight:500;color:#64748b;border-radius:8px;cursor:pointer;transition:all 0.2s;white-space:nowrap}
+    .page-tab:hover{color:#334155;background:#f1f5f9}
+    .page-tab.active{background:linear-gradient(135deg,var(--amber),var(--amber-light));color:#fff;box-shadow:0 2px 8px rgba(200,149,108,0.25);font-weight:600}
+
     /* Verification flow */
     .verify-flow{display:flex;align-items:center;gap:0;padding:20px;background:#fff;border-radius:12px;border:1px solid #e2e8f0;margin-bottom:16px}
     .verify-step{display:flex;flex-direction:column;align-items:center;flex:1;text-align:center}
@@ -167,7 +169,7 @@
     @keyframes fadeInUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
 
     @media(max-width:1200px){.topbar-nav{display:none}.topbar-nav.mobile-open{display:flex;flex-direction:column;position:absolute;top:var(--topbar-height);left:0;right:0;background:rgba(255,255,255,0.98);backdrop-filter:blur(20px);border-bottom:1px solid #e2e8f0;padding:12px;gap:2px;box-shadow:0 16px 32px rgba(0,0,0,0.1);z-index:999}.topbar-nav.mobile-open .nav-dropdown-menu{position:static;display:none;box-shadow:none;border:none;padding:0 0 0 12px}.topbar-nav.mobile-open .nav-dropdown-menu.open{display:block}.topbar-nav.mobile-open .nav-sub-menu{position:static;display:none;box-shadow:none;border:none;padding:0 0 0 12px}.topbar-nav.mobile-open .nav-sub-menu.open{display:block}.stats-row{grid-template-columns:repeat(2,1fr)}.portfolio-grid{grid-template-columns:repeat(2,1fr)}}
-    @media(max-width:992px){.menu-toggle{display:flex}.main-content{margin-left:0!important}.role-switcher{display:none}.stats-row{grid-template-columns:repeat(2,1fr)}.portfolio-grid{grid-template-columns:1fr}.modal{width:90vw}}
+    @media(max-width:992px){.menu-toggle{display:flex}.main-content{margin-left:0!important}.stats-row{grid-template-columns:repeat(2,1fr)}.portfolio-grid{grid-template-columns:1fr}.modal{width:90vw}.page-tabs{flex-wrap:wrap}.page-tab{flex:1;text-align:center;padding:8px 12px;font-size:0.78rem}}
     @media(max-width:768px){.brand-text{display:none}.stats-row{grid-template-columns:1fr}.filter-bar{flex-direction:column;align-items:stretch}.main-content{padding:16px}}
 
   </style>
@@ -177,84 +179,82 @@
 <nav class="topbar">
   <div class="topbar-left">
     <button class="menu-toggle" id="menuToggle"><i class="ri-menu-line"></i></button>
-    <div class="brand"><div class="brand-logo">慧</div><div class="brand-text">慧眼 <span>系统</span></div></div>
+    <div class="brand"><div class="brand-logo"><i class="ri-eye-line"></i></div><div class="brand-text">Insight <span>System</span></div></div>
     <div class="topbar-nav">
-            <a href="../index.html">首页</a>
-            <a href="about.html">关于我们</a>
-            <a href="news.html">新闻公告</a>
+            <a href="../index.html">Home</a>
+            <a href="about.html">About Us</a>
+            <a href="news.html">News & Announcements</a>
             <div class="nav-dropdown">
-                <a href="#" class="nav-dropdown-toggle">在线学习 <i class="ri-arrow-down-s-line"></i></a>
+                <a href="#" class="nav-dropdown-toggle">E-Learning <i class="ri-arrow-down-s-line"></i></a>
                 <div class="nav-dropdown-menu">
-                    <a href="knowledge.html">知识矩阵</a>
-                    <a href="skill.html" class="active">技能矩阵</a>
-                    <a href="workshop.html">经验工作坊</a>
-                    <a href="assessment.html">评估认证</a>
+                    <a href="knowledge.html">Knowledge Matrix</a>
+                    <a href="skill.html">Skill Matrix</a>
+                    <a href="workshop.html">Workshop</a>
+                    <a href="assessment.html">Assessment & Certification</a>
+
                 </div>
             </div>
             <div class="nav-dropdown">
-                <a href="#" class="nav-dropdown-toggle">Insight CA 系统 <i class="ri-arrow-down-s-line"></i></a>
+                <a href="#" class="nav-dropdown-toggle">Insight CA System <i class="ri-arrow-down-s-line"></i></a>
                 <div class="nav-dropdown-menu">
-                    <div class="nav-sub-dropdown">
-                        <a href="#" class="nav-sub-toggle">Matrix 管理 <i class="ri-arrow-right-s-line"></i></a>
-                        <div class="nav-sub-menu">
-                            <a href="my-skills.html">档案管理</a>
-                            <a href="reports.html">数据图表</a>
-                            <a href="my-learning.html">课程成绩</a>
-                            <a href="course-learn.html">课程学习</a>
-                        </div>
-                    </div>
+                    <a href="my-skills.html">Profile Management</a>
+                    <a href="reports.html">Data & Reports</a>
+                    <a href="my-learning.html">Course Grades</a>
+                    <a href="course-learn.html">Course Learning</a>
                 </div>
             </div>
             <div class="nav-dropdown">
-                <a href="#" class="nav-dropdown-toggle">Insight HSSE 管理 <i class="ri-arrow-down-s-line"></i></a>
+                <a href="#" class="nav-dropdown-toggle">Insight HSSE Management <i class="ri-arrow-down-s-line"></i></a>
                 <div class="nav-dropdown-menu">
-                    <a href="ptw.html">PTW 作业许可</a>
+                    <a href="ptw.html">PTW Work Permit</a>
                     <a href="compliance.html">HSSE Passport</a>
                 </div>
             </div>
         </div>
   </div>
   <div class="topbar-right">
-    <div class="role-switcher" id="roleSwitcher">
-      <button class="role-btn active" data-role="candidate">Candidate</button>
-      <button class="role-btn" data-role="assessor">Assessor</button>
-      <button class="role-btn" data-role="iv">Internal Verifier</button>
-      <button class="role-btn" data-role="ev">External Verifier</button>
-    </div>
-    <div class="user-menu"><div class="user-avatar" id="userAvatar">张</div><span class="user-name" id="userNameDisplay">张工程师</span></div>
+    <div class="user-menu"><div class="user-avatar" id="userAvatar">J</div><span class="user-name" id="userNameDisplay">John Engineer</span></div>
   </div>
 </nav>
 
 <main class="main-content" id="mainContent">
   <div class="page-header">
     <div>
-      <h1 class="page-title" id="pageTitle">技能矩阵</h1>
-      <div class="breadcrumb"><a href="../index.html">首页</a><i class="ri-arrow-right-s-line"></i><span>在线学习</span><i class="ri-arrow-right-s-line"></i><span>技能矩阵</span></div>
+      <h1 class="page-title" id="pageTitle">Skill Matrix</h1>
+      <div class="breadcrumb"><a href="../index.html">Home</a><i class="ri-arrow-right-s-line"></i><span>E-Learning</span><i class="ri-arrow-right-s-line"></i><span>Skill Matrix</span></div>
     </div>
-    <button class="btn btn-primary btn-sm" id="btnUploadEvidence" onclick="openUploadModal()"><i class="ri-upload-2-line"></i> 上传证据</button>
+    <button class="btn btn-primary btn-sm" id="btnUploadEvidence" onclick="openUploadModal()"><i class="ri-upload-2-line"></i> Upload Evidence</button>
+  </div>
+
+  <!-- Role Tabs (inside page content area) -->
+  <div class="page-tabs" id="roleSwitcher">
+    <button class="page-tab active" data-role="candidate">Candidate</button>
+    <button class="page-tab" data-role="assessor">Assessor</button>
+    <button class="page-tab" data-role="iv">Internal Verifier</button>
+    <button class="page-tab" data-role="ev">External Verifier</button>
   </div>
 
   <!-- Candidate View -->
   <div class="view-panel active" id="view-candidate">
     <div class="stats-row">
-      <div class="stat-card"><div class="stat-icon" style="background:rgba(34,197,94,0.1);color:#22c55e;"><i class="ri-check-double-line"></i></div><div class="stat-value" id="statAchieved">5</div><div class="stat-label">已认证技能</div></div>
-      <div class="stat-card"><div class="stat-icon" style="background:rgba(245,158,11,0.1);color:#f59e0b;"><i class="ri-time-line"></i></div><div class="stat-value" id="statPending">3</div><div class="stat-label">待审核证据</div></div>
-      <div class="stat-card"><div class="stat-icon" style="background:rgba(59,130,246,0.1);color:#3b82f6;"><i class="ri-file-list-3-line"></i></div><div class="stat-value" id="statUploaded">8</div><div class="stat-label">已上传证据</div></div>
-      <div class="stat-card"><div class="stat-icon" style="background:rgba(200,149,108,0.1);color:var(--amber);"><i class="ri-message-3-line"></i></div><div class="stat-value" id="statMessages">2</div><div class="stat-label">未读讨论</div></div>
+      <div class="stat-card"><div class="stat-icon" style="background:rgba(34,197,94,0.1);color:#22c55e;"><i class="ri-check-double-line"></i></div><div class="stat-value" id="statAchieved">5</div><div class="stat-label">Certified Skills</div></div>
+      <div class="stat-card"><div class="stat-icon" style="background:rgba(245,158,11,0.1);color:#f59e0b;"><i class="ri-time-line"></i></div><div class="stat-value" id="statPending">3</div><div class="stat-label">Pending Evidence</div></div>
+      <div class="stat-card"><div class="stat-icon" style="background:rgba(59,130,246,0.1);color:#3b82f6;"><i class="ri-file-list-3-line"></i></div><div class="stat-value" id="statUploaded">8</div><div class="stat-label">Uploaded Evidence</div></div>
+      <div class="stat-card"><div class="stat-icon" style="background:rgba(200,149,108,0.1);color:var(--amber);"><i class="ri-message-3-line"></i></div><div class="stat-value" id="statMessages">2</div><div class="stat-label">Unread Messages</div></div>
     </div>
 
-    <h3 style="margin-bottom:14px;font-size:1rem;color:#0f172a;">能力组合 (Portfolio)</h3>
+    <h3 style="margin-bottom:14px;font-size:1rem;color:#0f172a;">Portfolios</h3>
     <div class="portfolio-grid" id="portfolioGrid"></div>
 
     <div id="competenceUnits" style="margin-top:20px;"></div>
 
-    <h3 style="margin:24px 0 14px;font-size:1rem;color:#0f172a;">专业讨论</h3>
+    <h3 style="margin:24px 0 14px;font-size:1rem;color:#0f172a;">Discussion</h3>
     <div class="discussion-container" id="discussionContainer">
-      <div class="discussion-header"><i class="ri-message-3-line"></i> 与评估师/验证员的沟通</div>
+      <div class="discussion-header"><i class="ri-message-3-line"></i> Communication with Assessor/Verifier</div>
       <div class="discussion-messages" id="discussionMessages"></div>
       <div class="discussion-input">
-        <input type="text" id="discussionInput" placeholder="输入消息...">
-        <button class="btn btn-primary btn-sm" id="btnSendMsg">发送</button>
+        <input type="text" id="discussionInput" placeholder="Type a message...">
+        <button class="btn btn-primary btn-sm" id="btnSendMsg">Send</button>
       </div>
     </div>
   </div>
@@ -262,13 +262,13 @@
   <!-- Assessor View -->
   <div class="view-panel" id="view-assessor">
     <div class="stats-row">
-      <div class="stat-card"><div class="stat-icon" style="background:rgba(245,158,11,0.1);color:#f59e0b;"><i class="ri-task-line"></i></div><div class="stat-value">7</div><div class="stat-label">待评估任务</div></div>
-      <div class="stat-card"><div class="stat-icon" style="background:rgba(34,197,94,0.1);color:#22c55e;"><i class="ri-check-line"></i></div><div class="stat-value">32</div><div class="stat-label">已完成评估</div></div>
-      <div class="stat-card"><div class="stat-icon" style="background:rgba(59,130,246,0.1);color:#3b82f6;"><i class="ri-user-line"></i></div><div class="stat-value">5</div><div class="stat-label">分配候选人</div></div>
-      <div class="stat-card"><div class="stat-icon" style="background:rgba(200,149,108,0.1);color:var(--amber);"><i class="ri-star-line"></i></div><div class="stat-value">94%</div><div class="stat-label">评估通过率</div></div>
+      <div class="stat-card"><div class="stat-icon" style="background:rgba(245,158,11,0.1);color:#f59e0b;"><i class="ri-task-line"></i></div><div class="stat-value">7</div><div class="stat-label">Pending Tasks</div></div>
+      <div class="stat-card"><div class="stat-icon" style="background:rgba(34,197,94,0.1);color:#22c55e;"><i class="ri-check-line"></i></div><div class="stat-value">32</div><div class="stat-label">Completed Assessments</div></div>
+      <div class="stat-card"><div class="stat-icon" style="background:rgba(59,130,246,0.1);color:#3b82f6;"><i class="ri-user-line"></i></div><div class="stat-value">5</div><div class="stat-label">Assigned Candidates</div></div>
+      <div class="stat-card"><div class="stat-icon" style="background:rgba(200,149,108,0.1);color:var(--amber);"><i class="ri-star-line"></i></div><div class="stat-value">94%</div><div class="stat-label">Pass Rate</div></div>
     </div>
     <table class="units-table" id="assessorTable">
-      <thead><tr><th>候选人</th><th>公司</th><th>Portfolio</th><th>技能单元</th><th>提交时间</th><th>操作</th></tr></thead>
+      <thead><tr><th>Candidate</th><th>Company</th><th>Portfolio</th><th>Unit</th><th>Submitted</th><th>Actions</th></tr></thead>
       <tbody id="assessorTbody"></tbody>
     </table>
   </div>
@@ -276,9 +276,9 @@
   <!-- Internal Verifier View -->
   <div class="view-panel" id="view-iv">
     <div class="stats-row">
-      <div class="stat-card"><div class="stat-icon" style="background:rgba(245,158,11,0.1);color:#f59e0b;"><i class="ri-shield-check-line"></i></div><div class="stat-value">4</div><div class="stat-label">待复核评估</div></div>
-      <div class="stat-card"><div class="stat-icon" style="background:rgba(34,197,94,0.1);color:#22c55e;"><i class="ri-check-double-line"></i></div><div class="stat-value">28</div><div class="stat-label">已复核通过</div></div>
-      <div class="stat-card"><div class="stat-icon" style="background:rgba(239,68,68,0.1);color:#ef4444;"><i class="ri-close-circle-line"></i></div><div class="stat-value">3</div><div class="stat-label">已驳回</div></div>
+      <div class="stat-card"><div class="stat-icon" style="background:rgba(245,158,11,0.1);color:#f59e0b;"><i class="ri-shield-check-line"></i></div><div class="stat-value">4</div><div class="stat-label">Pending Review</div></div>
+      <div class="stat-card"><div class="stat-icon" style="background:rgba(34,197,94,0.1);color:#22c55e;"><i class="ri-check-double-line"></i></div><div class="stat-value">28</div><div class="stat-label">Approved</div></div>
+      <div class="stat-card"><div class="stat-icon" style="background:rgba(239,68,68,0.1);color:#ef4444;"><i class="ri-close-circle-line"></i></div><div class="stat-value">3</div><div class="stat-label">Rejected</div></div>
     </div>
     <div id="ivVerificationList"></div>
   </div>
@@ -329,13 +329,13 @@
 <!-- Upload Modal -->
 <div class="modal-overlay" id="uploadModal">
   <div class="modal">
-    <div class="modal-header"><h3>上传能力证据</h3><button class="modal-close" onclick="closeUploadModal()"><i class="ri-close-line"></i></button></div>
+    <div class="modal-header"><h3>Upload Evidence</h3><button class="modal-close" onclick="closeUploadModal()"><i class="ri-close-line"></i></button></div>
     <div class="modal-body">
-      <div class="form-group"><label class="form-label">关联 Portfolio</label><select class="form-select" id="uploadPortfolio"></select></div>
-      <div class="form-group"><label class="form-label">能力单元</label><select class="form-select" id="uploadUnit"></select></div>
-      <div class="form-group"><label class="form-label">证据文件</label><div class="drop-zone" id="dropZone"><i class="ri-upload-cloud-2-line"></i><p>拖拽文件到此处或点击上传</p><p style="font-size:0.7rem;color:#94a3b8;">支持 PDF, DOC, JPG, PNG, MP4 (Max 50MB)</p></div></div>
-      <div class="form-group"><label class="form-label">描述说明</label><textarea class="form-input" id="uploadDesc" rows="3" placeholder="描述此证据如何证明您的能力..."></textarea></div>
-      <button class="btn btn-primary" style="width:100%;justify-content:center;" onclick="submitEvidence()">提交证据</button>
+      <div class="form-group"><label class="form-label">Link Portfolio</label><select class="form-select" id="uploadPortfolio"></select></div>
+      <div class="form-group"><label class="form-label"> units</label><select class="form-select" id="uploadUnit"></select></div>
+      <div class="form-group"><label class="form-label">Evidence File</label><div class="drop-zone" id="dropZone"><i class="ri-upload-cloud-2-line"></i><p>Drag & drop files here or click to upload</p><p style="font-size:0.7rem;color:#94a3b8;">Support PDF, DOC, JPG, PNG, MP4 (Max 50MB)</p></div></div>
+      <div class="form-group"><label class="form-label">Description</label><textarea class="form-input" id="uploadDesc" rows="3" placeholder="Describe how this evidence demonstrates your competence..."></textarea></div>
+      <button class="btn btn-primary" style="width:100%;justify-content:center;" onclick="submitEvidence()">Submit Evidence</button>
     </div>
   </div>
 </div>
@@ -385,12 +385,12 @@
   let currentRole='candidate',selectedPortfolio='oim';
 
   // Role switch
-  const roleNames={candidate:'张工程师',assessor:'李评估师',iv:'王验证员',ev:'陈标准验证员'};
-  const roleAvatars={candidate:'张',assessor:'李',iv:'王',ev:'陈'};
+  const roleNames={candidate:'John Engineer',assessor:'Assessor Li',iv:'Verifier Wang',ev:'Standard Verifier Chen'};
+  const roleAvatars={candidate:'J',assessor:'L',iv:'W',ev:'C'};
   $('#roleSwitcher').addEventListener('click',function(e){
-    if(!e.target.classList.contains('role-btn'))return;
+    if(!e.target.classList.contains('page-tab'))return;
     currentRole=e.target.dataset.role;
-    $$('.role-btn').forEach(b=>b.classList.remove('active'));
+    $$('.page-tab').forEach(b=>b.classList.remove('active'));
     e.target.classList.add('active');
     $$('.view-panel').forEach(p=>p.classList.remove('active'));
     $('#view-'+currentRole).classList.add('active');
@@ -405,11 +405,11 @@
   });
 
   function updateTitle(){
-    const titles={candidate:'技能矩阵',assessor:'评估工作台 · Assessor Dashboard',iv:'内部验证 · Internal Verification',ev:'报表与分析 · External Verifier Reports'};
+    const titles={candidate:'Skill Matrix',assessor:'Assessor Dashboard',iv:'Internal Verification',ev:'External Verifier Reports'};
     $('#pageTitle').textContent=titles[currentRole];
   }
 
-  // ==================== 移动端菜单 ====================
+  // ==================== Mobile Menu ====================
   const topbarNav = document.querySelector('.topbar-nav');
   const menuToggleBtn = $('#menuToggle');
 
@@ -417,7 +417,7 @@
       topbarNav.classList.toggle('mobile-open');
   });
 
-  // 移动端子菜单展开/收起（桌面端 hover，移动端 click）
+  // Mobile submenu toggle (hover on desktop, click on mobile)
   topbarNav.querySelectorAll('.nav-dropdown-toggle, .nav-sub-toggle').forEach(btn => {
       btn.addEventListener('click', function(e) {
           if (window.innerWidth > 1200) return;
@@ -438,7 +438,7 @@
       return `<div class="portfolio-card ${selectedPortfolio===p.id?'selected':''}" data-pf="${p.id}" onclick="window._selectPF('${p.id}')">
         <div class="pf-header"><div class="pf-icon" style="background:${p.color}"><i class="${p.icon}"></i></div>
           <div><div class="pf-name">${p.name}</div>${p.vers.length?`<div class="pf-ver">${p.vers.join(' · ')}</div>`:''}</div></div>
-        <div class="pf-meta"><span>${p.units} 能力单元</span><span>${p.achieved} 已达成</span></div>
+        <div class="pf-meta"><span>${p.units}  units</span><span>${p.achieved} Achieved</span></div>
         <div class="pf-progress"><div class="pf-progress-fill" style="width:${pct}%;background:${p.color}"></div></div>
       </div>`;
     }).join('');
@@ -451,18 +451,18 @@
     const units=competenceUnits[pfId]||[];
     if(!units.length){$('#competenceUnits').innerHTML='';return;}
     $('#competenceUnits').innerHTML=`
-      <h3 style="margin-bottom:10px;font-size:0.95rem;color:#0f172a;">能力单元明细</h3>
-      <table class="units-table"><thead><tr><th>Code</th><th>单元名称</th><th>状态</th><th>证据</th><th>日期</th><th>操作</th></tr></thead>
+      <h3 style="margin-bottom:10px;font-size:0.95rem;color:#0f172a;">Unit Details</h3>
+      <table class="units-table"><thead><tr><th>Code</th><th>Unit Name</th><th>Status</th><th>Evidence</th><th>Date</th><th>Actions</th></tr></thead>
       <tbody>${units.map(u=>`<tr>
         <td style="font-family:monospace;font-size:0.78rem;">${u.code}</td><td>${u.name}</td>
-        <td><span class="status-dot ${u.status==='achieved'?'achieved':u.status==='pending'?'pending':'not-started'}"></span>${u.status==='achieved'?'已达成':u.status==='pending'?'审核中':'未开始'}</td>
+        <td><span class="status-dot ${u.status==='achieved'?'achieved':u.status==='pending'?'pending':'not-started'}"></span>${u.status==='achieved'?'Achieved':u.status==='pending'?'In Review':'Not Started'}</td>
         <td>${u.evidence||'-'}</td><td>${u.date||'-'}</td>
-        <td>${u.status==='not-started'?`<button class="btn btn-primary btn-sm" onclick="openUploadModal()"><i class="ri-upload-2-line"></i> 上传</button>`:u.status==='pending'?'<span style="color:#f59e0b;font-size:0.78rem;">审核中</span>':'<span style="color:#22c55e;font-size:0.78rem;"><i class="ri-check-line"></i> 已认证</span>'}</td>
+        <td>${u.status==='not-started'?`<button class="btn btn-primary btn-sm" onclick="openUploadModal()"><i class="ri-upload-2-line"></i> Upload</button>`:u.status==='pending'?'<span style="color:#f59e0b;font-size:0.78rem;">In Review</span>':'<span style="color:#22c55e;font-size:0.78rem;"><i class="ri-check-line"></i> Certified</span>'}</td>
       </tr>`).join('')}</tbody></table>`;
   }
 
   // Discussion
-  const discussionData=[{from:'李评估师',text:'请补充OIM-06的事件调查报告中的根本原因分析部分。',time:'2026-05-27 14:30',sent:false},{from:'张工程师',text:'好的，我会在本周内补充完整的5-Why分析。',time:'2026-05-27 15:10',sent:true},{from:'李评估师',text:'收到，补充后我会尽快审核。另外PSMS-04的证据也需要更新。',time:'2026-05-28 09:00',sent:false}];
+  const discussionData=[{from:'Assessor Li',text:'Please complete the root cause analysis section of the OIM-06 incident investigation report.',time:'2026-05-27 14:30',sent:false},{from:'John Engineer',text:'OK, I will supplement the complete 5-Why analysis this week.',time:'2026-05-27 15:10',sent:true},{from:'Assessor Li',text:'Received. I will review promptly after the update. Also, the PSMS-04 evidence needs updating.',time:'2026-05-28 09:00',sent:false}];
 
   function renderDiscussion(){
     $('#discussionMessages').innerHTML=discussionData.map(m=>`<div class="msg-bubble ${m.sent?'sent':'received'}"><div>${m.text}</div><div class="msg-time">${m.from} · ${m.time}</div></div>`).join('');
@@ -470,50 +470,50 @@
   $('#btnSendMsg').addEventListener('click',()=>{
     const input=$('#discussionInput');if(!input.value.trim())return;
     discussionData.push({from:roleNames[currentRole],text:input.value.trim(),time:new Date().toLocaleString('zh-CN'),sent:true});
-    input.value='';renderDiscussion();showToast('消息已发送');
+    input.value='';renderDiscussion();showToast('Message sent');
   });
   $('#discussionInput').addEventListener('keydown',e=>{if(e.key==='Enter')$('#btnSendMsg').click();});
 
   // Upload modal
   window.openUploadModal=function(){
     $('#uploadPortfolio').innerHTML=PORTFOLIOS.map(p=>`<option value="${p.id}">${p.name}</option>`).join('');
-    $('#uploadUnit').innerHTML='<option value="">选择能力单元</option>'+((competenceUnits[selectedPortfolio]||[]).map(u=>`<option value="${u.code}">${u.code} - ${u.name}</option>`).join(''));
+    $('#uploadUnit').innerHTML='<option value="">Select Unit</option>'+((competenceUnits[selectedPortfolio]||[]).map(u=>`<option value="${u.code}">${u.code} - ${u.name}</option>`).join(''));
     $('#uploadModal').classList.add('open');
   };
   window.closeUploadModal=function(){$('#uploadModal').classList.remove('open');};
   window.submitEvidence=function(){
     const pf=$('#uploadPortfolio').value,unit=$('#uploadUnit').value;
-    if(!pf||!unit){showToast('请选择Portfolio和能力单元');return;}
-    showToast('证据已提交，等待评估师审核');closeUploadModal();
+    if(!pf||!unit){showToast('Please select Portfolio and unit');return;}
+    showToast('Evidence submitted, awaiting assessor review');closeUploadModal();
   };
   $('#uploadModal').addEventListener('click',function(e){if(e.target===this)closeUploadModal();});
 
   // ========== ASSESSOR VIEW ==========
-  const assessorTasks=[{candidate:'张工程师',company:'CNPC',portfolio:'OIM v3',unit:'OIM-06 事件调查',date:'2026-05-01',status:'pending'},{candidate:'刘操作员',company:'PETRONAS',portfolio:'Operator Tech. L2',unit:'OPT-03 设备操作',date:'2026-05-05',status:'pending'},{candidate:'王安全员',company:'SHELL',portfolio:'PSMS v2',unit:'PSMS-04 启动前审查',date:'2026-05-10',status:'pending'},{candidate:'赵技术员',company:'HESS',portfolio:'OIM v4',unit:'OIM-05 风险评估',date:'2026-05-12',status:'pending'}];
+  const assessorTasks=[{candidate:'John Engineer',company:'CNPC',portfolio:'OIM v3',unit:'OIM-06 Incident Investigation',date:'2026-05-01',status:'pending'},{candidate:'Operator Liu',company:'PETRONAS',portfolio:'Operator Tech. L2',unit:'OPT-03 Equipment Operations',date:'2026-05-05',status:'pending'},{candidate:'Safety Officer Wang',company:'SHELL',portfolio:'PSMS v2',unit:'PSMS-04 Pre-Startup Review',date:'2026-05-10',status:'pending'},{candidate:'Technician Zhao',company:'HESS',portfolio:'OIM v4',unit:'OIM-05 Risk Assessment',date:'2026-05-12',status:'pending'}];
 
   function renderAssessorView(){
     $('#assessorTbody').innerHTML=assessorTasks.map(t=>`<tr>
       <td style="font-weight:500;">${t.candidate}</td><td>${t.company}</td><td>${t.portfolio}</td><td>${t.unit}</td><td>${t.date}</td>
       <td><div style="display:flex;gap:6px;">
-        <button class="btn btn-primary btn-sm" onclick="window._assessAction('${t.candidate}','pass')"><i class="ri-check-line"></i> 通过</button>
-        <button class="btn btn-danger btn-sm" onclick="window._assessAction('${t.candidate}','reject')"><i class="ri-close-line"></i> 驳回</button>
+        <button class="btn btn-primary btn-sm" onclick="window._assessAction('${t.candidate}','pass')"><i class="ri-check-line"></i> Pass</button>
+        <button class="btn btn-danger btn-sm" onclick="window._assessAction('${t.candidate}','reject')"><i class="ri-close-line"></i> Rejected</button>
       </div></td>
     </tr>`).join('');
   }
-  window._assessAction=function(name,action){showToast(`${name} 的评估已${action==='pass'?'通过':'驳回，请填写驳回原因'}`);};
+  window._assessAction=function(name,action){showToast(`${name} ${action==='pass'?'Pass':'Rejected. Please provide reason.'}`);};
 
   // ========== IV VIEW ==========
   function renderIVView(){
-    const items=[{candidate:'张工程师',assessor:'李评估师',unit:'OIM-06',date:'2026-05-15',status:'pending'},{candidate:'刘操作员',assessor:'李评估师',unit:'OPT-03',date:'2026-05-18',status:'pending'},{candidate:'王安全员',assessor:'李评估师',unit:'PSMS-02',date:'2026-05-10',status:'verified'},{candidate:'赵技术员',assessor:'李评估师',unit:'OIM-01',date:'2026-05-08',status:'verified'}];
+    const items=[{candidate:'John Engineer',assessor:'Assessor Li',unit:'OIM-06',date:'2026-05-15',status:'pending'},{candidate:'Operator Liu',assessor:'Assessor Li',unit:'OPT-03',date:'2026-05-18',status:'pending'},{candidate:'Safety Officer Wang',assessor:'Assessor Li',unit:'PSMS-02',date:'2026-05-10',status:'verified'},{candidate:'Technician Zhao',assessor:'Assessor Li',unit:'OIM-01',date:'2026-05-08',status:'verified'}];
     $('#ivVerificationList').innerHTML=items.map(i=>`
       <div class="verify-flow">
-        <div class="verify-step"><div class="step-circle done"><i class="ri-check-line"></i></div><div class="step-label">评估师初审</div><div class="step-name">${i.assessor}</div></div>
+        <div class="verify-step"><div class="step-circle done"><i class="ri-check-line"></i></div><div class="step-label">Assessor Review</div><div class="step-name">${i.assessor}</div></div>
         <div class="step-connector done"></div>
-        <div class="verify-step"><div class="step-circle ${i.status==='verified'?'done':'current'}">${i.status==='verified'?'<i class="ri-check-line"></i>':'2'}</div><div class="step-label">内部验证员复核</div><div class="step-name">${i.status==='verified'?'已通过':'待复核'}</div></div>
+        <div class="verify-step"><div class="step-circle ${i.status==='verified'?'done':'current'}">${i.status==='verified'?'<i class="ri-check-line"></i>':'2'}</div><div class="step-label">Internal Verification</div><div class="step-name">${i.status==='verified'?'Passed':'Pending Review'}</div></div>
         <div class="step-connector ${i.status==='verified'?'done':''}"></div>
-        <div class="verify-step"><div class="step-circle ${i.status==='verified'?'done':''}">${i.status==='verified'?'<i class="ri-check-line"></i>':'3'}</div><div class="step-label">标准验证员终审</div><div class="step-name">${i.status==='verified'?'已终审':'等待中'}</div></div>
+        <div class="verify-step"><div class="step-circle ${i.status==='verified'?'done':''}">${i.status==='verified'?'<i class="ri-check-line"></i>':'3'}</div><div class="step-label">External Verifier Final Review</div><div class="step-name">${i.status==='verified'?'Finalized':'Waiting'}</div></div>
         <div style="margin-left:24px;"><span style="font-weight:500;font-size:0.85rem;">${i.candidate}</span><br><span style="font-size:0.75rem;color:#94a3b8;">${i.unit} · ${i.date}</span></div>
-        ${i.status==='pending'?`<div style="margin-left:auto;display:flex;gap:6px;"><button class="btn btn-primary btn-sm" onclick="showToast('复核通过')">通过</button><button class="btn btn-danger btn-sm" onclick="showToast('已驳回至评估师')">驳回</button></div>`:''}
+        ${i.status==='pending'?`<div style="margin-left:auto;display:flex;gap:6px;"><button class="btn btn-primary btn-sm" onclick="showToast('Review Passed')">Pass</button><button class="btn btn-danger btn-sm" onclick="showToast('Returned to Assessor')">Rejected</button></div>`:''}
       </div>`).join('');
   }
 
@@ -549,7 +549,7 @@
   // Apply filter
   $('#btnApplyFilter').addEventListener('click',()=>{
     const c=$('#filterCustomer').value,r=$('#filterRegion').value,p=$('#filterPortfolio').value,sort=$('#sortCertified').checked;
-    showToast(`已应用筛选: ${c||'全部客户'} / ${r||'全部区域'} / ${p||'全部Portfolio'}${sort?' · 已认证优先':''}`);
+    showToast(`Filters applied: ${c||'All Customers'} / ${r||'All Regions'} / ${p||'All Portfolios'}${sort?' · Certified first':''}`);
   });
 
   // Init

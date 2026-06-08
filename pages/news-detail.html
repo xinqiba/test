@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>2026年度HSE安全培训计划发布 - 新闻详情 - 慧眼系统</title>
-  <meta name="description" content="石油天然气行业慧眼系统新闻详情">
+  <title>2026 HSE Safety Training Plan Released - News - Insight System</title>
+  <meta name="description" content="Insight System News Details for Oil & Gas">
 
   <!-- 字体 -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -16,7 +16,7 @@
 
   <style>
     /* ============================================
-       基础重置与变量
+       Base Reset & Variables
        ============================================ */
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
@@ -34,13 +34,13 @@
     ul, ol { list-style: none; }
 
     /* ============================================
-       布局系统
+       Layout System
        ============================================ */
     :root {
       --topbar-height: 64px;
     }
 
-    /* ---- 顶部导航栏 ---- */
+    /* ---- Topbar ---- */
     .topbar {
       position: fixed;
       top: 0; left: 0; right: 0;
@@ -100,7 +100,7 @@
     }
     .topbar-nav a:hover { color: #1e293b; background: rgba(0,0,0,0.04); }
     .topbar-nav a.active { color: #1a365d; background: rgba(26,54,93,0.08); font-weight: 600; }
-    /* 导航下拉菜单 */
+    /* Nav Dropdown Menu */
     .nav-dropdown { position: relative; }
     .nav-dropdown-menu {
       display: none;
@@ -204,7 +204,7 @@
       color: #334155;
     }
 
-    /* ---- 主内容区 ---- */
+    /* ---- Main Content Area ---- */
     .main-content {
       flex: 1;
       margin-top: var(--topbar-height);
@@ -214,10 +214,10 @@
     .content-wrapper { padding: 24px 28px; max-width: 1400px; margin: 0 auto; }
 
     /* ============================================
-       页面内容样式
+       Page Content Styles
        ============================================ */
 
-    /* ---- 页面标题区 ---- */
+    /* ---- Page Header ---- */
     .page-header {
       display: flex;
       align-items: center;
@@ -243,7 +243,7 @@
     .breadcrumb a:hover { color: #1a365d; }
     .breadcrumb i { font-size: 0.75rem; color: #94a3b8; }
 
-    /* ---- 新闻详情布局 ---- */
+    /* ---- News Detail Layout ---- */
     .detail-layout {
       display: grid;
       grid-template-columns: 1fr 320px;
@@ -251,7 +251,7 @@
       align-items: start;
     }
 
-    /* ---- 主文章卡片 ---- */
+    /* ---- Article Card ---- */
     .article-card {
       background: #ffffff;
       border-radius: 12px;
@@ -293,7 +293,7 @@
       color: #c8956c;
     }
 
-    /* ---- 特色图片占位 ---- */
+    /* ---- Featured Image Placeholder ---- */
     .article-image {
       width: 100%;
       height: 380px;
@@ -326,7 +326,7 @@
       letter-spacing: 2px;
     }
 
-    /* ---- 文章正文 ---- */
+    /* ---- Article Body ---- */
     .article-body {
       padding: 32px;
       font-size: 0.9375rem;
@@ -380,7 +380,7 @@
       font-style: italic;
     }
 
-    /* ---- 分享按钮区 ---- */
+    /* ---- Share Buttons ---- */
     .article-share {
       display: flex;
       align-items: center;
@@ -425,7 +425,7 @@
     .share-btn.copy:hover { background: #c8956c; color: #fff; border-color: #c8956c; }
     .share-btn i { font-size: 1rem; }
 
-    /* ---- 文章导航 ---- */
+    /* ---- Article Navigation ---- */
     .article-nav {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -469,7 +469,7 @@
     .nav-prev:hover .nav-title, .nav-next:hover .nav-title { color: #1a365d; }
     .nav-next { text-align: right; align-items: flex-end; }
 
-    /* ---- 右侧栏 ---- */
+    /* ---- Sidebar ---- */
     .detail-sidebar {
       display: flex;
       flex-direction: column;
@@ -496,7 +496,7 @@
     }
     .sidebar-card-body { padding: 16px 20px; }
 
-    /* ---- 相关新闻 ---- */
+    /* ---- Related News ---- */
     .related-list {
       display: flex;
       flex-direction: column;
@@ -546,7 +546,7 @@
     }
     .related-item:hover .related-link { gap: 8px; }
 
-    /* ---- 热门标签 ---- */
+    /* ---- Popular Tags ---- */
     .tag-cloud {
       display: flex;
       flex-wrap: wrap;
@@ -567,7 +567,7 @@
       color: #1a365d;
     }
 
-    /* ---- 底部相关新闻推荐（全宽） ---- */
+    /* ---- Bottom Related News ---- */
     .related-section {
       margin-top: 40px;
     }
@@ -668,7 +668,7 @@
     }
     .related-card:hover .related-card-link { gap: 8px; }
 
-    /* ---- 复制成功提示 ---- */
+    /* ---- Copy Success Toast ---- */
     .toast {
       position: fixed;
       bottom: 32px;
@@ -692,7 +692,7 @@
     }
 
     /* ============================================
-       响应式
+       Responsive
        ============================================ */
     @media (max-width: 1200px) {
       .topbar-nav { display: none; }
@@ -743,47 +743,43 @@
 </head>
 <body>
 
-  <!-- 顶部导航栏 -->
+  <!-- Topbar -->
   <header class="topbar" id="topbar">
     <div class="topbar-left">
-      <button class="menu-toggle" id="menuToggle" aria-label="切换菜单">
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle Menu">
         <i class="ri-menu-line"></i>
       </button>
       <a href="../index.html" class="brand">
         <div class="brand-logo"><i class="ri-eye-line"></i></div>
-        <span class="brand-text">慧眼 <span>系统</span></span>
+        <span class="brand-text">Insight <span>System</span></span>
       </a>
       <nav class="topbar-nav">
-        <a href="../index.html">首页</a>
-        <a href="about.html">关于我们</a>
-        <a href="news.html" class="active">新闻公告</a>
+        <a href="../index.html">Home</a>
+        <a href="about.html">About Us</a>
+        <a href="news.html" class="active">News & Announcements</a>
         <div class="nav-dropdown">
-            <a href="#" class="nav-dropdown-toggle">在线学习 <i class="ri-arrow-down-s-line"></i></a>
+            <a href="#" class="nav-dropdown-toggle">E-Learning <i class="ri-arrow-down-s-line"></i></a>
             <div class="nav-dropdown-menu">
-                <a href="knowledge.html">知识矩阵</a>
-                <a href="skill.html">技能矩阵</a>
-                <a href="workshop.html">经验工作坊</a>
-                <a href="assessment.html">评估认证</a>
-            </div>
-        </div>
-        <div class="nav-dropdown">
-            <a href="#" class="nav-dropdown-toggle">Insight CA 系统 <i class="ri-arrow-down-s-line"></i></a>
-            <div class="nav-dropdown-menu">
-                <div class="nav-sub-dropdown">
-                    <a href="#" class="nav-sub-toggle">Matrix 管理 <i class="ri-arrow-right-s-line"></i></a>
-                    <div class="nav-sub-menu">
-                        <a href="my-skills.html">档案管理</a>
-                        <a href="reports.html">数据图表</a>
-                        <a href="my-learning.html">课程成绩</a>
-                        <a href="course-learn.html">课程学习</a>
-                    </div>
+                    <a href="knowledge.html">Knowledge Matrix</a>
+                    <a href="skill.html">Skill Matrix</a>
+                    <a href="workshop.html">Workshop</a>
+                    <a href="assessment.html">Assessment & Certification</a>
+
                 </div>
             </div>
-        </div>
-        <div class="nav-dropdown">
-            <a href="#" class="nav-dropdown-toggle">Insight HSSE 管理 <i class="ri-arrow-down-s-line"></i></a>
+            <div class="nav-dropdown">
+                <a href="#" class="nav-dropdown-toggle">Insight CA System <i class="ri-arrow-down-s-line"></i></a>
+                <div class="nav-dropdown-menu">
+                    <a href="my-skills.html">Profile Management</a>
+                    <a href="reports.html">Data & Reports</a>
+                    <a href="my-learning.html">Course Grades</a>
+                    <a href="course-learn.html">Course Learning</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#" class="nav-dropdown-toggle">Insight HSSE Management <i class="ri-arrow-down-s-line"></i></a>
             <div class="nav-dropdown-menu">
-                <a href="ptw.html">PTW 作业许可</a>
+                <a href="ptw.html">PTW Work Permit</a>
                 <a href="compliance.html">HSSE Passport</a>
             </div>
         </div>
@@ -792,30 +788,30 @@
     <div class="topbar-right">
       <div class="search-box">
         <i class="ri-search-line"></i>
-        <input type="text" placeholder="搜索新闻、公告...">
+        <input type="text" placeholder="Search news, announcements...">
       </div>
       <div class="user-menu">
-        <div class="user-avatar">张</div>
-        <span class="user-name">张工程师</span>
+        <div class="user-avatar">J</div>
+        <span class="user-name">John Engineer</span>
         <i class="ri-arrow-down-s-line" style="color:#94a3b8"></i>
       </div>
     </div>
   </header>
 
-  <!-- 主内容区 -->
+  <!-- Main Content Area -->
   <main class="main-content">
     <div class="content-wrapper">
 
-      <!-- 页面标题 -->
+      <!-- Page Title -->
       <div class="page-header">
         <div class="page-title-group">
           <h1 class="page-title">新闻详情</h1>
           <div class="breadcrumb">
-            <a href="../index.html">首页</a>
+            <a href="../index.html">Home</a>
             <i class="ri-arrow-right-s-line"></i>
-            <a href="news.html">新闻公告</a>
+            <a href="news.html">News & Announcements</a>
             <i class="ri-arrow-right-s-line"></i>
-            <span>2026年度HSE安全培训计划发布</span>
+            <span>2026 HSE Safety Training Plan Released</span>
           </div>
         </div>
       </div>
@@ -828,22 +824,22 @@
 
           <!-- 文章卡片 -->
           <article class="article-card">
-            <!-- 文章头部 -->
+            <!-- Article Header -->
             <div class="article-header">
-              <h1 class="article-title">2026年度HSE安全培训计划发布</h1>
+              <h1 class="article-title">2026 HSE Safety Training Plan Released</h1>
               <div class="article-meta">
                 <span class="meta-item">
                   <i class="ri-calendar-line"></i>
-                  2026年4月20日
+                  April 20, 2026
                 </span>
                 <span class="meta-item">
                   <i class="ri-user-line"></i>
-                  安全培训部
+                  Safety Training Dept
                 </span>
-                <span class="meta-tag">培训资讯</span>
+                <span class="meta-tag">Training News</span>
                 <span class="meta-item">
                   <i class="ri-eye-line"></i>
-                  1,286 次阅读
+                  1,286  views
                 </span>
               </div>
             </div>
@@ -851,89 +847,89 @@
             <!-- 特色图片 -->
             <div class="article-image">
               <i class="ri-shield-check-line"></i>
-              <span class="article-image-label">HSE 安全培训</span>
+              <span class="article-image-label">HSE Safety Training</span>
             </div>
 
-            <!-- 文章正文 -->
+            <!-- Article Body -->
             <div class="article-body">
-              <p>为进一步提升全员安全意识和应急处置能力，确保油气生产运营安全平稳，公司安全培训部正式发布《2026年度HSE安全培训计划》。本年度培训计划围绕"预防为主、全员参与、持续改进"的核心理念，系统规划了六大培训模块，覆盖公司全体员工及承包商人员。</p>
+              <p>为进Mon步提升全员安全意识和应急处置能力，确保油气生产运营安全平稳，CompanySafety Training Dept正式发布《2026 度HSE安全培训计划》。Year to Date培训计划围绕"预防为主、全员参与、持续改进"的核心理念，系统规划了Sat大培训模块，覆盖Company全体员工及承包商员。</p>
 
-              <h2>一、培训总体目标</h2>
-              <p>2026年度HSE安全培训旨在实现以下核心目标：</p>
+              <h2>Mon、培训总体目标</h2>
+              <p>2026 度HSE安全培训旨在实现以下核心目标：</p>
               <ul>
-                <li>全员HSE培训覆盖率达到<strong>100%</strong>，关键岗位人员持证上岗率达到<strong>100%</strong></li>
-                <li>重大安全事故零发生，一般事故率同比下降<strong>15%</strong></li>
+                <li>全员HSE培训覆盖率达到<strong>100%</strong>，关键岗位员持证上岗率达到<strong>100%</strong></li>
+                <li>重大安全事故零发生，Mon般事故率同比下降<strong>15%</strong></li>
                 <li>员工安全知识考核合格率不低于<strong>95%</strong></li>
                 <li>应急响应演练参与率不低于<strong>90%</strong></li>
               </ul>
 
-              <h2>二、六大培训模块</h2>
+              <h2>Tue、Sat大培训模块</h2>
 
               <h3>1. 井控安全培训</h3>
-              <p>针对钻井、完井、修井等作业环节，开展井控设备操作、井喷预防与应急处置专项培训。培训对象包括钻井工程师、井队操作人员及现场监督人员，培训时长为40学时，采用理论授课与模拟演练相结合的方式。</p>
+              <p>针对钻井、完井、修井等作业环节，开展井控Equipment Operations、井喷预防与应急处置专项培训。培训对象包括钻Wells Engineering师、井队Actions员及现场监督员，培训时长为40学时，采用理论授课与模拟演练相结合的方式。</p>
 
               <h3>2. 海上作业安全</h3>
-              <p>面向海上平台作业人员，重点培训海上求生、消防灭火、直升机水下逃生（HUET）、 confined space作业安全等内容。所有海上作业人员须完成年度复训并通过考核后方可登平台作业。</p>
+              <p>面向海上平台作业员，重点培训海上求生、消防灭火、直升机水下逃生（HUET）、 confined space作业安全等内容。所有海上作业员须Done度复训并Pass考核后方可登平台作业。</p>
 
               <h3>3. 应急响应与救援</h3>
-              <p>组织各区域应急队伍开展综合应急演练，包括火灾爆炸、油气泄漏、人员受伤、自然灾害等场景的应急响应。天津基地、湛江基地、上海基地将分别于6月、8月、10月举办区域性应急演练竞赛。</p>
+              <p>组织各区域应急队伍开展综合应急演练，包括火灾爆炸、油气泄漏、员受伤、自然灾害等场景的应急响应。Tianjin基地、湛江基地、Shanghai基地将分别于Jun、8、10举办区域性应急演练竞赛。</p>
 
               <h3>4. 危险作业许可管理</h3>
-              <p>强化作业许可（PTW）制度执行培训，涵盖动火作业、受限空间作业、高处作业、吊装作业等高风险作业的审批流程、安全措施及监护要求。培训将结合慧眼系统PTW模块进行线上实操演练。</p>
+              <p>强化作业许可（PTW）制度执行培训，涵盖动火作业、受限空间作业、高处作业、吊装作业等高风险作业的审批流程、安全措施及监护要求。培训将结合Insight SystemPTW模块进行线上实操演练。</p>
 
               <h3>5. 职业健康与防护</h3>
-              <p>开展职业健康知识普及，包括噪声防护、化学品暴露控制、人机工程学、心理健康等内容。同时组织全员职业健康体检，建立个人职业健康档案。</p>
+              <p>开展职业健康知识普及，包括噪声防护、化学品暴露控制、机工程学、心理健康等内容。同时组织全员职业健康体检，建立个职业健康档案。</p>
 
-              <h3>6. 环境保护与合规</h3>
-              <p>围绕国家环保法规及行业标准，培训内容包括废弃物管理、溢油防控、碳排放管理、生态修复等。配合公司绿色低碳发展战略，新增碳足迹核算与减排技术专题培训。</p>
+              <h3>6. 环境保护与Compliant</h3>
+              <p>围绕国家环保法规及行业标准，培训内容包括废弃物管理、溢油防控、碳排放管理、生态修复等。配合Company绿色低碳发展战略，新增碳足迹核算与减排技术专培训。</p>
 
-              <h2>三、培训时间安排</h2>
-              <p>本年度培训自<strong>2026年5月</strong>正式启动，至<strong>2026年11月</strong>结束，共分三个阶段推进：</p>
+              <h2>Wed、培训时间安排</h2>
+              <p>Year to Date培训自<strong>2026 May</strong>正式启动，至<strong>2026 1Jan</strong>结束，共分Wed个阶段推进：</p>
               <ol>
-                <li><strong>第一阶段（5月-6月）：</strong>基础安全知识培训与考核，覆盖全员</li>
-                <li><strong>第二阶段（7月-9月）：</strong>专项技能培训与应急演练，聚焦关键岗位</li>
-                <li><strong>第三阶段（10月-11月）：</strong>综合能力评估与优秀案例分享</li>
+                <li><strong>第Mon阶段（May-Jun）：</strong>基础安全知识培训与考核，覆盖全员</li>
+                <li><strong>第Tue阶段（7-9）：</strong>专项技能培训与应急演练，聚焦关键岗位</li>
+                <li><strong>第Wed阶段（10-1Jan）：</strong>综合能力评估与优秀案例分享</li>
               </ol>
 
               <blockquote>
-                安全是企业发展的生命线。每一位员工都是安全生产的第一责任人，希望大家积极参与培训，将安全理念内化于心、外化于行，共同筑牢企业安全防线。
+                安全是企业发展的生命线。每Mon位员工都是安全生产的第Mon责任，希望大家积极参与培训，将安全理念内化于心、外化于行，共同筑牢企业安全防线。
               </blockquote>
 
-              <h2>四、报名与考核</h2>
-              <p>各区域单位请于<strong>4月30日前</strong>通过慧眼系统"培训管理"模块完成参训人员报名。培训结束后将组织统一考核，考核成绩纳入个人年度绩效评估及技能档案。对于考核优秀者，公司将颁发"HSE安全标兵"荣誉证书并给予相应奖励。</p>
+              <h2>Thu、报名与考核</h2>
+              <p>各区域单位请于<strong>Apr30Sun前</strong>PassInsight System"培训管理"模块Done参训员报名。培训结束后将组织统Mon考核，考核成绩纳入个度绩效评估及Skill Profile。对于考核优秀者，Company将颁发"HSE安全标兵"荣誉证书并给予相应奖励。</p>
 
-              <p>如有疑问，请联系安全培训部：电话 010-8888-6666，邮箱 safety-training@company.com。</p>
+              <p>如有疑问，请联系Safety Training Dept：Phone 010-8888-6666，Email safety-training@company.com。</p>
             </div>
 
-            <!-- 分享按钮 -->
+            <!-- 分享Buttons -->
             <div class="article-share">
-              <span class="share-label">分享到：</span>
+              <span class="share-label">Share to:</span>
               <div class="share-buttons">
                 <button class="share-btn wechat" id="shareWechat">
                   <i class="ri-wechat-fill"></i>
-                  微信
+                  WeChat
                 </button>
                 <button class="share-btn email" id="shareEmail">
                   <i class="ri-mail-line"></i>
-                  邮件
+                  Email
                 </button>
                 <button class="share-btn copy" id="shareCopy">
                   <i class="ri-link"></i>
-                  复制链接
+                  Copy Link
                 </button>
               </div>
             </div>
           </article>
 
-          <!-- 上一篇 / 下一篇 -->
+          <!-- Previous / Next -->
           <div class="article-nav">
             <div class="nav-prev" onclick="window.location.href='news-detail.html'">
-              <span class="nav-label"><i class="ri-arrow-left-line"></i> 上一篇</span>
-              <span class="nav-title">中石油宣布深水油气勘探取得重大突破</span>
+              <span class="nav-label"><i class="ri-arrow-left-line"></i> Previous</span>
+              <span class="nav-title">CNPC Announces Major Deepwater O&G Exploration Breakthrough</span>
             </div>
             <div class="nav-next" onclick="window.location.href='news-detail.html'">
-              <span class="nav-label">下一篇 <i class="ri-arrow-right-line"></i></span>
-              <span class="nav-title">国家能源局发布《油气管道完整性管理规范》修订版</span>
+              <span class="nav-label">Next <i class="ri-arrow-right-line"></i></span>
+              <span class="nav-title">NEA Releases Revised O&G Pipeline Integrity Management Standards</span>
             </div>
           </div>
 
@@ -942,41 +938,41 @@
         <!-- 右侧边栏 -->
         <aside class="detail-sidebar">
 
-          <!-- 相关新闻 -->
+          <!-- Related News -->
           <div class="sidebar-card">
             <div class="sidebar-card-header">
               <i class="ri-article-line"></i>
-              <span class="sidebar-card-title">相关新闻</span>
+              <span class="sidebar-card-title">Related News</span>
             </div>
             <div class="sidebar-card-body">
               <div class="related-list">
                 <div class="related-item" onclick="window.location.href='news-detail.html'">
-                  <div class="related-date">2026年4月12日</div>
-                  <div class="related-title">钻井工程师高级研修班报名开启</div>
-                  <div class="related-excerpt">由中石油工程技术研究院主办的高级研修班将于6月在北京举行，面向具有5年以上工作经验的钻井工程师。</div>
-                  <span class="related-link">阅读更多 <i class="ri-arrow-right-line"></i></span>
+                  <div class="related-date">2026 Apr12Sun</div>
+                  <div class="related-title">Advanced Training Program for Drilling Engineers – Registration Open</div>
+                  <div class="related-excerpt">由CNPC工程技术研究院主办的Advanced研修班将于Jun在Beijing举行，面向具有5以上工作经验的钻Wells Engineering师。</div>
+                  <span class="related-link">Read More <i class="ri-arrow-right-line"></i></span>
                 </div>
                 <div class="related-item" onclick="window.location.href='news-detail.html'">
-                  <div class="related-date">2026年4月8日</div>
-                  <div class="related-title">在线学习平台新增12门专业课程</div>
-                  <div class="related-excerpt">知识矩阵模块新增腐蚀工程、海底管道设计、LNG工艺技术等12门课程，均已上线。</div>
-                  <span class="related-link">阅读更多 <i class="ri-arrow-right-line"></i></span>
+                  <div class="related-date">2026 Apr8Sun</div>
+                  <div class="related-title">E-Learning Platform Adds 12 New Courses</div>
+                  <div class="related-excerpt">Knowledge Matrix模块新增腐蚀工程、海底管道设计、LNG工艺技术等12门课程，均已上线。</div>
+                  <span class="related-link">Read More <i class="ri-arrow-right-line"></i></span>
                 </div>
                 <div class="related-item" onclick="window.location.href='news-detail.html'">
-                  <div class="related-date">2026年3月28日</div>
-                  <div class="related-title">应急演练实操培训圆满结束</div>
-                  <div class="related-excerpt">天津基地举办了为期三天的应急响应实操培训，来自华北、华东区域的86名学员参加并通过考核。</div>
-                  <span class="related-link">阅读更多 <i class="ri-arrow-right-line"></i></span>
+                  <div class="related-date">2026 Mar28Sun</div>
+                  <div class="related-title">Emergency Response Drill Training Successfully Completed</div>
+                  <div class="related-excerpt">Tianjin基地举办了为期Wed天的应急响应实操培训，来自华北、华东区域的86名Candidate参加并Pass考核。</div>
+                  <span class="related-link">Read More <i class="ri-arrow-right-line"></i></span>
                 </div>
               </div>
             </div>
           </div>
 
-          <!-- 热门标签 -->
+          <!-- Popular Tags -->
           <div class="sidebar-card">
             <div class="sidebar-card-header">
               <i class="ri-price-tag-3-line"></i>
-              <span class="sidebar-card-title">热门标签</span>
+              <span class="sidebar-card-title">Popular Tags</span>
             </div>
             <div class="sidebar-card-body">
               <div class="tag-cloud">
@@ -986,10 +982,10 @@
                 <span>海上作业</span>
                 <span>应急响应</span>
                 <span>职业健康</span>
-                <span>环保合规</span>
+                <span>环保Compliant</span>
                 <span>油气勘探</span>
                 <span>数字化转型</span>
-                <span>技能认证</span>
+                <span>Skill Certification</span>
               </div>
             </div>
           </div>
@@ -998,11 +994,11 @@
 
       </div>
 
-      <!-- 底部相关新闻推荐 -->
+      <!-- 底部Related News -->
       <section class="related-section">
         <div class="section-header">
-          <h2 class="section-title"><i class="ri-newspaper-line"></i> 相关新闻推荐</h2>
-          <a href="news.html" class="section-more">查看全部 <i class="ri-arrow-right-line"></i></a>
+          <h2 class="section-title"><i class="ri-newspaper-line"></i> Related News</h2>
+          <a href="news.html" class="section-more">View All <i class="ri-arrow-right-line"></i></a>
         </div>
         <div class="related-grid">
           <div class="related-card" onclick="window.location.href='news-detail.html'">
@@ -1010,10 +1006,10 @@
               <i class="ri-oil-line"></i>
             </div>
             <div class="related-card-body">
-              <div class="related-card-date"><i class="ri-calendar-line"></i> 2026年4月22日</div>
-              <div class="related-card-title">中石油宣布深水油气勘探取得重大突破</div>
-              <div class="related-card-excerpt">中国海洋石油总公司宣布在南海深水区域成功钻探新井，测试日产油气当量超千立方米。</div>
-              <span class="related-card-link">阅读全文 <i class="ri-arrow-right-line"></i></span>
+              <div class="related-card-date"><i class="ri-calendar-line"></i> 2026 Apr22Sun</div>
+              <div class="related-card-title">CNPC Announces Major Deepwater O&G Exploration Breakthrough</div>
+              <div class="related-card-excerpt">中国海洋石油总Company宣布在南海深水区域成功钻探新井，测试Sun产油气当量超千立方米。</div>
+              <span class="related-card-link">Read Full Article <i class="ri-arrow-right-line"></i></span>
             </div>
           </div>
           <div class="related-card" onclick="window.location.href='news-detail.html'">
@@ -1021,10 +1017,10 @@
               <i class="ri-file-list-3-line"></i>
             </div>
             <div class="related-card-body">
-              <div class="related-card-date"><i class="ri-calendar-line"></i> 2026年4月18日</div>
-              <div class="related-card-title">国家能源局发布《油气管道完整性管理规范》修订版</div>
-              <div class="related-card-excerpt">新版规范增加了智能检测、数字化运维等内容，对管道全生命周期管理提出更高要求。</div>
-              <span class="related-card-link">阅读全文 <i class="ri-arrow-right-line"></i></span>
+              <div class="related-card-date"><i class="ri-calendar-line"></i> 2026 Apr18Sun</div>
+              <div class="related-card-title">NEA Releases Revised O&G Pipeline Integrity Management Standards</div>
+              <div class="related-card-excerpt">新版规范增加了智能检测、数字化运维等内容，对管道全生命Z期管理提出更高要求。</div>
+              <span class="related-card-link">Read Full Article <i class="ri-arrow-right-line"></i></span>
             </div>
           </div>
           <div class="related-card" onclick="window.location.href='news-detail.html'">
@@ -1032,10 +1028,10 @@
               <i class="ri-global-line"></i>
             </div>
             <div class="related-card-body">
-              <div class="related-card-date"><i class="ri-calendar-line"></i> 2026年4月10日</div>
-              <div class="related-card-title">全球油气行业数字化转型白皮书发布</div>
+              <div class="related-card-date"><i class="ri-calendar-line"></i> 2026 Apr10Sun</div>
+              <div class="related-card-title">Global O&G Digital Transformation White Paper Released</div>
               <div class="related-card-excerpt">国际石油工程师协会(SPE)联合多家能源企业发布白皮书，指出AI与数字孪生技术将重塑油气生产运营模式。</div>
-              <span class="related-card-link">阅读全文 <i class="ri-arrow-right-line"></i></span>
+              <span class="related-card-link">Read Full Article <i class="ri-arrow-right-line"></i></span>
             </div>
           </div>
         </div>
@@ -1044,18 +1040,18 @@
     </div>
   </main>
 
-  <!-- Toast 提示 -->
+  <!-- Toast Notification -->
   <div class="toast" id="toast"></div>
 
   <script>
     (function() {
-    // ==================== DOM引用 ====================
+    // ==================== DOM References ====================
     const $ = (s) => document.querySelector(s);
     const $$ = (s) => document.querySelectorAll(s);
 
     const mainContent = $('#mainContent');
 
-    // ==================== 移动端菜单 ====================
+    // ==================== Mobile Menu ====================
     const topbarNav = document.querySelector('.topbar-nav');
     const menuToggle = $('#menuToggle');
 
@@ -1063,7 +1059,7 @@
         topbarNav.classList.toggle('mobile-open');
     });
 
-    // 移动端子菜单展开/收起（桌面端 hover，移动端 click）
+    // Mobile submenu toggle (hover on desktop, click on mobile)
     topbarNav.querySelectorAll('.nav-dropdown-toggle, .nav-sub-toggle').forEach(btn => {
         btn.addEventListener('click', function(e) {
             if (window.innerWidth > 1200) return;
@@ -1075,7 +1071,7 @@
 
     const toast = document.getElementById('toast');
 
-      // ---- Toast 提示 ----
+      // ---- Toast Notification ----
       function showToast(message) {
         toast.textContent = message;
         toast.classList.add('show');
@@ -1084,23 +1080,23 @@
         }, 2500);
       }
 
-      // ---- 微信分享 ----
+      // ---- WeChat分享 ----
       document.getElementById('shareWechat').addEventListener('click', () => {
-        showToast('请使用微信扫一扫分享本页面');
+        showToast('Please use WeChat scan to share this page');
       });
 
-      // ---- 邮件分享 ----
+      // ---- Email分享 ----
       document.getElementById('shareEmail').addEventListener('click', () => {
-        const subject = encodeURIComponent('2026年度HSE安全培训计划发布 - 慧眼系统');
-        const body = encodeURIComponent('我在慧眼系统看到这篇文章，推荐给你：\n\n2026年度HSE安全培训计划发布\n\n' + window.location.href);
+        const subject = encodeURIComponent('2026 HSE Safety Training Plan Released - Insight System');
+        const body = encodeURIComponent('我在Insight System看到这篇文章，推荐给你：\n\n2026 HSE Safety Training Plan Released\n\n' + window.location.href);
         window.location.href = 'mailto:?subject=' + subject + '&body=' + body;
       });
 
-      // ---- 复制链接 ----
+      // ---- Copy Link ----
       document.getElementById('shareCopy').addEventListener('click', async () => {
         try {
           await navigator.clipboard.writeText(window.location.href);
-          showToast('链接已复制到剪贴板');
+          showToast('Link copied to clipboard');
         } catch (err) {
           const textArea = document.createElement('textarea');
           textArea.value = window.location.href;
@@ -1108,11 +1104,11 @@
           textArea.select();
           document.execCommand('copy');
           document.body.removeChild(textArea);
-          showToast('链接已复制到剪贴板');
+          showToast('Link copied to clipboard');
         }
       });
 
-      // ---- 搜索框交互 ----
+      // ---- Search框交互 ----
       const topSearchInput = document.querySelector('.search-box input');
       if (topSearchInput) {
         topSearchInput.addEventListener('focus', () => {

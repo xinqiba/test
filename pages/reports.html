@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>数据图表 - 慧眼系统</title>
+    <title>Data & Reports - Insight System</title>
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -16,7 +16,7 @@
             line-height: 1.6;
         }
 
-        /* ===== 顶部导航栏 ===== */
+        /* ===== Topbar ===== */
         .topbar {
             position: fixed; top: 0; left: 0; right: 0; height: 64px;
             background: #ffffff; box-shadow: 0 1px 3px rgba(0,0,0,0.08);
@@ -41,7 +41,7 @@
         .user-avatar { width: 36px; height: 36px; border-radius: 50%; background: #1a365d; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 600; }
         .user-name { font-size: 14px; font-weight: 500; color: #1a202c; }
 
-        /* ---- 导航下拉菜单 ---- */
+        /* ---- Nav Dropdown Menu ---- */
         .nav-dropdown { position: relative; }
         .nav-dropdown-toggle { cursor: pointer; }
         .nav-dropdown-menu {
@@ -73,9 +73,9 @@
         .nav-dropdown-menu .open { display: block !important; }
         .nav-sub-menu.open { display: block !important; }
 
-        /* ===== 主内容区 ===== */
+        /* ===== Main Content Area ===== */
         .main-content { max-width: 1400px; margin: 64px auto 0; padding: 24px 28px; min-height: calc(100vh - 64px); }
-        /* ===== 页面标题 ===== */
+        /* ===== Page Title ===== */
         .page-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; flex-wrap: wrap; gap: 16px; }
         .page-title-area h1 { font-size: 28px; font-weight: 700; color: #1a202c; margin-bottom: 8px; }
         .breadcrumb { display: flex; align-items: center; gap: 8px; font-size: 13px; color: #64748b; }
@@ -100,7 +100,7 @@
         }
         .role-banner .divider { color: rgba(255,255,255,0.3); margin: 0 4px; }
 
-        /* ===== CAS 筛选器栏 ===== */
+        /* ===== CAS Apply器栏 ===== */
         .filter-bar {
             background: #fff; border-radius: 12px; padding: 16px 20px; margin-bottom: 20px;
             box-shadow: 0 1px 3px rgba(0,0,0,0.06);
@@ -145,7 +145,7 @@
         .btn-filter.primary { background: #1a365d; color: #fff; border-color: #1a365d; }
         .btn-filter.primary:hover { background: #234876; }
 
-        /* 筛选 chip 标签 */
+        /* Apply chip 标签 */
         .filter-chips { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
         .filter-chip {
             display: inline-flex; align-items: center; gap: 6px;
@@ -156,7 +156,7 @@
         .filter-chip i:hover { color: #e05d5d; }
         @keyframes chipIn { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
 
-        /* ===== Tab 切换 ===== */
+        /* ===== Tab Switching ===== */
         .report-tabs {
             display: flex; gap: 4px; background: #f1f5f9; border-radius: 10px; padding: 4px;
             margin-bottom: 20px;
@@ -197,7 +197,7 @@
         .data-table .col-progress { text-align: right; }
         .data-table .col-score { text-align: center; }
 
-        /* 认证状态指示器 */
+        /* 认证Status指示器 */
         .cert-status { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; }
         .cert-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
         .cert-dot.certified { background: #22c55e; }
@@ -300,7 +300,7 @@
         .section-divider .line { flex: 1; height: 1px; background: #e2e8f0; }
         .section-divider .text { font-size: 13px; font-weight: 600; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; white-space: nowrap; }
 
-        /* ===== 响应式 ===== */
+        /* ===== Responsive ===== */
         @media (max-width: 1200px) {
             .quick-cards { grid-template-columns: repeat(3, 1fr); }
             .filter-bar { flex-direction: column; align-items: flex-start; }
@@ -331,42 +331,37 @@
     </style>
 </head>
 <body>
-    <!-- ===== 顶部导航栏 ===== -->
+    <!-- ===== Topbar ===== -->
     <header class="topbar" id="topbar">
         <div class="topbar-left">
-            <button class="menu-toggle" id="menuToggle" aria-label="打开菜单"><i class="ri-menu-line"></i></button>
-            <div class="logo"><i class="ri-eye-line"></i>慧眼</div>
+            <button class="menu-toggle" id="menuToggle" aria-label="Open Menu"><i class="ri-menu-line"></i></button>
+            <div class="logo"><i class="ri-eye-line"></i>Insight</div>
             <nav class="topbar-nav">
-        <a href="../index.html">首页</a>
-        <a href="about.html">关于我们</a>
-        <a href="news.html">新闻公告</a>
+        <a href="../index.html">Home</a>
+        <a href="about.html">About Us</a>
+        <a href="news.html">News & Announcements</a>
         <div class="nav-dropdown">
-            <a href="#" class="nav-dropdown-toggle">在线学习 <i class="ri-arrow-down-s-line"></i></a>
+            <a href="#" class="nav-dropdown-toggle">E-Learning <i class="ri-arrow-down-s-line"></i></a>
             <div class="nav-dropdown-menu">
-                <a href="knowledge.html">知识矩阵</a>
-                <a href="skill.html">技能矩阵</a>
-                <a href="workshop.html">经验工作坊</a>
-                <a href="assessment.html">评估认证</a>
+                <a href="knowledge.html">Knowledge Matrix</a>
+                <a href="skill.html">Skill Matrix</a>
+                <a href="workshop.html">Workshop</a>
+                <a href="assessment.html">Assessment & Certification</a>
             </div>
         </div>
         <div class="nav-dropdown">
-            <a href="#" class="nav-dropdown-toggle">Insight CA 系统 <i class="ri-arrow-down-s-line"></i></a>
+            <a href="#" class="nav-dropdown-toggle">Insight CA System <i class="ri-arrow-down-s-line"></i></a>
             <div class="nav-dropdown-menu">
-                <div class="nav-sub-dropdown">
-                    <a href="#" class="nav-sub-toggle">Matrix 管理 <i class="ri-arrow-right-s-line"></i></a>
-                    <div class="nav-sub-menu">
-                        <a href="my-skills.html">档案管理</a>
-                        <a href="reports.html" class="active">数据图表</a>
-                        <a href="my-learning.html">课程成绩</a>
-                        <a href="course-learn.html">课程学习</a>
-                    </div>
-                </div>
+                <a href="my-skills.html">Profile Management</a>
+                <a href="reports.html">Data & Reports</a>
+                <a href="my-learning.html">Course Grades</a>
+                <a href="course-learn.html">Course Learning</a>
             </div>
         </div>
         <div class="nav-dropdown">
-            <a href="#" class="nav-dropdown-toggle">Insight HSSE 管理 <i class="ri-arrow-down-s-line"></i></a>
+            <a href="#" class="nav-dropdown-toggle">Insight HSSE Management <i class="ri-arrow-down-s-line"></i></a>
             <div class="nav-dropdown-menu">
-                <a href="ptw.html">PTW 作业许可</a>
+                <a href="ptw.html">PTW Work Permit</a>
                 <a href="compliance.html">HSSE Passport</a>
             </div>
         </div>
@@ -374,35 +369,35 @@
         </div>
         <div class="topbar-right">
             <div class="search-box">
-                <input type="text" placeholder="搜索报表、数据..." id="topSearch">
+                <input type="text" placeholder="Search reports, data..." id="topSearch">
                 <i class="ri-search-line"></i>
             </div>
             <div class="user-menu">
-                <div class="user-avatar">张</div>
-                <span class="user-name">张工程师</span>
+                <div class="user-avatar">J</div>
+                <span class="user-name">John Engineer</span>
             </div>
         </div>
     </header>
-    <!-- ===== 主内容区 ===== -->
+    <!-- ===== Main Content Area ===== -->
     <main class="main-content" id="mainContent">
-        <!-- 页面标题 -->
+        <!-- Page Title -->
         <div class="page-header">
             <div class="page-title-area">
-                <h1>数据图表</h1>
+                <h1>Data & Reports</h1>
                 <div class="breadcrumb">
-                    <a href="../index.html">首页</a><i class="ri-arrow-right-s-line"></i>
-                    <span>Insight CA 系统</span><i class="ri-arrow-right-s-line"></i>
-                    <span>Matrix 管理</span><i class="ri-arrow-right-s-line"></i>
-                    <span>数据图表</span>
+                    <a href="../index.html">Home</a><i class="ri-arrow-right-s-line"></i>
+                    <span>Insight CA System</span><i class="ri-arrow-right-s-line"></i>
+                    <span>Matrix Management</span><i class="ri-arrow-right-s-line"></i>
+                    <span>Data & Reports</span>
                 </div>
             </div>
-            <button class="btn-export" id="exportExcelBtn"><i class="ri-file-excel-line"></i>导出Excel</button>
+            <button class="btn-export" id="exportExcelBtn"><i class="ri-file-excel-line"></i>Export Excel</button>
         </div>
 
         <!-- 角色标识条 -->
         <div class="role-banner">
             <i class="ri-admin-line"></i>
-            <span>当前报表视角：</span>
+            <span>Report View: </span>
             <span class="role-tag">External Verifier</span>
             <span class="divider">|</span>
             <span>Name: Standards Verifier</span>
@@ -410,46 +405,46 @@
             <span>Company: Humanoid</span>
         </div>
 
-        <!-- ====== CAS 能力矩阵报表区 ====== -->
+        <!-- ====== CAS Competency Matrix Report区 ====== -->
         <div class="report-card" style="border-top: 3px solid #1a365d;">
             <div class="report-card-header">
                 <div class="report-card-title">
-                    <i class="ri-folder-user-line"></i>CAS 能力矩阵报表
+                    <i class="ri-folder-user-line"></i>CAS Competency Matrix Report
                 </div>
             </div>
-            <div class="report-card-subtitle">Competence Assurance System — 候选人 / 评估员 / 验证者多维度报表</div>
+            <div class="report-card-subtitle">Competence Assurance System — Multi-dimensional reports for candidates, assessors, and verifiers</div>
 
-            <!-- 3层筛选器 -->
+            <!-- 3层Apply器 -->
             <div class="filter-bar" id="filterBar">
-                <span class="filter-label">报表筛选</span>
+                <span class="filter-label">Filters</span>
                 <div class="filter-group">
                     <label>Customer</label>
-                    <select class="filter-select" id="filterCustomer"><option value="">全部客户 (23)</option></select>
+                    <select class="filter-select" id="filterCustomer"><option value="">All Customers (23)</option></select>
                 </div>
                 <div class="filter-group">
                     <label>Region</label>
-                    <select class="filter-select" id="filterRegion"><option value="">全部区域</option></select>
+                    <select class="filter-select" id="filterRegion"><option value="">All Regions</option></select>
                 </div>
                 <div class="filter-group">
                     <label>Portfolio</label>
-                    <select class="filter-select" id="filterPortfolio"><option value="">全部组合</option></select>
+                    <select class="filter-select" id="filterPortfolio"><option value="">All Portfolios</option></select>
                 </div>
                 <div class="filter-divider"></div>
-                <label class="sort-check" title="按是否已认证排序">
+                <label class="sort-check" title="Sort by certification status">
                     <input type="checkbox" id="sortCertified">
                     <span class="check-box"><i class="ri-check-line"></i></span>
                     <span>Sort by Certified</span>
                 </label>
                 <div class="filter-actions">
-                    <button class="btn-filter" id="btnResetFilter"><i class="ri-refresh-line"></i>重置</button>
-                    <button class="btn-filter primary" id="btnApplyFilter"><i class="ri-filter-3-line"></i>筛选</button>
+                    <button class="btn-filter" id="btnResetFilter"><i class="ri-refresh-line"></i>Reset</button>
+                    <button class="btn-filter primary" id="btnApplyFilter"><i class="ri-filter-3-line"></i>Apply</button>
                 </div>
             </div>
 
-            <!-- 活跃筛选条件 chips -->
+            <!-- 活跃Apply条件 chips -->
             <div class="filter-chips" id="filterChips"></div>
 
-            <!-- Tab 切换 -->
+            <!-- Tab Switching -->
             <div class="report-tabs" id="reportTabs">
                 <button class="report-tab active" data-tab="candidate">
                     <i class="ri-user-search-line"></i>Candidate Report
@@ -533,65 +528,65 @@
 
             <div class="report-footer">
                 <span style="font-size:12px;color:#94a3b8;margin-right:auto;">
-                    数据更新时间：2026-05-29 14:30 UTC+8
+                    Last updated: 2026-05-29 14:30 UTC+8
                 </span>
-                <button class="btn-sm btn-outline"><i class="ri-download-line"></i>导出当前报表</button>
+                <button class="btn-sm btn-outline"><i class="ri-download-line"></i>Export Report</button>
             </div>
         </div>
 
-        <!-- 分隔线 -->
+        <!-- Divider线 -->
         <div class="section-divider">
             <div class="line"></div>
-            <div class="text">培训与运营统计</div>
+            <div class="text">Training & Operations</div>
             <div class="line"></div>
         </div>
 
         <!-- 快捷图标栏 -->
         <div class="quick-cards">
-            <div class="quick-card"><div class="quick-card-icon"><i class="ri-line-chart-line"></i></div><div class="quick-card-title">培训进度总览</div></div>
-            <div class="quick-card"><div class="quick-card-icon"><i class="ri-award-line"></i></div><div class="quick-card-title">认证通过率</div></div>
-            <div class="quick-card"><div class="quick-card-icon"><i class="ri-group-line"></i></div><div class="quick-card-title">工作坊统计</div></div>
-            <div class="quick-card"><div class="quick-card-icon"><i class="ri-shield-check-line"></i></div><div class="quick-card-title">合规状态</div></div>
-            <div class="quick-card"><div class="quick-card-icon"><i class="ri-file-list-3-line"></i></div><div class="quick-card-title">PTW审批效率</div></div>
-            <div class="quick-card"><div class="quick-card-icon"><i class="ri-user-search-line"></i></div><div class="quick-card-title">员工画像</div></div>
+            <div class="quick-card"><div class="quick-card-icon"><i class="ri-line-chart-line"></i></div><div class="quick-card-title">Training Progress</div></div>
+            <div class="quick-card"><div class="quick-card-icon"><i class="ri-award-line"></i></div><div class="quick-card-title">Certification Pass Rate</div></div>
+            <div class="quick-card"><div class="quick-card-icon"><i class="ri-group-line"></i></div><div class="quick-card-title">Workshop Statistics</div></div>
+            <div class="quick-card"><div class="quick-card-icon"><i class="ri-shield-check-line"></i></div><div class="quick-card-title">Compliance Status</div></div>
+            <div class="quick-card"><div class="quick-card-icon"><i class="ri-file-list-3-line"></i></div><div class="quick-card-title">PTW Approval Efficiency</div></div>
+            <div class="quick-card"><div class="quick-card-icon"><i class="ri-user-search-line"></i></div><div class="quick-card-title">Employee Profile</div></div>
         </div>
 
-        <!-- 培训进度统计 -->
+        <!-- Training Progress Stats -->
         <div class="report-card">
             <div class="report-card-header">
-                <div class="report-card-title"><i class="ri-bar-chart-grouped-line"></i>培训进度统计</div>
+                <div class="report-card-title"><i class="ri-bar-chart-grouped-line"></i>Training Progress Stats</div>
                 <div class="time-filter" id="timeFilter1">
-                    <button class="active" data-range="30">近30天</button>
-                    <button data-range="90">近90天</button>
-                    <button data-range="year">本年度</button>
+                    <button class="active" data-range="30">Last 30 Days</button>
+                    <button data-range="90">Last 90 Days</button>
+                    <button data-range="year">Year to Date</button>
                 </div>
             </div>
             <div class="chart-row">
                 <div class="chart-area">
-                    <div class="chart-label">各学科培训完成率</div>
+                    <div class="chart-label">Completion Rate by Discipline</div>
                     <div class="bar-chart" id="barChart"></div>
                 </div>
                 <div class="chart-area">
-                    <div class="chart-label">近6个月完成人数趋势</div>
+                    <div class="chart-label">6-Month Completion Trend</div>
                     <div class="line-chart" id="lineChart"></div>
                 </div>
             </div>
         </div>
 
-        <!-- 认证通过率统计 -->
+        <!-- Certification Pass Rate Stats -->
         <div class="report-card">
             <div class="report-card-header">
-                <div class="report-card-title"><i class="ri-pie-chart-line"></i>认证通过率统计</div>
+                <div class="report-card-title"><i class="ri-pie-chart-line"></i>Certification Pass Rate Stats</div>
             </div>
             <div class="chart-row">
                 <div class="chart-area">
-                    <div class="chart-label">认证状态分布</div>
+                    <div class="chart-label">Certification Status Distribution</div>
                     <div class="pie-chart-wrap" id="certPie"></div>
                 </div>
                 <div class="chart-area">
-                    <div class="chart-label">各等级认证明细</div>
+                    <div class="chart-label">Certification by Level</div>
                     <table class="data-table">
-                        <thead><tr><th>技能等级</th><th>总人数</th><th>通过人数</th><th>通过率</th></tr></thead>
+                        <thead><tr><th>Skill Level</th><th>Total</th><th>Passed</th><th>Pass Rate</th></tr></thead>
                         <tbody>
                             <tr><td><strong>Level 2</strong></td><td>800</td><td>520</td><td><span class="badge badge-success">65%</span></td></tr>
                             <tr><td><strong>Level 3</strong></td><td>450</td><td>280</td><td><span class="badge badge-warning">62%</span></td></tr>
@@ -600,34 +595,34 @@
                     </table>
                 </div>
             </div>
-            <div class="report-footer"><button class="btn-sm btn-outline"><i class="ri-download-line"></i>导出认证报表</button></div>
+            <div class="report-footer"><button class="btn-sm btn-outline"><i class="ri-download-line"></i>Export Certification Report</button></div>
         </div>
 
-        <!-- 工作坊参与统计 -->
+        <!-- Workshop Participation -->
         <div class="report-card">
             <div class="report-card-header">
-                <div class="report-card-title"><i class="ri-group-2-line"></i>工作坊参与统计</div>
+                <div class="report-card-title"><i class="ri-group-2-line"></i>Workshop Participation</div>
                 <select class="workshop-select" id="workshopSelect">
-                    <option value="ws1">海上安全操作工作坊</option>
-                    <option value="ws2">钻井技术实操工作坊</option>
-                    <option value="ws3">应急响应演练工作坊</option>
-                    <option value="ws4">设备检修技能工作坊</option>
+                    <option value="ws1">Offshore Safety Operations Workshop</option>
+                    <option value="ws2">Drilling Technology Workshop</option>
+                    <option value="ws3">Emergency Response Drill</option>
+                    <option value="ws4">Equipment Maintenance Workshop</option>
                 </select>
             </div>
             <div class="chart-row">
                 <div class="chart-area">
-                    <div class="chart-label">考核完成率</div>
+                    <div class="chart-label">Assessment Rate</div>
                     <div class="pie-chart-wrap" id="workshopPie"></div>
                 </div>
                 <div class="chart-area">
-                    <div class="chart-label">学员明细</div>
+                    <div class="chart-label">Candidate Details</div>
                     <table class="data-table">
-                        <thead><tr><th>姓名</th><th>是否参加</th><th>考核结果</th></tr></thead>
+                        <thead><tr><th>Name</th><th>Attended</th><th>Result</th></tr></thead>
                         <tbody id="workshopTableBody"></tbody>
                     </table>
                 </div>
             </div>
-            <div class="report-footer"><button class="btn-sm btn-outline"><i class="ri-download-line"></i>导出工作坊报表</button></div>
+            <div class="report-footer"><button class="btn-sm btn-outline"><i class="ri-download-line"></i>Export Workshop Report</button></div>
         </div>
     </main>
 
@@ -639,7 +634,7 @@
 
     const PORTFOLIOS = ['OIM v1','OIM v2','OIM v3','OIM v4','OIM v5','OIM v6','PSMS v1','PSMS v2','PSMS v3','IV','Assessor','Operator Tech. Level 2','Operator Tech. Level 3','General Staff','CRO','HRC Operation Technicians'];
 
-    // 候选人模拟数据
+    // Candidate模拟数据
     const candidateData = [
         { name:'Ahmad bin Ismail', company:'PETRONAS', region:'KL', portfolio:'OIM v3', progress:78, score:82, certified:true },
         { name:'Sarah binti Yusof', company:'SHELL', region:'LNG', portfolio:'PSMS v2', progress:45, score:61, certified:false },
@@ -655,7 +650,7 @@
         { name:'Wong Kah Fai', company:'Hibiscus', region:'Myanmar', portfolio:'IV', progress:88, score:85, certified:true },
     ];
 
-    // 月度进度模拟数据
+    // 度进度模拟数据
     const progressData = [
         { month:'2026-01', company:'PETRONAS', region:'KL', portfolio:'OIM v3', activities:45, completions:12, score:78, delta:'+5%' },
         { month:'2026-02', company:'PETRONAS', region:'KL', portfolio:'OIM v3', activities:52, completions:18, score:80, delta:'+8%' },
@@ -683,7 +678,7 @@
         { name:'Ir. Johan bin Rashid', company:'Syarikat Sesco Bhd', candidates:15, assessedMonth:5, pending:6, avgScore:66, workload:'Low' },
     ];
 
-    // ==================== 筛选器初始化 ====================
+    // ==================== Apply器Initialization ====================
     const elCustomer = document.getElementById('filterCustomer');
     const elRegion = document.getElementById('filterRegion');
     const elPortfolio = document.getElementById('filterPortfolio');
@@ -785,7 +780,7 @@
     });
     elSortCertified.addEventListener('change', applyFilters);
 
-    // ==================== Tab 切换 ====================
+    // ==================== Tab Switching ====================
     document.getElementById('reportTabs').addEventListener('click', function(e) {
         const tab = e.target.closest('.report-tab');
         if (!tab) return;
@@ -830,7 +825,7 @@
         }).join('');
 
         document.getElementById('candidatePagination').innerHTML = `
-            <span class="page-info">共 ${filtered.length} 条记录</span>
+            <span class="page-info">Total: ${filtered.length}  records</span>
             <button class="active">1</button>
             <button>2</button>
             <button><i class="ri-arrow-right-s-line"></i></button>
@@ -878,11 +873,11 @@
     function renderBarChart() {
         const disciplines = [
             { name:'HSE', pct:78, color:'#f97316' },
-            { name:'井工程', pct:45, color:'#3b82f6' },
-            { name:'机械工程', pct:62, color:'#22c55e' },
-            { name:'电气工程', pct:30, color:'#f59e0b' },
-            { name:'管道工程', pct:55, color:'#06b6d4' },
-            { name:'海洋工程', pct:25, color:'#8b5cf6' },
+            { name:'Wells Engineering', pct:45, color:'#3b82f6' },
+            { name:'Mechanical Engineering', pct:62, color:'#22c55e' },
+            { name:'Electrical Engineering', pct:30, color:'#f59e0b' },
+            { name:'Pipeline Engineering', pct:55, color:'#06b6d4' },
+            { name:'Offshore Engineering', pct:25, color:'#8b5cf6' },
         ];
         document.getElementById('barChart').innerHTML = disciplines.map(d => `
             <div class="bar-item">
@@ -895,7 +890,7 @@
 
     function renderLineChart() {
         const pts = [{x:40,y:180,v:120},{x:106,y:163,v:145},{x:172,y:139,v:180},{x:238,y:118,v:210},{x:304,y:90,v:250},{x:370,y:72,v:280}];
-        const months = ['1月','2月','3月','4月','5月','6月'];
+        const months = ['Jan','Feb','Mar','Apr','May','Jun'];
         const pointsStr = pts.map(p => `${p.x},${p.y}`).join(' ');
         const polylineStr = pts.map(p => `${p.x},${p.y}`).join(' ');
         const areaStr = `${pts[0].x},180 ${pts.map(p => `${p.x},${p.y}`).join(' ')} ${pts[pts.length-1].x},180`;
@@ -916,9 +911,9 @@
 
     function renderCertPie() {
         const segments = [
-            { label:'已通过', pct:58, color:'#c8956c', dash:292.2, offset:0 },
-            { label:'待审核', pct:25, color:'#3b82f6', dash:125.66, offset:-292.2 },
-            { label:'未通过', pct:17, color:'#94a3b8', dash:85.45, offset:-417.86 },
+            { label:'Passed', pct:58, color:'#c8956c', dash:292.2, offset:0 },
+            { label:'Pending', pct:25, color:'#3b82f6', dash:125.66, offset:-292.2 },
+            { label:'Fail', pct:17, color:'#94a3b8', dash:85.45, offset:-417.86 },
         ];
         const circumference = 2 * Math.PI * 80;
         const total = 502.65;
@@ -944,25 +939,25 @@
                 </svg>
             </div>
             <div class="pie-legend">
-                <div class="legend-item"><div class="legend-dot" style="background:#10b981"></div><span>已考核</span><span class="legend-value">72%</span></div>
-                <div class="legend-item"><div class="legend-dot" style="background:#e2e8f0"></div><span>未考核</span><span class="legend-value">28%</span></div>
+                <div class="legend-item"><div class="legend-dot" style="background:#10b981"></div><span>Assessed</span><span class="legend-value">72%</span></div>
+                <div class="legend-item"><div class="legend-dot" style="background:#e2e8f0"></div><span>Not Assessed</span><span class="legend-value">28%</span></div>
             </div>`;
     }
 
-    // ==================== 初始化 ====================
+    // ==================== Initialization ====================
     renderCandidateTable();
     renderBarChart();
     renderLineChart();
     renderCertPie();
     renderWorkshopPie();
 
-    // ==================== DOM引用 ====================
+    // ==================== DOM References ====================
     const $ = (s) => document.querySelector(s);
     const $$ = (s) => document.querySelectorAll(s);
 
     const mainContent = document.getElementById('mainContent');
 
-    // ==================== 移动端菜单 ====================
+    // ==================== Mobile Menu ====================
     const topbarNav = document.querySelector('.topbar-nav');
     const menuToggle = document.getElementById('menuToggle');
 
@@ -970,7 +965,7 @@
         topbarNav.classList.toggle('mobile-open');
     });
 
-    // 移动端子菜单展开/收起（桌面端 hover，移动端 click）
+    // Mobile submenu toggle (hover on desktop, click on mobile)
     topbarNav.querySelectorAll('.nav-dropdown-toggle, .nav-sub-toggle').forEach(btn => {
         btn.addEventListener('click', function(e) {
             if (window.innerWidth > 1200) return;
@@ -980,7 +975,7 @@
         });
     });
 
-    // 时间筛选
+    // 时间Apply
     const timeFilter1 = document.getElementById('timeFilter1');
     timeFilter1.querySelectorAll('button').forEach(btn => {
         btn.addEventListener('click', function() {
@@ -989,37 +984,37 @@
         });
     });
 
-    // 工作坊下拉
+    // Workshop下拉
     const workshopSelect = document.getElementById('workshopSelect');
     const workshopTableBody = document.getElementById('workshopTableBody');
     const workshopData = {
         ws1: [
-            { name:'李明', attend:'已参加', attendClass:'badge-success', result:'通过', resultClass:'badge-success' },
-            { name:'王芳', attend:'已参加', attendClass:'badge-success', result:'通过', resultClass:'badge-success' },
-            { name:'张伟', attend:'已参加', attendClass:'badge-success', result:'未通过', resultClass:'badge-danger' },
-            { name:'刘洋', attend:'已参加', attendClass:'badge-success', result:'待审核', resultClass:'badge-warning' },
-            { name:'陈静', attend:'未参加', attendClass:'badge-danger', result:'-', resultClass:'' }
+            { name:'Li Ming', attend:'Attended', attendClass:'badge-success', result:'Pass', resultClass:'badge-success' },
+            { name:'Wang Fang', attend:'Attended', attendClass:'badge-success', result:'Pass', resultClass:'badge-success' },
+            { name:'Zhang Wei', attend:'Attended', attendClass:'badge-success', result:'Fail', resultClass:'badge-danger' },
+            { name:'Liu Yang', attend:'Attended', attendClass:'badge-success', result:'Pending', resultClass:'badge-warning' },
+            { name:'Chen Jing', attend:'Absent', attendClass:'badge-danger', result:'-', resultClass:'' }
         ],
         ws2: [
-            { name:'赵强', attend:'已参加', attendClass:'badge-success', result:'通过', resultClass:'badge-success' },
-            { name:'孙丽', attend:'已参加', attendClass:'badge-success', result:'通过', resultClass:'badge-success' },
-            { name:'周杰', attend:'已参加', attendClass:'badge-success', result:'通过', resultClass:'badge-success' },
-            { name:'吴敏', attend:'未参加', attendClass:'badge-danger', result:'-', resultClass:'' },
-            { name:'郑涛', attend:'已参加', attendClass:'badge-success', result:'待审核', resultClass:'badge-warning' }
+            { name:'Zhao Qiang', attend:'Attended', attendClass:'badge-success', result:'Pass', resultClass:'badge-success' },
+            { name:'Sun Li', attend:'Attended', attendClass:'badge-success', result:'Pass', resultClass:'badge-success' },
+            { name:'Zhou Jie', attend:'Attended', attendClass:'badge-success', result:'Pass', resultClass:'badge-success' },
+            { name:'Wu Min', attend:'Absent', attendClass:'badge-danger', result:'-', resultClass:'' },
+            { name:'Zheng Tao', attend:'Attended', attendClass:'badge-success', result:'Pending', resultClass:'badge-warning' }
         ],
         ws3: [
-            { name:'钱伟', attend:'已参加', attendClass:'badge-success', result:'通过', resultClass:'badge-success' },
-            { name:'冯雪', attend:'已参加', attendClass:'badge-success', result:'未通过', resultClass:'badge-danger' },
-            { name:'黄磊', attend:'已参加', attendClass:'badge-success', result:'通过', resultClass:'badge-success' },
-            { name:'林峰', attend:'已参加', attendClass:'badge-success', result:'通过', resultClass:'badge-success' },
-            { name:'徐倩', attend:'未参加', attendClass:'badge-danger', result:'-', resultClass:'' }
+            { name:'Qian Wei', attend:'Attended', attendClass:'badge-success', result:'Pass', resultClass:'badge-success' },
+            { name:'Feng Xue', attend:'Attended', attendClass:'badge-success', result:'Fail', resultClass:'badge-danger' },
+            { name:'Huang Lei', attend:'Attended', attendClass:'badge-success', result:'Pass', resultClass:'badge-success' },
+            { name:'Lin Feng', attend:'Attended', attendClass:'badge-success', result:'Pass', resultClass:'badge-success' },
+            { name:'Xu Qian', attend:'Absent', attendClass:'badge-danger', result:'-', resultClass:'' }
         ],
         ws4: [
-            { name:'马云', attend:'已参加', attendClass:'badge-success', result:'待审核', resultClass:'badge-warning' },
-            { name:'朱迪', attend:'已参加', attendClass:'badge-success', result:'通过', resultClass:'badge-success' },
-            { name:'何方', attend:'已参加', attendClass:'badge-success', result:'通过', resultClass:'badge-success' },
-            { name:'罗丹', attend:'已参加', attendClass:'badge-success', result:'未通过', resultClass:'badge-danger' },
-            { name:'高翔', attend:'未参加', attendClass:'badge-danger', result:'-', resultClass:'' }
+            { name:'Ma Yun', attend:'Attended', attendClass:'badge-success', result:'Pending', resultClass:'badge-warning' },
+            { name:'Zhu Di', attend:'Attended', attendClass:'badge-success', result:'Pass', resultClass:'badge-success' },
+            { name:'He Fang', attend:'Attended', attendClass:'badge-success', result:'Pass', resultClass:'badge-success' },
+            { name:'Luo Dan', attend:'Attended', attendClass:'badge-success', result:'Fail', resultClass:'badge-danger' },
+            { name:'Gao Xiang', attend:'Absent', attendClass:'badge-danger', result:'-', resultClass:'' }
         ]
     };
 
@@ -1033,9 +1028,9 @@
     renderWorkshopTable('ws1');
     workshopSelect.addEventListener('change', function() { renderWorkshopTable(this.value); });
 
-    // 导出按钮
+    // 导出Buttons
     document.getElementById('exportExcelBtn').addEventListener('click', function() {
-        alert('正在导出数据报表，请稍候...');
+        alert('Exporting report, please wait...');
     });
     </script>
     </body>

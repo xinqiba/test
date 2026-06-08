@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>我的报名 - 慧眼系统</title>
-  <meta name="description" content="石油天然气行业慧眼系统我的报名">
+  <title>My Registrations - Insight System</title>
+  <meta name="description" content="Oil & Gas IndustryInsight SystemMy Registrations">
 
   <!-- 字体 -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -16,7 +16,7 @@
 
   <style>
     /* ============================================
-       基础重置与变量
+       Base Reset & Variables
        ============================================ */
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
@@ -34,7 +34,7 @@
     ul, ol { list-style: none; }
 
     /* ============================================
-       布局系统
+       Layout System
        ============================================ */
     :root {
       --sidebar-width: 260px;
@@ -42,7 +42,7 @@
       --topbar-height: 64px;
     }
 
-    /* ---- 顶部导航栏 ---- */
+    /* ---- Topbar ---- */
     .topbar {
       position: fixed;
       top: 0; left: 0; right: 0;
@@ -167,7 +167,7 @@
       transition: width 0.5s cubic-bezier(0.16,1,0.3,1);
     }
 
-    /* ---- 导航下拉菜单 ---- */
+    /* ---- Nav Dropdown Menu ---- */
     .nav-dropdown { position: relative; }
     .nav-dropdown-toggle { cursor: pointer; }
     .nav-dropdown-menu {
@@ -196,7 +196,7 @@
     .nav-sub-menu a:hover { background: #f1f5f9; color: #1a202c; }
     .nav-sub-menu a.active { background: rgba(26,54,93,0.08); color: #1a365d; font-weight: 600; }
 
-    /* ---- 主内容区 ---- */
+    /* ---- Main Content Area ---- */
     .main-content {
       flex: 1;
       margin-top: var(--topbar-height);
@@ -207,10 +207,10 @@
     .content-wrapper { padding: 24px 28px; max-width: 1400px; margin: 0 auto; }
 
     /* ============================================
-       页面内容样式
+       Page Content Styles
        ============================================ */
 
-    /* ---- 页面标题区 ---- */
+    /* ---- Page Header ---- */
     .page-header {
       display: flex;
       align-items: center;
@@ -236,7 +236,7 @@
     .breadcrumb a:hover { color: #1a365d; }
     .breadcrumb i { font-size: 0.75rem; color: #94a3b8; }
 
-    /* ---- 分区标题 ---- */
+    /* ---- 分区标 ---- */
     .section-title {
       font-size: 1.125rem;
       font-weight: 600;
@@ -256,7 +256,7 @@
       border-radius: 100px;
     }
 
-    /* ---- 工作坊卡片网格 ---- */
+    /* ---- Workshop卡片网格 ---- */
     .workshop-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -396,7 +396,7 @@
       background: rgba(26,54,93,0.12);
     }
 
-    /* ---- 空状态 ---- */
+    /* ---- Empty Status ---- */
     .empty-state {
       grid-column: 1 / -1;
       text-align: center;
@@ -417,7 +417,7 @@
     }
 
     /* ============================================
-       响应式
+       Responsive
        ============================================ */
     @media (max-width: 1200px) {
       .topbar-nav { display: none; }
@@ -455,44 +455,40 @@
 </head>
 <body>
 
-  <!-- 顶部导航栏 -->
+  <!-- Topbar -->
   <header class="topbar" id="topbar">
     <div class="topbar-left">
       <a href="../index.html" class="brand">
         <div class="brand-logo"><i class="ri-eye-line"></i></div>
-        <span class="brand-text">慧眼 <span>系统</span></span>
+        <span class="brand-text">Insight <span>System</span></span>
       </a>
       <nav class="topbar-nav">
-        <a href="../index.html">首页</a>
-        <a href="about.html">关于我们</a>
-        <a href="news.html">新闻公告</a>
+        <a href="../index.html">Home</a>
+        <a href="about.html">About Us</a>
+        <a href="news.html">News & Announcements</a>
         <div class="nav-dropdown">
-            <a href="#" class="nav-dropdown-toggle">在线学习 <i class="ri-arrow-down-s-line"></i></a>
+            <a href="#" class="nav-dropdown-toggle">E-Learning <i class="ri-arrow-down-s-line"></i></a>
             <div class="nav-dropdown-menu">
-                <a href="knowledge.html">知识矩阵</a>
-                <a href="skill.html">技能矩阵</a>
-                <a href="workshop.html">经验工作坊</a>
-                <a href="assessment.html">评估认证</a>
-            </div>
-        </div>
-        <div class="nav-dropdown">
-            <a href="#" class="nav-dropdown-toggle">Insight CA 系统 <i class="ri-arrow-down-s-line"></i></a>
-            <div class="nav-dropdown-menu">
-                <div class="nav-sub-dropdown">
-                    <a href="#" class="nav-sub-toggle">Matrix 管理 <i class="ri-arrow-right-s-line"></i></a>
-                    <div class="nav-sub-menu">
-                        <a href="my-skills.html">档案管理</a>
-                        <a href="reports.html">数据图表</a>
-                        <a href="my-learning.html">课程成绩</a>
-                        <a href="course-learn.html">课程学习</a>
-                    </div>
+                    <a href="knowledge.html">Knowledge Matrix</a>
+                    <a href="skill.html">Skill Matrix</a>
+                    <a href="workshop.html">Workshop</a>
+                    <a href="assessment.html">Assessment & Certification</a>
+
                 </div>
             </div>
-        </div>
-        <div class="nav-dropdown">
-            <a href="#" class="nav-dropdown-toggle">Insight HSSE 管理 <i class="ri-arrow-down-s-line"></i></a>
+            <div class="nav-dropdown">
+                <a href="#" class="nav-dropdown-toggle">Insight CA System <i class="ri-arrow-down-s-line"></i></a>
+                <div class="nav-dropdown-menu">
+                    <a href="my-skills.html">Profile Management</a>
+                    <a href="reports.html">Data & Reports</a>
+                    <a href="my-learning.html">Course Grades</a>
+                    <a href="course-learn.html">Course Learning</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#" class="nav-dropdown-toggle">Insight HSSE Management <i class="ri-arrow-down-s-line"></i></a>
             <div class="nav-dropdown-menu">
-                <a href="ptw.html">PTW 作业许可</a>
+                <a href="ptw.html">PTW Work Permit</a>
                 <a href="compliance.html">HSSE Passport</a>
             </div>
         </div>
@@ -501,164 +497,164 @@
     <div class="topbar-right">
       <div class="search-box">
         <i class="ri-search-line"></i>
-        <input type="text" placeholder="搜索...">
+        <input type="text" placeholder="Search...">
       </div>
       <div class="user-menu">
-        <div class="user-avatar">张</div>
-        <span class="user-name">张工程师</span>
+        <div class="user-avatar">J</div>
+        <span class="user-name">John Engineer</span>
         <i class="ri-arrow-down-s-line" style="color:#94a3b8"></i>
       </div>
     </div>
   </header>
 
 
-  <!-- 主内容区 -->
+  <!-- Main Content Area -->
   <main class="main-content">
     <div class="content-wrapper">
 
-      <!-- 页面标题 -->
+      <!-- Page Title -->
       <div class="page-header">
         <div class="page-title-group">
-          <h1 class="page-title">我的报名</h1>
+          <h1 class="page-title">My Registrations</h1>
           <div class="breadcrumb">
-            <a href="../index.html">首页</a>
+            <a href="../index.html">Home</a>
             <i class="ri-arrow-right-s-line"></i>
-            <span>我的报名</span>
+            <span>My Registrations</span>
           </div>
         </div>
       </div>
 
-      <!-- 待开始 workshops -->
+      <!-- Upcoming workshops -->
       <div class="section-title">
         <i class="ri-calendar-event-line"></i>
-        待开始
+        Upcoming
         <span class="count">3</span>
       </div>
       <div class="workshop-grid">
         <div class="workshop-card">
           <div class="workshop-header">
-            <div class="workshop-title">2026年度井控技术专项培训</div>
-            <span class="workshop-status upcoming"><i class="ri-time-line"></i> 即将开始</span>
+            <div class="workshop-title">2026 Well Control Technical Training</div>
+            <span class="workshop-status upcoming"><i class="ri-time-line"></i> Upcoming</span>
           </div>
           <div class="workshop-meta">
             <div class="workshop-meta-row"><i class="ri-calendar-line"></i> 2026-05-10 ~ 2026-05-14</div>
-            <div class="workshop-meta-row"><i class="ri-map-pin-line"></i> 华北油田培训中心 A座</div>
-            <div class="workshop-meta-row"><i class="ri-user-star-line"></i> 讲师: 王建国 教授</div>
-            <div class="workshop-meta-row"><i class="ri-group-line"></i> 已报名 24 / 30 人</div>
+            <div class="workshop-meta-row"><i class="ri-map-pin-line"></i> Huabei Training Center, Building A</div>
+            <div class="workshop-meta-row"><i class="ri-user-star-line"></i> Instructor:  Prof. Wang Jianguo</div>
+            <div class="workshop-meta-row"><i class="ri-group-line"></i> Registered 24 / 30 </div>
           </div>
           <div class="workshop-footer">
-            <span class="workshop-result none"><i class="ri-file-list-line"></i> 暂无考核结果</span>
-            <button class="btn-cancel" data-action="cancel"><i class="ri-close-line"></i> 取消报名</button>
+            <span class="workshop-result none"><i class="ri-file-list-line"></i> No assessment results</span>
+            <button class="btn-cancel" data-action="cancel"><i class="ri-close-line"></i> Cancel Registration</button>
           </div>
         </div>
 
         <div class="workshop-card">
           <div class="workshop-header">
-            <div class="workshop-title">海上平台安全作业实操演练</div>
-            <span class="workshop-status ongoing"><i class="ri-loader-4-line"></i> 报名中</span>
+            <div class="workshop-title">Offshore Platform Safety Operation Drill</div>
+            <span class="workshop-status ongoing"><i class="ri-loader-4-line"></i> Open</span>
           </div>
           <div class="workshop-meta">
             <div class="workshop-meta-row"><i class="ri-calendar-line"></i> 2026-06-02 ~ 2026-06-04</div>
-            <div class="workshop-meta-row"><i class="ri-map-pin-line"></i> 渤海湾培训基地</div>
-            <div class="workshop-meta-row"><i class="ri-user-star-line"></i> 讲师: 李明海 高级工程师</div>
-            <div class="workshop-meta-row"><i class="ri-group-line"></i> 已报名 18 / 25 人</div>
+            <div class="workshop-meta-row"><i class="ri-map-pin-line"></i> Bohai Bay Training Base</div>
+            <div class="workshop-meta-row"><i class="ri-user-star-line"></i> Instructor:  Sr. Engineer Li Minghai</div>
+            <div class="workshop-meta-row"><i class="ri-group-line"></i> Registered 18 / 25 </div>
           </div>
           <div class="workshop-footer">
-            <span class="workshop-result none"><i class="ri-file-list-line"></i> 暂无考核结果</span>
-            <button class="btn-cancel" data-action="cancel"><i class="ri-close-line"></i> 取消报名</button>
+            <span class="workshop-result none"><i class="ri-file-list-line"></i> No assessment results</span>
+            <button class="btn-cancel" data-action="cancel"><i class="ri-close-line"></i> Cancel Registration</button>
           </div>
         </div>
 
         <div class="workshop-card">
           <div class="workshop-header">
-            <div class="workshop-title">智能油田数字化运维技术研讨</div>
-            <span class="workshop-status upcoming"><i class="ri-time-line"></i> 即将开始</span>
+            <div class="workshop-title">Smart Oilfield Digital Operations Seminar</div>
+            <span class="workshop-status upcoming"><i class="ri-time-line"></i> Upcoming</span>
           </div>
           <div class="workshop-meta">
             <div class="workshop-meta-row"><i class="ri-calendar-line"></i> 2026-07-15 ~ 2026-07-17</div>
-            <div class="workshop-meta-row"><i class="ri-map-pin-line"></i> 北京石油管理干部学院</div>
-            <div class="workshop-meta-row"><i class="ri-user-star-line"></i> 讲师: 陈晓东 首席专家</div>
-            <div class="workshop-meta-row"><i class="ri-group-line"></i> 已报名 42 / 50 人</div>
+            <div class="workshop-meta-row"><i class="ri-map-pin-line"></i> Beijing Petroleum Management Institute</div>
+            <div class="workshop-meta-row"><i class="ri-user-star-line"></i> Instructor:  Chief Expert Chen Xiaodong</div>
+            <div class="workshop-meta-row"><i class="ri-group-line"></i> Registered 42 / 50 </div>
           </div>
           <div class="workshop-footer">
-            <span class="workshop-result none"><i class="ri-file-list-line"></i> 暂无考核结果</span>
-            <button class="btn-cancel" data-action="cancel"><i class="ri-close-line"></i> 取消报名</button>
+            <span class="workshop-result none"><i class="ri-file-list-line"></i> No assessment results</span>
+            <button class="btn-cancel" data-action="cancel"><i class="ri-close-line"></i> Cancel Registration</button>
           </div>
         </div>
       </div>
 
-      <!-- 已结束 workshops -->
+      <!-- Ended workshops -->
       <div class="section-title">
         <i class="ri-calendar-check-line"></i>
-        已结束
+        Ended
         <span class="count">4</span>
       </div>
       <div class="workshop-grid">
         <div class="workshop-card">
           <div class="workshop-header">
-            <div class="workshop-title">2026春季HSE管理体系内审员培训</div>
-            <span class="workshop-status ended"><i class="ri-check-line"></i> 已结束</span>
+            <div class="workshop-title">2026 Spring HSE Internal Auditor Training</div>
+            <span class="workshop-status ended"><i class="ri-check-line"></i> Ended</span>
           </div>
           <div class="workshop-meta">
             <div class="workshop-meta-row"><i class="ri-calendar-line"></i> 2026-03-01 ~ 2026-03-05</div>
-            <div class="workshop-meta-row"><i class="ri-map-pin-line"></i> 华北油田培训中心 B座</div>
-            <div class="workshop-meta-row"><i class="ri-user-star-line"></i> 讲师: 赵丽华 审核专家</div>
-            <div class="workshop-meta-row"><i class="ri-group-line"></i> 参与人数 28 人</div>
+            <div class="workshop-meta-row"><i class="ri-map-pin-line"></i> Huabei Training Center, Building B</div>
+            <div class="workshop-meta-row"><i class="ri-user-star-line"></i> Instructor:  Audit Specialist Zhao Lihua</div>
+            <div class="workshop-meta-row"><i class="ri-group-line"></i> Participants 28 </div>
           </div>
           <div class="workshop-footer">
-            <span class="workshop-result pass"><i class="ri-medal-line"></i> 考核通过 (92分)</span>
-            <button class="btn-view"><i class="ri-file-list-line"></i> 查看证书</button>
+            <span class="workshop-result pass"><i class="ri-medal-line"></i> Passed (92 pts)</span>
+            <button class="btn-view"><i class="ri-file-list-line"></i> View Certificate</button>
           </div>
         </div>
 
         <div class="workshop-card">
           <div class="workshop-header">
-            <div class="workshop-title">钻井液性能优化与现场应用</div>
-            <span class="workshop-status ended"><i class="ri-check-line"></i> 已结束</span>
+            <div class="workshop-title">Drilling Fluid Optimization & Field Application</div>
+            <span class="workshop-status ended"><i class="ri-check-line"></i> Ended</span>
           </div>
           <div class="workshop-meta">
             <div class="workshop-meta-row"><i class="ri-calendar-line"></i> 2026-01-10 ~ 2026-01-12</div>
-            <div class="workshop-meta-row"><i class="ri-map-pin-line"></i> 胜利油田技术学院</div>
-            <div class="workshop-meta-row"><i class="ri-user-star-line"></i> 讲师: 孙志强 技术总监</div>
-            <div class="workshop-meta-row"><i class="ri-group-line"></i> 参与人数 35 人</div>
+            <div class="workshop-meta-row"><i class="ri-map-pin-line"></i> Shengli Oilfield Technical College</div>
+            <div class="workshop-meta-row"><i class="ri-user-star-line"></i> Instructor:  Technical Director Sun Zhiqiang</div>
+            <div class="workshop-meta-row"><i class="ri-group-line"></i> Participants 35 </div>
           </div>
           <div class="workshop-footer">
-            <span class="workshop-result pass"><i class="ri-medal-line"></i> 考核通过 (88分)</span>
-            <button class="btn-view"><i class="ri-file-list-line"></i> 查看证书</button>
+            <span class="workshop-result pass"><i class="ri-medal-line"></i> Passed (88 pts)</span>
+            <button class="btn-view"><i class="ri-file-list-line"></i> View Certificate</button>
           </div>
         </div>
 
         <div class="workshop-card">
           <div class="workshop-header">
-            <div class="workshop-title">油气储运设施完整性管理</div>
-            <span class="workshop-status ended"><i class="ri-check-line"></i> 已结束</span>
+            <div class="workshop-title">Oil & Gas Storage Integrity Management</div>
+            <span class="workshop-status ended"><i class="ri-check-line"></i> Ended</span>
           </div>
           <div class="workshop-meta">
             <div class="workshop-meta-row"><i class="ri-calendar-line"></i> 2025-11-20 ~ 2025-11-22</div>
-            <div class="workshop-meta-row"><i class="ri-map-pin-line"></i> 管道局培训中心</div>
-            <div class="workshop-meta-row"><i class="ri-user-star-line"></i> 讲师: 周海涛 高级工程师</div>
-            <div class="workshop-meta-row"><i class="ri-group-line"></i> 参与人数 40 人</div>
+            <div class="workshop-meta-row"><i class="ri-map-pin-line"></i> Pipeline Bureau Training Center</div>
+            <div class="workshop-meta-row"><i class="ri-user-star-line"></i> Instructor:  Sr. Engineer Zhou Haitao</div>
+            <div class="workshop-meta-row"><i class="ri-group-line"></i> Participants 40 </div>
           </div>
           <div class="workshop-footer">
-            <span class="workshop-result fail"><i class="ri-close-circle-line"></i> 考核未通过 (58分)</span>
-            <button class="btn-view"><i class="ri-file-list-line"></i> 查看详情</button>
+            <span class="workshop-result fail"><i class="ri-close-circle-line"></i> Failed (58 pts)</span>
+            <button class="btn-view"><i class="ri-file-list-line"></i> View Details</button>
           </div>
         </div>
 
         <div class="workshop-card">
           <div class="workshop-header">
-            <div class="workshop-title">2025冬季安全生产专项培训</div>
-            <span class="workshop-status ended"><i class="ri-check-line"></i> 已结束</span>
+            <div class="workshop-title">2025 Winter Safety Production Training</div>
+            <span class="workshop-status ended"><i class="ri-check-line"></i> Ended</span>
           </div>
           <div class="workshop-meta">
             <div class="workshop-meta-row"><i class="ri-calendar-line"></i> 2025-12-05 ~ 2025-12-06</div>
-            <div class="workshop-meta-row"><i class="ri-map-pin-line"></i> 华北油田培训中心 A座</div>
-            <div class="workshop-meta-row"><i class="ri-user-star-line"></i> 讲师: 吴安全 安全总监</div>
-            <div class="workshop-meta-row"><i class="ri-group-line"></i> 参与人数 56 人</div>
+            <div class="workshop-meta-row"><i class="ri-map-pin-line"></i> Huabei Training Center, Building A</div>
+            <div class="workshop-meta-row"><i class="ri-user-star-line"></i> Instructor:  Safety Director Wu Anquan</div>
+            <div class="workshop-meta-row"><i class="ri-group-line"></i> Participants 56 </div>
           </div>
           <div class="workshop-footer">
-            <span class="workshop-result pass"><i class="ri-medal-line"></i> 考核通过 (95分)</span>
-            <button class="btn-view"><i class="ri-file-list-line"></i> 查看证书</button>
+            <span class="workshop-result pass"><i class="ri-medal-line"></i> Passed (95 pts)</span>
+            <button class="btn-view"><i class="ri-file-list-line"></i> View Certificate</button>
           </div>
         </div>
       </div>
@@ -670,7 +666,7 @@
     (function() {
       'use strict';
 
-      // ---- 搜索框交互 ----
+      // ---- Search框交互 ----
       const searchInput = document.querySelector('.search-box input');
       if (searchInput) {
         searchInput.addEventListener('focus', () => {
@@ -681,12 +677,12 @@
         });
       }
 
-      // ---- 取消报名 ----
+      // ---- Cancel Registration ----
       document.querySelectorAll('.btn-cancel').forEach(btn => {
         btn.addEventListener('click', function() {
           const card = this.closest('.workshop-card');
           const title = card.querySelector('.workshop-title').textContent;
-          if (confirm('确定要取消报名「' + title + '」吗？')) {
+          if (confirm('Are you sure you want to cancel registration for "' + title + '"?')) {
             card.style.transition = 'all 0.4s cubic-bezier(0.16,1,0.3,1)';
             card.style.opacity = '0';
             card.style.transform = 'translateY(-10px)';
@@ -699,12 +695,12 @@
         });
       });
 
-      // ---- 查看证书/详情 ----
+      // ---- View Certificate/详情 ----
       document.querySelectorAll('.btn-view').forEach(btn => {
         btn.addEventListener('click', function() {
           const card = this.closest('.workshop-card');
           const title = card.querySelector('.workshop-title').textContent;
-          alert('正在加载「' + title + '」的详细信息...');
+          alert('Loading "' + title + '" details...');
         });
       });
 

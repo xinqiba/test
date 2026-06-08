@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>知识矩阵 - 慧眼能力管理与发展系统</title>
+    <title>Knowledge Matrix - Insight Competency System</title>
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
     <style>
         /* ============================================
-           基础重置与设计令牌
+           Base Reset & Design Tokens
            ============================================ */
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
@@ -30,7 +30,7 @@
             --disc-slate: #64748b; --disc-purple: #8b5cf6;
         }
 
-        /* ---- 顶部导航栏 ---- */
+        /* ---- Top Navigation Bar ---- */
         .topbar {
             position: fixed; top: 0; left: 0; right: 0; height: var(--topbar-height);
             background: rgba(255,255,255,0.95); backdrop-filter: blur(20px);
@@ -80,7 +80,7 @@
         .user-dropdown a:hover { background: #f1f5f9; color: var(--deep-blue); }
         .user-dropdown a i { font-size: 1rem; color: #94a3b8; width: 20px; text-align: center; }
 
-        /* ---- 导航下拉菜单 ---- */
+        /* ---- Navigation Dropdown Menu ---- */
         .nav-dropdown { position: relative; }
         .nav-dropdown-toggle { cursor: pointer; }
         .nav-dropdown-menu {
@@ -109,13 +109,13 @@
         .nav-sub-menu a:hover { background: #f1f5f9; color: #1a202c; }
         .nav-sub-menu a.active { background: rgba(26,54,93,0.08); color: var(--deep-blue); font-weight: 600; }
 
-        /* ---- 主内容区 ---- */
+        /* ---- Main Content Area ---- */
         .main-content {
             max-width: 1400px; margin: var(--topbar-height) auto 0;
             min-height: calc(100vh - var(--topbar-height)); padding: 24px 28px;
         }
 
-        /* ---- 页面头部 ---- */
+        /* ---- Page Header ---- */
         .page-header { margin-bottom: 28px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
         .page-title { font-size: 1.5rem; font-weight: 700; color: #0f172a; }
         .breadcrumb { display: flex; align-items: center; gap: 6px; font-size: 0.8rem; color: #94a3b8; }
@@ -125,7 +125,7 @@
         .breadcrumb .current { color: var(--deep-blue); font-weight: 500; }
         .header-actions { display: flex; gap: 10px; }
 
-        /* ---- 按钮 ---- */
+        /* ---- Buttons ---- */
         .btn {
             display: inline-flex; align-items: center; gap: 6px; padding: 10px 20px;
             font-size: 0.875rem; font-weight: 500; border-radius: 8px; transition: all 0.2s;
@@ -140,7 +140,7 @@
         .btn-sm { padding: 6px 12px; font-size: 0.8rem; }
         .btn-lg { padding: 14px 28px; font-size: 1rem; }
 
-        /* ---- 学科卡片网格 ---- */
+        /* ---- Discipline Card Grid ---- */
         .view-container { display: none; }
         .view-container.active { display: block; animation: fadeInUp 0.4s ease; }
         .discipline-grid {
@@ -168,7 +168,7 @@
         .disc-card .stat-label { font-size: 0.7rem; color: #94a3b8; }
         .disc-card .mini-ring { width: 52px; height: 52px; flex-shrink: 0; margin-left: auto; }
 
-        /* 学科颜色 */
+        /* Discipline Colors */
         .disc-wells::before { background: var(--disc-blue); }
         .disc-wells .card-icon { background: rgba(59,130,246,0.1); color: var(--disc-blue); }
         .disc-hse::before { background: var(--disc-orange); }
@@ -186,7 +186,7 @@
         .disc-btec::before { background: var(--disc-purple); }
         .disc-btec .card-icon { background: rgba(139,92,246,0.1); color: var(--disc-purple); }
 
-        /* ---- 进度仪表盘 ---- */
+        /* ---- Progress Dashboard ---- */
         .progress-dashboard { display: grid; grid-template-columns: 320px 1fr; gap: 24px; margin-bottom: 28px; }
         .progress-ring-card {
             background: #fff; border-radius: 16px; padding: 32px; border: 1px solid #e2e8f0;
@@ -204,7 +204,7 @@
         }
         .summary-title { font-size: 0.875rem; font-weight: 600; color: #0f172a; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
 
-        /* ---- 学科进度条 ---- */
+        /* ---- Discipline Progress Bars ---- */
         .disc-progress-list { display: flex; flex-direction: column; gap: 12px; }
         .disc-progress-item { display: flex; align-items: center; gap: 12px; cursor: pointer; padding: 8px; border-radius: 8px; transition: background 0.15s; }
         .disc-progress-item:hover { background: #f8fafc; }
@@ -214,7 +214,7 @@
         .disc-progress-bar-fill { height: 100%; border-radius: 3px; transition: width 0.8s ease; }
         .disc-progress-pct { width: 40px; text-align: right; font-size: 0.8rem; font-weight: 600; color: #64748b; flex-shrink: 0; }
 
-        /* ---- 三级树导航（学科详情） ---- */
+        /* ---- Three-Level Tree Navigation (Discipline Detail) ---- */
         .discipline-detail { display: grid; grid-template-columns: 300px 1fr; gap: 24px; }
         .tree-panel {
             background: #fff; border-radius: 16px; border: 1px solid #e2e8f0; padding: 16px 0;
@@ -256,7 +256,7 @@
         }
         .detail-panel { min-height: 400px; }
 
-        /* ---- 幻灯片播放器 ---- */
+        /* ---- Slide Player ---- */
         .slide-player {
             background: #fff; border-radius: 16px; border: 1px solid #e2e8f0; overflow: hidden;
         }
@@ -293,7 +293,7 @@
         .slide-dot.completed { background: #22c55e; }
         .slide-nav-btns { display: flex; gap: 8px; }
 
-        /* 继续/重新开始入口 */
+        /* Resume / Restart Entry */
         .resume-banner {
             background: linear-gradient(135deg, rgba(200,149,108,0.08), rgba(200,149,108,0.02));
             border: 1px solid rgba(200,149,108,0.2); border-radius: 12px; padding: 16px 20px;
@@ -305,7 +305,7 @@
         .resume-banner .resume-desc { font-size: 0.8rem; color: #64748b; }
         .resume-btns { display: flex; gap: 8px; }
 
-        /* ---- 测试系统 ---- */
+        /* ---- Test System ---- */
         .test-player {
             background: #fff; border-radius: 16px; border: 1px solid #e2e8f0; overflow: hidden;
         }
@@ -372,7 +372,7 @@
         .review-item.correct-r { background: rgba(34,197,94,0.06); border: 1px solid rgba(34,197,94,0.2); }
         .review-item.wrong-r { background: rgba(239,68,68,0.06); border: 1px solid rgba(239,68,68,0.2); }
 
-        /* ---- 统计表格 ---- */
+        /* ---- Data Table ---- */
         .data-table-wrap { overflow-x: auto; }
         .data-table {
             width: 100%; border-collapse: collapse; font-size: 0.825rem;
@@ -395,7 +395,7 @@
         .pct-cell.mid { color: var(--amber); }
         .pct-cell.low { color: #94a3b8; }
 
-        /* ---- 时间轴 ---- */
+        /* ---- Timeline ---- */
         .timeline { position: relative; padding-left: 24px; }
         .timeline::before {
             content: ''; position: absolute; left: 7px; top: 4px; bottom: 4px;
@@ -419,7 +419,7 @@
         .status-badge.started { background: rgba(245,158,11,0.12); color: #f59e0b; }
         .status-badge.completed { background: rgba(34,197,94,0.12); color: #22c55e; }
 
-        /* ---- Tab 组件 ---- */
+        /* ---- Tab Component ---- */
         .tabs-container { margin-bottom: 20px; }
         .tabs { display: flex; gap: 4px; border-bottom: 2px solid #e2e8f0; }
         .tab {
@@ -441,14 +441,14 @@
         }
         .toast.show { opacity: 1; }
 
-        /* ---- 空状态 ---- */
+        /* ---- Empty Status ---- */
         .empty-state {
             text-align: center; padding: 60px 20px; color: #94a3b8;
         }
         .empty-state i { font-size: 3rem; margin-bottom: 12px; display: block; }
         .empty-state p { font-size: 0.9rem; }
 
-        /* ---- 动画 ---- */
+        /* ---- Animations ---- */
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         @keyframes shimmer {
@@ -456,7 +456,7 @@
             100% { background-position: calc(200px + 100%) 0; }
         }
 
-        /* ---- 响应式 ---- */
+        /* ---- Responsive ---- */
         @media (max-width: 1440px) {
             .discipline-grid { grid-template-columns: repeat(4, 1fr); }
         }
@@ -501,45 +501,41 @@
 </head>
 <body>
 
-<!-- 顶部导航栏 -->
+<!-- Topbar -->
 <nav class="topbar">
     <div class="topbar-left">
-        <button class="menu-toggle" id="menuToggle" aria-label="菜单"><i class="ri-menu-line"></i></button>
+        <button class="menu-toggle" id="menuToggle" aria-label="Menu"><i class="ri-menu-line"></i></button>
         <div class="brand">
-            <div class="brand-logo">慧</div>
-            <div class="brand-text">慧眼 <span>系统</span></div>
+            <div class="brand-logo"><i class="ri-eye-line"></i></div>
+            <div class="brand-text">Insight <span>System</span></div>
         </div>
         <div class="topbar-nav">
-            <a href="../index.html">首页</a>
-            <a href="about.html">关于我们</a>
-            <a href="news.html">新闻公告</a>
+            <a href="../index.html">Home</a>
+            <a href="about.html">About Us</a>
+            <a href="news.html">News & Announcements</a>
             <div class="nav-dropdown">
-                <a href="#" class="nav-dropdown-toggle">在线学习 <i class="ri-arrow-down-s-line"></i></a>
+                <a href="#" class="nav-dropdown-toggle">E-Learning <i class="ri-arrow-down-s-line"></i></a>
                 <div class="nav-dropdown-menu">
-                    <a href="knowledge.html" class="active">知识矩阵</a>
-                    <a href="skill.html">技能矩阵</a>
-                    <a href="workshop.html">经验工作坊</a>
-                    <a href="assessment.html">评估认证</a>
+                    <a href="knowledge.html">Knowledge Matrix</a>
+                    <a href="skill.html">Skill Matrix</a>
+                    <a href="workshop.html">Workshop</a>
+                    <a href="assessment.html">Assessment & Certification</a>
+
                 </div>
             </div>
             <div class="nav-dropdown">
-                <a href="#" class="nav-dropdown-toggle">Insight CA 系统 <i class="ri-arrow-down-s-line"></i></a>
+                <a href="#" class="nav-dropdown-toggle">Insight CA System <i class="ri-arrow-down-s-line"></i></a>
                 <div class="nav-dropdown-menu">
-                    <div class="nav-sub-dropdown">
-                        <a href="#" class="nav-sub-toggle">Matrix 管理 <i class="ri-arrow-right-s-line"></i></a>
-                        <div class="nav-sub-menu">
-                            <a href="my-skills.html">档案管理</a>
-                            <a href="reports.html">数据图表</a>
-                            <a href="my-learning.html">课程成绩</a>
-                            <a href="course-learn.html">课程学习</a>
-                        </div>
-                    </div>
+                    <a href="my-skills.html">Profile Management</a>
+                    <a href="reports.html">Data & Reports</a>
+                    <a href="my-learning.html">Course Grades</a>
+                    <a href="course-learn.html">Course Learning</a>
                 </div>
             </div>
             <div class="nav-dropdown">
-                <a href="#" class="nav-dropdown-toggle">Insight HSSE 管理 <i class="ri-arrow-down-s-line"></i></a>
+                <a href="#" class="nav-dropdown-toggle">Insight HSSE Management <i class="ri-arrow-down-s-line"></i></a>
                 <div class="nav-dropdown-menu">
-                    <a href="ptw.html">PTW 作业许可</a>
+                    <a href="ptw.html">PTW Work Permit</a>
                     <a href="compliance.html">HSSE Passport</a>
                 </div>
             </div>
@@ -547,58 +543,58 @@
     </div>
     <div class="topbar-right">
         <div class="search-box">
-            <input type="text" placeholder="搜索课程..." id="globalSearch">
+            <input type="text" placeholder="Search courses..." id="globalSearch">
             <i class="ri-search-line"></i>
         </div>
         <div class="user-menu" id="userMenuBtn">
-            <div class="user-avatar">张</div>
-            <span class="user-name">张工程师</span>
+            <div class="user-avatar">J</div>
+            <span class="user-name">John Engineer</span>
             <i class="ri-arrow-down-s-line" style="font-size:0.75rem;color:#94a3b8;"></i>
         </div>
         <div class="user-dropdown" id="userDropdown">
-            <a href="my-learning.html"><i class="ri-history-line"></i> 我的进度</a>
-            <a href="my-skills.html"><i class="ri-medal-line"></i> 我的能力矩阵</a>
-            <a href="profile.html"><i class="ri-user-line"></i> 个人资料</a>
-            <a href="login.html"><i class="ri-logout-box-line"></i> 退出</a>
+            <a href="my-learning.html"><i class="ri-history-line"></i> My Progress</a>
+            <a href="my-skills.html"><i class="ri-medal-line"></i> My Competency Matrix</a>
+            <a href="profile.html"><i class="ri-user-line"></i> Profile</a>
+            <a href="login.html"><i class="ri-logout-box-line"></i> Logout</a>
         </div>
     </div>
 </nav>
 
 
-<!-- 主内容区 -->
+<!-- Main Content Area -->
 <main class="main-content" id="mainContent">
     <!-- 页面头部 -->
     <div class="page-header">
         <div>
-            <h1 class="page-title" id="pageTitle">知识矩阵</h1>
+            <h1 class="page-title" id="pageTitle">Knowledge Matrix</h1>
             <div class="breadcrumb" id="breadcrumb">
-                <a href="../index.html">首页</a>
+                <a href="../index.html">Home</a>
                 <i class="ri-arrow-right-s-line"></i>
-                <span>在线学习</span>
+                <span>E-Learning</span>
                 <i class="ri-arrow-right-s-line"></i>
-                <span class="current">知识矩阵</span>
+                <span class="current">Knowledge Matrix</span>
             </div>
         </div>
         <div class="header-actions">
-            <button class="btn btn-secondary btn-sm" id="btnMyProgress"><i class="ri-pie-chart-line"></i> 我的进度</button>
+            <button class="btn btn-secondary btn-sm" id="btnMyProgress"><i class="ri-pie-chart-line"></i> My Progress</button>
         </div>
     </div>
 
-    <!-- 视图1: 学科卡片网格 -->
+    <!-- 视图1: Discipline Card Grid -->
     <div class="view-container active" id="view-disciplines">
         <div class="discipline-grid" id="disciplineGrid"></div>
     </div>
 
-    <!-- 视图2: 学科详情（科目+单元树） -->
+    <!-- 视图2: 学科详情（科目+Units树） -->
     <div class="view-container" id="view-subject">
         <div class="discipline-detail">
             <div class="tree-panel" id="treePanel"></div>
             <div class="detail-panel" id="detailPanel">
                 <div class="empty-state" id="detailEmpty">
                     <i class="ri-arrow-left-line"></i>
-                    <p>从左侧选择一个学习单元开始学习</p>
+                    <p>Select a learning unit from the left to start</p>
                 </div>
-                <!-- 幻灯片播放器 -->
+                <!-- Slide Player -->
                 <div class="slide-player" id="slidePlayer" style="display:none;">
                     <div class="slide-header">
                         <span class="slide-title" id="slideUnitTitle"></span>
@@ -608,12 +604,12 @@
                     <div class="slide-footer">
                         <div class="slide-dots" id="slideDots"></div>
                         <div class="slide-nav-btns">
-                            <button class="btn btn-secondary btn-sm" id="btnPrevSlide" disabled><i class="ri-arrow-left-line"></i> 上一页</button>
-                            <button class="btn btn-primary btn-sm" id="btnNextSlide">下一页 <i class="ri-arrow-right-line"></i></button>
+                            <button class="btn btn-secondary btn-sm" id="btnPrevSlide" disabled><i class="ri-arrow-left-line"></i> Previous</button>
+                            <button class="btn btn-primary btn-sm" id="btnNextSlide">Next <i class="ri-arrow-right-line"></i></button>
                         </div>
                     </div>
                 </div>
-                <!-- 测试播放器 -->
+                <!-- Test Player -->
                 <div class="test-player" id="testPlayer" style="display:none;">
                     <div class="test-header">
                         <span class="slide-title" id="testUnitTitle"></span>
@@ -622,18 +618,18 @@
                     <div class="test-progress-bar"><div class="test-progress-fill" id="testProgressFill" style="width:0%"></div></div>
                     <div class="test-body" id="testBody"></div>
                     <div class="test-footer">
-                        <button class="btn btn-secondary btn-sm" id="btnPrevQuestion" disabled><i class="ri-arrow-left-line"></i> 上一题</button>
-                        <button class="btn btn-primary btn-sm" id="btnNextQuestion">下一题 <i class="ri-arrow-right-line"></i></button>
-                        <button class="btn btn-primary btn-sm" id="btnSubmitTest" style="display:none;">提交 <i class="ri-check-line"></i></button>
+                        <button class="btn btn-secondary btn-sm" id="btnPrevQuestion" disabled><i class="ri-arrow-left-line"></i> Previous</button>
+                        <button class="btn btn-primary btn-sm" id="btnNextQuestion">Next <i class="ri-arrow-right-line"></i></button>
+                        <button class="btn btn-primary btn-sm" id="btnSubmitTest" style="display:none;">Submit <i class="ri-check-line"></i></button>
                     </div>
                 </div>
-                <!-- 测试结果 -->
+                <!-- Test Results -->
                 <div class="test-player" id="testResult" style="display:none;"></div>
             </div>
         </div>
     </div>
 
-    <!-- 视图3: 我的进度仪表盘 -->
+    <!-- 视图3: My Progress Dashboard -->
     <div class="view-container" id="view-progress">
         <div class="progress-dashboard">
             <div class="progress-ring-card">
@@ -645,24 +641,24 @@
                     </svg>
                     <div class="ring-center">
                         <span class="ring-pct" id="overallPct">4%</span>
-                        <span class="ring-sub">总进度</span>
+                        <span class="ring-sub">Overall Progress</span>
                     </div>
                 </div>
                 <div style="display:flex;gap:20px;font-size:0.8rem;color:#64748b;">
-                    <span><span style="color:#22c55e;font-weight:600;" id="completedCount">4</span> 已完成</span>
-                    <span><span style="color:#f59e0b;font-weight:600;" id="activeCount">16</span> 学习中</span>
+                    <span><span style="color:#22c55e;font-weight:600;" id="completedCount">4</span> Completed</span>
+                    <span><span style="color:#f59e0b;font-weight:600;" id="activeCount">16</span> In Progress</span>
                 </div>
             </div>
             <div class="progress-summary-card">
-                <div class="summary-title"><i class="ri-bar-chart-horizontal-line"></i> 各学科进度</div>
+                <div class="summary-title"><i class="ri-bar-chart-horizontal-line"></i> Discipline Progress</div>
                 <div class="disc-progress-list" id="discProgressList"></div>
             </div>
         </div>
 
         <div class="tabs-container">
             <div class="tabs">
-                <button class="tab active" data-tab="tab-summary">Summary 摘要</button>
-                <button class="tab" data-tab="tab-activity">Recent Activity 最近活动</button>
+                <button class="tab active" data-tab="tab-summary">Summary</button>
+                <button class="tab" data-tab="tab-activity">Recent Activity</button>
             </div>
         </div>
         <div class="tab-panel active" id="tab-summary">
@@ -692,16 +688,16 @@
 (function() {
     'use strict';
 
-    // ==================== 数据层 ====================
+    // ==================== Data Layer ====================
     const DISCIPLINES = [
-        { id: 6,  name: 'Introduction to Oil & Gas', nameCN: '油气入门',       icon: 'ri-oil-line',          cssClass: 'disc-intro',      color: '#64748b', subjects: [] },
-        { id: 1,  name: 'Wells Engineering',            nameCN: '井工程',         icon: 'ri-drill-line',        cssClass: 'disc-wells',      color: '#3b82f6', subjects: [] },
-        { id: 2,  name: 'Health Safety Environment',    nameCN: 'HSE安全管理',    icon: 'ri-shield-star-line',  cssClass: 'disc-hse',        color: '#f97316', subjects: [] },
-        { id: 3,  name: 'Mechanical Engineering',       nameCN: '机械工程',       icon: 'ri-tools-line',        cssClass: 'disc-mechanical', color: '#22c55e', subjects: [] },
-        { id: 4,  name: 'Instrumentation and Controls', nameCN: '仪表与控制',     icon: 'ri-cpu-line',          cssClass: 'disc-ic',         color: '#ef4444', subjects: [] },
-        { id: 5,  name: 'Process Facilities',           nameCN: '工艺设施与气体处理', icon: 'ri-flask-line',     cssClass: 'disc-process',    color: '#06b6d4', subjects: [] },
-        { id: 93, name: 'Electrical',                   nameCN: '电气工程',       icon: 'ri-flashlight-line',   cssClass: 'disc-electrical', color: '#f59e0b', subjects: [] },
-        { id: 389,name: 'BTEC Competences',             nameCN: 'BTEC能力认证',   icon: 'ri-certificate-line',  cssClass: 'disc-btec',       color: '#8b5cf6', subjects: [] }
+        { id: 6,  name: 'Introduction to Oil & Gas', nameCN: 'Oil & Gas Introduction',       icon: 'ri-oil-line',          cssClass: 'disc-intro',      color: '#64748b', subjects: [] },
+        { id: 1,  name: 'Wells Engineering',            nameCN: 'Wells Engineering',         icon: 'ri-drill-line',        cssClass: 'disc-wells',      color: '#3b82f6', subjects: [] },
+        { id: 2,  name: 'Health Safety Environment',    nameCN: 'HSE Management',    icon: 'ri-shield-star-line',  cssClass: 'disc-hse',        color: '#f97316', subjects: [] },
+        { id: 3,  name: 'Mechanical Engineering',       nameCN: 'Mechanical Engineering',       icon: 'ri-tools-line',        cssClass: 'disc-mechanical', color: '#22c55e', subjects: [] },
+        { id: 4,  name: 'Instrumentation and Controls', nameCN: 'Instrumentation & Controls',     icon: 'ri-cpu-line',          cssClass: 'disc-ic',         color: '#ef4444', subjects: [] },
+        { id: 5,  name: 'Process Facilities',           nameCN: 'Process Facilities & Gas Treatment', icon: 'ri-flask-line',     cssClass: 'disc-process',    color: '#06b6d4', subjects: [] },
+        { id: 93, name: 'Electrical',                   nameCN: 'Electrical Engineering',       icon: 'ri-flashlight-line',   cssClass: 'disc-electrical', color: '#f59e0b', subjects: [] },
+        { id: 389,name: 'BTEC Competences',             nameCN: 'BTEC Competences',   icon: 'ri-certificate-line',  cssClass: 'disc-btec',       color: '#8b5cf6', subjects: [] }
     ];
 
     // Subject & Unit data per discipline
@@ -856,7 +852,7 @@
         }
     };
 
-    // ==================== 状态 ====================
+    // ==================== Status ====================
     let currentView = 'disciplines';
     let currentDiscipline = null;
     let currentUnit = null;
@@ -864,13 +860,13 @@
     let currentQuestionIdx = 0;
     let testAnswers = {};
     let testSubmitted = false;
-    // ==================== DOM引用 ====================
+    // ==================== DOM References ====================
     const $ = (s) => document.querySelector(s);
     const $$ = (s) => document.querySelectorAll(s);
 
     const mainContent = $('#mainContent');
 
-    // ==================== 移动端菜单 ====================
+    // ==================== Mobile Menu ====================
     const topbarNav = document.querySelector('.topbar-nav');
     const menuToggle = $('#menuToggle');
 
@@ -878,7 +874,7 @@
         topbarNav.classList.toggle('mobile-open');
     });
 
-    // 移动端子菜单展开/收起（桌面端 hover，移动端 click）
+    // Mobile submenu toggle (hover on desktop, click on mobile)
     topbarNav.querySelectorAll('.nav-dropdown-toggle, .nav-sub-toggle').forEach(btn => {
         btn.addEventListener('click', function(e) {
             if (window.innerWidth > 1200) return;
@@ -888,7 +884,7 @@
         });
     });
 
-    // 用户菜单
+    // User Menu
     $('#userMenuBtn').addEventListener('click', (e) => {
         e.stopPropagation();
         $('#userDropdown').classList.toggle('show');
@@ -905,7 +901,7 @@
         toastTimer = setTimeout(() => toast.classList.remove('show'), 2500);
     }
 
-    // ==================== 视图切换 ====================
+    // ==================== View Switching ====================
     function switchView(view) {
         currentView = view;
         $$('.view-container').forEach(v => v.classList.remove('active'));
@@ -913,12 +909,12 @@
         if (target) target.classList.add('active');
 
         if (view === 'disciplines') {
-            $('#pageTitle').textContent = '知识矩阵';
-            $('#breadcrumb').innerHTML = '<a href="../index.html">首页</a><i class="ri-arrow-right-s-line"></i><span>在线学习</span><i class="ri-arrow-right-s-line"></i><span class="current">知识矩阵</span>';
+            $('#pageTitle').textContent = 'Knowledge Matrix';
+            $('#breadcrumb').innerHTML = '<a href="../index.html">Home</a><i class="ri-arrow-right-s-line"></i><span>E-Learning</span><i class="ri-arrow-right-s-line"></i><span class="current">Knowledge Matrix</span>';
             $('#btnMyProgress').style.display = '';
         } else if (view === 'progress') {
-            $('#pageTitle').textContent = '我的进度';
-            $('#breadcrumb').innerHTML = '<a href="../index.html">首页</a><i class="ri-arrow-right-s-line"></i><span>在线学习</span><i class="ri-arrow-right-s-line"></i><a href="#" data-view="disciplines">知识矩阵</a><i class="ri-arrow-right-s-line"></i><span class="current">我的进度</span>';
+            $('#pageTitle').textContent = 'My Progress';
+            $('#breadcrumb').innerHTML = '<a href="../index.html">Home</a><i class="ri-arrow-right-s-line"></i><span>E-Learning</span><i class="ri-arrow-right-s-line"></i><a href="#" data-view="disciplines">Knowledge Matrix</a><i class="ri-arrow-right-s-line"></i><span class="current">My Progress</span>';
             $('#btnMyProgress').style.display = 'none';
             renderProgressDashboard();
         }
@@ -936,7 +932,7 @@
         });
     }
 
-    // ==================== 学科卡片 ====================
+    // ==================== Discipline Cards ====================
     function renderDisciplines() {
         const grid = $('#disciplineGrid');
         grid.innerHTML = DISCIPLINES.map(d => {
@@ -947,15 +943,15 @@
             <div class="disc-card ${d.cssClass}" data-disc="${d.id}" onclick="window._showDiscipline(${d.id})">
                 <div class="card-icon"><i class="${d.icon}"></i></div>
                 <div class="card-title">${d.nameCN}</div>
-                <div class="card-meta">${d.name} · ${discProgress.totalUnits} 个学习单元</div>
+                <div class="card-meta">${d.name} · ${discProgress.totalUnits}  learning units</div>
                 <div class="card-stats">
                     <div class="stat-item">
                         <span class="stat-value">${discProgress.completed}</span>
-                        <span class="stat-label">已完成</span>
+                        <span class="stat-label">Completed</span>
                     </div>
                     <div class="stat-item">
                         <span class="stat-value">${discProgress.active}</span>
-                        <span class="stat-label">进行中</span>
+                        <span class="stat-label">In Progress</span>
                     </div>
                     <div class="mini-ring">
                         <svg viewBox="0 0 52 52" width="52" height="52">
@@ -990,7 +986,7 @@
         $$('.view-container').forEach(v => v.classList.remove('active'));
         $('#view-subject').classList.add('active');
         $('#pageTitle').textContent = currentDiscipline.nameCN;
-        $('#breadcrumb').innerHTML = `<a href="../index.html">首页</a><i class="ri-arrow-right-s-line"></i><span>在线学习</span><i class="ri-arrow-right-s-line"></i><a href="#" data-view="disciplines">知识矩阵</a><i class="ri-arrow-right-s-line"></i><span class="current">${currentDiscipline.nameCN}</span>`;
+        $('#breadcrumb').innerHTML = `<a href="../index.html">Home</a><i class="ri-arrow-right-s-line"></i><span>E-Learning</span><i class="ri-arrow-right-s-line"></i><a href="#" data-view="disciplines">Knowledge Matrix</a><i class="ri-arrow-right-s-line"></i><span class="current">${currentDiscipline.nameCN}</span>`;
         $('#btnMyProgress').style.display = '';
         rebindBreadcrumbs();
         renderSubjectTree();
@@ -1004,7 +1000,7 @@
     // Expose showDiscipline globally for onclick
     function showDiscipline(discId) { window._showDiscipline(discId); }
 
-    // ==================== 学科树 ====================
+    // ==================== Subject Tree ====================
     function renderSubjectTree() {
         const panel = $('#treePanel');
         if (!currentDiscipline) return;
@@ -1012,7 +1008,7 @@
         panel.innerHTML = `
             <div class="tree-header">
                 <span>Subject List</span>
-                <span class="tree-collapse-btn" id="treeCollapseAll">${allExpanded ? '折叠全部' : '展开全部'}</span>
+                <span class="tree-collapse-btn" id="treeCollapseAll">${allExpanded ? 'Collapse All' : 'Expand All'}</span>
             </div>
             ${currentDiscipline.subjects.map((s, si) => `
                 <div class="subject-group">
@@ -1056,7 +1052,7 @@
                 panel.querySelectorAll('.unit-list').forEach(l => {
                     if (isAllOpen) { l.classList.remove('open'); } else { l.classList.add('open'); }
                 });
-                this.textContent = isAllOpen ? '展开全部' : '折叠全部';
+                this.textContent = isAllOpen ? 'Expand All' : 'Collapse All';
             });
         }
     }
@@ -1113,7 +1109,7 @@
 
         // Update breadcrumb
         const subject = findSubjectForUnit(unit);
-        $('#breadcrumb').innerHTML = `<a href="../index.html">首页</a><i class="ri-arrow-right-s-line"></i><span>在线学习</span><i class="ri-arrow-right-s-line"></i><a href="#" data-view="disciplines">知识矩阵</a><i class="ri-arrow-right-s-line"></i><a href="#" data-view="subject">${currentDiscipline.nameCN}</a><i class="ri-arrow-right-s-line"></i><span class="current">${subject ? subject.name : unit.name}</span>`;
+        $('#breadcrumb').innerHTML = `<a href="../index.html">Home</a><i class="ri-arrow-right-s-line"></i><span>E-Learning</span><i class="ri-arrow-right-s-line"></i><a href="#" data-view="disciplines">Knowledge Matrix</a><i class="ri-arrow-right-s-line"></i><a href="#" data-view="subject">${currentDiscipline.nameCN}</a><i class="ri-arrow-right-s-line"></i><span class="current">${subject ? subject.name : unit.name}</span>`;
 
         if (unit.isTest) {
             showTestPlayer(unit);
@@ -1137,7 +1133,7 @@
         return null;
     }
 
-    // ==================== 幻灯片播放器 ====================
+    // ==================== Slide Player ====================
     function showSlidePlayer(unit) {
         $('#detailEmpty').style.display = 'none';
         $('#testPlayer').style.display = 'none';
@@ -1156,12 +1152,12 @@
             banner.innerHTML = `
                 <i class="ri-history-line"></i>
                 <div class="resume-text">
-                    <div class="resume-title">上次学习记录</div>
-                    <div class="resume-desc">您上次停在第 ${savedSlide + 1} 张幻灯片（${unit.slides[savedSlide].title}）</div>
+                    <div class="resume-title">Last Learning Record</div>
+                    <div class="resume-desc">You stopped at slide ${savedSlide + 1} （${unit.slides[savedSlide].title}）</div>
                 </div>
                 <div class="resume-btns">
-                    <button class="btn btn-secondary btn-sm" id="btnStartAgain">重新开始</button>
-                    <button class="btn btn-primary btn-sm" id="btnContinue">继续学习</button>
+                    <button class="btn btn-secondary btn-sm" id="btnStartAgain">Restart</button>
+                    <button class="btn btn-primary btn-sm" id="btnContinue">Continue Learning</button>
                 </div>
             `;
             const slideBody = $('#slideBody');
@@ -1220,7 +1216,7 @@
         if (currentSlideIdx === unit.slides.length - 1) {
             // Last slide - show complete button
             const nextBtn = $('#btnNextSlide');
-            nextBtn.textContent = '完成学习';
+            nextBtn.textContent = 'Complete Learning';
             nextBtn.style.display = '';
             nextBtn.className = 'btn btn-primary btn-sm';
             nextBtn.onclick = () => completeUnit(unit);
@@ -1256,23 +1252,23 @@
             status: 'completed',
             endDate: new Date().toISOString().replace('T',' ').substring(0,19)
         };
-        showToast('单元学习完成！');
+        showToast('Unit completed！');
         renderSubjectTree();
         // Show completed state
         $('#slideBody').innerHTML = `
             <div style="text-align:center;padding:40px;">
                 <i class="ri-checkbox-circle-line" style="font-size:4rem;color:#22c55e;"></i>
-                <h2 style="margin-top:16px;color:#0f172a;">学习完成</h2>
-                <p style="color:#64748b;margin-top:8px;">您已完成 "${unit.name}" 的学习</p>
-                <button class="btn btn-primary" style="margin-top:20px;" onclick="window._showDiscipline(${currentDiscipline.id})">返回学科</button>
+                <h2 style="margin-top:16px;color:#0f172a;">Completed</h2>
+                <p style="color:#64748b;margin-top:8px;">You have completed "${unit.name}" </p>
+                <button class="btn btn-primary" style="margin-top:20px;" onclick="window._showDiscipline(${currentDiscipline.id})">Back to Discipline</button>
             </div>`;
         $('#btnPrevSlide').disabled = true;
         $('#btnNextSlide').style.display = 'none';
         $('#slideDots').innerHTML = '';
-        $('#slideCounter').textContent = '已完成';
+        $('#slideCounter').textContent = 'Completed';
     }
 
-    // ==================== 测试播放器 ====================
+    // ==================== Test Player ====================
     function showTestPlayer(unit) {
         $('#detailEmpty').style.display = 'none';
         $('#slidePlayer').style.display = 'none';
@@ -1373,7 +1369,7 @@
             if (ans === undefined || (Array.isArray(ans) && ans.length === 0)) unanswered.push(i + 1);
         });
         if (unanswered.length > 0) {
-            showToast(`请完成第 ${unanswered.join(', ')} 题`);
+            showToast(`Please complete question ${unanswered.join(', ')} `);
             return;
         }
         showTestResult(currentUnit);
@@ -1423,21 +1419,21 @@
             <div class="test-result">
                 <i class="ri-${passed ? 'checkbox-circle-line' : 'close-circle-line'}" style="font-size:3.5rem;color:${passed ? '#22c55e' : '#ef4444'};"></i>
                 <div class="test-score ${passed ? 'pass' : 'fail'}">${score}%</div>
-                <div class="test-msg">${passed ? '恭喜通过测试！' : '未达到及格线（60%），请重新尝试'} · ${correct}/${total} 题正确</div>
+                <div class="test-msg">${passed ? 'Congratulations, you passed!！' : 'Did not pass (60% minimum). Please try again.'} · ${correct}/${total} correct</div>
                 <div class="test-review">
-                    <h4 style="margin-bottom:12px;">答题回顾</h4>
+                    <h4 style="margin-bottom:12px;">Review</h4>
                     ${review.map((r, i) => `
                         <div class="review-item ${r.isCorrect ? 'correct-r' : 'wrong-r'}">
                             <strong>Q${i + 1}:</strong> ${r.q.text}<br>
                             <span style="color:${r.isCorrect ? '#22c55e' : '#ef4444'};">
-                                ${r.isCorrect ? '✓ 正确' : `✗ 错误 · 正确答案: ${r.correctAnsText}`}
+                                ${r.isCorrect ? '✓ Correct' : `✗ Incorrect · Correct answer: ${r.correctAnsText}`}
                             </span>
                         </div>
                     `).join('')}
                 </div>
                 <div style="margin-top:20px;display:flex;gap:10px;justify-content:center;">
                     <button class="btn btn-secondary" onclick="window._retryTest()">Try Again</button>
-                    <button class="btn btn-primary" onclick="window._showDiscipline(${currentDiscipline.id})">返回学科</button>
+                    <button class="btn btn-primary" onclick="window._showDiscipline(${currentDiscipline.id})">Back to Discipline</button>
                 </div>
             </div>`;
 
@@ -1451,7 +1447,7 @@
         showTestPlayer(currentUnit);
     };
 
-    // ==================== 进度仪表盘 ====================
+    // ==================== Progress Dashboard ====================
     function renderProgressDashboard() {
         const allUnits = getAllUnits();
         const total = allUnits.length;
@@ -1563,7 +1559,7 @@
         return units;
     }
 
-    // ==================== Tab 切换 ====================
+    // ==================== Tab Switching ====================
     document.addEventListener('click', function(e) {
         if (e.target.classList.contains('tab')) {
             const tabGroup = e.target.parentElement;
@@ -1577,10 +1573,10 @@
         }
     });
 
-    // ==================== 按钮事件 ====================
+    // ==================== Button Events ====================
     $('#btnMyProgress').addEventListener('click', () => switchView('progress'));
 
-    // 全局搜索
+    // Global Search
     $('#globalSearch').addEventListener('input', function() {
         const query = this.value.toLowerCase().trim();
         if (!query) { renderDisciplines(); return; }
@@ -1601,11 +1597,11 @@
             window._showDiscipline(first.disc.id);
             setTimeout(() => selectUnit(first.unit.id), 300);
         } else {
-            showToast('未找到匹配的学习单元');
+            showToast('No matching learning units found');
         }
     });
 
-    // ==================== 键盘导航 ====================
+    // ==================== Keyboard Navigation ====================
     document.addEventListener('keydown', function(e) {
         if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
         if (currentView === 'subject' && currentUnit && !currentUnit.isTest) {
@@ -1614,7 +1610,7 @@
         }
     });
 
-    // ==================== 初始化 ====================
+    // ==================== Initialization ====================
     function init() {
         renderDisciplines();
         switchView('disciplines');

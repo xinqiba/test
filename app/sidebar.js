@@ -1,37 +1,37 @@
 /**
- * 慧眼系统 - 统一侧边栏菜单组件
- * 自动检测页面 sidebar 结构类型（A/B/C），并渲染统一菜单数据
+ * Insight System - 统Mon侧边栏Menu组件
+ * 自动检测页面 sidebar 结构类型（A/B/C），并渲染统MonMenu数据
  * 在各页面 </body> 前引入：<script src="../app/sidebar.js"></script>
  */
 (function() {
   'use strict';
 
-  // ==================== 统一菜单数据 ====================
+  // ==================== 统MonMenu数据 ====================
   const MENU_DATA = [
     {
       title: '核心模块',
       items: [
-        { name: '知识矩阵', href: 'knowledge.html', icon: 'ri-book-open-line' },
-        { name: '技能矩阵', href: 'skill.html', icon: 'ri-award-line', badge: 3 },
-        { name: '经验工作坊', href: 'workshop.html', icon: 'ri-team-line' },
-        { name: '评估认证', href: 'assessment.html', icon: 'ri-task-line' },
+        { name: 'Knowledge Matrix', href: 'knowledge.html', icon: 'ri-book-open-line' },
+        { name: 'Skill Matrix', href: 'skill.html', icon: 'ri-award-line', badge: 3 },
+        { name: 'Workshop', href: 'workshop.html', icon: 'ri-team-line' },
+        { name: 'Assessment & Certification', href: 'assessment.html', icon: 'ri-task-line' },
       ]
     },
     {
       title: '运营管理',
       items: [
         { name: '工作许可证', href: 'ptw.html', icon: 'ri-shield-check-line' },
-        { name: '合规管理', href: 'compliance.html', icon: 'ri-verified-badge-line' },
+        { name: 'Compliant管理', href: 'compliance.html', icon: 'ri-verified-badge-line' },
         { name: '数据报表', href: 'reports.html', icon: 'ri-bar-chart-2-line' },
       ]
     },
     {
-      title: '个人中心',
+      title: '个中心',
       items: [
-        { name: '个人资料', href: 'profile.html', icon: 'ri-user-line' },
-        { name: '学习进度', href: 'my-learning.html', icon: 'ri-history-line' },
-        { name: '技能档案', href: 'my-skills.html', icon: 'ri-medal-line' },
-        { name: '我的报名', href: 'my-workshops.html', icon: 'ri-calendar-check-line' },
+        { name: 'Profile', href: 'profile.html', icon: 'ri-user-line' },
+        { name: 'Progress', href: 'my-learning.html', icon: 'ri-history-line' },
+        { name: 'Skill Profile', href: 'my-skills.html', icon: 'ri-medal-line' },
+        { name: 'My Registrations', href: 'my-workshops.html', icon: 'ri-calendar-check-line' },
       ]
     }
   ];
@@ -76,7 +76,7 @@
     </div>`;
   }
 
-  // C 型扁平结构（所有 li 在同一 ul 下）
+  // C 型扁平结构（所有 li 在同Mon ul 下）
   function renderSectionC(section, currentPage) {
     const itemsHtml = section.items.map(item => renderItemBC(item, currentPage)).join('');
     return `<li class="section-title">${section.title}</li>${itemsHtml}`;
@@ -98,14 +98,14 @@
     return null;
   }
 
-  // ==================== 统一图标大小 CSS ====================
+  // ==================== 统Mon图标大小 CSS ====================
   function injectIconStyle() {
     const cssId = 'sidebar-unify-style';
     if (document.getElementById(cssId)) return;
     const style = document.createElement('style');
     style.id = cssId;
     style.textContent = `
-      /* 统一 sidebar 图标大小 */
+      /* 统Mon sidebar 图标大小 */
       #sidebar .nav-item i,
       #sidebar .sidebar-menu li a i,
       #sidebar .sidebar-menu li i {
@@ -122,7 +122,7 @@
         height: 1.125rem !important;
         min-width: 24px !important;
       }
-      /* 统一选中样式 */
+      /* 统Mon选中样式 */
       #sidebar .nav-item.active,
       #sidebar .sidebar-menu li a.active {
         color: #1a365d !important;
@@ -162,8 +162,8 @@
     injectIconStyle();
   }
 
-  // ==================== 自动初始化 ====================
-  if (document.readyState === 'loading') {
+  // ==================== 自动Initialization ====================
+  if (document.readyStatus === 'loading') {
     document.addEventListener('DOMContentLoaded', initSidebar);
   } else {
     initSidebar();

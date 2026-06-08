@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HSSE Passport - 慧眼系统</title>
-  <meta name="description" content="石油天然气行业合规管理系统">
+  <title>HSSE Passport - Insight System</title>
+  <meta name="description" content="Oil & Gas IndustryCompliant管理系统">
 
   <!-- 字体 -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -16,7 +16,7 @@
 
   <style>
     /* ============================================
-       基础重置与变量
+       Base Reset & Variables
        ============================================ */
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
@@ -34,13 +34,13 @@
     ul, ol { list-style: none; }
 
     /* ============================================
-       布局系统
+       Layout System
        ============================================ */
     :root {
       --topbar-height: 64px;
     }
 
-    /* ---- 顶部导航栏 ---- */
+    /* ---- Topbar ---- */
     .topbar {
       position: fixed;
       top: 0; left: 0; right: 0;
@@ -102,7 +102,7 @@
     .topbar-nav a.active { color: #1a365d; background: rgba(26,54,93,0.08); font-weight: 600; }
     .topbar-right { display: flex; align-items: center; gap: 16px; }
 
-    /* ---- 导航下拉菜单 ---- */
+    /* ---- Nav Dropdown Menu ---- */
     .nav-dropdown { position: relative; }
     .nav-dropdown-toggle { cursor: pointer; }
     .nav-dropdown-menu {
@@ -183,7 +183,7 @@
       color: #334155;
     }
 
-    /* ---- 主内容区 ---- */
+    /* ---- Main Content Area ---- */
     .main-content {
       flex: 1;
       margin-top: var(--topbar-height);
@@ -193,10 +193,10 @@
     .content-wrapper { padding: 24px 28px; max-width: 1400px; margin: 0 auto; }
 
     /* ============================================
-       页面内容样式
+       Page Content Styles
        ============================================ */
 
-    /* ---- 页面标题区 ---- */
+    /* ---- Page Header ---- */
     .page-header {
       display: flex;
       align-items: center;
@@ -414,7 +414,7 @@
     }
     .card-title i { color: #c8956c; }
 
-    /* ---- 合规监控仪表板 ---- */
+    /* ---- Compliance Monitor仪表板 ---- */
     .compliance-dashboard {
       display: grid;
       grid-template-columns: 2fr 1fr;
@@ -511,7 +511,7 @@
     .badge-link { background: rgba(91,155,213,0.12); color: #5b9bd5; }
     .badge-unlink { background: #f1f5f9; color: #94a3b8; }
 
-    /* ---- 安全护照预审表单 ---- */
+    /* ---- Safety Passport Pre-auditForm ---- */
     .form-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -629,7 +629,7 @@
     .btn-cancel:hover { background: #f1f5f9; }
 
     /* ============================================
-       响应式
+       Responsive
        ============================================ */
     @media (max-width: 1200px) {
       .topbar-nav { display: none; }
@@ -672,47 +672,43 @@
 </head>
 <body>
 
-  <!-- 顶部导航栏 -->
+  <!-- Topbar -->
   <header class="topbar" id="topbar">
     <div class="topbar-left">
-      <button class="menu-toggle" id="menuToggle" aria-label="切换菜单">
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle Menu">
         <i class="ri-menu-line"></i>
       </button>
       <a href="../index.html" class="brand">
         <div class="brand-logo"><i class="ri-eye-line"></i></div>
-        <span class="brand-text">慧眼 <span>系统</span></span>
+        <span class="brand-text">Insight <span>System</span></span>
       </a>
       <nav class="topbar-nav">
-        <a href="../index.html">首页</a>
-        <a href="about.html">关于我们</a>
-        <a href="news.html">新闻公告</a>
+        <a href="../index.html">Home</a>
+        <a href="about.html">About Us</a>
+        <a href="news.html">News & Announcements</a>
         <div class="nav-dropdown">
-            <a href="#" class="nav-dropdown-toggle">在线学习 <i class="ri-arrow-down-s-line"></i></a>
+            <a href="#" class="nav-dropdown-toggle">E-Learning <i class="ri-arrow-down-s-line"></i></a>
             <div class="nav-dropdown-menu">
-                <a href="knowledge.html">知识矩阵</a>
-                <a href="skill.html">技能矩阵</a>
-                <a href="workshop.html">经验工作坊</a>
-                <a href="assessment.html">评估认证</a>
-            </div>
-        </div>
-        <div class="nav-dropdown">
-            <a href="#" class="nav-dropdown-toggle">Insight CA 系统 <i class="ri-arrow-down-s-line"></i></a>
-            <div class="nav-dropdown-menu">
-                <div class="nav-sub-dropdown">
-                    <a href="#" class="nav-sub-toggle">Matrix 管理 <i class="ri-arrow-right-s-line"></i></a>
-                    <div class="nav-sub-menu">
-                        <a href="my-skills.html">档案管理</a>
-                        <a href="reports.html">数据图表</a>
-                        <a href="my-learning.html">课程成绩</a>
-                        <a href="course-learn.html">课程学习</a>
-                    </div>
+                    <a href="knowledge.html">Knowledge Matrix</a>
+                    <a href="skill.html">Skill Matrix</a>
+                    <a href="workshop.html">Workshop</a>
+                    <a href="assessment.html">Assessment & Certification</a>
+
                 </div>
             </div>
-        </div>
-        <div class="nav-dropdown">
-            <a href="#" class="nav-dropdown-toggle">Insight HSSE 管理 <i class="ri-arrow-down-s-line"></i></a>
+            <div class="nav-dropdown">
+                <a href="#" class="nav-dropdown-toggle">Insight CA System <i class="ri-arrow-down-s-line"></i></a>
+                <div class="nav-dropdown-menu">
+                    <a href="my-skills.html">Profile Management</a>
+                    <a href="reports.html">Data & Reports</a>
+                    <a href="my-learning.html">Course Grades</a>
+                    <a href="course-learn.html">Course Learning</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#" class="nav-dropdown-toggle">Insight HSSE Management <i class="ri-arrow-down-s-line"></i></a>
             <div class="nav-dropdown-menu">
-                <a href="ptw.html">PTW 作业许可</a>
+                <a href="ptw.html">PTW Work Permit</a>
                 <a href="compliance.html" class="active">HSSE Passport</a>
             </div>
         </div>
@@ -721,35 +717,35 @@
     <div class="topbar-right">
       <div class="search-box">
         <i class="ri-search-line"></i>
-        <input type="text" placeholder="搜索合规记录、HSE流程...">
+        <input type="text" placeholder="Search compliance records, HSE...">
       </div>
       <div class="user-menu">
-        <div class="user-avatar">张</div>
-        <span class="user-name">张工程师</span>
+        <div class="user-avatar">J</div>
+        <span class="user-name">John Engineer</span>
         <i class="ri-arrow-down-s-line" style="color:#94a3b8"></i>
       </div>
     </div>
   </header>
 
-  <!-- 主内容区 -->
+  <!-- Main Content Area -->
   <main class="main-content">
     <div class="content-wrapper">
 
-      <!-- 页面标题 -->
+      <!-- Page Title -->
       <div class="page-header">
         <div class="page-title-group">
           <h1 class="page-title">HSSE Passport</h1>
           <div class="breadcrumb">
-            <a href="../index.html">首页</a>
+            <a href="../index.html">Home</a>
             <i class="ri-arrow-right-s-line"></i>
-            <span>Insight HSSE 管理</span>
+            <span>Insight HSSE Management</span>
             <i class="ri-arrow-right-s-line"></i>
             <span>HSSE Passport</span>
           </div>
         </div>
         <button class="btn-primary" id="exportBtn">
           <i class="ri-download-line"></i>
-          导出报告
+          Export Report
         </button>
       </div>
 
@@ -758,91 +754,91 @@
         <div class="stat-card">
           <div class="stat-icon green"><i class="ri-shield-check-line"></i></div>
           <div class="stat-info">
-            <div class="stat-label">合规率</div>
+            <div class="stat-label">Compliance Rate</div>
             <div class="stat-value">94.2%</div>
-            <div class="stat-trend"><i class="ri-arrow-up-line"></i> 较上月提升 2.1%</div>
+            <div class="stat-trend"><i class="ri-arrow-up-line"></i> +2.1% vs last month</div>
           </div>
         </div>
         <div class="stat-card">
           <div class="stat-icon red"><i class="ri-error-warning-line"></i></div>
           <div class="stat-info">
-            <div class="stat-label">待整改项</div>
+            <div class="stat-label">Non-Compliances</div>
             <div class="stat-value">12</div>
-            <div class="stat-trend down"><i class="ri-arrow-down-line"></i> 较上月减少 3 项</div>
+            <div class="stat-trend down"><i class="ri-arrow-down-line"></i> -3 vs last month</div>
           </div>
         </div>
         <div class="stat-card">
           <div class="stat-icon gold"><i class="ri-time-line"></i></div>
           <div class="stat-info">
-            <div class="stat-label">到期预警人数</div>
+            <div class="stat-label">Expiring Soon</div>
             <div class="stat-value">28</div>
-            <div class="stat-trend down"><i class="ri-arrow-up-line"></i> 7 日内到期</div>
+            <div class="stat-trend down"><i class="ri-arrow-up-line"></i> Expiring within 7 days</div>
           </div>
         </div>
         <div class="stat-card">
           <div class="stat-icon blue"><i class="ri-file-list-3-line"></i></div>
           <div class="stat-info">
-            <div class="stat-label">合规检查次数</div>
+            <div class="stat-label">Inspections</div>
             <div class="stat-value">156</div>
-            <div class="stat-trend"><i class="ri-arrow-up-line"></i> 本月累计</div>
+            <div class="stat-trend"><i class="ri-arrow-up-line"></i> This Month</div>
           </div>
         </div>
       </div>
 
       <!-- Tab 导航 -->
       <div class="tabs-bar" id="complianceTabs">
-        <button class="tab-btn active" data-tab="monitor">合规监控</button>
+        <button class="tab-btn active" data-tab="monitor">Compliance Monitor</button>
         <button class="tab-btn" data-tab="hse">HSE/HSSE</button>
-        <button class="tab-btn" data-tab="passport">安全护照预审</button>
+        <button class="tab-btn" data-tab="passport">Safety Passport Pre-audit</button>
       </div>
 
-      <!-- 合规监控 Tab -->
+      <!-- Compliance Monitor Tab -->
       <div class="tab-content active" id="tab-monitor">
         <div class="compliance-dashboard">
           <div class="card">
             <div class="card-title">
               <i class="ri-bar-chart-box-line"></i>
-              各部门合规达标情况
+              Department Compliance
             </div>
             <div class="compliance-bars">
               <div class="compliance-bar-item">
                 <div class="compliance-bar-header">
-                  <span class="compliance-bar-label">钻井工程部</span>
+                  <span class="compliance-bar-label">Wells Engineering</span>
                   <span class="compliance-bar-value">98.5%</span>
                 </div>
                 <div class="compliance-bar-track"><div class="compliance-bar-fill high" style="width:98.5%"></div></div>
               </div>
               <div class="compliance-bar-item">
                 <div class="compliance-bar-header">
-                  <span class="compliance-bar-label">采油生产部</span>
+                  <span class="compliance-bar-label">Production Dept</span>
                   <span class="compliance-bar-value">96.2%</span>
                 </div>
                 <div class="compliance-bar-track"><div class="compliance-bar-fill high" style="width:96.2%"></div></div>
               </div>
               <div class="compliance-bar-item">
                 <div class="compliance-bar-header">
-                  <span class="compliance-bar-label">设备维护部</span>
+                  <span class="compliance-bar-label">Maintenance Dept</span>
                   <span class="compliance-bar-value">91.8%</span>
                 </div>
                 <div class="compliance-bar-track"><div class="compliance-bar-fill medium" style="width:91.8%"></div></div>
               </div>
               <div class="compliance-bar-item">
                 <div class="compliance-bar-header">
-                  <span class="compliance-bar-label">储运物流部</span>
+                  <span class="compliance-bar-label">Logistics Dept</span>
                   <span class="compliance-bar-value">89.3%</span>
                 </div>
                 <div class="compliance-bar-track"><div class="compliance-bar-fill medium" style="width:89.3%"></div></div>
               </div>
               <div class="compliance-bar-item">
                 <div class="compliance-bar-header">
-                  <span class="compliance-bar-label">安全环保部</span>
+                  <span class="compliance-bar-label">HSE Dept</span>
                   <span class="compliance-bar-value">99.1%</span>
                 </div>
                 <div class="compliance-bar-track"><div class="compliance-bar-fill high" style="width:99.1%"></div></div>
               </div>
               <div class="compliance-bar-item">
                 <div class="compliance-bar-header">
-                  <span class="compliance-bar-label">外协承包商</span>
+                  <span class="compliance-bar-label">Contractors</span>
                   <span class="compliance-bar-value">82.6%</span>
                 </div>
                 <div class="compliance-bar-track"><div class="compliance-bar-fill low" style="width:82.6%"></div></div>
@@ -852,30 +848,30 @@
           <div class="card">
             <div class="card-title">
               <i class="ri-pie-chart-line"></i>
-              合规状态概览
+              Compliance Overview
             </div>
             <div class="status-cards-grid">
               <div class="status-card green">
                 <div class="status-card-dot green"></div>
                 <div class="status-card-info">
-                  <div class="status-card-title">合规达标</div>
-                  <div class="status-card-desc">各项检查均符合要求</div>
+                  <div class="status-card-title">Compliant</div>
+                  <div class="status-card-desc">All inspections passed</div>
                 </div>
                 <div class="status-card-count">412</div>
               </div>
               <div class="status-card yellow">
                 <div class="status-card-dot yellow"></div>
                 <div class="status-card-info">
-                  <div class="status-card-title">限期整改</div>
-                  <div class="status-card-desc">需在指定时间内完成整改</div>
+                  <div class="status-card-title">Rectify by Date</div>
+                  <div class="status-card-desc">Must complete rectification by deadline</div>
                 </div>
                 <div class="status-card-count">12</div>
               </div>
               <div class="status-card red">
                 <div class="status-card-dot red"></div>
                 <div class="status-card-info">
-                  <div class="status-card-title">严重违规</div>
-                  <div class="status-card-desc">立即停止作业并整改</div>
+                  <div class="status-card-title">Serious Violation</div>
+                  <div class="status-card-desc">Stop operations immediately</div>
                 </div>
                 <div class="status-card-count">3</div>
               </div>
@@ -886,52 +882,52 @@
         <div class="card">
           <div class="card-title">
             <i class="ri-list-check-2"></i>
-            近期合规检查记录
+            Recent Inspection Records
           </div>
           <table class="data-table">
             <thead>
               <tr>
-                <th>检查项目</th>
-                <th>责任部门</th>
-                <th>检查日期</th>
-                <th>检查结果</th>
-                <th>整改期限</th>
+                <th>Inspection Item</th>
+                <th>Department</th>
+                <th>Date</th>
+                <th>Result</th>
+                <th>Deadline</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td>井口安全阀定期检测</td>
-                <td>钻井工程部</td>
+                <td>Wellhead Safety Valve Inspection</td>
+                <td>Wells Engineering</td>
                 <td>2026-04-20</td>
-                <td><span class="badge badge-pass"><i class="ri-check-line" style="margin-right:2px"></i>合规</span></td>
+                <td><span class="badge badge-pass"><i class="ri-check-line" style="margin-right:2px"></i>Compliant</span></td>
                 <td>--</td>
               </tr>
               <tr>
-                <td>储油罐区消防设施巡检</td>
-                <td>储运物流部</td>
+                <td>Tank Farm Fire Equipment Inspection</td>
+                <td>Logistics Dept</td>
                 <td>2026-04-18</td>
-                <td><span class="badge badge-pending"><i class="ri-time-line" style="margin-right:2px"></i>限期整改</span></td>
+                <td><span class="badge badge-pending"><i class="ri-time-line" style="margin-right:2px"></i>Rectify by Date</span></td>
                 <td>2026-04-25</td>
               </tr>
               <tr>
-                <td>承包商入场安全培训核查</td>
-                <td>安全环保部</td>
+                <td>Contractor Safety Training Audit</td>
+                <td>HSE Dept</td>
                 <td>2026-04-15</td>
-                <td><span class="badge badge-reject"><i class="ri-close-line" style="margin-right:2px"></i>严重违规</span></td>
+                <td><span class="badge badge-reject"><i class="ri-close-line" style="margin-right:2px"></i>Serious Violation</span></td>
                 <td>2026-04-22</td>
               </tr>
               <tr>
-                <td>高压管线壁厚检测</td>
-                <td>设备维护部</td>
+                <td>High-Pressure Pipeline Thickness Test</td>
+                <td>Maintenance Dept</td>
                 <td>2026-04-12</td>
-                <td><span class="badge badge-pass"><i class="ri-check-line" style="margin-right:2px"></i>合规</span></td>
+                <td><span class="badge badge-pass"><i class="ri-check-line" style="margin-right:2px"></i>Compliant</span></td>
                 <td>--</td>
               </tr>
               <tr>
-                <td>硫化氢检测仪校准</td>
-                <td>采油生产部</td>
+                <td>H2S Detector Calibration</td>
+                <td>Production Dept</td>
                 <td>2026-04-10</td>
-                <td><span class="badge badge-pass"><i class="ri-check-line" style="margin-right:2px"></i>合规</span></td>
+                <td><span class="badge badge-pass"><i class="ri-check-line" style="margin-right:2px"></i>Compliant</span></td>
                 <td>--</td>
               </tr>
             </tbody>
@@ -944,137 +940,137 @@
         <div class="card">
           <div class="card-title">
             <i class="ri-shield-check-line"></i>
-            HSE 流程与 PTW/培训联动状态
+            HSE Process & PTW/Training Linkage
           </div>
           <table class="data-table">
             <thead>
               <tr>
-                <th>流程名称</th>
-                <th>关联培训</th>
-                <th>PTW 联动状态</th>
-                <th>合规状态</th>
-                <th>操作</th>
+                <th>Process Name</th>
+                <th>Linked Training</th>
+                <th>PTW Linkage</th>
+                <th>Compliance Status</th>
+                <th>Actions</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td>动火作业许可 (Hot Work)</td>
-                <td>HSE安全技能、消防应急培训</td>
-                <td><span class="badge badge-link"><i class="ri-link" style="margin-right:2px"></i>已联动</span></td>
-                <td><span class="badge badge-pass"><i class="ri-check-line" style="margin-right:2px"></i>合规</span></td>
-                <td><button class="btn-secondary btn-sm">查看规则</button></td>
+                <td>Hot Work Permit</td>
+                <td>HSE Safety, Fire Emergency Training</td>
+                <td><span class="badge badge-link"><i class="ri-link" style="margin-right:2px"></i>Linked</span></td>
+                <td><span class="badge badge-pass"><i class="ri-check-line" style="margin-right:2px"></i>Compliant</span></td>
+                <td><button class="btn-secondary btn-sm">View Rules</button></td>
               </tr>
               <tr>
-                <td>受限空间进入 (Confined Space)</td>
-                <td>受限空间作业培训、气体检测培训</td>
-                <td><span class="badge badge-link"><i class="ri-link" style="margin-right:2px"></i>已联动</span></td>
-                <td><span class="badge badge-pass"><i class="ri-check-line" style="margin-right:2px"></i>合规</span></td>
-                <td><button class="btn-secondary btn-sm">查看规则</button></td>
+                <td>Confined Space Entry</td>
+                <td>Confined Space, Gas Detection Training</td>
+                <td><span class="badge badge-link"><i class="ri-link" style="margin-right:2px"></i>Linked</span></td>
+                <td><span class="badge badge-pass"><i class="ri-check-line" style="margin-right:2px"></i>Compliant</span></td>
+                <td><button class="btn-secondary btn-sm">View Rules</button></td>
               </tr>
               <tr>
-                <td>高处作业许可 (Work at Height)</td>
-                <td>高处作业安全培训</td>
-                <td><span class="badge badge-link"><i class="ri-link" style="margin-right:2px"></i>已联动</span></td>
-                <td><span class="badge badge-pending"><i class="ri-time-line" style="margin-right:2px"></i>待复核</span></td>
-                <td><button class="btn-secondary btn-sm">查看规则</button></td>
+                <td>Work at Height Permit</td>
+                <td>Work at Height Safety Training</td>
+                <td><span class="badge badge-link"><i class="ri-link" style="margin-right:2px"></i>Linked</span></td>
+                <td><span class="badge badge-pending"><i class="ri-time-line" style="margin-right:2px"></i>Pending Review</span></td>
+                <td><button class="btn-secondary btn-sm">View Rules</button></td>
               </tr>
               <tr>
-                <td>吊装作业许可 (Lifting Operation)</td>
-                <td>起重机械操作培训</td>
-                <td><span class="badge badge-unlink"><i class="ri-link-unlink" style="margin-right:2px"></i>未联动</span></td>
-                <td><span class="badge badge-pending"><i class="ri-time-line" style="margin-right:2px"></i>待复核</span></td>
-                <td><button class="btn-secondary btn-sm">配置联动</button></td>
+                <td>Lifting Operation Permit</td>
+                <td>Crane Operation Training</td>
+                <td><span class="badge badge-unlink"><i class="ri-link-unlink" style="margin-right:2px"></i>Not Linked</span></td>
+                <td><span class="badge badge-pending"><i class="ri-time-line" style="margin-right:2px"></i>Pending Review</span></td>
+                <td><button class="btn-secondary btn-sm">Configure</button></td>
               </tr>
               <tr>
-                <td>电气隔离作业 (Electrical Isolation)</td>
-                <td>电气安全操作培训</td>
-                <td><span class="badge badge-link"><i class="ri-link" style="margin-right:2px"></i>已联动</span></td>
-                <td><span class="badge badge-pass"><i class="ri-check-line" style="margin-right:2px"></i>合规</span></td>
-                <td><button class="btn-secondary btn-sm">查看规则</button></td>
+                <td>Electrical Isolation</td>
+                <td>Electrical Safety Training</td>
+                <td><span class="badge badge-link"><i class="ri-link" style="margin-right:2px"></i>Linked</span></td>
+                <td><span class="badge badge-pass"><i class="ri-check-line" style="margin-right:2px"></i>Compliant</span></td>
+                <td><button class="btn-secondary btn-sm">View Rules</button></td>
               </tr>
               <tr>
-                <td>挖掘作业许可 (Excavation)</td>
-                <td>地下管线识别培训</td>
-                <td><span class="badge badge-unlink"><i class="ri-link-unlink" style="margin-right:2px"></i>未联动</span></td>
-                <td><span class="badge badge-reject"><i class="ri-close-line" style="margin-right:2px"></i>不合规</span></td>
-                <td><button class="btn-secondary btn-sm">配置联动</button></td>
+                <td>Excavation Permit</td>
+                <td>Underground Pipeline ID Training</td>
+                <td><span class="badge badge-unlink"><i class="ri-link-unlink" style="margin-right:2px"></i>Not Linked</span></td>
+                <td><span class="badge badge-reject"><i class="ri-close-line" style="margin-right:2px"></i>Non-Compliant</span></td>
+                <td><button class="btn-secondary btn-sm">Configure</button></td>
               </tr>
               <tr>
-                <td>放射性作业许可 (Radiography)</td>
-                <td>辐射防护培训</td>
-                <td><span class="badge badge-link"><i class="ri-link" style="margin-right:2px"></i>已联动</span></td>
-                <td><span class="badge badge-pass"><i class="ri-check-line" style="margin-right:2px"></i>合规</span></td>
-                <td><button class="btn-secondary btn-sm">查看规则</button></td>
+                <td>Radiography Permit</td>
+                <td>Radiation Protection Training</td>
+                <td><span class="badge badge-link"><i class="ri-link" style="margin-right:2px"></i>Linked</span></td>
+                <td><span class="badge badge-pass"><i class="ri-check-line" style="margin-right:2px"></i>Compliant</span></td>
+                <td><button class="btn-secondary btn-sm">View Rules</button></td>
               </tr>
               <tr>
-                <td>临时用电许可 (Temporary Power)</td>
-                <td>临时用电安全培训</td>
-                <td><span class="badge badge-link"><i class="ri-link" style="margin-right:2px"></i>已联动</span></td>
-                <td><span class="badge badge-pending"><i class="ri-time-line" style="margin-right:2px"></i>待复核</span></td>
-                <td><button class="btn-secondary btn-sm">查看规则</button></td>
+                <td>Temporary Power Permit</td>
+                <td>Temporary Power Safety Training</td>
+                <td><span class="badge badge-link"><i class="ri-link" style="margin-right:2px"></i>Linked</span></td>
+                <td><span class="badge badge-pending"><i class="ri-time-line" style="margin-right:2px"></i>Pending Review</span></td>
+                <td><button class="btn-secondary btn-sm">View Rules</button></td>
               </tr>
             </tbody>
           </table>
         </div>
       </div>
 
-      <!-- 安全护照预审 Tab -->
+      <!-- Safety Passport Pre-audit Tab -->
       <div class="tab-content" id="tab-passport">
-        <!-- 预审表单 -->
+        <!-- 预审Form -->
         <div class="card" style="margin-bottom: 28px;">
           <div class="card-title">
             <i class="ri-file-add-line"></i>
-            安全护照预审申请
+            Safety Passport Pre-audit Application
           </div>
           <div class="form-grid">
             <div class="form-group">
-              <label class="form-label">员工姓名 <span class="required">*</span></label>
-              <input type="text" class="form-input" id="passportName" placeholder="请输入员工姓名">
+              <label class="form-label">Employee Name <span class="required">*</span></label>
+              <input type="text" class="form-input" id="passportName" placeholder="Enter employee name">
             </div>
             <div class="form-group">
-              <label class="form-label">员工编号 <span class="required">*</span></label>
-              <input type="text" class="form-input" id="passportId" placeholder="请输入员工编号">
+              <label class="form-label">Employee ID <span class="required">*</span></label>
+              <input type="text" class="form-input" id="passportId" placeholder="Enter employee ID">
             </div>
             <div class="form-group">
-              <label class="form-label">护照类型 <span class="required">*</span></label>
+              <label class="form-label">Passport Type <span class="required">*</span></label>
               <select class="form-select" id="passportType">
-                <option value="">请选择护照类型</option>
-                <option value="general">通用安全护照</option>
-                <option value="drilling">钻井作业护照</option>
-                <option value="electrical">电气作业护照</option>
-                <option value="confined">受限空间护照</option>
-                <option value="height">高处作业护照</option>
-                <option value="hotwork">动火作业护照</option>
+                <option value="">Select passport type</option>
+                <option value="general">General Safety Passport</option>
+                <option value="drilling">Drilling Passport</option>
+                <option value="electrical">Electrical Passport</option>
+                <option value="confined">Confined Space Passport</option>
+                <option value="height">Work at Height Passport</option>
+                <option value="hotwork">Hot Work Passport</option>
               </select>
             </div>
             <div class="form-group">
-              <label class="form-label">所属部门 <span class="required">*</span></label>
+              <label class="form-label">Department <span class="required">*</span></label>
               <select class="form-select" id="passportDept">
-                <option value="">请选择所属部门</option>
-                <option value="drilling">钻井工程部</option>
-                <option value="production">采油生产部</option>
-                <option value="maintenance">设备维护部</option>
-                <option value="storage">储运物流部</option>
-                <option value="safety">安全环保部</option>
-                <option value="contractor">外协承包商</option>
+                <option value="">Select Department</option>
+                <option value="drilling">Wells Engineering</option>
+                <option value="production">Production Dept</option>
+                <option value="maintenance">Maintenance Dept</option>
+                <option value="storage">Logistics Dept</option>
+                <option value="safety">HSE Dept</option>
+                <option value="contractor">Contractors</option>
               </select>
             </div>
             <div class="form-group">
-              <label class="form-label">培训完成日期 <span class="required">*</span></label>
+              <label class="form-label">Training Date <span class="required">*</span></label>
               <input type="date" class="form-input" id="passportTrainDate">
             </div>
             <div class="form-group">
-              <label class="form-label">证书有效期至 <span class="required">*</span></label>
+              <label class="form-label">Certificate Expiry <span class="required">*</span></label>
               <input type="date" class="form-input" id="passportExpireDate">
             </div>
           </div>
           <div class="form-group" style="margin-bottom: 16px;">
-            <label class="form-label">备注说明</label>
-            <textarea class="form-textarea" id="passportRemark" placeholder="请输入其他需要说明的信息..."></textarea>
+            <label class="form-label">Remarks</label>
+            <textarea class="form-textarea" id="passportRemark" placeholder="Enter additional remarks..."></textarea>
           </div>
           <div class="form-actions">
-            <button class="btn-secondary" id="resetPassportForm">重置</button>
-            <button class="btn-primary" id="submitPassportForm"><i class="ri-send-plane-line"></i> 提交预审</button>
+            <button class="btn-secondary" id="resetPassportForm">Reset</button>
+            <button class="btn-primary" id="submitPassportForm"><i class="ri-send-plane-line"></i> Submit Pre-audit</button>
           </div>
         </div>
 
@@ -1082,82 +1078,82 @@
         <div class="card">
           <div class="card-title">
             <i class="ri-file-list-3-line"></i>
-            安全护照预审记录
+            Pre-audit Records
           </div>
           <table class="data-table" id="passportTable">
             <thead>
               <tr>
-                <th>员工姓名</th>
-                <th>护照类型</th>
-                <th>申请日期</th>
-                <th>所属部门</th>
-                <th>预审状态</th>
-                <th>操作</th>
+                <th>Employee Name</th>
+                <th>Passport Type</th>
+                <th>Application Date</th>
+                <th>Department</th>
+                <th>Status</th>
+                <th>Actions</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td>李明</td>
-                <td>通用安全护照</td>
+                <td>Li Ming</td>
+                <td>General Safety Passport</td>
                 <td>2026-04-20</td>
-                <td>钻井工程部</td>
-                <td><span class="badge badge-pass"><i class="ri-check-line" style="margin-right:2px"></i>通过</span></td>
+                <td>Wells Engineering</td>
+                <td><span class="badge badge-pass"><i class="ri-check-line" style="margin-right:2px"></i>Pass</span></td>
                 <td>
-                  <button class="btn-secondary btn-sm" onclick="viewPassport(this)">查看</button>
+                  <button class="btn-secondary btn-sm" onclick="viewPassport(this)">View</button>
                 </td>
               </tr>
               <tr>
-                <td>王强</td>
-                <td>电气作业护照</td>
+                <td>Wang Qiang</td>
+                <td>Electrical Passport</td>
                 <td>2026-04-19</td>
-                <td>设备维护部</td>
-                <td><span class="badge badge-reject"><i class="ri-close-line" style="margin-right:2px"></i>驳回</span></td>
+                <td>Maintenance Dept</td>
+                <td><span class="badge badge-reject"><i class="ri-close-line" style="margin-right:2px"></i>Rejected</span></td>
                 <td>
-                  <button class="btn-secondary btn-sm" onclick="viewPassport(this)">查看</button>
-                  <button class="btn-warning btn-sm" onclick="reapplyPassport(this)">重新申请</button>
+                  <button class="btn-secondary btn-sm" onclick="viewPassport(this)">View</button>
+                  <button class="btn-warning btn-sm" onclick="reapplyPassport(this)">Re-apply</button>
                 </td>
               </tr>
               <tr>
-                <td>赵芳</td>
-                <td>受限空间护照</td>
+                <td>Zhao Fang</td>
+                <td>Confined Space Passport</td>
                 <td>2026-04-18</td>
-                <td>安全环保部</td>
-                <td><span class="badge badge-pending"><i class="ri-time-line" style="margin-right:2px"></i>待审核</span></td>
+                <td>HSE Dept</td>
+                <td><span class="badge badge-pending"><i class="ri-time-line" style="margin-right:2px"></i>Pending</span></td>
                 <td>
-                  <button class="btn-success btn-sm" onclick="approvePassport(this)">通过</button>
-                  <button class="btn-danger btn-sm" onclick="rejectPassport(this)">驳回</button>
+                  <button class="btn-success btn-sm" onclick="approvePassport(this)">Pass</button>
+                  <button class="btn-danger btn-sm" onclick="rejectPassport(this)">Rejected</button>
                 </td>
               </tr>
               <tr>
-                <td>刘洋</td>
-                <td>高处作业护照</td>
+                <td>Liu Yang</td>
+                <td>Work at Height Passport</td>
                 <td>2026-04-17</td>
-                <td>采油生产部</td>
-                <td><span class="badge badge-pass"><i class="ri-check-line" style="margin-right:2px"></i>通过</span></td>
+                <td>Production Dept</td>
+                <td><span class="badge badge-pass"><i class="ri-check-line" style="margin-right:2px"></i>Pass</span></td>
                 <td>
-                  <button class="btn-secondary btn-sm" onclick="viewPassport(this)">查看</button>
+                  <button class="btn-secondary btn-sm" onclick="viewPassport(this)">View</button>
                 </td>
               </tr>
               <tr>
-                <td>陈华</td>
-                <td>动火作业护照</td>
+                <td>Chen Hua</td>
+                <td>Hot Work Passport</td>
                 <td>2026-04-16</td>
-                <td>储运物流部</td>
-                <td><span class="badge badge-pending"><i class="ri-time-line" style="margin-right:2px"></i>待审核</span></td>
+                <td>Logistics Dept</td>
+                <td><span class="badge badge-pending"><i class="ri-time-line" style="margin-right:2px"></i>Pending</span></td>
                 <td>
-                  <button class="btn-success btn-sm" onclick="approvePassport(this)">通过</button>
-                  <button class="btn-danger btn-sm" onclick="rejectPassport(this)">驳回</button>
+                  <button class="btn-success btn-sm" onclick="approvePassport(this)">Pass</button>
+                  <button class="btn-danger btn-sm" onclick="rejectPassport(this)">Rejected</button>
                 </td>
               </tr>
               <tr>
-                <td>孙伟</td>
-                <td>钻井作业护照</td>
+                <td>Sun Wei</td>
+                <td>Drilling Passport</td>
                 <td>2026-04-15</td>
-                <td>钻井工程部</td>
-                <td><span class="badge badge-reject"><i class="ri-close-line" style="margin-right:2px"></i>驳回</span></td>
+                <td>Wells Engineering</td>
+                <td><span class="badge badge-reject"><i class="ri-close-line" style="margin-right:2px"></i>Rejected</span></td>
                 <td>
-                  <button class="btn-secondary btn-sm" onclick="viewPassport(this)">查看</button>
-                  <button class="btn-warning btn-sm" onclick="reapplyPassport(this)">重新申请</button>
+                  <button class="btn-secondary btn-sm" onclick="viewPassport(this)">View</button>
+                  <button class="btn-warning btn-sm" onclick="reapplyPassport(this)">Re-apply</button>
                 </td>
               </tr>
             </tbody>
@@ -1168,18 +1164,18 @@
     </div>
   </main>
 
-  <!-- 查看详情模态框 -->
+  <!-- View Details模态框 -->
   <div class="modal-overlay" id="detailModal">
     <div class="modal">
       <div class="modal-header">
-        <div class="modal-title" id="detailModalTitle">安全护照详情</div>
+        <div class="modal-title" id="detailModalTitle">Safety Passport Details</div>
         <button class="modal-close" id="detailModalClose"><i class="ri-close-line"></i></button>
       </div>
       <div class="modal-body" id="detailModalBody">
-        <p style="color:#64748b">加载中...</p>
+        <p style="color:#64748b">Loading...</p>
       </div>
       <div class="modal-footer">
-        <button class="btn-cancel" id="detailModalCancel">关闭</button>
+        <button class="btn-cancel" id="detailModalCancel">Close</button>
       </div>
     </div>
   </div>
@@ -1188,13 +1184,13 @@
     (function() {
       'use strict';
 
-    // ==================== DOM引用 ====================
+    // ==================== DOM References ====================
     const $ = (s) => document.querySelector(s);
     const $$ = (s) => document.querySelectorAll(s);
 
     const mainContent = $('#mainContent');
 
-    // ==================== 移动端菜单 ====================
+    // ==================== Mobile Menu ====================
     const topbarNav = document.querySelector('.topbar-nav');
     const menuToggle = document.getElementById('menuToggle');
 
@@ -1202,7 +1198,7 @@
         topbarNav.classList.toggle('mobile-open');
     });
 
-    // 移动端子菜单展开/收起（桌面端 hover，移动端 click）
+    // Mobile submenu toggle (hover on desktop, click on mobile)
     topbarNav.querySelectorAll('.nav-dropdown-toggle, .nav-sub-toggle').forEach(btn => {
         btn.addEventListener('click', function(e) {
             if (window.innerWidth > 1200) return;
@@ -1212,7 +1208,7 @@
         });
     });
 
-      // ---- Tab 切换 ----
+      // ---- Tab Switching ----
       const tabBtns = document.querySelectorAll('.tab-btn');
       const tabContents = document.querySelectorAll('.tab-content');
 
@@ -1229,7 +1225,7 @@
         });
       });
 
-      // ---- 搜索框交互 ----
+      // ---- Search框交互 ----
       const searchInput = document.querySelector('.search-box input');
       if (searchInput) {
         searchInput.addEventListener('focus', () => {
@@ -1240,12 +1236,12 @@
         });
       }
 
-      // ---- 导出报告按钮 ----
+      // ---- Export ReportButtons ----
       document.getElementById('exportBtn').addEventListener('click', () => {
-        alert('合规报告正在生成中，请稍候...');
+        alert('Generating compliance report, please wait...');
       });
 
-      // ---- 安全护照预审表单 ----
+      // ---- Safety Passport Pre-auditForm ----
       const passportName = document.getElementById('passportName');
       const passportId = document.getElementById('passportId');
       const passportType = document.getElementById('passportType');
@@ -1266,45 +1262,45 @@
 
       document.getElementById('submitPassportForm').addEventListener('click', () => {
         if (!passportName.value.trim()) {
-          alert('请输入员工姓名');
+          alert('Enter employee name');
           return;
         }
         if (!passportId.value.trim()) {
-          alert('请输入员工编号');
+          alert('Enter employee ID');
           return;
         }
         if (!passportType.value) {
-          alert('请选择护照类型');
+          alert('Select passport type');
           return;
         }
         if (!passportDept.value) {
-          alert('请选择所属部门');
+          alert('Select Department');
           return;
         }
         if (!passportTrainDate.value) {
-          alert('请选择培训完成日期');
+          alert('Select training date');
           return;
         }
         if (!passportExpireDate.value) {
-          alert('请选择证书有效期');
+          alert('Select certificate expiry');
           return;
         }
 
         const typeMap = {
-          'general': '通用安全护照',
-          'drilling': '钻井作业护照',
-          'electrical': '电气作业护照',
-          'confined': '受限空间护照',
-          'height': '高处作业护照',
-          'hotwork': '动火作业护照'
+          'general': 'General Safety Passport',
+          'drilling': 'Drilling Passport',
+          'electrical': 'Electrical Passport',
+          'confined': 'Confined Space Passport',
+          'height': 'Work at Height Passport',
+          'hotwork': 'Hot Work Passport'
         };
         const deptMap = {
-          'drilling': '钻井工程部',
-          'production': '采油生产部',
-          'maintenance': '设备维护部',
-          'storage': '储运物流部',
-          'safety': '安全环保部',
-          'contractor': '外协承包商'
+          'drilling': 'Wells Engineering',
+          'production': 'Production Dept',
+          'maintenance': 'Maintenance Dept',
+          'storage': 'Logistics Dept',
+          'safety': 'HSE Dept',
+          'contractor': 'Contractors'
         };
 
         const today = new Date().toISOString().split('T')[0];
@@ -1315,15 +1311,15 @@
           <td>${typeMap[passportType.value]}</td>
           <td>${today}</td>
           <td>${deptMap[passportDept.value]}</td>
-          <td><span class="badge badge-pending"><i class="ri-time-line" style="margin-right:2px"></i>待审核</span></td>
+          <td><span class="badge badge-pending"><i class="ri-time-line" style="margin-right:2px"></i>Pending</span></td>
           <td>
-            <button class="btn-success btn-sm" onclick="approvePassport(this)">通过</button>
-            <button class="btn-danger btn-sm" onclick="rejectPassport(this)">驳回</button>
+            <button class="btn-success btn-sm" onclick="approvePassport(this)">Pass</button>
+            <button class="btn-danger btn-sm" onclick="rejectPassport(this)">Rejected</button>
           </td>
         `;
         tbody.insertBefore(tr, tbody.firstChild);
 
-        alert('预审申请已提交，等待审核');
+        alert('Pre-audit application submitted, awaiting review');
         document.getElementById('resetPassportForm').click();
       });
 
@@ -1350,65 +1346,65 @@
         if (e.target === detailModal) closeDetailModal();
       });
 
-      // ---- 护照操作函数（挂载到 window）----
+      // ---- 护照Actions函数（挂载到 window）----
       window.viewPassport = function(btn) {
         const row = btn.closest('tr');
         const cells = row.querySelectorAll('td');
         const html = `
           <div style="display:flex;flex-direction:column;gap:12px;">
             <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #f1f5f9;">
-              <span style="color:#64748b;font-size:0.8125rem;">员工姓名</span>
+              <span style="color:#64748b;font-size:0.8125rem;">Employee Name</span>
               <span style="font-weight:500;color:#1a202c;font-size:0.875rem;">${cells[0].textContent}</span>
             </div>
             <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #f1f5f9;">
-              <span style="color:#64748b;font-size:0.8125rem;">护照类型</span>
+              <span style="color:#64748b;font-size:0.8125rem;">Passport Type</span>
               <span style="font-weight:500;color:#1a202c;font-size:0.875rem;">${cells[1].textContent}</span>
             </div>
             <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #f1f5f9;">
-              <span style="color:#64748b;font-size:0.8125rem;">申请日期</span>
+              <span style="color:#64748b;font-size:0.8125rem;">Application Date</span>
               <span style="font-weight:500;color:#1a202c;font-size:0.875rem;">${cells[2].textContent}</span>
             </div>
             <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #f1f5f9;">
-              <span style="color:#64748b;font-size:0.8125rem;">所属部门</span>
+              <span style="color:#64748b;font-size:0.8125rem;">Department</span>
               <span style="font-weight:500;color:#1a202c;font-size:0.875rem;">${cells[3].textContent}</span>
             </div>
             <div style="display:flex;justify-content:space-between;padding:10px 0;">
-              <span style="color:#64748b;font-size:0.8125rem;">预审状态</span>
+              <span style="color:#64748b;font-size:0.8125rem;">Status</span>
               <span>${cells[4].innerHTML}</span>
             </div>
           </div>
         `;
-        openDetailModal('安全护照详情', html);
+        openDetailModal('Safety Passport Details', html);
       };
 
       window.approvePassport = function(btn) {
-        if (!confirm('确认通过该安全护照预审申请？')) return;
+        if (!confirm('Confirm approval of this pre-audit application?')) return;
         const row = btn.closest('tr');
         const statusCell = row.querySelectorAll('td')[4];
-        statusCell.innerHTML = '<span class="badge badge-pass"><i class="ri-check-line" style="margin-right:2px"></i>通过</span>';
+        statusCell.innerHTML = '<span class="badge badge-pass"><i class="ri-check-line" style="margin-right:2px"></i>Pass</span>';
         const actionCell = row.querySelectorAll('td')[5];
-        actionCell.innerHTML = '<button class="btn-secondary btn-sm" onclick="viewPassport(this)">查看</button>';
+        actionCell.innerHTML = '<button class="btn-secondary btn-sm" onclick="viewPassport(this)">View</button>';
       };
 
       window.rejectPassport = function(btn) {
-        if (!confirm('确认驳回该安全护照预审申请？')) return;
+        if (!confirm('Confirm rejection of this pre-audit application?')) return;
         const row = btn.closest('tr');
         const statusCell = row.querySelectorAll('td')[4];
-        statusCell.innerHTML = '<span class="badge badge-reject"><i class="ri-close-line" style="margin-right:2px"></i>驳回</span>';
+        statusCell.innerHTML = '<span class="badge badge-reject"><i class="ri-close-line" style="margin-right:2px"></i>Rejected</span>';
         const actionCell = row.querySelectorAll('td')[5];
-        actionCell.innerHTML = '<button class="btn-secondary btn-sm" onclick="viewPassport(this)">查看</button> <button class="btn-warning btn-sm" onclick="reapplyPassport(this)">重新申请</button>';
+        actionCell.innerHTML = '<button class="btn-secondary btn-sm" onclick="viewPassport(this)">View</button> <button class="btn-warning btn-sm" onclick="reapplyPassport(this)">Re-apply</button>';
       };
 
       window.reapplyPassport = function(btn) {
         const row = btn.closest('tr');
         const statusCell = row.querySelectorAll('td')[4];
-        statusCell.innerHTML = '<span class="badge badge-pending"><i class="ri-time-line" style="margin-right:2px"></i>待审核</span>';
+        statusCell.innerHTML = '<span class="badge badge-pending"><i class="ri-time-line" style="margin-right:2px"></i>Pending</span>';
         const actionCell = row.querySelectorAll('td')[5];
-        actionCell.innerHTML = '<button class="btn-success btn-sm" onclick="approvePassport(this)">通过</button> <button class="btn-danger btn-sm" onclick="rejectPassport(this)">驳回</button>';
-        alert('已重新提交申请，等待审核');
+        actionCell.innerHTML = '<button class="btn-success btn-sm" onclick="approvePassport(this)">Pass</button> <button class="btn-danger btn-sm" onclick="rejectPassport(this)">Rejected</button>';
+        alert('Application re-submitted, awaiting review');
       };
 
-      // ---- 进度条动画 ----
+      // ---- 进度条Animations ----
       function animateBars() {
         document.querySelectorAll('.compliance-bar-fill').forEach(bar => {
           const target = bar.style.width;
@@ -1417,10 +1413,10 @@
         });
       }
 
-      // 初始动画
+      // 初始Animations
       setTimeout(animateBars, 300);
 
-      // Tab 切换时重新动画
+      // Tab Switching时重新Animations
       tabBtns.forEach(btn => {
         btn.addEventListener('click', () => {
           if (btn.dataset.tab === 'monitor') {

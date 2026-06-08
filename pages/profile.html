@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>个人资料 - 慧眼系统</title>
-  <meta name="description" content="石油天然气行业慧眼系统个人中心">
+  <title>Profile - Insight System</title>
+  <meta name="description" content="Insight System Profile Center for Oil & Gas">
 
   <!-- 字体 -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -16,7 +16,7 @@
 
   <style>
     /* ============================================
-       基础重置与变量
+       Base Reset & Variables
        ============================================ */
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
@@ -34,7 +34,7 @@
     ul, ol { list-style: none; }
 
     /* ============================================
-       布局系统
+       Layout System
        ============================================ */
     :root {
       --sidebar-width: 260px;
@@ -42,7 +42,7 @@
       --topbar-height: 64px;
     }
 
-    /* ---- 顶部导航栏 ---- */
+    /* ---- Topbar ---- */
     .topbar {
       position: fixed;
       top: 0; left: 0; right: 0;
@@ -167,7 +167,7 @@
       transition: width 0.5s cubic-bezier(0.16,1,0.3,1);
     }
 
-    /* ---- 导航下拉菜单 ---- */
+    /* ---- Nav Dropdown Menu ---- */
     .nav-dropdown { position: relative; }
     .nav-dropdown-toggle { cursor: pointer; }
     .nav-dropdown-menu {
@@ -196,7 +196,7 @@
     .nav-sub-menu a:hover { background: #f1f5f9; color: #1a202c; }
     .nav-sub-menu a.active { background: rgba(26,54,93,0.08); color: #1a365d; font-weight: 600; }
 
-    /* ---- 主内容区 ---- */
+    /* ---- Main Content Area ---- */
     .main-content {
       flex: 1;
       margin-top: var(--topbar-height);
@@ -207,10 +207,10 @@
     .content-wrapper { padding: 24px 28px; max-width: 1400px; margin: 0 auto; }
 
     /* ============================================
-       页面内容样式
+       Page Content Styles
        ============================================ */
 
-    /* ---- 页面标题区 ---- */
+    /* ---- Page Header ---- */
     .page-header {
       display: flex;
       align-items: center;
@@ -236,7 +236,7 @@
     .breadcrumb a:hover { color: #1a365d; }
     .breadcrumb i { font-size: 0.75rem; color: #94a3b8; }
 
-    /* ---- 个人信息卡片 ---- */
+    /* ---- Profile Card ---- */
     .profile-card {
       background: #ffffff;
       border-radius: 16px;
@@ -317,13 +317,13 @@
       box-shadow: 0 4px 12px rgba(26,54,93,0.25);
     }
 
-    /* ---- 下方两栏布局 ---- */
+    /* ---- Two-Column Layout ---- */
     .profile-layout {
       display: flex;
       gap: 24px;
     }
 
-    /* ---- 左侧菜单 ---- */
+    /* ---- Left Menu ---- */
     .profile-menu {
       width: 200px;
       flex-shrink: 0;
@@ -362,7 +362,7 @@
       border-bottom: 1px solid #f1f5f9;
     }
 
-    /* ---- 右侧内容区 ---- */
+    /* ---- Right Content Area ---- */
     .profile-content {
       flex: 1;
       min-width: 0;
@@ -382,7 +382,7 @@
       border-bottom: 1px solid #f1f5f9;
     }
 
-    /* ---- 表单 ---- */
+    /* ---- Form ---- */
     .form-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -480,7 +480,7 @@
     }
 
     /* ============================================
-       响应式
+       Responsive
        ============================================ */
     @media (max-width: 1200px) {
       .topbar-nav { display: none; }
@@ -531,44 +531,40 @@
 </head>
 <body>
 
-  <!-- 顶部导航栏 -->
+  <!-- Topbar -->
   <header class="topbar" id="topbar">
     <div class="topbar-left">
       <a href="../index.html" class="brand">
         <div class="brand-logo"><i class="ri-eye-line"></i></div>
-        <span class="brand-text">慧眼 <span>系统</span></span>
+        <span class="brand-text">Insight <span>System</span></span>
       </a>
       <nav class="topbar-nav">
-        <a href="../index.html">首页</a>
-        <a href="about.html">关于我们</a>
-        <a href="news.html">新闻公告</a>
+        <a href="../index.html">Home</a>
+        <a href="about.html">About Us</a>
+        <a href="news.html">News & Announcements</a>
         <div class="nav-dropdown">
-            <a href="#" class="nav-dropdown-toggle">在线学习 <i class="ri-arrow-down-s-line"></i></a>
+            <a href="#" class="nav-dropdown-toggle">E-Learning <i class="ri-arrow-down-s-line"></i></a>
             <div class="nav-dropdown-menu">
-                <a href="knowledge.html">知识矩阵</a>
-                <a href="skill.html">技能矩阵</a>
-                <a href="workshop.html">经验工作坊</a>
-                <a href="assessment.html">评估认证</a>
-            </div>
-        </div>
-        <div class="nav-dropdown">
-            <a href="#" class="nav-dropdown-toggle">Insight CA 系统 <i class="ri-arrow-down-s-line"></i></a>
-            <div class="nav-dropdown-menu">
-                <div class="nav-sub-dropdown">
-                    <a href="#" class="nav-sub-toggle">Matrix 管理 <i class="ri-arrow-right-s-line"></i></a>
-                    <div class="nav-sub-menu">
-                        <a href="my-skills.html">档案管理</a>
-                        <a href="reports.html">数据图表</a>
-                        <a href="my-learning.html">课程成绩</a>
-                        <a href="course-learn.html">课程学习</a>
-                    </div>
+                    <a href="knowledge.html">Knowledge Matrix</a>
+                    <a href="skill.html">Skill Matrix</a>
+                    <a href="workshop.html">Workshop</a>
+                    <a href="assessment.html">Assessment & Certification</a>
+
                 </div>
             </div>
-        </div>
-        <div class="nav-dropdown">
-            <a href="#" class="nav-dropdown-toggle">Insight HSSE 管理 <i class="ri-arrow-down-s-line"></i></a>
+            <div class="nav-dropdown">
+                <a href="#" class="nav-dropdown-toggle">Insight CA System <i class="ri-arrow-down-s-line"></i></a>
+                <div class="nav-dropdown-menu">
+                    <a href="my-skills.html">Profile Management</a>
+                    <a href="reports.html">Data & Reports</a>
+                    <a href="my-learning.html">Course Grades</a>
+                    <a href="course-learn.html">Course Learning</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#" class="nav-dropdown-toggle">Insight HSSE Management <i class="ri-arrow-down-s-line"></i></a>
             <div class="nav-dropdown-menu">
-                <a href="ptw.html">PTW 作业许可</a>
+                <a href="ptw.html">PTW Work Permit</a>
                 <a href="compliance.html">HSSE Passport</a>
             </div>
         </div>
@@ -577,138 +573,138 @@
     <div class="topbar-right">
       <div class="search-box">
         <i class="ri-search-line"></i>
-        <input type="text" placeholder="搜索...">
+        <input type="text" placeholder="Search...">
       </div>
       <div class="user-menu">
-        <div class="user-avatar">张</div>
-        <span class="user-name">张工程师</span>
+        <div class="user-avatar">J</div>
+        <span class="user-name">John Engineer</span>
         <i class="ri-arrow-down-s-line" style="color:#94a3b8"></i>
       </div>
     </div>
   </header>
 
 
-  <!-- 主内容区 -->
+  <!-- Main Content Area -->
   <main class="main-content">
     <div class="content-wrapper">
 
-      <!-- 页面标题 -->
+      <!-- Page Title -->
       <div class="page-header">
         <div class="page-title-group">
-          <h1 class="page-title">个人资料</h1>
+          <h1 class="page-title">Profile</h1>
           <div class="breadcrumb">
-            <a href="../index.html">首页</a>
+            <a href="../index.html">Home</a>
             <i class="ri-arrow-right-s-line"></i>
-            <span>个人资料</span>
+            <span>Profile</span>
           </div>
         </div>
       </div>
 
-      <!-- 个人信息卡片 -->
+      <!-- Profile Card -->
       <div class="profile-card">
-        <div class="profile-avatar">张</div>
+        <div class="profile-avatar">J</div>
         <div class="profile-info">
-          <div class="profile-name">张工程师</div>
+          <div class="profile-name">John Engineer</div>
           <div class="profile-meta">
             <div class="profile-meta-item">
               <i class="ri-building-line"></i>
-              <span>中石油华北油田</span>
+              <span>PetroChina Huabei Oilfield</span>
             </div>
             <div class="profile-meta-item">
               <i class="ri-shield-user-line"></i>
               <span class="profile-role">
                 <i class="ri-vip-crown-line" style="font-size:10px"></i>
-                学员 / 评估师
+                Trainee / Assessor
               </span>
             </div>
           </div>
         </div>
         <button class="btn-edit" id="editProfileBtn">
           <i class="ri-edit-line"></i>
-          编辑资料
+          Edit Profile
         </button>
       </div>
 
-      <!-- 下方两栏布局 -->
+      <!-- Two-Column Layout -->
       <div class="profile-layout">
 
-        <!-- 左侧菜单 -->
+        <!-- Left Menu -->
         <aside class="profile-menu">
           <div class="menu-card">
             <div class="menu-item active" data-tab="profile">
               <i class="ri-user-line"></i>
-              个人资料
+              Profile
             </div>
             <div class="menu-item" data-tab="learning">
               <i class="ri-bar-chart-box-line"></i>
-              学习进度
+              Progress
             </div>
             <div class="menu-item" data-tab="skills">
               <i class="ri-award-line"></i>
-              技能档案
+              Skill Profile
             </div>
             <div class="menu-item" data-tab="signup">
               <i class="ri-calendar-check-line"></i>
-              我的报名
+              My Registrations
             </div>
             <div class="menu-item" data-tab="appeal">
               <i class="ri-file-list-3-line"></i>
-              申诉记录
+              Appeal Records
             </div>
             <div class="menu-item" data-tab="password">
               <i class="ri-lock-password-line"></i>
-              密码修改
+              Change Password
             </div>
           </div>
         </aside>
 
-        <!-- 右侧内容区 -->
+        <!-- Right Content Area -->
         <div class="profile-content">
           <div class="content-card">
-            <div class="content-card-title">个人资料</div>
+            <div class="content-card-title">Profile</div>
             <form id="profileForm">
               <div class="form-grid">
                 <div class="form-group">
-                  <label class="form-label">联系人姓名</label>
+                  <label class="form-label">Contact Name</label>
                   <div class="form-input-wrap">
-                    <input type="text" class="form-input" value="张工程师" readonly id="inputName">
-                    <button type="button" class="input-action" data-target="inputName" title="编辑">
+                    <input type="text" class="form-input" value="John Engineer" readonly id="inputName">
+                    <button type="button" class="input-action" data-target="inputName" title="Edit">
                       <i class="ri-pencil-line"></i>
                     </button>
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="form-label">电话</label>
+                  <label class="form-label">Phone</label>
                   <div class="form-input-wrap">
                     <input type="text" class="form-input" value="138 **** 5678" readonly id="inputPhone">
-                    <button type="button" class="input-action" data-target="inputPhone" title="编辑">
+                    <button type="button" class="input-action" data-target="inputPhone" title="Edit">
                       <i class="ri-pencil-line"></i>
                     </button>
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="form-label">邮箱</label>
+                  <label class="form-label">Email</label>
                   <div class="form-input-wrap">
                     <input type="text" class="form-input" value="zhang@cnpc.com" readonly id="inputEmail">
-                    <button type="button" class="input-action" data-target="inputEmail" title="编辑">
+                    <button type="button" class="input-action" data-target="inputEmail" title="Edit">
                       <i class="ri-pencil-line"></i>
                     </button>
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="form-label">所属部门</label>
+                  <label class="form-label">Department</label>
                   <div class="form-input-wrap">
-                    <input type="text" class="form-input" value="工程技术部" readonly id="inputDept">
-                    <button type="button" class="input-action" data-target="inputDept" title="编辑">
+                    <input type="text" class="form-input" value="Engineering Department" readonly id="inputDept">
+                    <button type="button" class="input-action" data-target="inputDept" title="Edit">
                       <i class="ri-pencil-line"></i>
                     </button>
                   </div>
                 </div>
                 <div class="form-group full-width">
-                  <label class="form-label">职位</label>
+                  <label class="form-label">Position</label>
                   <div class="form-input-wrap">
-                    <input type="text" class="form-input" value="高级钻井工程师" readonly id="inputPosition">
-                    <button type="button" class="input-action" data-target="inputPosition" title="编辑">
+                    <input type="text" class="form-input" value="Senior Drilling Engineer" readonly id="inputPosition">
+                    <button type="button" class="input-action" data-target="inputPosition" title="Edit">
                       <i class="ri-pencil-line"></i>
                     </button>
                   </div>
@@ -717,7 +713,7 @@
               <div class="form-footer">
                 <button type="submit" class="btn-save" id="saveBtn" disabled>
                   <i class="ri-save-line"></i>
-                  保存更改
+                  Save Changes
                 </button>
               </div>
             </form>
@@ -734,7 +730,7 @@
 
       // DOM 元素
 
-      // ---- 左侧菜单切换 ----
+      // ---- Left Menu切换 ----
       const menuItems = document.querySelectorAll('.menu-item');
       menuItems.forEach(item => {
         item.addEventListener('click', () => {
@@ -744,7 +740,7 @@
         });
       });
 
-      // ---- 表单编辑功能 ----
+      // ---- FormEdit功能 ----
       const inputActions = document.querySelectorAll('.input-action');
       const saveBtn = document.getElementById('saveBtn');
       const profileForm = document.getElementById('profileForm');
@@ -761,15 +757,15 @@
             input.classList.add('editable');
             input.focus();
             btn.innerHTML = '<i class="ri-check-line"></i>';
-            btn.title = '完成';
+            btn.title = 'Done';
           } else {
             input.setAttribute('readonly', 'true');
             input.classList.remove('editable');
             btn.innerHTML = '<i class="ri-pencil-line"></i>';
-            btn.title = '编辑';
+            btn.title = 'Edit';
           }
 
-          // 检查是否有可编辑的字段
+          // 检查是否有可Edit的字段
           checkEditable();
         });
       });
@@ -783,7 +779,7 @@
         }
       }
 
-      // ---- 编辑资料按钮 ----
+      // ---- Edit ProfileButtons ----
       document.getElementById('editProfileBtn').addEventListener('click', () => {
         document.querySelectorAll('.form-input').forEach(input => {
           input.removeAttribute('readonly');
@@ -791,27 +787,27 @@
         });
         inputActions.forEach(btn => {
           btn.innerHTML = '<i class="ri-check-line"></i>';
-          btn.title = '完成';
+          btn.title = 'Done';
         });
         checkEditable();
       });
 
-      // ---- 保存表单 ----
+      // ---- 保存Form ----
       profileForm.addEventListener('submit', (e) => {
         e.preventDefault();
-        alert('资料已保存');
+        alert('Profile saved');
         document.querySelectorAll('.form-input').forEach(input => {
           input.setAttribute('readonly', 'true');
           input.classList.remove('editable');
         });
         inputActions.forEach(btn => {
           btn.innerHTML = '<i class="ri-pencil-line"></i>';
-          btn.title = '编辑';
+          btn.title = 'Edit';
         });
         saveBtn.setAttribute('disabled', 'true');
       });
 
-      // ---- 搜索框交互 ----
+      // ---- Search框交互 ----
       const searchInput = document.querySelector('.search-box input');
       if (searchInput) {
         searchInput.addEventListener('focus', () => {

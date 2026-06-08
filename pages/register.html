@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>企业注册 - 慧眼</title>
+    <title>Enterprise Registration - Insight</title>
     <style>
         * {
             margin: 0;
@@ -23,7 +23,7 @@
             width: 100vw;
         }
 
-        /* 左侧品牌区 */
+        /* Brand Section */
         .brand-section {
             width: 50%;
             background: linear-gradient(135deg, #0f1f3a 0%, #1e3a5f 100%);
@@ -35,7 +35,7 @@
             overflow: hidden;
         }
 
-        /* 网格线背景 */
+        /* Grid Background */
         .brand-section::before {
             content: '';
             position: absolute;
@@ -50,7 +50,7 @@
             pointer-events: none;
         }
 
-        /* 金色粒子动画 */
+        /* Golden Particle Animation */
         .particles {
             position: absolute;
             top: 0;
@@ -126,7 +126,7 @@
             z-index: 1;
         }
 
-        /* 右侧表单区 */
+        /* 右侧Form区 */
         .form-section {
             width: 50%;
             background: #ffffff;
@@ -159,7 +159,7 @@
             color: #888888;
         }
 
-        /* 分组标题 */
+        /* 分组标 */
         .section-title {
             font-size: 15px;
             font-weight: 600;
@@ -236,7 +236,7 @@
             color: #d4af37;
         }
 
-        /* 验证码 */
+        /* Verification Code */
         .captcha-wrapper {
             display: flex;
             gap: 12px;
@@ -263,7 +263,7 @@
             user-select: none;
         }
 
-        /* 提交按钮 */
+        /* SubmitButtons */
         .btn-submit {
             width: 100%;
             height: 46px;
@@ -288,7 +288,7 @@
             transform: translateY(0);
         }
 
-        /* 底部登录链接 */
+        /* Login Link */
         .form-footer {
             text-align: center;
             margin-top: 24px;
@@ -308,14 +308,14 @@
             text-decoration: underline;
         }
 
-        /* 分隔 */
+        /* Divider */
         .divider {
             height: 1px;
             background: #f0f0f0;
             margin: 24px 0;
         }
 
-        /* 响应式 */
+        /* Responsive */
         @media (max-width: 900px) {
             .brand-section {
                 display: none;
@@ -329,7 +329,7 @@
 </head>
 <body>
     <div class="container">
-        <!-- 左侧品牌区 -->
+        <!-- Brand Section -->
         <div class="brand-section">
             <div class="particles">
                 <div class="particle"></div>
@@ -342,28 +342,28 @@
                 <div class="particle"></div>
             </div>
             <div class="brand-content">
-                <div class="logo">慧眼</div>
-                <p class="slogan">赋能油气人才，构建专业认证体系</p>
+                <div class="logo">Insight</div>
+                <p class="slogan">Empowering Oil & Gas Talent, Building Professional Certification</p>
             </div>
-            <div class="copyright">© 2024 慧眼平台 版权所有</div>
+            <div class="copyright">© 2024 Insight Platform All Rights Reserved</div>
         </div>
 
-        <!-- 右侧注册表单区 -->
+        <!-- Registration Form -->
         <div class="form-section">
             <div class="form-container">
                 <div class="form-header">
-                    <h1>企业注册</h1>
-                    <p>仅企业管理员可注册，需后台审核</p>
+                    <h1>Enterprise Registration</h1>
+                    <p>Enterprise admins only. Requires backend approval.</p>
                 </div>
 
                 <form id="registerForm">
-                    <!-- 企业信息 -->
-                    <div class="section-title">企业信息</div>
+                    <!-- Company Information -->
+                    <div class="section-title">Company Information</div>
 
                     <div class="form-group">
-                        <label class="form-label">企业名称</label>
+                        <label class="form-label">Company Name</label>
                         <div class="input-wrapper">
-                            <input type="text" id="companyName" placeholder="请输入企业全称" required>
+                            <input type="text" id="companyName" placeholder="Enter full company name" required>
                             <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
                                 <polyline points="9 22 9 12 15 12 15 22"></polyline>
@@ -372,14 +372,14 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label">企业类型</label>
+                        <label class="form-label">Company Type</label>
                         <div class="input-wrapper">
                             <select id="companyType" required>
-                                <option value="">请选择企业类型</option>
-                                <option value="state">国有企业</option>
-                                <option value="private">民营企业</option>
-                                <option value="foreign">外资企业</option>
-                                <option value="joint">合资企业</option>
+                                <option value="">Select company type</option>
+                                <option value="state">Status-owned</option>
+                                <option value="private">Private</option>
+                                <option value="foreign">Foreign-owned</option>
+                                <option value="joint">Joint Venture</option>
                             </select>
                             <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
@@ -389,41 +389,41 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label">地区</label>
+                        <label class="form-label">Region</label>
                         <div class="input-wrapper">
                             <select id="region" required>
-                                <option value="">请选择地区</option>
-                                <option value="beijing">北京</option>
-                                <option value="tianjin">天津</option>
-                                <option value="hebei">河北</option>
-                                <option value="shanxi">山西</option>
-                                <option value="neimenggu">内蒙古</option>
-                                <option value="liaoning">辽宁</option>
-                                <option value="jilin">吉林</option>
-                                <option value="heilongjiang">黑龙江</option>
-                                <option value="shanghai">上海</option>
-                                <option value="jiangsu">江苏</option>
-                                <option value="zhejiang">浙江</option>
-                                <option value="anhui">安徽</option>
-                                <option value="fujian">福建</option>
-                                <option value="jiangxi">江西</option>
-                                <option value="shandong">山东</option>
-                                <option value="henan">河南</option>
-                                <option value="hubei">湖北</option>
-                                <option value="hunan">湖南</option>
-                                <option value="guangdong">广东</option>
-                                <option value="guangxi">广西</option>
-                                <option value="hainan">海南</option>
-                                <option value="chongqing">重庆</option>
-                                <option value="sichuan">四川</option>
-                                <option value="guizhou">贵州</option>
-                                <option value="yunnan">云南</option>
-                                <option value="xizang">西藏</option>
-                                <option value="shaanxi">陕西</option>
-                                <option value="gansu">甘肃</option>
-                                <option value="qinghai">青海</option>
-                                <option value="ningxia">宁夏</option>
-                                <option value="xinjiang">新疆</option>
+                                <option value="">Select region</option>
+                                <option value="beijing">Beijing</option>
+                                <option value="tianjin">Tianjin</option>
+                                <option value="hebei">Hebei</option>
+                                <option value="shanxi">Shanxi</option>
+                                <option value="neimenggu">Inner Mongolia</option>
+                                <option value="liaoning">Liaoning</option>
+                                <option value="jilin">Jilin</option>
+                                <option value="heilongjiang">Heilongjiang</option>
+                                <option value="shanghai">Shanghai</option>
+                                <option value="jiangsu">Jiangsu</option>
+                                <option value="zhejiang">Zhejiang</option>
+                                <option value="anhui">Anhui</option>
+                                <option value="fujian">Fujian</option>
+                                <option value="jiangxi">Jiangxi</option>
+                                <option value="shandong">Shandong</option>
+                                <option value="henan">Henan</option>
+                                <option value="hubei">Hubei</option>
+                                <option value="hunan">Hunan</option>
+                                <option value="guangdong">Guangdong</option>
+                                <option value="guangxi">Guangxi</option>
+                                <option value="hainan">Hainan</option>
+                                <option value="chongqing">Chongqing</option>
+                                <option value="sichuan">Sichuan</option>
+                                <option value="guizhou">Guizhou</option>
+                                <option value="yunnan">Yunnan</option>
+                                <option value="xizang">Tibet</option>
+                                <option value="shaanxi">Shaanxi</option>
+                                <option value="gansu">Gansu</option>
+                                <option value="qinghai">Qinghai</option>
+                                <option value="ningxia">Ningxia</option>
+                                <option value="xinjiang">Xinjiang</option>
                             </select>
                             <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <polygon points="1 6 1 22 8 18 16 22 21 18 21 2 16 6 8 2 1 6"></polygon>
@@ -435,13 +435,13 @@
 
                     <div class="divider"></div>
 
-                    <!-- 管理员信息 -->
-                    <div class="section-title">管理员信息</div>
+                    <!-- Admin Information -->
+                    <div class="section-title">Admin Information</div>
 
                     <div class="form-group">
-                        <label class="form-label">联系人姓名</label>
+                        <label class="form-label">Contact Name</label>
                         <div class="input-wrapper">
-                            <input type="text" id="contactName" placeholder="请输入联系人姓名" required>
+                            <input type="text" id="contactName" placeholder="Enter contact name" required>
                             <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
                                 <circle cx="12" cy="7" r="4"></circle>
@@ -450,9 +450,9 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label">联系电话</label>
+                        <label class="form-label">Phone</label>
                         <div class="input-wrapper">
-                            <input type="tel" id="phone" placeholder="请输入联系电话" required>
+                            <input type="tel" id="phone" placeholder="Enter phone number" required>
                             <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
                             </svg>
@@ -460,9 +460,9 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label">邮箱</label>
+                        <label class="form-label">Email</label>
                         <div class="input-wrapper">
-                            <input type="email" id="email" placeholder="请输入邮箱地址" required>
+                            <input type="email" id="email" placeholder="Enter email address" required>
                             <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
                                 <polyline points="22,6 12,13 2,6"></polyline>
@@ -471,9 +471,9 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label">用户名</label>
+                        <label class="form-label">Username</label>
                         <div class="input-wrapper">
-                            <input type="text" id="username" placeholder="请设置用户名" required>
+                            <input type="text" id="username" placeholder="Set username" required>
                             <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
                                 <circle cx="12" cy="7" r="4"></circle>
@@ -482,9 +482,9 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label">密码</label>
+                        <label class="form-label">Password</label>
                         <div class="input-wrapper">
-                            <input type="password" id="password" placeholder="请设置密码" required>
+                            <input type="password" id="password" placeholder="Set password" required>
                             <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
                                 <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
@@ -493,9 +493,9 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label">确认密码</label>
+                        <label class="form-label">ConfirmPassword</label>
                         <div class="input-wrapper">
-                            <input type="password" id="confirmPassword" placeholder="请再次输入密码" required>
+                            <input type="password" id="confirmPassword" placeholder="Re-enter password" required>
                             <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
                                 <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
@@ -504,10 +504,10 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label">验证码</label>
+                        <label class="form-label">Verification Code</label>
                         <div class="captcha-wrapper">
                             <div class="input-wrapper">
-                                <input type="text" id="captcha" placeholder="请输入验证码" maxlength="4" required>
+                                <input type="text" id="captcha" placeholder="Enter verification code" maxlength="4" required>
                                 <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                     <polyline points="9 11 12 14 22 4"></polyline>
                                     <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
@@ -517,19 +517,19 @@
                         </div>
                     </div>
 
-                    <!-- 提交按钮 -->
-                    <button type="submit" class="btn-submit">提交注册</button>
+                    <!-- SubmitButtons -->
+                    <button type="submit" class="btn-submit">Submit Registration</button>
                 </form>
 
                 <div class="form-footer">
-                    已有账号？<a href="login.html">立即登录</a>
+                    Already have an account?<a href="login.html">Sign in now</a>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        // 刷新验证码
+        // 刷新Verification Code
         function refreshCaptcha() {
             const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
             let code = '';
@@ -539,7 +539,7 @@
             document.querySelector('.captcha-image').textContent = code;
         }
 
-        // 表单提交
+        // FormSubmit
         document.getElementById('registerForm').addEventListener('submit', function(e) {
             e.preventDefault();
 
@@ -547,12 +547,12 @@
             const confirmPassword = document.getElementById('confirmPassword').value;
 
             if (password !== confirmPassword) {
-                alert('两次输入的密码不一致，请重新输入');
+                alert('Passwords do not match. Please try again.');
                 return;
             }
 
-            // 这里添加注册逻辑
-            alert('注册申请已提交，等待后台审核');
+            // 这里添加Register逻辑
+            alert('Registration submitted. Pending admin approval.');
         });
     </script>
 </body>

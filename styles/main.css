@@ -1,12 +1,12 @@
 /* ============================================
-   慧眼 - 能力管理与发展系统
-   主样式表
+   Insight - Competency Management & Development System
+   Main Stylesheet
    ============================================ */
 
 @import url('variables.css');
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Playfair+Display:wght@400;600;700&display=swap');
 
-/* ---- 基础重置 ---- */
+/* ---- Base Reset ---- */
 *, *::before, *::after {
   margin: 0;
   padding: 0;
@@ -50,7 +50,7 @@ img {
   display: block;
 }
 
-/* ---- 滚动条美化 ---- */
+/* ---- Scrollbar Styling ---- */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
@@ -69,14 +69,14 @@ img {
   background: var(--steel-blue);
 }
 
-/* ---- 选择文本颜色 ---- */
+/* ---- Text Selection Color ---- */
 ::selection {
   background: var(--amber-glow);
   color: var(--amber-light);
 }
 
 /* ============================================
-   动画关键帧
+   Animation Keyframes
    ============================================ */
 
 @keyframes fadeInUp {
@@ -155,10 +155,10 @@ img {
 }
 
 /* ============================================
-   通用组件样式
+   Common Component Styles
    ============================================ */
 
-/* ---- 按钮 ---- */
+/* ---- Buttons ---- */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -222,7 +222,7 @@ img {
   font-size: var(--text-body);
 }
 
-/* ---- 卡片 ---- */
+/* ---- Cards ---- */
 .card {
   background: var(--gradient-card);
   border: 1px solid rgba(30, 58, 95, 0.5);
@@ -261,7 +261,7 @@ img {
   -webkit-backdrop-filter: blur(20px);
 }
 
-/* ---- 徽章 ---- */
+/* ---- Badges ---- */
 .badge {
   display: inline-flex;
   align-items: center;
@@ -296,7 +296,7 @@ img {
   color: var(--amber-gold);
 }
 
-/* ---- 输入框 ---- */
+/* ---- Inputs ---- */
 .input {
   width: 100%;
   padding: 0.75rem 1rem;
@@ -319,7 +319,7 @@ img {
   box-shadow: 0 0 0 3px var(--amber-glow);
 }
 
-/* ---- 进度条 ---- */
+/* ---- Progress Bars ---- */
 .progress-bar {
   width: 100%;
   height: 6px;
@@ -350,7 +350,7 @@ img {
   100% { transform: translateX(100%); }
 }
 
-/* ---- 标签页 ---- */
+/* ---- Tabs ---- */
 .tabs {
   display: flex;
   gap: var(--space-xs);
@@ -378,7 +378,7 @@ img {
   border-bottom-color: var(--amber-gold);
 }
 
-/* ---- 加载状态 ---- */
+/* ---- Loading Statuss ---- */
 .skeleton {
   background: linear-gradient(90deg, var(--energy-blue) 25%, var(--steel-blue) 50%, var(--energy-blue) 75%);
   background-size: 200% 100%;
@@ -396,7 +396,7 @@ img {
 }
 
 /* ============================================
-   工具类
+   Utility Classes
    ============================================ */
 
 .container {
@@ -446,7 +446,7 @@ img {
   animation: slideInLeft var(--duration-slow) var(--ease-out-expo) forwards;
 }
 
-/* 延迟动画 */
+/* Delayed Animations */
 .delay-1 { animation-delay: 0.1s; }
 .delay-2 { animation-delay: 0.2s; }
 .delay-3 { animation-delay: 0.3s; }
@@ -454,7 +454,7 @@ img {
 .delay-5 { animation-delay: 0.5s; }
 
 /* ============================================
-   页面过渡效果
+   Page Transition Effects
    ============================================ */
 
 .page-transition {
@@ -469,7 +469,7 @@ img {
 }
 
 /* ============================================
-   网格背景装饰
+   Grid Background Decoration
    ============================================ */
 
 .grid-bg {
@@ -486,7 +486,7 @@ img {
   background-size: 60px 60px;
 }
 
-/* 光晕效果 */
+/* Glow Effect */
 .glow-orb {
   position: fixed;
   border-radius: 50%;

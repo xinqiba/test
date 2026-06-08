@@ -1,27 +1,27 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>慧眼 - 能力管理与发展系统</title>
-  <meta name="description" content="赋能油气人才，构建专业认证体系">
+  <title>Insight - Competency Management & Development System</title>
+  <meta name="description" content="Empowering Oil & Gas Talent, Building Professional Certification">
 
-  <!-- 字体 -->
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
 
-  <!-- 样式 -->
+  <!-- Styles -->
   <link rel="stylesheet" href="styles/variables.css">
   <link rel="stylesheet" href="styles/main.css">
   <link rel="stylesheet" href="styles/layout.css">
 
-  <!-- 图标 -->
+  <!-- Icons -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css">
 
   <style>
     /* ============================================
-       首页样式 (home.css) - 浅色主题
+       Home样式 (home.css) - 浅色主
        ============================================ */
 
     body {
@@ -270,7 +270,7 @@
       color: #64748b;
     }
 
-    /* ---- 核心优势区 ---- */
+    /* ---- Core Strengths区 ---- */
     .section {
       padding: var(--space-4xl) 0;
       position: relative;
@@ -522,7 +522,7 @@
       font-size: var(--text-xs);
     }
 
-    /* ---- 新闻公告区 ---- */
+    /* ---- News & Announcements区 ---- */
     .news-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -584,7 +584,7 @@
       gap: var(--space-sm);
     }
 
-    /* ---- 合作伙伴 ---- */
+    /* ---- Partners ---- */
     .partners-section {
       background: #eef2f7;
       margin: 0 calc(var(--space-2xl) * -1);
@@ -741,7 +741,7 @@
     }
 
     /* ============================================
-       响应式
+       Responsive
        ============================================ */
     @media (max-width: 1200px) {
       .features-grid {
@@ -812,7 +812,7 @@
       }
     }
 
-    /* ---- 滚动显现动画 ---- */
+    /* ---- 滚动显现Animations ---- */
     .reveal {
       opacity: 0;
       transform: translateY(30px);
@@ -836,44 +836,40 @@
   <div class="glow-orb glow-orb-1"></div>
   <div class="glow-orb glow-orb-2"></div>
 
-  <!-- 顶部导航栏 -->
+  <!-- Topbar -->
   <header class="topbar" id="topbar">
     <div class="topbar-left">
       <a href="index.html" class="brand">
         <div class="brand-logo"><i class="ri-eye-line"></i></div>
-        <span class="brand-text">慧眼 <span>系统</span></span>
+        <span class="brand-text">Insight <span>System</span></span>
       </a>
       <nav class="topbar-nav">
-        <a href="index.html" class="active">首页</a>
-        <a href="pages/about.html">关于我们</a>
-        <a href="pages/news.html">新闻公告</a>
+        <a href="index.html" class="active">Home</a>
+        <a href="pages/about.html">About Us</a>
+        <a href="pages/news.html">News & Announcements</a>
         <div class="nav-dropdown">
-            <a href="#" class="nav-dropdown-toggle">在线学习 <i class="ri-arrow-down-s-line"></i></a>
+            <a href="#" class="nav-dropdown-toggle">E-Learning <i class="ri-arrow-down-s-line"></i></a>
             <div class="nav-dropdown-menu">
-                <a href="pages/knowledge.html">知识矩阵</a>
-                <a href="pages/skill.html">技能矩阵</a>
-                <a href="pages/workshop.html">经验工作坊</a>
-                <a href="pages/assessment.html">评估认证</a>
-            </div>
-        </div>
-        <div class="nav-dropdown">
-            <a href="#" class="nav-dropdown-toggle">Insight CA 系统 <i class="ri-arrow-down-s-line"></i></a>
-            <div class="nav-dropdown-menu">
-                <div class="nav-sub-dropdown">
-                    <a href="#" class="nav-sub-toggle">Matrix 管理 <i class="ri-arrow-right-s-line"></i></a>
-                    <div class="nav-sub-menu">
-                        <a href="pages/my-skills.html">档案管理</a>
-                        <a href="pages/reports.html">数据图表</a>
-                        <a href="pages/my-learning.html">课程成绩</a>
-                        <a href="pages/course-learn.html">课程学习</a>
-                    </div>
+                    <a href="knowledge.html">Knowledge Matrix</a>
+                    <a href="skill.html">Skill Matrix</a>
+                    <a href="workshop.html">Workshop</a>
+                    <a href="assessment.html">Assessment & Certification</a>
+
                 </div>
             </div>
-        </div>
-        <div class="nav-dropdown">
-            <a href="#" class="nav-dropdown-toggle">Insight HSSE 管理 <i class="ri-arrow-down-s-line"></i></a>
+            <div class="nav-dropdown">
+                <a href="#" class="nav-dropdown-toggle">Insight CA System <i class="ri-arrow-down-s-line"></i></a>
+                <div class="nav-dropdown-menu">
+                    <a href="my-skills.html">Profile Management</a>
+                    <a href="reports.html">Data & Reports</a>
+                    <a href="my-learning.html">Course Grades</a>
+                    <a href="course-learn.html">Course Learning</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#" class="nav-dropdown-toggle">Insight HSSE Management <i class="ri-arrow-down-s-line"></i></a>
             <div class="nav-dropdown-menu">
-                <a href="pages/ptw.html">PTW 作业许可</a>
+                <a href="pages/ptw.html">PTW Work Permit</a>
                 <a href="pages/compliance.html">HSSE Passport</a>
             </div>
         </div>
@@ -882,22 +878,22 @@
     <div class="topbar-right">
       <div class="search-box">
         <i class="ri-search-line"></i>
-        <input type="text" placeholder="搜索课程、技能..." id="globalSearch">
+        <input type="text" placeholder="Search courses, skills..." id="globalSearch">
       </div>
       <a href="pages/login.html" class="btn btn-sm btn-primary">
         <i class="ri-login-box-line"></i>
-        <span>登录</span>
+        <span>Login</span>
       </a>
       <div class="user-menu" style="display:none" id="userMenu">
-        <div class="user-avatar">张</div>
-        <span class="user-name">张工程师</span>
+        <div class="user-avatar">J</div>
+        <span class="user-name">John Engineer</span>
         <i class="ri-arrow-down-s-line" style="color:#64748b"></i>
       </div>
     </div>
   </header>
 
 
-  <!-- 主内容区 -->
+  <!-- Main Content Area -->
   <main class="main-content">
     <div class="content-wrapper" style="padding:0">
 
@@ -908,37 +904,37 @@
         <div class="hero-particles" id="heroParticles"></div>
         <div class="container">
           <div class="hero-content">
-            <div class="hero-badge">油气行业专业认证平台</div>
+            <div class="hero-badge">Oil & Gas Professional Certification Platform</div>
             <h1 class="hero-title">
-              赋能油气人才<br>
-              构建<span class="accent">专业认证体系</span>
+              Empowering Oil & Gas Talent<br>
+              Building <span class="accent">Professional Certification</span> Systems
             </h1>
             <p class="hero-desc">
-              融合人员管理、知识学习、技能认证、工作坊管理的全链路数字化解决方案，
-              助力企业实现从培训到认证的全流程精细化管理。
+              A full-chain digital solution integrating talent management, Knowledge Learning, Skill Certification, and Workshop management, 
+              helping enterprises achieve refined management from training to certification.
             </p>
             <div class="hero-actions">
               <a href="pages/knowledge.html" class="btn btn-lg btn-primary">
                 <i class="ri-rocket-line"></i>
-                开始学习
+                Start Learning
               </a>
               <a href="pages/skill.html" class="btn btn-lg btn-secondary">
                 <i class="ri-award-line"></i>
-                技能认证
+                Skill Certification
               </a>
             </div>
             <div class="hero-stats">
               <div class="hero-stat">
                 <span class="hero-stat-value">149+</span>
-                <span class="hero-stat-label">专业课程</span>
+                <span class="hero-stat-label">Courses</span>
               </div>
               <div class="hero-stat">
                 <span class="hero-stat-value">50+</span>
-                <span class="hero-stat-label">技能认证</span>
+                <span class="hero-stat-label">Skill Certification</span>
               </div>
               <div class="hero-stat">
                 <span class="hero-stat-value">12K+</span>
-                <span class="hero-stat-label">认证人才</span>
+                <span class="hero-stat-label">Certified Professionals</span>
               </div>
             </div>
           </div>
@@ -950,63 +946,63 @@
               <div class="quick-card-icon blue">
                 <i class="ri-book-open-line"></i>
               </div>
-              <div class="quick-card-title">知识学习</div>
-              <div class="quick-card-desc">8大学科领域、149+学习单元，覆盖油气全产业链</div>
+              <div class="quick-card-title">Knowledge Learning</div>
+              <div class="quick-card-desc">8 disciplines, 149+ units covering the full O&G value chain</div>
             </div>
             <div class="quick-card" onclick="location.href='pages/skill.html'">
               <div class="quick-card-icon gold">
                 <i class="ri-award-line"></i>
               </div>
-              <div class="quick-card-title">技能认证</div>
-              <div class="quick-card-desc">多层级技能评估与三级验证认证体系</div>
+              <div class="quick-card-title">Skill Certification</div>
+              <div class="quick-card-desc">Multi-level skill assessment with three-tier verification</div>
             </div>
             <div class="quick-card" onclick="location.href='pages/workshop.html'">
               <div class="quick-card-icon green">
                 <i class="ri-team-line"></i>
               </div>
-              <div class="quick-card-title">现场培训</div>
-              <div class="quick-card-desc">经验工作坊与线下实操培训课程</div>
+              <div class="quick-card-title">On-site Training</div>
+              <div class="quick-card-desc">Workshops and hands-on training courses</div>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- 核心优势区 -->
+      <!-- Core Strengths区 -->
       <section class="section">
         <div class="container">
           <div class="section-header reveal">
-            <span class="section-label">核心优势</span>
-            <h2 class="section-title">为什么选择慧眼系统</h2>
-            <p class="section-desc">深耕石油天然气行业，提供从培训到认证的完整数字化能力管理方案</p>
+            <span class="section-label">Core Strengths</span>
+            <h2 class="section-title">Why Insight System</h2>
+            <p class="section-desc">Deeply rooted in the oil & gas industry, providing complete digital competency management from training to certification</p>
           </div>
           <div class="features-grid">
             <div class="feature-card reveal reveal-delay-1">
               <div class="feature-icon blue">
                 <i class="ri-oil-line"></i>
               </div>
-              <h3 class="feature-title">行业专注</h3>
-              <p class="feature-desc">专注石油天然气行业，深度理解行业培训需求与合规要求，提供针对性解决方案</p>
+              <h3 class="feature-title">Industry Focus</h3>
+              <p class="feature-desc">Focused on oil & gas, deeply understanding industry training needs and compliance requirements</p>
             </div>
             <div class="feature-card reveal reveal-delay-2">
               <div class="feature-icon gold">
                 <i class="ri-loop-right-line"></i>
               </div>
-              <h3 class="feature-title">完整体系</h3>
-              <p class="feature-desc">覆盖知识学习、技能认证、工作坊管理、PTW合规的全链路培训管理体系</p>
+              <h3 class="feature-title">Complete System</h3>
+              <p class="feature-desc">End-to-end training management covering knowledge, skills, workshops, and PTW compliance</p>
             </div>
             <div class="feature-card reveal reveal-delay-3">
               <div class="feature-icon green">
                 <i class="ri-verified-badge-line"></i>
               </div>
-              <h3 class="feature-title">专业认证</h3>
-              <p class="feature-desc">三级验证认证流程，确保技能评估的公正性与权威性，生成正式认证报告</p>
+              <h3 class="feature-title">Professional Certification</h3>
+              <p class="feature-desc">Three-tier verification ensures fair and authoritative skill assessments with official reports</p>
             </div>
             <div class="feature-card reveal reveal-delay-4">
               <div class="feature-icon purple">
                 <i class="ri-tools-line"></i>
               </div>
-              <h3 class="feature-title">实战导向</h3>
-              <p class="feature-desc">结合现场实操与经验工作坊，强调实战技能培养，确保培训成果落地</p>
+              <h3 class="feature-title">Practice Oriented</h3>
+              <p class="feature-desc">Combining hands-on practice and workshops to ensure training results translate to real skills</p>
             </div>
           </div>
         </div>
@@ -1016,9 +1012,9 @@
       <section class="courses-section">
         <div class="container">
           <div class="section-header reveal">
-            <span class="section-label">热门课程</span>
-            <h2 class="section-title">推荐学科</h2>
-            <p class="section-desc">8大学科领域，从入门到精通的完整学习路径，随时随地自主学习</p>
+            <span class="section-label">Popular Courses</span>
+            <h2 class="section-title">Recommended Disciplines</h2>
+            <p class="section-desc">8 disciplines with complete learning paths from beginner to expert</p>
           </div>
           <div class="courses-grid">
             <div class="course-card reveal reveal-delay-1">
@@ -1027,24 +1023,24 @@
                 <span class="badge badge-gold course-level">Level 2-4</span>
               </div>
               <div class="course-body">
-                <div class="course-category">健康安全环境</div>
-                <h3 class="course-title">HSE 安全管理体系</h3>
+                <div class="course-category">HSE</div>
+                <h3 class="course-title">HSE Safety Management System</h3>
                 <div class="course-meta">
-                  <span class="course-meta-item"><i class="ri-bookmark-line"></i> 15单元</span>
-                  <span class="course-meta-item"><i class="ri-time-line"></i> 24学时</span>
-                  <span class="course-meta-item"><i class="ri-user-line"></i> 2.3k人学习</span>
+                  <span class="course-meta-item"><i class="ri-bookmark-line"></i> 15 Units</span>
+                  <span class="course-meta-item"><i class="ri-time-line"></i> 24 Hours</span>
+                  <span class="course-meta-item"><i class="ri-user-line"></i> 2.3k learners</span>
                 </div>
                 <div class="course-footer">
                   <div class="course-progress">
                     <div class="course-progress-header">
-                      <span style="font-size:var(--text-xs);color:#64748b">学习进度</span>
+                      <span style="font-size:var(--text-xs);color:#64748b">Progress</span>
                       <span style="font-size:var(--text-xs);color:#b7791f;font-weight:500">45%</span>
                     </div>
                     <div class="progress-bar">
                       <div class="progress-bar-fill" style="width:45%"></div>
                     </div>
                   </div>
-                  <a href="pages/knowledge.html" class="btn btn-sm btn-primary">继续学习</a>
+                  <a href="pages/knowledge.html" class="btn btn-sm btn-primary">Continue Learning</a>
                 </div>
               </div>
             </div>
@@ -1054,24 +1050,24 @@
                 <span class="badge badge-gold course-level">Level 3-4</span>
               </div>
               <div class="course-body">
-                <div class="course-category">井工程</div>
-                <h3 class="course-title">Wells Engineering 钻井技术</h3>
+                <div class="course-category">Wells Engineering</div>
+                <h3 class="course-title">Wells Engineering - Drilling Technology</h3>
                 <div class="course-meta">
-                  <span class="course-meta-item"><i class="ri-bookmark-line"></i> 21单元</span>
-                  <span class="course-meta-item"><i class="ri-time-line"></i> 36学时</span>
-                  <span class="course-meta-item"><i class="ri-user-line"></i> 1.8k人学习</span>
+                  <span class="course-meta-item"><i class="ri-bookmark-line"></i> 21 Units</span>
+                  <span class="course-meta-item"><i class="ri-time-line"></i> 36 Hours</span>
+                  <span class="course-meta-item"><i class="ri-user-line"></i> 1.8k learners</span>
                 </div>
                 <div class="course-footer">
                   <div class="course-progress">
                     <div class="course-progress-header">
-                      <span style="font-size:var(--text-xs);color:#64748b">学习进度</span>
-                      <span style="font-size:var(--text-xs);color:#64748b">未开始</span>
+                      <span style="font-size:var(--text-xs);color:#64748b">Progress</span>
+                      <span style="font-size:var(--text-xs);color:#64748b">Not Started</span>
                     </div>
                     <div class="progress-bar">
                       <div class="progress-bar-fill" style="width:0%"></div>
                     </div>
                   </div>
-                  <a href="pages/knowledge.html" class="btn btn-sm btn-secondary">开始学习</a>
+                  <a href="pages/knowledge.html" class="btn btn-sm btn-secondary">Start Learning</a>
                 </div>
               </div>
             </div>
@@ -1081,24 +1077,24 @@
                 <span class="badge badge-gold course-level">Level 2-3</span>
               </div>
               <div class="course-body">
-                <div class="course-category">仪表与控制</div>
-                <h3 class="course-title">I&C 仪表与控制系统</h3>
+                <div class="course-category">Instrumentation & Controls</div>
+                <h3 class="course-title">I&C Instrumentation & Control Systems</h3>
                 <div class="course-meta">
-                  <span class="course-meta-item"><i class="ri-bookmark-line"></i> 14单元</span>
-                  <span class="course-meta-item"><i class="ri-time-line"></i> 28学时</span>
-                  <span class="course-meta-item"><i class="ri-user-line"></i> 1.2k人学习</span>
+                  <span class="course-meta-item"><i class="ri-bookmark-line"></i> 14 Units</span>
+                  <span class="course-meta-item"><i class="ri-time-line"></i> 28 Hours</span>
+                  <span class="course-meta-item"><i class="ri-user-line"></i> 1.2k learners</span>
                 </div>
                 <div class="course-footer">
                   <div class="course-progress">
                     <div class="course-progress-header">
-                      <span style="font-size:var(--text-xs);color:#64748b">学习进度</span>
-                      <span style="font-size:var(--text-xs);color:#64748b">未开始</span>
+                      <span style="font-size:var(--text-xs);color:#64748b">Progress</span>
+                      <span style="font-size:var(--text-xs);color:#64748b">Not Started</span>
                     </div>
                     <div class="progress-bar">
                       <div class="progress-bar-fill" style="width:0%"></div>
                     </div>
                   </div>
-                  <a href="pages/knowledge.html" class="btn btn-sm btn-secondary">开始学习</a>
+                  <a href="pages/knowledge.html" class="btn btn-sm btn-secondary">Start Learning</a>
                 </div>
               </div>
             </div>
@@ -1106,86 +1102,86 @@
         </div>
       </section>
 
-      <!-- 新闻公告区 -->
+      <!-- News & Announcements区 -->
       <section class="section">
         <div class="container">
           <div class="section-header reveal">
-            <span class="section-label">最新动态</span>
-            <h2 class="section-title">新闻公告</h2>
-            <p class="section-desc">行业动态、系统更新与培训资讯</p>
+            <span class="section-label">Latest News</span>
+            <h2 class="section-title">News & Announcements</h2>
+            <p class="section-desc">Industry updates, system releases, and training news</p>
           </div>
           <div class="news-grid">
             <article class="news-card reveal reveal-delay-1">
               <div class="news-date">
                 <i class="ri-calendar-line"></i>
                 <span>2026-04-20</span>
-                <span class="badge badge-info" style="margin-left:auto">系统通知</span>
+                <span class="badge badge-info" style="margin-left:auto">System Notice</span>
               </div>
-              <h3 class="news-title">慧眼系统 V3.0 版本正式发布，新增AI智能推荐功能</h3>
-              <p class="news-excerpt">本次更新引入了基于学习行为的智能课程推荐引擎，同时优化了技能矩阵的可视化展示效果...</p>
+              <h3 class="news-title">Insight System V3.0 Released with AI Smart Recommendations</h3>
+              <p class="news-excerpt">New AI-powered course recommendation engine based on learning behavior, plus improved Skill Matrix visualization...</p>
               <a href="pages/news.html" class="news-link">
-                查看详情 <i class="ri-arrow-right-line"></i>
+                View Details <i class="ri-arrow-right-line"></i>
               </a>
             </article>
             <article class="news-card reveal reveal-delay-2">
               <div class="news-date">
                 <i class="ri-calendar-line"></i>
                 <span>2026-04-18</span>
-                <span class="badge badge-warning" style="margin-left:auto">行业动态</span>
+                <span class="badge badge-warning" style="margin-left:auto">Industry News</span>
               </div>
-              <h3 class="news-title">国家能源局发布新版油气行业安全培训标准</h3>
-              <p class="news-excerpt">新标准对油气作业人员的安全培训内容、时长及考核方式提出了更高要求，企业需在下半年完成...</p>
+              <h3 class="news-title">National Energy Administration Releases New O&G Safety Training Standards</h3>
+              <p class="news-excerpt">New standards raise requirements for safety training content, duration, and assessment for O&G operators...</p>
               <a href="pages/news.html" class="news-link">
-                查看详情 <i class="ri-arrow-right-line"></i>
+                View Details <i class="ri-arrow-right-line"></i>
               </a>
             </article>
             <article class="news-card reveal reveal-delay-3">
               <div class="news-date">
                 <i class="ri-calendar-line"></i>
                 <span>2026-04-15</span>
-                <span class="badge badge-success" style="margin-left:auto">培训资讯</span>
+                <span class="badge badge-success" style="margin-left:auto">Training News</span>
               </div>
-              <h3 class="news-title">5月深海钻井技术工作坊报名开启，名额有限</h3>
-              <p class="news-excerpt">由行业资深专家主讲的深海钻井技术实操工作坊将于5月中旬举办，涵盖最新的深水钻井技术与...</p>
+              <h3 class="news-title">May Deepwater Drilling Workshop Registration Now Open – Limited Spots</h3>
+              <p class="news-excerpt">Led by industry experts, the Deepwater Drilling Workshop will be held in mid-May, covering the latest deepwater technologies...</p>
               <a href="pages/workshop.html" class="news-link">
-                查看详情 <i class="ri-arrow-right-line"></i>
+                View Details <i class="ri-arrow-right-line"></i>
               </a>
             </article>
           </div>
         </div>
       </section>
 
-      <!-- 合作伙伴 -->
+      <!-- Partners -->
       <section class="partners-section">
         <div class="container">
           <div class="section-header reveal" style="margin-bottom:var(--space-2xl)">
-            <span class="section-label">合作伙伴</span>
-            <h2 class="section-title">信任我们的企业</h2>
+            <span class="section-label">Partners</span>
+            <h2 class="section-title">Companies That Trust Us</h2>
           </div>
         </div>
         <div class="partners-track" id="partnersTrack">
-          <!-- 第一组 -->
-          <div class="partner-logo">中石油</div>
-          <div class="partner-logo">中石化</div>
-          <div class="partner-logo">中海油</div>
+          <!-- 第Mon组 -->
+          <div class="partner-logo">CNPC</div>
+          <div class="partner-logo">Sinopec</div>
+          <div class="partner-logo">CNOOC</div>
           <div class="partner-logo">Shell</div>
           <div class="partner-logo">BP</div>
           <div class="partner-logo">Total</div>
           <div class="partner-logo">Chevron</div>
           <div class="partner-logo">ExxonMobil</div>
-          <div class="partner-logo">斯伦贝谢</div>
-          <div class="partner-logo">哈里伯顿</div>
-          <!-- 重复一组用于无缝滚动 -->
-          <div class="partner-logo">中石油</div>
-          <div class="partner-logo">中石化</div>
-          <div class="partner-logo">中海油</div>
+          <div class="partner-logo">Schlumberger</div>
+          <div class="partner-logo">Halliburton</div>
+          <!-- 重复Mon组用于无缝滚动 -->
+          <div class="partner-logo">CNPC</div>
+          <div class="partner-logo">Sinopec</div>
+          <div class="partner-logo">CNOOC</div>
           <div class="partner-logo">Shell</div>
           <div class="partner-logo">BP</div>
           <div class="partner-logo">Total</div>
           <div class="partner-logo">Chevron</div>
           <div class="partner-logo">ExxonMobil</div>
-          <div class="partner-logo">斯伦贝谢</div>
-          <div class="partner-logo">哈里伯顿</div>
+          <div class="partner-logo">Schlumberger</div>
+          <div class="partner-logo">Halliburton</div>
         </div>
       </section>
 
@@ -1196,41 +1192,41 @@
             <div class="footer-brand">
               <a href="index.html" class="brand">
                 <div class="brand-logo"><i class="ri-eye-line"></i></div>
-                <span class="brand-text">慧眼 <span>系统</span></span>
+                <span class="brand-text">Insight <span>System</span></span>
               </a>
               <p class="footer-desc">
-                慧眼 - 能力管理与发展系统，专为石油天然气行业打造的全链路数字化培训与认证平台。
+                Insight - Competency Management & Development System. A full-chain digital training and certification platform for the oil & gas industry.
               </p>
               <div class="footer-social">
-                <a href="#" aria-label="微信"><i class="ri-wechat-line"></i></a>
-                <a href="#" aria-label="邮箱"><i class="ri-mail-line"></i></a>
-                <a href="#" aria-label="电话"><i class="ri-phone-line"></i></a>
+                <a href="#" aria-label="WeChat"><i class="ri-wechat-line"></i></a>
+                <a href="#" aria-label="Email"><i class="ri-mail-line"></i></a>
+                <a href="#" aria-label="Phone"><i class="ri-phone-line"></i></a>
               </div>
             </div>
             <div class="footer-col">
-              <h4 class="footer-title">产品服务</h4>
+              <h4 class="footer-title">Products & Services</h4>
               <div class="footer-links">
-                <a href="pages/knowledge.html">知识矩阵</a>
-                <a href="pages/skill.html">技能矩阵</a>
-                <a href="pages/workshop.html">经验工作坊</a>
-                <a href="pages/assessment.html">评估认证</a>
+                <a href="pages/knowledge.html">Knowledge Matrix</a>
+                <a href="pages/skill.html">Skill Matrix</a>
+                <a href="pages/workshop.html">Workshop</a>
+                <a href="pages/assessment.html">Assessment & Certification</a>
               </div>
             </div>
             <div class="footer-col">
-              <h4 class="footer-title">支持</h4>
+              <h4 class="footer-title">Support</h4>
               <div class="footer-links">
-                <a href="pages/help.html">帮助中心</a>
-                <a href="pages/faq.html">常见问题</a>
-                <a href="pages/contact.html">联系我们</a>
-                <a href="pages/feedback.html">意见反馈</a>
+                <a href="pages/help.html">Help Center</a>
+                <a href="pages/faq.html">FAQ</a>
+                <a href="pages/contact.html">Contact Us</a>
+                <a href="pages/feedback.html">Feedback</a>
               </div>
             </div>
             <div class="footer-col">
-              <h4 class="footer-title">联系方式</h4>
+              <h4 class="footer-title">Contact Info</h4>
               <div class="footer-contact">
                 <div class="footer-contact-item">
                   <i class="ri-map-pin-line"></i>
-                  <span>北京市朝阳区石油大厦A座18层</span>
+                  <span>18/F Petroleum Tower A, Chaoyang District, Beijing</span>
                 </div>
                 <div class="footer-contact-item">
                   <i class="ri-mail-line"></i>
@@ -1244,11 +1240,11 @@
             </div>
           </div>
           <div class="footer-bottom">
-            <span> 2026 慧眼系统 版权所有</span>
+            <span> 2026 Insight System All Rights Reserved</span>
             <div style="display:flex;gap:var(--space-lg)">
-              <a href="pages/privacy.html">隐私政策</a>
-              <a href="pages/terms.html">服务条款</a>
-              <a href="pages/sitemap.html">网站地图</a>
+              <a href="pages/privacy.html">Privacy Policy</a>
+              <a href="pages/terms.html">Terms of Service</a>
+              <a href="pages/sitemap.html">Sitemap</a>
             </div>
           </div>
         </div>
@@ -1260,7 +1256,7 @@
   <!-- JavaScript -->
   <script>
     // ============================================
-    // 慧眼系统 - 核心交互逻辑
+    // Insight System - 核心交互逻辑
     // ============================================
 
     (function() {
@@ -1270,7 +1266,7 @@
       const topbar = document.getElementById('topbar');
       const heroParticles = document.getElementById('heroParticles');
 
-      // ---- 顶部导航栏滚动效果 ----
+      // ---- Topbar滚动效果 ----
       let lastScroll = 0;
       window.addEventListener('scroll', () => {
         const currentScroll = window.pageYOffset;
@@ -1301,7 +1297,7 @@
       }
       createParticles();
 
-      // ---- 滚动显现动画 ----
+      // ---- 滚动显现Animations ----
       const revealElements = document.querySelectorAll('.reveal');
       const revealObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
@@ -1317,7 +1313,7 @@
 
       revealElements.forEach(el => revealObserver.observe(el));
 
-      // ---- 搜索框交互 ----
+      // ---- Search框交互 ----
       const searchInput = document.querySelector('.search-box input');
       if (searchInput) {
         searchInput.addEventListener('focus', () => {
@@ -1330,7 +1326,7 @@
         });
       }
 
-      // ---- 页面加载完成 ----
+      // ---- 页面加载Done ----
       document.addEventListener('DOMContentLoaded', () => {
         document.body.classList.add('loaded');
       });

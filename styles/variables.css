@@ -1,11 +1,11 @@
 /* ============================================
-   慧眼 - 能力管理与发展系统
-   设计系统变量
-   美学方向：深海能源蓝 + 琥珀金奢华工业风
+   Insight - Competency Management & Development System
+   Design System Variables
+   Aesthetic Direction: Deep Ocean Energy Blue + Amber Gold Luxury Industrial Style
    ============================================ */
 
 :root {
-  /* ---- 核心色彩系统 ---- */
+  /* ---- Core Color System ---- */
   --deep-ocean: #060d1a;
   --abyss: #0a1628;
   --midnight: #0f1f3a;
@@ -23,7 +23,7 @@
   --pearl: #d8e4f0;
   --white: #f0f5fa;
 
-  /* 功能色 */
+  /* Functional Colors */
   --success: #4caf7a;
   --success-dim: rgba(76, 175, 122, 0.12);
   --warning: #e6a23c;
@@ -33,13 +33,13 @@
   --info: #5b9bd5;
   --info-dim: rgba(91, 155, 213, 0.12);
 
-  /* ---- 渐变 ---- */
+  /* ---- Gradients ---- */
   --gradient-hero: linear-gradient(135deg, var(--abyss) 0%, var(--energy-blue) 50%, var(--midnight) 100%);
   --gradient-gold: linear-gradient(135deg, var(--amber-gold) 0%, var(--amber-light) 100%);
   --gradient-card: linear-gradient(180deg, rgba(30, 58, 95, 0.4) 0%, rgba(10, 22, 40, 0.8) 100%);
   --gradient-glass: linear-gradient(180deg, rgba(30, 58, 95, 0.2) 0%, rgba(10, 22, 40, 0.4) 100%);
 
-  /* ---- 字体系统 ---- */
+  /* ---- Typography System ---- */
   --font-display: 'Playfair Display', 'Noto Serif SC', serif;
   --font-body: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
@@ -60,7 +60,7 @@
   --line-height-normal: 1.6;
   --line-height-relaxed: 1.8;
 
-  /* ---- 间距系统 ---- */
+  /* ---- Spacing System ---- */
   --space-xs: 0.25rem;
   --space-sm: 0.5rem;
   --space-md: 1rem;
@@ -70,26 +70,26 @@
   --space-3xl: 4rem;
   --space-4xl: 6rem;
 
-  /* ---- 布局 ---- */
+  /* ---- Layout ---- */
   --sidebar-width: 260px;
   --sidebar-collapsed: 72px;
   --topbar-height: 64px;
   --container-max: 1400px;
   --grid-gap: 1.5rem;
 
-  /* ---- 圆角 ---- */
+  /* ---- Border Radius ---- */
   --radius-sm: 6px;
   --radius-md: 10px;
   --radius-lg: 16px;
   --radius-xl: 24px;
 
-  /* ---- 阴影 ---- */
+  /* ---- Shadows ---- */
   --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.2);
   --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.3);
   --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.4);
   --shadow-gold: 0 4px 20px rgba(200, 149, 108, 0.2);
 
-  /* ---- 动画 ---- */
+  /* ---- Animation ---- */
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
   --duration-fast: 0.15s;
@@ -97,7 +97,7 @@
   --duration-slow: 0.5s;
 }
 
-/* ---- 响应式断点 ---- */
+/* ---- Responsive Breakpoints ---- */
 @media (max-width: 1440px) {
   :root {
     --container-max: 1200px;
