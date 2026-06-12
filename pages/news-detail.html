@@ -163,7 +163,7 @@
     }
     .nav-sub-menu a:hover { color: #1e293b; background: rgba(0,0,0,0.04); }
     .nav-sub-menu a.active { color: var(--navy); background: rgba(26,54,93,0.08); font-weight: 600; }
-    .topbar-right { display: flex; align-items: center; gap: 16px; }
+    .topbar-right { display: flex; align-items: center; gap: 16px; position: relative; }
     .search-box {
       position: relative;
       width: 240px;
@@ -197,7 +197,7 @@
       transition: background 0.15s;
     }
     .user-menu:hover { background: rgba(0,0,0,0.04); }
-    .user-dropdown { position: absolute; top: 56px; right: 24px; background: #fff; border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.12); min-width: 200px; padding: 8px; z-index: 1100; display: none; }
+    .user-dropdown { position: absolute; top: 56px; right: 0; background: #fff; border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.12); min-width: 200px; padding: 8px; z-index: 1100; display: none; }
     .user-dropdown.show { display: block; animation: fadeIn 0.2s ease; }
     .user-dropdown a { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 8px; font-size: 0.875rem; color: #334155; text-decoration: none; transition: all 0.15s; }
     .user-dropdown a:hover { background: #f1f5f9; color: #1a365d; }

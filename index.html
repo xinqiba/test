@@ -1016,6 +1016,10 @@
         <div class="user-avatar">J</div>
         <span class="user-name">John Engineer</span>
         <i class="ri-arrow-down-s-line" style="color:#64748b"></i>
+        <div class="user-dropdown" id="userDropdown">
+          <a href="pages/profile.html"><i class="ri-user-line"></i> Profile</a>
+          <a href="javascript:logout()"><i class="ri-logout-box-line"></i> Logout</a>
+        </div>
       </div>
     </div>
   </header>
@@ -1467,19 +1471,44 @@
 
   <script src="app/frontend-auth.js"></script>
   <script>
-    var user = getCurrentUser();
-    if (user) {
+    (function() {
+      var user = getCurrentUser();
       var loginBtn = document.querySelector('.topbar-right .btn-primary');
       var userMenu = document.getElementById('userMenu');
-      if (loginBtn) loginBtn.style.display = 'none';
-      if (userMenu) {
+      var dropdown = document.getElementById('userDropdown');
+      if (!loginBtn || !userMenu) return;
+
+      if (user) {
+        loginBtn.style.display = 'none';
         userMenu.style.display = 'flex';
-        var avatar = userMenu.querySelector('.user-avatar');
-        var name = userMenu.querySelector('.user-name');
-        if (avatar) avatar.textContent = user.avatar || user.username.charAt(0).toUpperCase();
-        if (name) name.textContent = user.roleName || user.username;
+        var avatarEl = userMenu.querySelector('.user-avatar');
+        var nameEl = userMenu.querySelector('.user-name');
+        if (avatarEl) avatarEl.textContent = user.avatar || user.username.charAt(0).toUpperCase();
+        if (nameEl) nameEl.textContent = user.roleName || user.username;
+
+        // 注入后台入口
+        if ((user.role === 'enterprise_admin' || user.role === 'system_admin') && dropdown) {
+          var entry = document.createElement('a');
+          entry.href = 'pages/admin/users.html';
+          entry.innerHTML = '<i class="ri-dashboard-line"></i> 进入管理后台';
+          dropdown.insertBefore(entry, dropdown.firstChild);
+        }
+
+        // 下拉切换
+        if (dropdown) {
+          userMenu.addEventListener('click', function(e) {
+            e.stopPropagation();
+            dropdown.classList.toggle('show');
+          });
+          document.addEventListener('click', function() {
+            dropdown.classList.remove('show');
+          });
+        }
+      } else {
+        loginBtn.style.display = 'inline-flex';
+        userMenu.style.display = 'none';
       }
-    }
+    })();
   </script>
 </body>
 </html>

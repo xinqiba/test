@@ -106,7 +106,7 @@
     }
     .topbar-nav a:hover { color: #1e293b; background: rgba(0,0,0,0.04); }
     .topbar-nav a.active { color: var(--deep-blue); background: var(--blue-bg); font-weight: 600; }
-    .topbar-right { display: flex; align-items: center; gap: 12px; }
+    .topbar-right { display: flex; align-items: center; gap: 12px; position: relative; }
     .search-box {
       position: relative;
       width: 240px;
@@ -140,7 +140,7 @@
       transition: background 0.15s;
     }
     .user-menu:hover { background: rgba(0,0,0,0.04); }
-    .user-dropdown { position: absolute; top: 56px; right: 24px; background: #fff; border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.12); min-width: 200px; padding: 8px; z-index: 1100; display: none; }
+    .user-dropdown { position: absolute; top: 56px; right: 0; background: #fff; border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.12); min-width: 200px; padding: 8px; z-index: 1100; display: none; }
     .user-dropdown.show { display: block; animation: fadeIn 0.2s ease; }
     .user-dropdown a { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 8px; font-size: 0.875rem; color: #334155; text-decoration: none; transition: all 0.15s; }
     .user-dropdown a:hover { background: #f1f5f9; color: #1a365d; }
@@ -1312,7 +1312,7 @@
             <span>Assessment & Certification</span>
           </div>
         </div>
-        <button class="btn-primary-sm" id="btnNewAssessment" onclick="openNewAssessmentModal()">
+        <button class="btn-primary-sm" id="btnNewAssessment" data-min-role="assessor" onclick="openNewAssessmentModal()">
           <i class="ri-add-line"></i> New Assessment Task
         </button>
       </div>
@@ -1474,8 +1474,8 @@
                 </td>
                 <td>
                   <div class="action-group">
-                    <button class="btn-sm btn-pass" onclick="openActionModal('pass', 'Li Mingyuan', 'Drilling Operations')"><i class="ri-check-line"></i> Pass</button>
-                    <button class="btn-sm btn-reject" onclick="openActionModal('reject', 'Li Mingyuan', 'Drilling Operations')"><i class="ri-close-line"></i> Rejected</button>
+                    <button class="btn-sm btn-pass" data-min-role="assessor" onclick="openActionModal('pass', 'Li Mingyuan', 'Drilling Operations')"><i class="ri-check-line"></i> Pass</button>
+                    <button class="btn-sm btn-reject" data-min-role="assessor" onclick="openActionModal('reject', 'Li Mingyuan', 'Drilling Operations')"><i class="ri-close-line"></i> Rejected</button>
                   </div>
                 </td>
               </tr>
@@ -1500,8 +1500,8 @@
                 </td>
                 <td>
                   <div class="action-group">
-                    <button class="btn-sm btn-pass" onclick="openActionModal('pass', 'Wang Jianguo', 'Equipment Maintenance')"><i class="ri-check-line"></i> Pass</button>
-                    <button class="btn-sm btn-reject" onclick="openActionModal('reject', 'Wang Jianguo', 'Equipment Maintenance')"><i class="ri-close-line"></i> Rejected</button>
+                    <button class="btn-sm btn-pass" data-min-role="assessor" onclick="openActionModal('pass', 'Wang Jianguo', 'Equipment Maintenance')"><i class="ri-check-line"></i> Pass</button>
+                    <button class="btn-sm btn-reject" data-min-role="assessor" onclick="openActionModal('reject', 'Wang Jianguo', 'Equipment Maintenance')"><i class="ri-close-line"></i> Rejected</button>
                   </div>
                 </td>
               </tr>
@@ -1526,8 +1526,8 @@
                 </td>
                 <td>
                   <div class="action-group">
-                    <button class="btn-sm btn-pass" onclick="openActionModal('pass', 'Chen Zhiqiang', 'HSE Safety Skills')"><i class="ri-check-line"></i> Pass</button>
-                    <button class="btn-sm btn-reject" onclick="openActionModal('reject', 'Chen Zhiqiang', 'HSE Safety Skills')"><i class="ri-close-line"></i> Rejected</button>
+                    <button class="btn-sm btn-pass" data-min-role="assessor" onclick="openActionModal('pass', 'Chen Zhiqiang', 'HSE Safety Skills')"><i class="ri-check-line"></i> Pass</button>
+                    <button class="btn-sm btn-reject" data-min-role="assessor" onclick="openActionModal('reject', 'Chen Zhiqiang', 'HSE Safety Skills')"><i class="ri-close-line"></i> Rejected</button>
                   </div>
                 </td>
               </tr>
@@ -1552,8 +1552,8 @@
                 </td>
                 <td>
                   <div class="action-group">
-                    <button class="btn-sm btn-pass" onclick="openActionModal('pass', 'Zhao Haiyan', 'Electrical Safety Operation')"><i class="ri-check-line"></i> Pass</button>
-                    <button class="btn-sm btn-reject" onclick="openActionModal('reject', 'Zhao Haiyan', 'Electrical Safety Operation')"><i class="ri-close-line"></i> Rejected</button>
+                    <button class="btn-sm btn-pass" data-min-role="assessor" onclick="openActionModal('pass', 'Zhao Haiyan', 'Electrical Safety Operation')"><i class="ri-check-line"></i> Pass</button>
+                    <button class="btn-sm btn-reject" data-min-role="assessor" onclick="openActionModal('reject', 'Zhao Haiyan', 'Electrical Safety Operation')"><i class="ri-close-line"></i> Rejected</button>
                   </div>
                 </td>
               </tr>
@@ -1578,8 +1578,8 @@
                 </td>
                 <td>
                   <div class="action-group">
-                    <button class="btn-sm btn-pass" onclick="openActionModal('pass', 'Liu Siyuan', 'Completion Technology')"><i class="ri-check-line"></i> Pass</button>
-                    <button class="btn-sm btn-reject" onclick="openActionModal('reject', 'Liu Siyuan', 'Completion Technology')"><i class="ri-close-line"></i> Rejected</button>
+                    <button class="btn-sm btn-pass" data-min-role="assessor" onclick="openActionModal('pass', 'Liu Siyuan', 'Completion Technology')"><i class="ri-check-line"></i> Pass</button>
+                    <button class="btn-sm btn-reject" data-min-role="assessor" onclick="openActionModal('reject', 'Liu Siyuan', 'Completion Technology')"><i class="ri-close-line"></i> Rejected</button>
                   </div>
                 </td>
               </tr>
@@ -1594,7 +1594,7 @@
         <div class="verify-flow">
 
           <!-- 验证项1：在复核中 -->
-          <div class="verify-item">
+          <div class="verify-item" data-role-section="iv">
             <div class="verify-header">
               <div class="verify-skill-name">
                 <i class="ri-oil-line" style="color:var(--amber);margin-right:6px;"></i>Drilling Operations - Li Mingyuan
@@ -1806,7 +1806,7 @@
           </div>
 
           <!-- 验证项4：终审中 -->
-          <div class="verify-item">
+          <div class="verify-item" data-role-section="ev">
             <div class="verify-header">
               <div class="verify-skill-name">
                 <i class="ri-flashlight-line" style="color:var(--amber);margin-right:6px;"></i>Electrical Safety Operation - Zhao Haiyan

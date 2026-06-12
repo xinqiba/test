@@ -12,14 +12,14 @@ const MOCK_USERS = [
   { username: 'user', password: '123456', role: 'student', roleName: '普通学员', avatar: 'U' }
 ];
 
-const ADMIN_ROLES = ['system_admin', 'enterprise_admin', 'assessor', 'internal_verifier', 'standard_verifier'];
+const ADMIN_ROLES = ['system_admin', 'enterprise_admin'];
 
 const ROLE_MENU_MAP = {
-  system_admin: ['dashboard', 'users', 'courses', 'workshops', 'reports', 'settings'],
-  enterprise_admin: ['dashboard', 'users', 'courses', 'workshops', 'reports'],
-  assessor: ['dashboard', 'assessments', 'skills-review'],
-  internal_verifier: ['dashboard', 'verification'],
-  standard_verifier: ['dashboard', 'verification'],
+  system_admin: ['users', 'courses', 'workshops', 'settings'],
+  enterprise_admin: ['users', 'courses', 'workshops'],
+  assessor: [],
+  internal_verifier: [],
+  standard_verifier: [],
   student: []
 };
 
@@ -93,15 +93,7 @@ function renderSidebar(activeId) {
   let html = '';
   let currentSection = '';
 
-  // Always add dashboard first
-  const dash = MENU_ITEMS.find(i => i.id === 'dashboard');
-  if (dash) {
-    html += `<a class="nav-item ${activeId === dash.id ? 'active' : ''}" href="${dash.href}"><i class="${dash.icon}"></i><span>${dash.label}</span></a>`;
-    html += '<div class="nav-section"><div class="nav-section-title" style="height:1px;background:rgba(255,255,255,0.1);margin:8px 20px;"></div></div>';
-  }
-
   menuItems.forEach(item => {
-    if (item.id === 'dashboard') return; // Skip dashboard, already added
     if (item.section && item.section !== currentSection) {
       if (currentSection) html += '</div>';
       html += `<div class="nav-section"><div class="nav-section-title">${item.section}</div>`;

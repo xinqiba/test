@@ -31,14 +31,14 @@
         .topbar-nav a { text-decoration: none; color: #64748b; font-size: 14px; font-weight: 500; padding: 8px 16px; border-radius: 8px; transition: all 0.2s; }
         .topbar-nav a:hover { color: #1a202c; background: #f1f5f9; }
         .topbar-nav a.active { color: #1a365d; background: #f1f5f9; font-weight: 600; }
-        .topbar-right { display: flex; align-items: center; gap: 16px; }
+        .topbar-right { display: flex; align-items: center; gap: 16px; position: relative; }
         .search-box { position: relative; }
         .search-box input { width: 240px; height: 38px; border: 1px solid #e2e8f0; border-radius: 8px; padding: 0 36px 0 12px; font-size: 14px; font-family: inherit; background: #f8fafc; transition: all 0.2s; }
         .search-box input:focus { outline: none; border-color: #c8956c; background: #fff; box-shadow: 0 0 0 3px rgba(200,149,108,0.1); }
         .search-box i { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); color: #94a3b8; font-size: 16px; }
         .user-menu { display: flex; align-items: center; gap: 10px; cursor: pointer; padding: 4px 8px; border-radius: 8px; transition: background 0.2s; }
         .user-menu:hover { background: #f1f5f9; }
-        .user-dropdown { position: absolute; top: 56px; right: 24px; background: #fff; border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.12); min-width: 200px; padding: 8px; z-index: 1100; display: none; }
+        .user-dropdown { position: absolute; top: 56px; right: 0; background: #fff; border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.12); min-width: 200px; padding: 8px; z-index: 1100; display: none; }
         .user-dropdown.show { display: block; animation: fadeIn 0.2s ease; }
         .user-dropdown a { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 8px; font-size: 0.875rem; color: #334155; text-decoration: none; transition: all 0.15s; }
         .user-dropdown a:hover { background: #f1f5f9; color: #1a365d; }
@@ -336,7 +336,7 @@
                     <span>Data & Reports</span>
                 </div>
             </div>
-            <button class="btn-export" id="exportExcelBtn"><i class="ri-file-excel-line"></i>Export Excel</button>
+            <button class="btn-export" id="exportExcelBtn" data-min-role="enterprise_admin"><i class="ri-file-excel-line"></i>Export Excel</button>
         </div>
 
 
@@ -465,7 +465,7 @@
                 <span style="font-size:12px;color:#94a3b8;margin-right:auto;">
                     Last updated: 2026-05-29 14:30 UTC+8
                 </span>
-                <button class="btn-sm btn-outline"><i class="ri-download-line"></i>Export Report</button>
+                <button class="btn-sm btn-outline" data-min-role="enterprise_admin"><i class="ri-download-line"></i>Export Report</button>
             </div>
         </div>
 
@@ -530,7 +530,7 @@
                     </table>
                 </div>
             </div>
-            <div class="report-footer"><button class="btn-sm btn-outline"><i class="ri-download-line"></i>Export Certification Report</button></div>
+            <div class="report-footer"><button class="btn-sm btn-outline" data-min-role="enterprise_admin"><i class="ri-download-line"></i>Export Certification Report</button></div>
         </div>
 
         <!-- Workshop Participation -->
@@ -557,7 +557,7 @@
                     </table>
                 </div>
             </div>
-            <div class="report-footer"><button class="btn-sm btn-outline"><i class="ri-download-line"></i>Export Workshop Report</button></div>
+            <div class="report-footer"><button class="btn-sm btn-outline" data-min-role="enterprise_admin"><i class="ri-download-line"></i>Export Workshop Report</button></div>
         </div>
     </main>
 

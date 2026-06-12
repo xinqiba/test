@@ -451,15 +451,24 @@
 
     <script src="../app/admin-auth.js"></script>
     <script>
+        // 统一跳转函数
+        function redirectAfterLogin(user) {
+            var params = new URLSearchParams(location.search);
+            var redirect = params.get('redirect');
+            if (redirect) {
+                window.location.href = decodeURIComponent(redirect);
+            } else if (user.role === 'system_admin' || user.role === 'enterprise_admin') {
+                window.location.href = 'admin/users.html';
+            } else {
+                window.location.href = '../index.html';
+            }
+        }
+
         // Auto-redirect if already logged in
         (function() {
             var user = getCurrentUser();
             if (user) {
-                if (isAdmin(user.role)) {
-                    window.location.href = 'admin/index.html';
-                } else {
-                    window.location.href = '../index.html';
-                }
+                redirectAfterLogin(user);
                 return;
             }
         })();
@@ -502,15 +511,7 @@
 
             var user = login(username, password);
             if (user) {
-                var params = new URLSearchParams(location.search);
-                var redirect = params.get('redirect');
-                if (redirect) {
-                    window.location.href = decodeURIComponent(redirect);
-                } else if (isAdmin(user.role)) {
-                    window.location.href = 'admin/index.html';
-                } else {
-                    window.location.href = '../index.html';
-                }
+                redirectAfterLogin(user);
             } else {
                 errorEl.textContent = '账号或密码错误';
                 errorEl.style.display = 'block';
@@ -523,15 +524,7 @@
                 var username = this.dataset.user;
                 var user = login(username, '123456');
                 if (user) {
-                    var params = new URLSearchParams(location.search);
-                    var redirect = params.get('redirect');
-                    if (redirect) {
-                        window.location.href = decodeURIComponent(redirect);
-                    } else if (isAdmin(user.role)) {
-                        window.location.href = 'admin/index.html';
-                    } else {
-                        window.location.href = '../index.html';
-                    }
+                    redirectAfterLogin(user);
                 }
             });
         });

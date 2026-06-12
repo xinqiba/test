@@ -58,7 +58,7 @@
         }
         .topbar-nav a:hover { color: #1e293b; background: rgba(0,0,0,0.04); }
         .topbar-nav a.active { color: var(--deep-blue); background: rgba(26,54,93,0.08); font-weight: 600; }
-        .topbar-right { display: flex; align-items: center; gap: 16px; }
+        .topbar-right { display: flex; align-items: center; gap: 16px; position: relative; }
         .search-box { position: relative; width: 220px; }
         .search-box input {
             width: 100%; padding: 8px 12px 8px 36px; font-size: 0.875rem; color: #1e293b;
@@ -74,7 +74,7 @@
             display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; color: var(--deep-blue);
         }
         .user-name { font-size: 0.875rem; font-weight: 500; color: #334155; }
-        .user-dropdown { position: absolute; top: 56px; right: 24px; background: #fff; border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.12); min-width: 200px; padding: 8px; z-index: 1100; display: none; }
+        .user-dropdown { position: absolute; top: 56px; right: 0; background: #fff; border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.12); min-width: 200px; padding: 8px; z-index: 1100; display: none; }
         .user-dropdown.show { display: block; animation: fadeIn 0.2s ease; }
         .user-dropdown a { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 8px; font-size: 0.875rem; color: #334155; transition: all 0.15s; }
         .user-dropdown a:hover { background: #f1f5f9; color: var(--deep-blue); }

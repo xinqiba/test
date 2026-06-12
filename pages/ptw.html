@@ -100,7 +100,7 @@
     }
     .topbar-nav a:hover { color: #1e293b; background: rgba(0,0,0,0.04); }
     .topbar-nav a.active { color: #1a365d; background: rgba(26,54,93,0.08); font-weight: 600; }
-    .topbar-right { display: flex; align-items: center; gap: 16px; }
+    .topbar-right { display: flex; align-items: center; gap: 16px; position: relative; }
 
     /* ---- Navigation Dropdown Menu ---- */
     .nav-dropdown { position: relative; }
@@ -166,7 +166,7 @@
       transition: background 0.15s;
     }
     .user-menu:hover { background: rgba(0,0,0,0.04); }
-    .user-dropdown { position: absolute; top: 56px; right: 24px; background: #fff; border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.12); min-width: 200px; padding: 8px; z-index: 1100; display: none; }
+    .user-dropdown { position: absolute; top: 56px; right: 0; background: #fff; border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.12); min-width: 200px; padding: 8px; z-index: 1100; display: none; }
     .user-dropdown.show { display: block; animation: fadeIn 0.2s ease; }
     .user-dropdown a { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 8px; font-size: 0.875rem; color: #334155; text-decoration: none; transition: all 0.15s; }
     .user-dropdown a:hover { background: #f1f5f9; color: #1a365d; }
@@ -820,7 +820,7 @@
             <span>PTW Work Permit</span>
           </div>
         </div>
-        <button class="btn-primary" id="applyPtwBtn">
+        <button class="btn-primary" id="applyPtwBtn" data-min-role="student">
           <i class="ri-add-line"></i>
           Apply for PTW
         </button>
@@ -940,8 +940,8 @@
                 <td>
                   <div class="action-btns">
                     <button class="btn-info" onclick="viewPtw('PTW-2026-0018')"><i class="ri-eye-line"></i> View</button>
-                    <button class="btn-warning" onclick="suspendPtw('PTW-2026-0018')"><i class="ri-pause-line"></i> Suspend</button>
-                    <button class="btn-danger" onclick="closePtw('PTW-2026-0018')"><i class="ri-close-line"></i> Close</button>
+                    <button class="btn-warning" onclick="suspendPtw('PTW-2026-0018')" data-min-role="enterprise_admin"><i class="ri-pause-line"></i> Suspend</button>
+                    <button class="btn-danger" onclick="closePtw('PTW-2026-0018')" data-min-role="enterprise_admin"><i class="ri-close-line"></i> Close</button>
                   </div>
                 </td>
               </tr>
@@ -955,8 +955,8 @@
                 <td>
                   <div class="action-btns">
                     <button class="btn-info" onclick="viewPtw('PTW-2026-0017')"><i class="ri-eye-line"></i> View</button>
-                    <button class="btn-warning" onclick="suspendPtw('PTW-2026-0017')"><i class="ri-pause-line"></i> Suspend</button>
-                    <button class="btn-danger" onclick="closePtw('PTW-2026-0017')"><i class="ri-close-line"></i> Close</button>
+                    <button class="btn-warning" onclick="suspendPtw('PTW-2026-0017')" data-min-role="enterprise_admin"><i class="ri-pause-line"></i> Suspend</button>
+                    <button class="btn-danger" onclick="closePtw('PTW-2026-0017')" data-min-role="enterprise_admin"><i class="ri-close-line"></i> Close</button>
                   </div>
                 </td>
               </tr>
@@ -970,8 +970,8 @@
                 <td>
                   <div class="action-btns">
                     <button class="btn-info" onclick="viewPtw('PTW-2026-0016')"><i class="ri-eye-line"></i> View</button>
-                    <button class="btn-success" onclick="approvePtw('PTW-2026-0016')"><i class="ri-check-line"></i> Approve</button>
-                    <button class="btn-danger" onclick="closePtw('PTW-2026-0016')"><i class="ri-close-line"></i> Close</button>
+                    <button class="btn-success" onclick="approvePtw('PTW-2026-0016')" data-min-role="enterprise_admin"><i class="ri-check-line"></i> Approve</button>
+                    <button class="btn-danger" onclick="closePtw('PTW-2026-0016')" data-min-role="enterprise_admin"><i class="ri-close-line"></i> Close</button>
                   </div>
                 </td>
               </tr>
@@ -998,8 +998,8 @@
                 <td>
                   <div class="action-btns">
                     <button class="btn-info" onclick="viewPtw('PTW-2026-0014')"><i class="ri-eye-line"></i> View</button>
-                    <button class="btn-success" onclick="approvePtw('PTW-2026-0014')"><i class="ri-check-line"></i> Approve</button>
-                    <button class="btn-danger" onclick="closePtw('PTW-2026-0014')"><i class="ri-close-line"></i> Close</button>
+                    <button class="btn-success" onclick="approvePtw('PTW-2026-0014')" data-min-role="enterprise_admin"><i class="ri-check-line"></i> Approve</button>
+                    <button class="btn-danger" onclick="closePtw('PTW-2026-0014')" data-min-role="enterprise_admin"><i class="ri-close-line"></i> Close</button>
                   </div>
                 </td>
               </tr>
@@ -1013,8 +1013,8 @@
                 <td>
                   <div class="action-btns">
                     <button class="btn-info" onclick="viewPtw('PTW-2026-0013')"><i class="ri-eye-line"></i> View</button>
-                    <button class="btn-warning" onclick="suspendPtw('PTW-2026-0013')"><i class="ri-pause-line"></i> Suspend</button>
-                    <button class="btn-danger" onclick="closePtw('PTW-2026-0013')"><i class="ri-close-line"></i> Close</button>
+                    <button class="btn-warning" onclick="suspendPtw('PTW-2026-0013')" data-min-role="enterprise_admin"><i class="ri-pause-line"></i> Suspend</button>
+                    <button class="btn-danger" onclick="closePtw('PTW-2026-0013')" data-min-role="enterprise_admin"><i class="ri-close-line"></i> Close</button>
                   </div>
                 </td>
               </tr>
@@ -1041,8 +1041,8 @@
                 <td>
                   <div class="action-btns">
                     <button class="btn-info" onclick="viewPtw('PTW-2026-0011')"><i class="ri-eye-line"></i> View</button>
-                    <button class="btn-warning" onclick="suspendPtw('PTW-2026-0011')"><i class="ri-pause-line"></i> Suspend</button>
-                    <button class="btn-danger" onclick="closePtw('PTW-2026-0011')"><i class="ri-close-line"></i> Close</button>
+                    <button class="btn-warning" onclick="suspendPtw('PTW-2026-0011')" data-min-role="enterprise_admin"><i class="ri-pause-line"></i> Suspend</button>
+                    <button class="btn-danger" onclick="closePtw('PTW-2026-0011')" data-min-role="enterprise_admin"><i class="ri-close-line"></i> Close</button>
                   </div>
                 </td>
               </tr>
@@ -1093,7 +1093,7 @@
             </div>
             <div class="form-actions">
               <button type="button" class="btn-cancel" onclick="resetForm()">Reset</button>
-              <button type="submit" class="btn-primary"><i class="ri-send-plane-line"></i> Submit Application</button>
+              <button type="submit" class="btn-primary" data-min-role="student"><i class="ri-send-plane-line"></i> Submit Application</button>
             </div>
           </form>
         </div>
@@ -1383,11 +1383,11 @@
           const actionCell = row.querySelector('td:nth-child(7) .action-btns');
           let btns = `<button class="btn-info" onclick="viewPtw('${id}')"><i class="ri-eye-line"></i> View</button>`;
           if (newStatus === 'applied') {
-            btns += ` <button class="btn-success" onclick="approvePtw('${id}')"><i class="ri-check-line"></i> Approve</button> <button class="btn-danger" onclick="closePtw('${id}')"><i class="ri-close-line"></i> Close</button>`;
+            btns += ` <button class="btn-success" onclick="approvePtw('${id}')" data-min-role="enterprise_admin"><i class="ri-check-line"></i> Approve</button> <button class="btn-danger" onclick="closePtw('${id}')" data-min-role="enterprise_admin"><i class="ri-close-line"></i> Close</button>`;
           } else if (newStatus === 'approved') {
-            btns += ` <button class="btn-warning" onclick="suspendPtw('${id}')"><i class="ri-pause-line"></i> Suspend</button> <button class="btn-danger" onclick="closePtw('${id}')"><i class="ri-close-line"></i> Close</button>`;
+            btns += ` <button class="btn-warning" onclick="suspendPtw('${id}')" data-min-role="enterprise_admin"><i class="ri-pause-line"></i> Suspend</button> <button class="btn-danger" onclick="closePtw('${id}')" data-min-role="enterprise_admin"><i class="ri-close-line"></i> Close</button>`;
           } else if (newStatus === 'suspended') {
-            btns += ` <button class="btn-success" onclick="approvePtw('${id}')"><i class="ri-check-line"></i> Approve</button> <button class="btn-danger" onclick="closePtw('${id}')"><i class="ri-close-line"></i> Close</button>`;
+            btns += ` <button class="btn-success" onclick="approvePtw('${id}')" data-min-role="enterprise_admin"><i class="ri-check-line"></i> Approve</button> <button class="btn-danger" onclick="closePtw('${id}')" data-min-role="enterprise_admin"><i class="ri-close-line"></i> Close</button>`;
           }
           actionCell.innerHTML = btns;
         }

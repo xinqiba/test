@@ -43,8 +43,8 @@ var ROLE_MENU_ALLOW = {
   system_admin: null,
   enterprise_admin: null,
   standard_verifier: null,
-  assessor: ['home', 'about', 'news', 'knowledge', 'skill', 'assessment', 'my-skills', 'reports', 'compliance'],
-  internal_verifier: ['home', 'about', 'news', 'knowledge', 'skill', 'assessment', 'my-skills', 'reports', 'ptw', 'compliance']
+  assessor: null,
+  internal_verifier: null
 };
 
 var ROLE_VIEW_MAP = {
@@ -54,6 +54,16 @@ var ROLE_VIEW_MAP = {
   internal_verifier: 'iv',
   standard_verifier: 'ev',
   system_admin: 'ev'
+};
+
+var ROLE_WEIGHT = {
+  guest: 0,
+  student: 1,
+  assessor: 2,
+  internal_verifier: 3,
+  standard_verifier: 4,
+  enterprise_admin: 5,
+  system_admin: 6
 };
 
 // ==================== Helper Functions ====================
@@ -67,7 +77,9 @@ function getCurrentUser() {
 
 function logout() {
   localStorage.removeItem('currentUser');
-  window.location.href = 'login.html';
+  var path = window.location.pathname;
+  var isInPages = /\/pages\//.test(path);
+  window.location.href = isInPages ? 'login.html' : 'pages/login.html';
 }
 
 function isItemAllowed(item, allowedIds) {
@@ -107,6 +119,27 @@ function getVisibleMenu(role) {
 
 function getRoleView(role) {
   return ROLE_VIEW_MAP[role] || 'candidate';
+}
+
+// Unknown data-min-role values default to 99 (hidden for most roles), which is a safe fail-closed behavior for the prototype.
+function filterActionButtons(role) {
+  var weight = ROLE_WEIGHT[role] || 0;
+  document.querySelectorAll('[data-min-role]').forEach(function(el) {
+    var required = el.getAttribute('data-min-role');
+    if (weight < (ROLE_WEIGHT[required] || 99)) {
+      el.style.display = 'none';
+    }
+  });
+}
+
+function filterRoleSections(role) {
+  var view = getRoleView(role);
+  document.querySelectorAll('[data-role-section]').forEach(function(el) {
+    var allowed = el.getAttribute('data-role-section').split(',').map(function(s) { return s.trim(); });
+    if (allowed.indexOf(view) === -1 && allowed.indexOf(role) === -1) {
+      el.style.display = 'none';
+    }
+  });
 }
 
 // ==================== Topbar Rendering ====================
@@ -160,6 +193,9 @@ function renderTopbar(activeId, opts) {
     html += '</div>';
     html += '<div class="user-dropdown" id="userDropdown">';
     html += '<a href="profile.html"><i class="ri-user-line"></i> Profile</a>';
+    if (user.role === 'enterprise_admin' || user.role === 'system_admin') {
+      html += '<a href="admin/users.html"><i class="ri-dashboard-line"></i> 进入管理后台</a>';
+    }
     if (user.role === 'student') {
       html += '<a href="my-workshops.html"><i class="ri-calendar-line"></i> My Workshops</a>';
     }
@@ -230,6 +266,10 @@ function initFrontendPage(activeId, opts) {
     setupMobileMenu();
     setupUserDropdown();
   }, 0);
+
+  var role = user ? user.role : 'guest';
+  filterActionButtons(role);
+  filterRoleSections(role);
 }
 
 // ==================== Export to Window ====================

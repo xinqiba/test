@@ -100,7 +100,7 @@
     }
     .topbar-nav a:hover { color: #1e293b; background: rgba(0,0,0,0.04); }
     .topbar-nav a.active { color: #1a365d; background: rgba(26,54,93,0.08); font-weight: 600; }
-    .topbar-right { display: flex; align-items: center; gap: 16px; }
+    .topbar-right { display: flex; align-items: center; gap: 16px; position: relative; }
 
     /* ---- Nav Dropdown Menu ---- */
     .nav-dropdown { position: relative; }
@@ -166,7 +166,7 @@
       transition: background 0.15s;
     }
     .user-menu:hover { background: rgba(0,0,0,0.04); }
-    .user-dropdown { position: absolute; top: 56px; right: 24px; background: #fff; border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.12); min-width: 200px; padding: 8px; z-index: 1100; display: none; }
+    .user-dropdown { position: absolute; top: 56px; right: 0; background: #fff; border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.12); min-width: 200px; padding: 8px; z-index: 1100; display: none; }
     .user-dropdown.show { display: block; animation: fadeIn 0.2s ease; }
     .user-dropdown a { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 8px; font-size: 0.875rem; color: #334155; text-decoration: none; transition: all 0.15s; }
     .user-dropdown a:hover { background: #f1f5f9; color: #1a365d; }
@@ -695,7 +695,7 @@
             <span>HSSE Passport</span>
           </div>
         </div>
-        <button class="btn-primary" id="exportBtn">
+        <button class="btn-primary" id="exportBtn" data-min-role="enterprise_admin">
           <i class="ri-download-line"></i>
           Export Report
         </button>
@@ -1072,8 +1072,8 @@
                 <td>HSE Dept</td>
                 <td><span class="badge badge-pending"><i class="ri-time-line" style="margin-right:2px"></i>Pending</span></td>
                 <td>
-                  <button class="btn-success btn-sm" onclick="approvePassport(this)">Pass</button>
-                  <button class="btn-danger btn-sm" onclick="rejectPassport(this)">Rejected</button>
+                  <button class="btn-success btn-sm" data-min-role="enterprise_admin" onclick="approvePassport(this)">Pass</button>
+                  <button class="btn-danger btn-sm" data-min-role="enterprise_admin" onclick="rejectPassport(this)">Rejected</button>
                 </td>
               </tr>
               <tr>
@@ -1093,8 +1093,8 @@
                 <td>Logistics Dept</td>
                 <td><span class="badge badge-pending"><i class="ri-time-line" style="margin-right:2px"></i>Pending</span></td>
                 <td>
-                  <button class="btn-success btn-sm" onclick="approvePassport(this)">Pass</button>
-                  <button class="btn-danger btn-sm" onclick="rejectPassport(this)">Rejected</button>
+                  <button class="btn-success btn-sm" data-min-role="enterprise_admin" onclick="approvePassport(this)">Pass</button>
+                  <button class="btn-danger btn-sm" data-min-role="enterprise_admin" onclick="rejectPassport(this)">Rejected</button>
                 </td>
               </tr>
               <tr>
@@ -1249,8 +1249,8 @@
           <td>${deptMap[passportDept.value]}</td>
           <td><span class="badge badge-pending"><i class="ri-time-line" style="margin-right:2px"></i>Pending</span></td>
           <td>
-            <button class="btn-success btn-sm" onclick="approvePassport(this)">Pass</button>
-            <button class="btn-danger btn-sm" onclick="rejectPassport(this)">Rejected</button>
+            <button class="btn-success btn-sm" data-min-role="enterprise_admin" onclick="approvePassport(this)">Pass</button>
+            <button class="btn-danger btn-sm" data-min-role="enterprise_admin" onclick="rejectPassport(this)">Rejected</button>
           </td>
         `;
         tbody.insertBefore(tr, tbody.firstChild);
@@ -1336,7 +1336,7 @@
         const statusCell = row.querySelectorAll('td')[4];
         statusCell.innerHTML = '<span class="badge badge-pending"><i class="ri-time-line" style="margin-right:2px"></i>Pending</span>';
         const actionCell = row.querySelectorAll('td')[5];
-        actionCell.innerHTML = '<button class="btn-success btn-sm" onclick="approvePassport(this)">Pass</button> <button class="btn-danger btn-sm" onclick="rejectPassport(this)">Rejected</button>';
+        actionCell.innerHTML = '<button class="btn-success btn-sm" data-min-role="enterprise_admin" onclick="approvePassport(this)">Pass</button> <button class="btn-danger btn-sm" data-min-role="enterprise_admin" onclick="rejectPassport(this)">Rejected</button>';
         alert('Application re-submitted, awaiting review');
       };
 
