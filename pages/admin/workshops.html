@@ -47,6 +47,18 @@
     .form-control:focus { outline: none; border-color: var(--accent); }
     .form-row { display: flex; gap: 12px; }
     .form-row .form-group { flex: 1; }
+    /* ---- Roster ---- */
+    .user-avatar-cell {
+      width: 32px; height: 32px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      display: inline-flex; align-items: center; justify-content: center;
+      color: #fff; font-weight: 600; font-size: 0.75rem; margin-right: 10px; flex-shrink: 0;
+    }
+    .user-name-cell { display: inline-flex; align-items: center; }
+    /* ---- Roster Table ---- */
+    .roster-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+    .roster-header .roster-title { font-size: 0.875rem; color: var(--text-secondary); }
+    .roster-header .roster-title strong { color: var(--text-primary); }
   </style>
 </head>
 <body>
@@ -158,6 +170,38 @@
     </div>
   </div>
 
+  <!-- Roster Modal -->
+  <div class="modal-overlay" id="rosterModal">
+    <div class="modal" style="max-width:640px;">
+      <div class="modal-header">
+        <div class="modal-title" id="rosterTitle">Workshop Roster</div>
+        <button class="modal-close" onclick="closeRosterModal()"><i class="ri-close-line"></i></button>
+      </div>
+      <div class="modal-body" style="padding:0;">
+        <div style="padding:16px 24px;border-bottom:1px solid var(--border-color);">
+          <div class="roster-header">
+            <div class="roster-title"><strong id="rosterWsName">—</strong></div>
+            <span class="badge badge-info" id="rosterWsDate">—</span>
+          </div>
+          <div style="display:flex;gap:24px;font-size:0.8125rem;color:var(--text-secondary);margin-top:6px;">
+            <span><i class="ri-map-pin-line"></i> <span id="rosterWsLocation">—</span></span>
+            <span><i class="ri-user-line"></i> <span id="rosterWsCount">0/0 enrolled</span></span>
+          </div>
+        </div>
+        <div style="max-height:400px;overflow-y:auto;">
+          <table class="data-table" style="border:none;">
+            <thead><tr><th>Name</th><th>Department</th><th>Role</th><th>Status</th></tr></thead>
+            <tbody id="rosterTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <span style="flex:1;font-size:0.8125rem;color:var(--text-secondary);" id="rosterSummary"></span>
+        <button class="btn btn-secondary" onclick="closeRosterModal()">Close</button>
+      </div>
+    </div>
+  </div>
+
   <script src="../../app/admin-auth.js"></script>
   <script src="../../app/admin-data.js"></script>
   <script>
@@ -185,11 +229,58 @@
     var workshops = generateWorkshops();
     var editingWsId = null;
 
+    // Mock roster data per workshop (id → participants array)
+    var rosterData = {
+      1: [
+        { name: 'Zhang Wei', dept: 'Wells Engineering', role: 'Engineer', status: 'Attended' },
+        { name: 'Li Na', dept: 'Wells Engineering', role: 'Technician', status: 'Attended' },
+        { name: 'Zhao Qiang', dept: 'Wells Engineering', role: 'Engineer', status: 'Absent' },
+        { name: 'Wang Fang', dept: 'HSE', role: 'Supervisor', status: 'Attended' },
+        { name: 'Chen Jing', dept: 'Electrical', role: 'Technician', status: 'Attended' },
+        { name: 'Liu Min', dept: 'Instrumentation & Controls', role: 'Engineer', status: 'Attended' }
+      ],
+      2: [
+        { name: 'Wang Fang', dept: 'HSE', role: 'Supervisor', status: 'Attended' },
+        { name: 'Huang Lei', dept: 'HSE', role: 'Officer', status: 'Attended' },
+        { name: 'Yang Li', dept: 'Process Facilities', role: 'Operator', status: 'Attended' }
+      ],
+      3: [
+        { name: 'Li Qiang', dept: 'Mechanical Engineering', role: 'Technician', status: 'Attended' },
+        { name: 'Zhou Yang', dept: 'Mechanical Engineering', role: 'Engineer', status: 'Attended' }
+      ]
+    };
+
+    function openRosterModal(wsId) {
+      var w = workshops.find(function(x) { return x.id === wsId; });
+      if (!w) return;
+      var participants = rosterData[wsId] || [];
+      document.getElementById('rosterTitle').textContent = 'Roster — ' + w.title;
+      document.getElementById('rosterWsName').textContent = w.title;
+      document.getElementById('rosterWsDate').textContent = w.date;
+      document.getElementById('rosterWsLocation').textContent = w.location;
+      document.getElementById('rosterWsCount').textContent = participants.length + ' / ' + w.capacity + ' enrolled';
+      document.getElementById('rosterSummary').textContent = participants.filter(function(p) { return p.status === 'Attended'; }).length + ' attended · ' + participants.filter(function(p) { return p.status === 'Absent'; }).length + ' absent';
+
+      var tbody = document.getElementById('rosterTableBody');
+      if (!participants.length) {
+        tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;padding:32px;color:var(--text-secondary);">No participants yet</td></tr>';
+      } else {
+        tbody.innerHTML = participants.map(function(p) {
+          return '<tr><td><div class="user-name-cell"><div class="user-avatar-cell">' + p.name.charAt(0) + '</div>' + p.name + '</div></td><td>' + p.dept + '</td><td>' + p.role + '</td><td><span class="badge ' + (p.status === 'Attended' ? 'badge-success' : 'badge-danger') + '">' + p.status + '</span></td></tr>';
+        }).join('');
+      }
+      document.getElementById('rosterModal').classList.add('active');
+    }
+
+    function closeRosterModal() {
+      document.getElementById('rosterModal').classList.remove('active');
+    }
+
     function renderWorkshops() {
       var grid = document.getElementById('workshopGrid');
       grid.innerHTML = workshops.map(function(w) {
         var statusClass = w.status === 'Enrolling' ? 'badge-info' : w.status === 'Ended' ? 'badge-secondary' : 'badge-warning';
-        return '<div class="ws-card"><div class="title">' + w.title + '</div><div class="meta"><i class="ri-calendar-line"></i>' + w.date + '</div><div class="meta"><i class="ri-map-pin-line"></i>' + w.location + '</div><div class="meta"><i class="ri-user-line"></i>' + w.instructor + '</div><div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px;"><span style="font-size:0.8125rem;color:var(--text-secondary);">' + w.enrolled + '/' + w.capacity + ' participants</span><span class="badge ' + statusClass + '">' + w.status + '</span></div><div style="display:flex;gap:8px;margin-top:12px;"><button class="btn btn-sm btn-secondary" onclick="openWorkshopModal(' + w.id + ')">Edit</button><button class="btn btn-sm btn-secondary" onclick="alert(\'Roster for: ' + w.title.replace(/'/g, "\\'") + '\')">Roster</button></div></div>';
+        return '<div class="ws-card"><div class="title">' + w.title + '</div><div class="meta"><i class="ri-calendar-line"></i>' + w.date + '</div><div class="meta"><i class="ri-map-pin-line"></i>' + w.location + '</div><div class="meta"><i class="ri-user-line"></i>' + w.instructor + '</div><div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px;"><span style="font-size:0.8125rem;color:var(--text-secondary);">' + w.enrolled + '/' + w.capacity + ' participants</span><span class="badge ' + statusClass + '">' + w.status + '</span></div><div style="display:flex;gap:8px;margin-top:12px;"><button class="btn btn-sm btn-secondary" onclick="openWorkshopModal(' + w.id + ')">Edit</button><button class="btn btn-sm btn-secondary" onclick="openRosterModal(' + w.id + ')">Roster</button></div></div>';
       }).join('');
     }
 
