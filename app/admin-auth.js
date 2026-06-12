@@ -4,12 +4,12 @@
  */
 
 const MOCK_USERS = [
-  { username: 'admin', password: '123456', role: 'system_admin', roleName: '系统管理员', avatar: 'A' },
-  { username: 'manager', password: '123456', role: 'enterprise_admin', roleName: '企业管理员', avatar: 'M' },
-  { username: 'assessor', password: '123456', role: 'assessor', roleName: '评估师', avatar: 'E' },
-  { username: 'verifier', password: '123456', role: 'internal_verifier', roleName: '内部验证员', avatar: 'V' },
-  { username: 'final_verifier', password: '123456', role: 'standard_verifier', roleName: '标准验证员', avatar: 'S' },
-  { username: 'user', password: '123456', role: 'student', roleName: '普通学员', avatar: 'U' }
+  { username: 'admin', password: '123456', role: 'system_admin', roleName: 'System Admin', avatar: 'A' },
+  { username: 'manager', password: '123456', role: 'enterprise_admin', roleName: 'Enterprise Admin', avatar: 'M' },
+  { username: 'assessor', password: '123456', role: 'assessor', roleName: 'Assessor', avatar: 'E' },
+  { username: 'verifier', password: '123456', role: 'internal_verifier', roleName: 'Internal Verifier', avatar: 'V' },
+  { username: 'final_verifier', password: '123456', role: 'standard_verifier', roleName: 'Standard Verifier', avatar: 'S' },
+  { username: 'user', password: '123456', role: 'student', roleName: 'Student', avatar: 'U' }
 ];
 
 const ADMIN_ROLES = ['system_admin', 'enterprise_admin'];
@@ -24,15 +24,15 @@ const ROLE_MENU_MAP = {
 };
 
 const MENU_ITEMS = [
-  { id: 'dashboard', label: '仪表盘', icon: 'ri-dashboard-line', href: 'index.html' },
-  { id: 'users', label: '用户管理', icon: 'ri-user-settings-line', href: 'users.html', section: '人员管理' },
-  { id: 'courses', label: '课程管理', icon: 'ri-book-open-line', href: 'courses.html', section: '内容管理' },
-  { id: 'workshops', label: '工作坊管理', icon: 'ri-calendar-event-line', href: 'workshops.html', section: '内容管理' },
-  { id: 'assessments', label: '评估任务', icon: 'ri-task-line', href: 'assessments.html', section: '评估验证' },
-  { id: 'skills-review', label: '技能审核', icon: 'ri-shield-check-line', href: 'skills-review.html', section: '评估验证' },
-  { id: 'verification', label: '验证流程', icon: 'ri-git-merge-line', href: 'verification.html', section: '评估验证' },
-  { id: 'reports', label: '报表中心', icon: 'ri-bar-chart-box-line', href: 'reports.html', section: '数据洞察' },
-  { id: 'settings', label: '系统设置', icon: 'ri-settings-3-line', href: 'settings.html', section: '系统设置' }
+  { id: 'dashboard', label: 'Dashboard', icon: 'ri-dashboard-line', href: 'index.html' },
+  { id: 'users', label: 'User Management', icon: 'ri-user-settings-line', href: 'users.html', section: 'User Management' },
+  { id: 'courses', label: 'Course Management', icon: 'ri-book-open-line', href: 'courses.html', section: 'Content' },
+  { id: 'workshops', label: 'Workshop Management', icon: 'ri-calendar-event-line', href: 'workshops.html', section: 'Content' },
+  { id: 'assessments', label: 'Assessment Tasks', icon: 'ri-task-line', href: 'assessments.html', section: 'Assessment & Verification' },
+  { id: 'skills-review', label: 'Skills Review', icon: 'ri-shield-check-line', href: 'skills-review.html', section: 'Assessment & Verification' },
+  { id: 'verification', label: 'Verification', icon: 'ri-git-merge-line', href: 'verification.html', section: 'Assessment & Verification' },
+  { id: 'reports', label: 'Reports', icon: 'ri-bar-chart-box-line', href: 'reports.html', section: 'Insights' },
+  { id: 'settings', label: 'Settings', icon: 'ri-settings-3-line', href: 'settings.html', section: 'System' }
 ];
 
 function login(username, password) {
@@ -127,7 +127,7 @@ function renderRoleSwitcher() {
         </div>
       `).join('')}
       <div style="border-top:1px solid var(--border-color);margin:4px 0;"></div>
-      <div class="role-option" onclick="logout()"><i class="ri-logout-box-line"></i>退出登录</div>
+      <div class="role-option" onclick="logout()"><i class="ri-logout-box-line"></i>Logout</div>
     </div>
   `;
 }
@@ -176,7 +176,7 @@ function injectAdminEntry() {
     const entry = document.createElement('a');
     entry.href = 'admin/index.html';
     entry.className = 'admin-entry';
-    entry.innerHTML = '<i class="ri-dashboard-line"></i> 进入管理后台';
+    entry.innerHTML = '<i class="ri-dashboard-line"></i> Admin Panel';
     entry.style.cssText = 'display:flex;align-items:center;gap:8px;padding:8px 16px;color:#64748b;text-decoration:none;font-size:0.875rem;transition:all 0.15s;';
     entry.onmouseenter = () => entry.style.background = 'rgba(0,0,0,0.04)';
     entry.onmouseleave = () => entry.style.background = 'transparent';

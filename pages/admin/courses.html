@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>课程管理 - Insight</title>
+  <title>Course Management - Insight</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css">
@@ -154,6 +154,13 @@
     @media (max-width: 768px) {
       .course-grid { grid-template-columns: 1fr; }
     }
+    /* ---- Modal Form Fields ---- */
+    .form-group { margin-bottom: 14px; }
+    .form-group label { display: block; font-size: 0.8125rem; font-weight: 500; color: var(--text-primary); margin-bottom: 4px; }
+    .form-control { width: 100%; padding: 8px 12px; border: 1px solid var(--border-color); border-radius: 6px; font-size: 0.875rem; font-family: inherit; color: var(--text-primary); }
+    .form-control:focus { outline: none; border-color: var(--accent); }
+    .form-row { display: flex; gap: 12px; }
+    .form-row .form-group { flex: 1; }
   </style>
 </head>
 <body>
@@ -168,14 +175,14 @@
     </div>
     <nav class="sidebar-nav"><!-- Rendered by JS --></nav>
     <div class="sidebar-footer">
-      <a href="../../index.html" class="back-to-front"><i class="ri-arrow-left-line"></i><span>返回前台</span></a>
+      <a href="../../index.html" class="back-to-front"><i class="ri-arrow-left-line"></i><span>Back to Front</span></a>
     </div>
   </aside>
 
   <header class="admin-topbar">
     <div class="topbar-left">
       <button class="btn-icon" onclick="toggleMobileSidebar()" style="display:none;" id="mobileMenuBtn"><i class="ri-menu-line"></i></button>
-      <nav class="breadcrumb"><a href="index.html">首页</a> / <span class="current">课程管理</span></nav>
+      <nav class="breadcrumb"><a href="index.html">Home</a> / <span class="current">Course Management</span></nav>
     </div>
     <div class="topbar-right">
       <div class="role-switcher" id="roleSwitcher"></div>
@@ -186,7 +193,7 @@
   <main class="admin-content">
     <div class="courses-layout">
       <aside class="discipline-panel admin-card accent">
-        <div class="card-title">专业领域</div>
+        <div class="card-title">Disciplines</div>
         <ul class="discipline-tree" id="disciplineTree"></ul>
       </aside>
 
@@ -194,20 +201,57 @@
         <div class="filter-bar">
           <div class="search-box">
             <i class="ri-search-line"></i>
-            <input type="text" class="filter-input" id="searchInput" placeholder="搜索课程名称..." oninput="filterCourses()">
+            <input type="text" class="filter-input" id="searchInput" placeholder="Search course name..." oninput="filterCourses()">
           </div>
           <select class="filter-select" id="statusFilter" onchange="filterCourses()">
-            <option value="">全部状态</option>
-            <option value="已发布">已发布</option>
-            <option value="草稿">草稿</option>
+            <option value="">All Status</option>
+            <option value="Published">Published</option>
+            <option value="Draft">Draft</option>
           </select>
-          <button class="btn btn-primary" onclick="createCourse()"><i class="ri-add-line"></i> 新建课程</button>
+          <button class="btn btn-primary" onclick="createCourse()"><i class="ri-add-line"></i> New Course</button>
         </div>
 
         <div class="course-grid" id="courseGrid"></div>
       </div>
     </div>
   </main>
+
+  <!-- Course Create/Edit Modal -->
+  <div class="modal-overlay" id="courseModal">
+    <div class="modal" style="max-width:500px;">
+      <div class="modal-header">
+        <div class="modal-title" id="courseModalTitle">New Course</div>
+        <button class="modal-close" onclick="closeCourseModal()"><i class="ri-close-line"></i></button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group"><label>Course Name</label><input type="text" class="form-control" id="cName"></div>
+        <div class="form-row">
+          <div class="form-group"><label>Discipline</label><select class="form-control" id="cDiscipline"></select></div>
+          <div class="form-group"><label>Level</label><select class="form-control" id="cLevel">
+            <option value="Level 1">Level 1</option>
+            <option value="Level 2" selected>Level 2</option>
+            <option value="Level 3">Level 3</option>
+            <option value="Level 4">Level 4</option>
+          </select></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label>Units</label><input type="number" class="form-control" id="cUnits" min="1" value="6"></div>
+          <div class="form-group"><label>Students</label><input type="number" class="form-control" id="cStudents" min="0" value="0"></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label>Progress (%)</label><input type="number" class="form-control" id="cProgress" min="0" max="100" value="0"></div>
+          <div class="form-group"><label>Status</label><select class="form-control" id="cStatus">
+            <option value="Published">Published</option>
+            <option value="Draft">Draft</option>
+          </select></div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeCourseModal()">Cancel</button>
+        <button class="btn btn-primary" onclick="saveCourse()">Save</button>
+      </div>
+    </div>
+  </div>
 
   <script src="../../app/admin-auth.js"></script>
   <script src="../../app/admin-data.js"></script>
@@ -250,7 +294,7 @@
 
     function renderDisciplineTree() {
       var tree = document.getElementById('disciplineTree');
-      var items = [{ id: '', name: '全部专业', color: '#94a3b8' }].concat(MOCK_DISCIPLINES);
+      var items = [{ id: '', name: 'All Disciplines', color: '#94a3b8' }].concat(MOCK_DISCIPLINES);
       tree.innerHTML = items.map(function(d) {
         var activeClass = selectedDiscipline === (d.id || '') ? 'active' : '';
         return '<li class="' + activeClass + '" onclick="selectDiscipline(' + (d.id || "''") + ')">' +
@@ -272,8 +316,8 @@
     }
 
     function getStatusBadgeClass(status) {
-      if (status === '已发布') return 'badge-success';
-      if (status === '草稿') return 'badge-warning';
+      if (status === 'Published') return 'badge-success';
+      if (status === 'Draft') return 'badge-warning';
       return 'badge-info';
     }
 
@@ -282,7 +326,7 @@
       if (!courses.length) {
         grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--text-secondary);">' +
           '<i class="ri-book-open-line" style="font-size:3rem;display:block;margin-bottom:12px;opacity:0.4;"></i>' +
-          '暂无课程</div>';
+          'No courses found</div>';
         return;
       }
       grid.innerHTML = courses.map(function(c) {
@@ -295,18 +339,18 @@
           '<div class="course-name">' + c.name + '</div>' +
           '<div class="course-meta">' + c.discipline + ' · ' + c.level + '</div>' +
           '<div class="course-stats">' +
-            '<div class="course-stat"><i class="ri-file-list-3-line"></i> ' + c.units + ' 单元</div>' +
-            '<div class="course-stat"><i class="ri-user-line"></i> ' + c.students + ' 学员</div>' +
+            '<div class="course-stat"><i class="ri-file-list-3-line"></i> ' + c.units + ' Units</div>' +
+            '<div class="course-stat"><i class="ri-user-line"></i> ' + c.students + ' Students</div>' +
           '</div>' +
           '<div class="course-progress">' +
-            '<div class="progress-label"><span>学习进度</span><span>' + c.progress + '%</span></div>' +
+            '<div class="progress-label"><span>Progress</span><span>' + c.progress + '%</span></div>' +
             '<div class="progress-track"><div class="progress-fill" style="width:' + c.progress + '%;"></div></div>' +
           '</div>' +
           '<div class="course-footer">' +
-            '<span class="course-stat"><i class="ri-bar-chart-box-line"></i> 完成率 ' + c.progress + '%</span>' +
+            '<span class="course-stat"><i class="ri-bar-chart-box-line"></i> Completion ' + c.progress + '%</span>' +
             '<div class="course-actions">' +
-              '<button class="btn-icon" title="编辑" onclick="editCourse(' + c.id + ')"><i class="ri-edit-line"></i></button>' +
-              '<button class="btn-icon" title="预览" onclick="previewCourse(' + c.id + ')"><i class="ri-eye-line"></i></button>' +
+              '<button class="btn-icon" title="Edit" onclick="editCourse(' + c.id + ')"><i class="ri-edit-line"></i></button>' +
+              '<button class="btn-icon" title="Preview" onclick="previewCourse(' + c.id + ')"><i class="ri-eye-line"></i></button>' +
             '</div>' +
           '</div>' +
         '</div>';
@@ -325,16 +369,80 @@
       renderCourseGrid(filtered);
     }
 
+    var editingCourseId = null;
+
+    function openCourseModal(id) {
+      editingCourseId = id || null;
+      var modal = document.getElementById('courseModal');
+      var title = document.getElementById('courseModalTitle');
+      // populate discipline dropdown
+      var discSelect = document.getElementById('cDiscipline');
+      discSelect.innerHTML = MOCK_DISCIPLINES.map(function(d) { return '<option value="' + d.name + '">' + d.name + '</option>'; }).join('');
+
+      if (id) {
+        var course = allCourses.find(function(c) { return c.id === id; });
+        if (!course) return;
+        title.textContent = 'Edit Course';
+        document.getElementById('cName').value = course.name;
+        document.getElementById('cDiscipline').value = course.discipline;
+        document.getElementById('cLevel').value = course.level;
+        document.getElementById('cUnits').value = course.units;
+        document.getElementById('cStudents').value = course.students;
+        document.getElementById('cProgress').value = course.progress;
+        document.getElementById('cStatus').value = course.status;
+      } else {
+        title.textContent = 'New Course';
+        document.getElementById('cName').value = '';
+        document.getElementById('cDiscipline').value = MOCK_DISCIPLINES[0].name;
+        document.getElementById('cLevel').value = 'Level 2';
+        document.getElementById('cUnits').value = '6';
+        document.getElementById('cStudents').value = '0';
+        document.getElementById('cProgress').value = '0';
+        document.getElementById('cStatus').value = 'Draft';
+      }
+      modal.classList.add('active');
+    }
+
+    function closeCourseModal() {
+      document.getElementById('courseModal').classList.remove('active');
+      editingCourseId = null;
+    }
+
+    function saveCourse() {
+      var data = {
+        name: document.getElementById('cName').value.trim(),
+        discipline: document.getElementById('cDiscipline').value,
+        level: document.getElementById('cLevel').value,
+        units: parseInt(document.getElementById('cUnits').value) || 1,
+        students: parseInt(document.getElementById('cStudents').value) || 0,
+        progress: parseInt(document.getElementById('cProgress').value) || 0,
+        status: document.getElementById('cStatus').value
+      };
+      if (!data.name) { alert('Please enter a course name.'); return; }
+
+      if (editingCourseId) {
+        var idx = allCourses.findIndex(function(c) { return c.id === editingCourseId; });
+        if (idx !== -1) { data.id = editingCourseId; allCourses[idx] = data; }
+      } else {
+        data.id = allCourses.length ? Math.max.apply(null, allCourses.map(function(c) { return c.id; })) + 1 : 1;
+        allCourses.unshift(data);
+      }
+      closeCourseModal();
+      renderCourseGrid(allCourses);
+      filterCourses();
+    }
+
     function createCourse() {
-      alert('新建课程功能开发中');
+      openCourseModal();
     }
 
     function editCourse(id) {
-      alert('编辑课程 ID: ' + id);
+      openCourseModal(id);
     }
 
     function previewCourse(id) {
-      alert('预览课程 ID: ' + id);
+      var course = allCourses.find(function(c) { return c.id === id; });
+      if (course) alert(course.name + '\n' + course.discipline + ' · ' + course.level + '\n' + course.units + ' Units · ' + course.students + ' Students · ' + course.progress + '% complete\nStatus: ' + course.status);
     }
 
     renderDisciplineTree();

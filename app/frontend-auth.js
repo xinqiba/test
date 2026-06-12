@@ -193,9 +193,6 @@ function renderTopbar(activeId, opts) {
     html += '</div>';
     html += '<div class="user-dropdown" id="userDropdown">';
     html += '<a href="profile.html"><i class="ri-user-line"></i> Profile</a>';
-    if (user.role === 'enterprise_admin' || user.role === 'system_admin') {
-      html += '<a href="admin/users.html"><i class="ri-dashboard-line"></i> 进入管理后台</a>';
-    }
     if (user.role === 'student') {
       html += '<a href="my-workshops.html"><i class="ri-calendar-line"></i> My Workshops</a>';
     }

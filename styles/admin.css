@@ -365,12 +365,12 @@ body {
   align-items: center;
   justify-content: center;
   border-radius: 6px;
-  background: transparent;
-  border: none;
-  color: var(--text-secondary);
+  background: #f1f5f9;
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
   cursor: pointer;
 }
-.btn-icon:hover { background: rgba(0,0,0,0.05); color: var(--primary); }
+.btn-icon:hover { background: rgba(0,0,0,0.08); color: var(--primary); }
 
 /* ---- Badges ---- */
 .badge {

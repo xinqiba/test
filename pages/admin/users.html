@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>用户管理 - Insight</title>
+  <title>User Management - Insight</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css">
@@ -88,6 +88,13 @@
       margin-bottom: 12px;
       opacity: 0.5;
     }
+    /* ---- Modal Form Fields ---- */
+    .form-group { margin-bottom: 14px; }
+    .form-group label { display: block; font-size: 0.8125rem; font-weight: 500; color: var(--text-primary); margin-bottom: 4px; }
+    .form-control { width: 100%; padding: 8px 12px; border: 1px solid var(--border-color); border-radius: 6px; font-size: 0.875rem; font-family: inherit; color: var(--text-primary); }
+    .form-control:focus { outline: none; border-color: var(--accent); }
+    .form-row { display: flex; gap: 12px; }
+    .form-row .form-group { flex: 1; }
   </style>
 </head>
 <body>
@@ -102,14 +109,14 @@
     </div>
     <nav class="sidebar-nav"><!-- Rendered by JS --></nav>
     <div class="sidebar-footer">
-      <a href="../../index.html" class="back-to-front"><i class="ri-arrow-left-line"></i><span>返回前台</span></a>
+      <a href="../../index.html" class="back-to-front"><i class="ri-arrow-left-line"></i><span>Back to Front</span></a>
     </div>
   </aside>
 
   <header class="admin-topbar">
     <div class="topbar-left">
       <button class="btn-icon" onclick="toggleMobileSidebar()" style="display:none;" id="mobileMenuBtn"><i class="ri-menu-line"></i></button>
-      <nav class="breadcrumb"><a href="index.html">首页</a> / <span class="current">用户管理</span></nav>
+      <nav class="breadcrumb"><a href="index.html">Home</a> / <span class="current">User Management</span></nav>
     </div>
     <div class="topbar-right">
       <div class="role-switcher" id="roleSwitcher"></div>
@@ -122,45 +129,48 @@
     <div class="filter-bar">
       <div class="search-box">
         <i class="ri-search-line"></i>
-        <input type="text" class="filter-input" id="searchInput" placeholder="搜索姓名或工号...">
+        <input type="text" class="filter-input" id="searchInput" placeholder="Search name or ID...">
       </div>
       <select class="filter-select" id="deptFilter">
-        <option value="">全部部门</option>
+        <option value="">All Departments</option>
       </select>
       <select class="filter-select" id="roleFilter">
-        <option value="">全部角色</option>
-        <option value="企业管理员">企业管理员</option>
-        <option value="评估师">评估师</option>
-        <option value="内部验证员">内部验证员</option>
-        <option value="标准验证员">标准验证员</option>
-        <option value="学员">学员</option>
+        <option value="">All Roles</option>
+        <option value="Enterprise Admin">Enterprise Admin</option>
+        <option value="Assessor">Assessor</option>
+        <option value="Internal Verifier">Internal Verifier</option>
+        <option value="Standard Verifier">Standard Verifier</option>
+        <option value="Student">Student</option>
       </select>
       <select class="filter-select" id="certFilter">
-        <option value="">全部证书状态</option>
-        <option value="正常">正常</option>
-        <option value="即将到期">即将到期</option>
-        <option value="已过期">已过期</option>
+        <option value="">All Cert. Status</option>
+        <option value="Active">Active</option>
+        <option value="Expiring Soon">Expiring Soon</option>
+        <option value="Expired">Expired</option>
       </select>
       <button class="btn btn-secondary btn-sm" onclick="exportUsers()">
-        <i class="ri-download-line"></i> 导出
+        <i class="ri-download-line"></i> Export
+      </button>
+      <button class="btn btn-primary btn-sm" onclick="openUserModal()">
+        <i class="ri-add-line"></i> New User
       </button>
     </div>
 
     <!-- Data Table -->
     <div class="admin-card">
-      <div class="card-title">用户列表</div>
+      <div class="card-title">User List</div>
       <table class="data-table" id="usersTable">
         <thead>
           <tr>
             <th style="width:40px;"><input type="checkbox" id="selectAll"></th>
-            <th>姓名</th>
-            <th>工号</th>
-            <th>部门</th>
-            <th>角色</th>
-            <th>技能数</th>
-            <th>培训进度</th>
-            <th>证书状态</th>
-            <th style="width:120px;">操作</th>
+            <th>Name</th>
+            <th>Employee ID</th>
+            <th>Department</th>
+            <th>Role</th>
+            <th>Skills</th>
+            <th>Training Progress</th>
+            <th>Cert. Status</th>
+            <th style="width:120px;">Actions</th>
           </tr>
         </thead>
         <tbody id="usersTableBody">
@@ -169,14 +179,52 @@
       </table>
       <div id="emptyState" class="empty-state" style="display:none;">
         <i class="ri-user-search-line"></i>
-        <div>未找到匹配的用户</div>
+        <div>No matching users found</div>
       </div>
       <div class="table-footer" id="tableFooter">
-        <span id="tableInfo">共 0 条记录</span>
+        <span id="tableInfo">Total 0 records</span>
         <div class="pagination" id="pagination"></div>
       </div>
     </div>
   </main>
+
+  <!-- User Create/Edit Modal -->
+  <div class="modal-overlay" id="userModal">
+    <div class="modal" style="max-width:520px;">
+      <div class="modal-header">
+        <div class="modal-title" id="userModalTitle">New User</div>
+        <button class="modal-close" onclick="closeUserModal()"><i class="ri-close-line"></i></button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group"><label>Name</label><input type="text" class="form-control" id="uName"></div>
+        <div class="form-group"><label>Employee ID</label><input type="text" class="form-control" id="uEmpId"></div>
+        <div class="form-row">
+          <div class="form-group"><label>Department</label><select class="form-control" id="uDept"></select></div>
+          <div class="form-group"><label>Role</label><select class="form-control" id="uRole">
+            <option value="Enterprise Admin">Enterprise Admin</option>
+            <option value="Assessor">Assessor</option>
+            <option value="Internal Verifier">Internal Verifier</option>
+            <option value="Standard Verifier">Standard Verifier</option>
+            <option value="Student">Student</option>
+            <option value="System Admin">System Admin</option>
+          </select></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label>Skills Count</label><input type="number" class="form-control" id="uSkills"></div>
+          <div class="form-group"><label>Training Progress (%)</label><input type="number" class="form-control" id="uProgress" min="0" max="100"></div>
+        </div>
+        <div class="form-group"><label>Cert. Status</label><select class="form-control" id="uCert">
+          <option value="Active">Active</option>
+          <option value="Expiring Soon">Expiring Soon</option>
+          <option value="Expired">Expired</option>
+        </select></div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeUserModal()">Cancel</button>
+        <button class="btn btn-primary" onclick="saveUser()">Save</button>
+      </div>
+    </div>
+  </div>
 
   <script src="../../app/admin-auth.js"></script>
   <script src="../../app/admin-data.js"></script>
@@ -232,9 +280,9 @@
     }
 
     function getCertBadgeClass(status) {
-      if (status === '正常') return 'badge-success';
-      if (status === '即将到期') return 'badge-warning';
-      if (status === '已过期') return 'badge-danger';
+      if (status === 'Active') return 'badge-success';
+      if (status === 'Expiring Soon') return 'badge-warning';
+      if (status === 'Expired') return 'badge-danger';
       return 'badge-info';
     }
 
@@ -248,7 +296,7 @@
       if (filteredUsers.length === 0) {
         tbody.innerHTML = '';
         empty.style.display = 'block';
-        document.getElementById('tableInfo').textContent = '共 0 条记录';
+        document.getElementById('tableInfo').textContent = 'Total 0 records';
         document.getElementById('pagination').innerHTML = '';
         return;
       }
@@ -270,13 +318,13 @@
           '</td>' +
           '<td><span class="badge ' + certClass + '">' + u.certStatus + '</span></td>' +
           '<td class="actions">' +
-            '<button class="btn-icon" title="查看" onclick="viewUser(' + u.id + ')"><i class="ri-eye-line"></i></button>' +
-            '<button class="btn-icon" title="编辑" onclick="editUser(' + u.id + ')"><i class="ri-edit-line"></i></button>' +
+            '<button class="btn-icon" title="View" onclick="viewUser(' + u.id + ')"><i class="ri-eye-line"></i></button>' +
+            '<button class="btn-icon" title="Edit" onclick="editUser(' + u.id + ')"><i class="ri-edit-line"></i></button>' +
           '</td>' +
         '</tr>';
       }).join('');
 
-      document.getElementById('tableInfo').textContent = '共 ' + filteredUsers.length + ' 条记录，第 ' + currentPage + ' / ' + Math.ceil(filteredUsers.length / pageSize) + ' 页';
+      document.getElementById('tableInfo').textContent = 'Total ' + filteredUsers.length + ' records, Page ' + currentPage + ' / ' + Math.ceil(filteredUsers.length / pageSize);
       renderPagination();
     }
 
@@ -332,18 +380,93 @@
       });
     });
 
+    var editingUserId = null;
+
+    function openUserModal(id) {
+      editingUserId = id || null;
+      var modal = document.getElementById('userModal');
+      var title = document.getElementById('userModalTitle');
+      // Re-enable inputs and show save button
+      var inputs = document.querySelectorAll('#userModal .form-control');
+      inputs.forEach(function(inp) { inp.disabled = false; });
+      var saveBtn = document.getElementById('userModal').querySelector('.btn-primary');
+      if (saveBtn) saveBtn.style.display = '';
+      // populate department dropdown
+      var deptSelect = document.getElementById('uDept');
+      deptSelect.innerHTML = MOCK_DEPARTMENTS.map(function(d) { return '<option value="' + d + '">' + d + '</option>'; }).join('');
+
+      if (id) {
+        var user = allUsers.find(function(u) { return u.id === id; });
+        if (!user) return;
+        title.textContent = 'Edit User';
+        document.getElementById('uName').value = user.name;
+        document.getElementById('uEmpId').value = user.employeeId;
+        document.getElementById('uDept').value = user.department;
+        document.getElementById('uRole').value = user.role;
+        document.getElementById('uSkills').value = user.skillsCount;
+        document.getElementById('uProgress').value = user.trainingProgress;
+        document.getElementById('uCert').value = user.certStatus;
+      } else {
+        title.textContent = 'New User';
+        document.getElementById('uName').value = '';
+        document.getElementById('uEmpId').value = 'EMP' + String(allUsers.length + 1).padStart(4, '0');
+        document.getElementById('uDept').value = MOCK_DEPARTMENTS[0];
+        document.getElementById('uRole').value = 'Student';
+        document.getElementById('uSkills').value = '1';
+        document.getElementById('uProgress').value = '0';
+        document.getElementById('uCert').value = 'Active';
+      }
+      modal.classList.add('active');
+    }
+
+    function closeUserModal() {
+      document.getElementById('userModal').classList.remove('active');
+      editingUserId = null;
+    }
+
+    function saveUser() {
+      var userData = {
+        name: document.getElementById('uName').value.trim(),
+        employeeId: document.getElementById('uEmpId').value.trim(),
+        department: document.getElementById('uDept').value,
+        role: document.getElementById('uRole').value,
+        skillsCount: parseInt(document.getElementById('uSkills').value) || 1,
+        trainingProgress: parseInt(document.getElementById('uProgress').value) || 0,
+        certStatus: document.getElementById('uCert').value
+      };
+      if (!userData.name || !userData.employeeId) { alert('Please fill in Name and Employee ID.'); return; }
+
+      if (editingUserId) {
+        var idx = allUsers.findIndex(function(u) { return u.id === editingUserId; });
+        if (idx !== -1) {
+          userData.id = editingUserId;
+          allUsers[idx] = userData;
+        }
+      } else {
+        userData.id = allUsers.length ? Math.max.apply(null, allUsers.map(function(u) { return u.id; })) + 1 : 1;
+        allUsers.unshift(userData);
+      }
+      closeUserModal();
+      applyFilters();
+    }
+
     function viewUser(id) {
-      var user = allUsers.find(function(u) { return u.id === id; });
-      if (user) alert('查看用户：' + user.name + ' (' + user.employeeId + ')');
+      openUserModal(id);
+      // Disable all inputs for view-only mode
+      setTimeout(function() {
+        var inputs = document.querySelectorAll('#userModal .form-control');
+        inputs.forEach(function(inp) { inp.disabled = true; });
+        var saveBtn = document.getElementById('userModal').querySelector('.btn-primary');
+        if (saveBtn) saveBtn.style.display = 'none';
+      }, 0);
     }
 
     function editUser(id) {
-      var user = allUsers.find(function(u) { return u.id === id; });
-      if (user) alert('编辑用户：' + user.name + ' (' + user.employeeId + ')');
+      openUserModal(id);
     }
 
     function exportUsers() {
-      alert('导出 ' + filteredUsers.length + ' 条用户记录');
+      alert('Export ' + filteredUsers.length + ' user records');
     }
 
     populateDeptFilter();

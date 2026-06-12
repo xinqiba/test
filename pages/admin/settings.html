@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>系统设置 - Insight</title>
+  <title>Settings - Insight</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css">
@@ -30,13 +30,13 @@
     <div class="sidebar-header"><div class="sidebar-logo">Insight Admin</div></div>
     <div class="sidebar-toggle" onclick="toggleSidebar()"><i class="ri-arrow-left-s-line" id="toggleIcon"></i></div>
     <nav class="sidebar-nav"></nav>
-    <div class="sidebar-footer"><a href="../../index.html" class="back-to-front"><i class="ri-arrow-left-line"></i><span>返回前台</span></a></div>
+    <div class="sidebar-footer"><a href="../../index.html" class="back-to-front"><i class="ri-arrow-left-line"></i><span>Back to Front</span></a></div>
   </aside>
 
   <header class="admin-topbar">
     <div class="topbar-left">
       <button class="btn-icon" onclick="toggleMobileSidebar()" style="display:none;" id="mobileMenuBtn"><i class="ri-menu-line"></i></button>
-      <nav class="breadcrumb"><a href="index.html">首页</a> / <span class="current">系统设置</span></nav>
+      <nav class="breadcrumb"><a href="index.html">Home</a> / <span class="current">Settings</span></nav>
     </div>
     <div class="topbar-right">
       <div class="role-switcher" id="roleSwitcher"></div>
@@ -47,102 +47,105 @@
   <main class="admin-content">
     <div class="settings-layout">
       <div class="settings-sidebar">
-        <div class="settings-item active" onclick="switchSettingTab('basic', this)">基础设置</div>
-        <div class="settings-item" onclick="switchSettingTab('roles', this)">用户权限</div>
-        <div class="settings-item" onclick="switchSettingTab('discipline', this)">学科配置</div>
-        <div class="settings-item" onclick="switchSettingTab('process', this)">流程配置</div>
-        <div class="settings-item" onclick="switchSettingTab('logs', this)">日志审计</div>
+        <div class="settings-item active" onclick="switchSettingTab('basic', this)">Basic Settings</div>
+        <div class="settings-item" onclick="switchSettingTab('roles', this)">User Roles</div>
+        <div class="settings-item" onclick="switchSettingTab('discipline', this)">Disciplines</div>
+        <div class="settings-item" onclick="switchSettingTab('process', this)">Workflow</div>
+        <div class="settings-item" onclick="switchSettingTab('logs', this)">Audit Logs</div>
       </div>
 
       <div class="settings-content">
         <!-- Basic Settings -->
         <div class="admin-card" id="settingBasic">
-          <div class="card-title">基础设置</div>
+          <div class="card-title">Basic Settings</div>
           <div class="form-row">
-            <div class="form-group"><label>企业名称</label><input type="text" value="Insight 石油天然气培训中心"></div>
-            <div class="form-group"><label>系统简称</label><input type="text" value="Insight"></div>
+            <div class="form-group"><label>Company Name</label><input type="text" value="Insight Oil & Gas Training Center"></div>
+            <div class="form-group"><label>System Alias</label><input type="text" value="Insight"></div>
           </div>
           <div class="form-row">
-            <div class="form-group"><label>联系人</label><input type="text" value="王经理"></div>
-            <div class="form-group"><label>联系电话</label><input type="text" value="010-8888-6666"></div>
+            <div class="form-group"><label>Contact Person</label><input type="text" value="Manager Wang"></div>
+            <div class="form-group"><label>Phone</label><input type="text" value="010-8888-6666"></div>
           </div>
           <div class="form-row">
-            <div class="form-group"><label>邮箱</label><input type="text" value="contact@insight-oil.com"></div>
-            <div class="form-group"><label>系统Logo</label><input type="file" accept="image/*"></div>
+            <div class="form-group"><label>Email</label><input type="text" value="contact@insight-oil.com"></div>
+            <div class="form-group"><label>System Logo</label><input type="file" accept="image/*"></div>
           </div>
           <div style="margin-top:20px;display:flex;gap:12px;">
-            <button class="btn btn-primary">保存设置</button>
-            <button class="btn btn-secondary">重置</button>
+            <button class="btn btn-primary">Save Settings</button>
+            <button class="btn btn-secondary">Reset</button>
           </div>
         </div>
 
         <!-- Role Permissions -->
         <div class="admin-card" id="settingRoles" style="display:none;">
-          <div class="card-title">用户权限</div>
+          <div class="card-title">User Role Permissions</div>
           <table class="data-table">
-            <thead><tr><th>角色</th><th>仪表盘</th><th>用户管理</th><th>课程管理</th><th>工作坊</th><th>技能审核</th><th>验证流程</th><th>报表</th><th>系统设置</th></tr></thead>
+            <thead><tr><th>Role</th><th>Dashboard</th><th>Users</th><th>Courses</th><th>Workshops</th><th>Skills Review</th><th>Verification</th><th>Reports</th><th>Settings</th></tr></thead>
             <tbody>
-              <tr><td>系统管理员</td><td><input type="checkbox" checked></td><td><input type="checkbox" checked></td><td><input type="checkbox" checked></td><td><input type="checkbox" checked></td><td><input type="checkbox" checked></td><td><input type="checkbox" checked></td><td><input type="checkbox" checked></td><td><input type="checkbox" checked></td></tr>
-              <tr><td>企业管理员</td><td><input type="checkbox" checked></td><td><input type="checkbox" checked></td><td><input type="checkbox" checked></td><td><input type="checkbox" checked></td><td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox" checked></td><td><input type="checkbox"></td></tr>
-              <tr><td>评估师</td><td><input type="checkbox" checked></td><td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox" checked></td><td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox"></td></tr>
-              <tr><td>内部验证员</td><td><input type="checkbox" checked></td><td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox" checked></td><td><input type="checkbox"></td><td><input type="checkbox"></td></tr>
-              <tr><td>标准验证员</td><td><input type="checkbox" checked></td><td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox" checked></td><td><input type="checkbox"></td><td><input type="checkbox"></td></tr>
+              <tr><td>System Admin</td><td><input type="checkbox" checked></td><td><input type="checkbox" checked></td><td><input type="checkbox" checked></td><td><input type="checkbox" checked></td><td><input type="checkbox" checked></td><td><input type="checkbox" checked></td><td><input type="checkbox" checked></td><td><input type="checkbox" checked></td></tr>
+              <tr><td>Enterprise Admin</td><td><input type="checkbox" checked></td><td><input type="checkbox" checked></td><td><input type="checkbox" checked></td><td><input type="checkbox" checked></td><td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox" checked></td><td><input type="checkbox"></td></tr>
+              <tr><td>Assessor</td><td><input type="checkbox" checked></td><td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox" checked></td><td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox"></td></tr>
+              <tr><td>Internal Verifier</td><td><input type="checkbox" checked></td><td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox" checked></td><td><input type="checkbox"></td><td><input type="checkbox"></td></tr>
+              <tr><td>Standard Verifier</td><td><input type="checkbox" checked></td><td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox" checked></td><td><input type="checkbox"></td><td><input type="checkbox"></td></tr>
             </tbody>
           </table>
-          <div style="margin-top:16px;"><button class="btn btn-primary">保存权限</button></div>
+          <div style="margin-top:16px;"><button class="btn btn-primary">Save Permissions</button></div>
         </div>
 
         <!-- Discipline Config -->
         <div class="admin-card" id="settingDiscipline" style="display:none;">
-          <div class="card-title">学科配置</div>
+          <div class="card-title">Discipline Configuration</div>
           <table class="data-table">
-            <thead><tr><th>学科名称</th><th>等级</th><th>技能数量</th><th>状态</th><th>操作</th></tr></thead>
+            <thead><tr><th>Discipline</th><th>Levels</th><th>Skills</th><th>Status</th><th>Actions</th></tr></thead>
             <tbody>
-              <tr><td>Wells Engineering</td><td>Level 2-4</td><td>12</td><td><span class="badge badge-success">启用</span></td><td class="actions"><button class="btn-icon"><i class="ri-edit-line"></i></button><button class="btn-icon"><i class="ri-delete-bin-line"></i></button></td></tr>
-              <tr><td>Health Safety Environment</td><td>Level 2-4</td><td>8</td><td><span class="badge badge-success">启用</span></td><td class="actions"><button class="btn-icon"><i class="ri-edit-line"></i></button><button class="btn-icon"><i class="ri-delete-bin-line"></i></button></td></tr>
-              <tr><td>Mechanical Engineering</td><td>Level 2-3</td><td>10</td><td><span class="badge badge-success">启用</span></td><td class="actions"><button class="btn-icon"><i class="ri-edit-line"></i></button><button class="btn-icon"><i class="ri-delete-bin-line"></i></button></td></tr>
-              <tr><td>Instrumentation and Controls</td><td>Level 3-4</td><td>6</td><td><span class="badge badge-warning">草稿</span></td><td class="actions"><button class="btn-icon"><i class="ri-edit-line"></i></button><button class="btn-icon"><i class="ri-delete-bin-line"></i></button></td></tr>
+              <tr><td>Wells Engineering</td><td>Level 2-4</td><td>12</td><td><span class="badge badge-success">Active</span></td><td class="actions"><button class="btn-icon"><i class="ri-edit-line"></i></button><button class="btn-icon"><i class="ri-delete-bin-line"></i></button></td></tr>
+              <tr><td>Health Safety Environment</td><td>Level 2-4</td><td>8</td><td><span class="badge badge-success">Active</span></td><td class="actions"><button class="btn-icon"><i class="ri-edit-line"></i></button><button class="btn-icon"><i class="ri-delete-bin-line"></i></button></td></tr>
+              <tr><td>Mechanical Engineering</td><td>Level 2-3</td><td>10</td><td><span class="badge badge-success">Active</span></td><td class="actions"><button class="btn-icon"><i class="ri-edit-line"></i></button><button class="btn-icon"><i class="ri-delete-bin-line"></i></button></td></tr>
+              <tr><td>Instrumentation and Controls</td><td>Level 3-4</td><td>6</td><td><span class="badge badge-warning">Draft</span></td><td class="actions"><button class="btn-icon"><i class="ri-edit-line"></i></button><button class="btn-icon"><i class="ri-delete-bin-line"></i></button></td></tr>
             </tbody>
           </table>
-          <div style="margin-top:16px;"><button class="btn btn-primary"><i class="ri-add-line"></i> 新增学科</button></div>
+          <div style="margin-top:16px;"><button class="btn btn-primary"><i class="ri-add-line"></i> Add Discipline</button></div>
         </div>
 
         <!-- Process Config -->
         <div class="admin-card" id="settingProcess" style="display:none;">
-          <div class="card-title">流程配置</div>
+          <div class="card-title">Workflow Configuration</div>
           <div class="form-row">
-            <div class="form-group"><label>评估超时提醒（天）</label><input type="number" value="7"></div>
-            <div class="form-group"><label>资质到期提前预警（天）</label><input type="number" value="30"></div>
+            <div class="form-group"><label>Assessment Timeout (days)</label><input type="number" value="7"></div>
+            <div class="form-group"><label>Cert. Expiry Alert (days in advance)</label><input type="number" value="30"></div>
           </div>
           <div class="form-row">
-            <div class="form-group"><label>验证流程</label><select><option>三级验证（评估-复核-终审）</option><option>二级验证（评估-终审）</option></select></div>
-            <div class="form-group"><label>申诉处理时限（天）</label><input type="number" value="15"></div>
+            <div class="form-group"><label>Verification Flow</label><select><option>3-Level (Assess → Review → Approve)</option><option>2-Level (Assess → Approve)</option></select></div>
+            <div class="form-group"><label>Appeal Deadline (days)</label><input type="number" value="15"></div>
           </div>
-          <div style="margin-top:20px;"><button class="btn btn-primary">保存配置</button></div>
+          <div style="margin-top:20px;"><button class="btn btn-primary">Save Configuration</button></div>
         </div>
 
         <!-- Audit Logs -->
         <div class="admin-card" id="settingLogs" style="display:none;">
-          <div class="card-title">日志审计</div>
+          <div class="card-title">Audit Logs</div>
           <div class="filter-bar">
-            <select class="filter-select"><option>全部操作</option><option>登录</option><option>创建</option><option>修改</option><option>删除</option></select>
-            <select class="filter-select"><option>全部用户</option><option>admin</option><option>manager</option><option>assessor</option></select>
-            <button class="btn btn-secondary btn-sm"><i class="ri-search-line"></i> 查询</button>
+            <select class="filter-select"><option>All Actions</option><option>Login</option><option>Create</option><option>Update</option><option>Delete</option></select>
+            <select class="filter-select"><option>All Users</option><option>admin</option><option>manager</option><option>assessor</option></select>
+            <button class="btn btn-secondary btn-sm"><i class="ri-search-line"></i> Search</button>
           </div>
           <table class="data-table">
-            <thead><tr><th>时间</th><th>用户</th><th>操作</th><th>IP地址</th><th>结果</th></tr></thead>
+            <thead><tr><th>Time</th><th>User</th><th>Action</th><th>IP</th><th>Result</th></tr></thead>
             <tbody>
-              <tr><td>2026-06-12 09:30:15</td><td>admin</td><td>登录系统</td><td>192.168.1.100</td><td><span class="badge badge-success">成功</span></td></tr>
-              <tr><td>2026-06-12 09:35:22</td><td>admin</td><td>修改课程"钻井工程入门"</td><td>192.168.1.100</td><td><span class="badge badge-success">成功</span></td></tr>
-              <tr><td>2026-06-12 10:12:08</td><td>manager</td><td>创建工作坊"HSE应急响应演练"</td><td>192.168.1.101</td><td><span class="badge badge-success">成功</span></td></tr>
-              <tr><td>2026-06-12 11:05:44</td><td>assessor</td><td>评估通过张伟的井控技术证据</td><td>192.168.1.102</td><td><span class="badge badge-success">成功</span></td></tr>
-              <tr><td>2026-06-11 16:20:33</td><td>unknown</td><td>登录失败（密码错误）</td><td>10.0.0.55</td><td><span class="badge badge-danger">失败</span></td></tr>
+              <tr><td>2026-06-12 09:30:15</td><td>admin</td><td>System Login</td><td>192.168.1.100</td><td><span class="badge badge-success">Success</span></td></tr>
+              <tr><td>2026-06-12 09:35:22</td><td>admin</td><td>Updated course "Drilling Engineering Intro"</td><td>192.168.1.100</td><td><span class="badge badge-success">Success</span></td></tr>
+              <tr><td>2026-06-12 10:12:08</td><td>manager</td><td>Created workshop "HSE Emergency Response Drill"</td><td>192.168.1.101</td><td><span class="badge badge-success">Success</span></td></tr>
+              <tr><td>2026-06-12 11:05:44</td><td>assessor</td><td>Approved Zhang Wei's Well Control evidence</td><td>192.168.1.102</td><td><span class="badge badge-success">Success</span></td></tr>
+              <tr><td>2026-06-11 16:20:33</td><td>unknown</td><td>Login failed (wrong password)</td><td>10.0.0.55</td><td><span class="badge badge-danger">Failure</span></td></tr>
             </tbody>
           </table>
         </div>
       </div>
     </div>
   </main>
+
+  <!-- Toast Notification -->
+  <div id="toast" style="position:fixed;bottom:24px;right:24px;background:var(--success);color:#fff;padding:12px 24px;border-radius:8px;font-weight:500;font-size:0.875rem;z-index:3000;opacity:0;transition:opacity 0.3s;pointer-events:none;">Settings saved successfully!</div>
 
   <script src="../../app/admin-auth.js"></script>
   <script src="../../app/admin-data.js"></script>
@@ -172,6 +175,28 @@
       document.querySelectorAll('.settings-item').forEach(function(i) { i.classList.remove('active'); });
       btn.classList.add('active');
     }
+
+    function showToast(msg) {
+      var toast = document.getElementById('toast');
+      toast.textContent = msg;
+      toast.style.opacity = '1';
+      clearTimeout(toast._timeout);
+      toast._timeout = setTimeout(function() { toast.style.opacity = '0'; }, 2000);
+    }
+
+    // Wire up save buttons
+    document.querySelectorAll('.btn-primary, .btn-secondary').forEach(function(btn) {
+      var text = btn.textContent.trim();
+      if (text === 'Save Settings' || text === 'Save Permissions' || text === 'Save Configuration') {
+        btn.addEventListener('click', function() { showToast(text.replace('Save ', '') + ' saved successfully!'); });
+      } else if (text === 'Reset') {
+        btn.addEventListener('click', function() { showToast('Settings reset to defaults.'); });
+      } else if (text === 'Add Discipline') {
+        btn.addEventListener('click', function() { showToast('Discipline added!'); });
+      } else if (text === 'Search') {
+        btn.addEventListener('click', function() { showToast('Searching audit logs...'); });
+      }
+    });
   </script>
 </body>
 </html>

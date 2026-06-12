@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>报表中心 - Insight</title>
+  <title>Reports - Insight</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css">
@@ -49,13 +49,13 @@
     <div class="sidebar-header"><div class="sidebar-logo">Insight Admin</div></div>
     <div class="sidebar-toggle" onclick="toggleSidebar()"><i class="ri-arrow-left-s-line" id="toggleIcon"></i></div>
     <nav class="sidebar-nav"></nav>
-    <div class="sidebar-footer"><a href="../../index.html" class="back-to-front"><i class="ri-arrow-left-line"></i><span>返回前台</span></a></div>
+    <div class="sidebar-footer"><a href="../../index.html" class="back-to-front"><i class="ri-arrow-left-line"></i><span>Back to Front</span></a></div>
   </aside>
 
   <header class="admin-topbar">
     <div class="topbar-left">
       <button class="btn-icon" onclick="toggleMobileSidebar()" style="display:none;" id="mobileMenuBtn"><i class="ri-menu-line"></i></button>
-      <nav class="breadcrumb"><a href="index.html">首页</a> / <span class="current">报表中心</span></nav>
+      <nav class="breadcrumb"><a href="index.html">Home</a> / <span class="current">Reports</span></nav>
     </div>
     <div class="topbar-right">
       <div class="role-switcher" id="roleSwitcher"></div>
@@ -65,36 +65,36 @@
 
   <main class="admin-content">
     <div class="filter-bar">
-      <select class="filter-select"><option>近7天</option><option>近30天</option><option selected>近90天</option><option>自定义</option></select>
-      <select class="filter-select"><option>全部部门</option><option>井工程部</option><option>HSE部</option><option>机械工程部</option></select>
-      <select class="filter-select"><option>全部学科</option><option>Wells Engineering</option><option>Health Safety Environment</option></select>
-      <button class="btn btn-secondary btn-sm"><i class="ri-download-line"></i> 导出报表</button>
+      <select class="filter-select"><option>Last 7 Days</option><option>Last 30 Days</option><option selected>Last 90 Days</option><option>Custom</option></select>
+      <select class="filter-select"><option>All Departments</option><option>Wells Engineering</option><option>HSE</option><option>Mechanical Engineering</option></select>
+      <select class="filter-select"><option>All Disciplines</option><option>Wells Engineering</option><option>Health Safety Environment</option></select>
+      <button class="btn btn-secondary btn-sm"><i class="ri-download-line"></i> Export Report</button>
     </div>
 
     <div class="kpi-grid">
-      <div class="kpi-card"><div class="kpi-label">培训完成率</div><div class="kpi-value" style="color:var(--success);">88%</div><div class="kpi-trend up"><i class="ri-arrow-up-line"></i> +3% 较上月</div></div>
-      <div class="kpi-card"><div class="kpi-label">技能达标率</div><div class="kpi-value" style="color:var(--primary);">78%</div><div class="kpi-trend up"><i class="ri-arrow-up-line"></i> +5% 较上月</div></div>
-      <div class="kpi-card"><div class="kpi-label">工作坊出勤率</div><div class="kpi-value" style="color:var(--accent);">92%</div><div class="kpi-trend up"><i class="ri-arrow-up-line"></i> +2% 较上月</div></div>
-      <div class="kpi-card"><div class="kpi-label">评估平均耗时</div><div class="kpi-value" style="color:var(--warning);">2.5天</div><div class="kpi-trend down"><i class="ri-arrow-down-line"></i> -0.5天 较上月</div></div>
-      <div class="kpi-card"><div class="kpi-label">资质到期预警</div><div class="kpi-value" style="color:var(--danger);">18</div><div class="kpi-trend down"><i class="ri-arrow-up-line"></i> +3 较上月</div></div>
-      <div class="kpi-card"><div class="kpi-label">PTW合规率</div><div class="kpi-value" style="color:var(--success);">96%</div><div class="kpi-trend up"><i class="ri-arrow-up-line"></i> +1% 较上月</div></div>
+      <div class="kpi-card"><div class="kpi-label">Training Completion</div><div class="kpi-value" style="color:var(--success);">88%</div><div class="kpi-trend up"><i class="ri-arrow-up-line"></i> +3% vs last month</div></div>
+      <div class="kpi-card"><div class="kpi-label">Skill Pass Rate</div><div class="kpi-value" style="color:var(--primary);">78%</div><div class="kpi-trend up"><i class="ri-arrow-up-line"></i> +5% vs last month</div></div>
+      <div class="kpi-card"><div class="kpi-label">Workshop Attendance</div><div class="kpi-value" style="color:var(--accent);">92%</div><div class="kpi-trend up"><i class="ri-arrow-up-line"></i> +2% vs last month</div></div>
+      <div class="kpi-card"><div class="kpi-label">Avg. Assessment Time</div><div class="kpi-value" style="color:var(--warning);">2.5d</div><div class="kpi-trend down"><i class="ri-arrow-down-line"></i> -0.5d vs last month</div></div>
+      <div class="kpi-card"><div class="kpi-label">Cert. Expiry Alert</div><div class="kpi-value" style="color:var(--danger);">18</div><div class="kpi-trend down"><i class="ri-arrow-up-line"></i> +3 vs last month</div></div>
+      <div class="kpi-card"><div class="kpi-label">PTW Compliance</div><div class="kpi-value" style="color:var(--success);">96%</div><div class="kpi-trend up"><i class="ri-arrow-up-line"></i> +1% vs last month</div></div>
     </div>
 
     <div class="chart-grid">
       <div class="admin-card accent">
-        <div class="card-title">培训趋势</div>
+        <div class="card-title">Training Trend</div>
         <div class="chart-container"><div class="bar-chart" id="trendChart"></div></div>
       </div>
       <div class="admin-card accent">
-        <div class="card-title">学科完成率对比</div>
+        <div class="card-title">Completion by Discipline</div>
         <div id="disciplineBars" style="padding:12px 0;"></div>
       </div>
     </div>
 
     <div class="admin-card">
-      <div class="card-title">部门技能达标排名</div>
+      <div class="card-title">Department Skill Ranking</div>
       <table class="data-table">
-        <thead><tr><th>排名</th><th>部门</th><th>达标率</th><th>进度</th></tr></thead>
+        <thead><tr><th>Rank</th><th>Department</th><th>Pass Rate</th><th>Progress</th></tr></thead>
         <tbody id="rankBody"></tbody>
       </table>
     </div>
@@ -121,7 +121,7 @@
     window.addEventListener('resize', checkMobile); checkMobile();
 
     var data = generateReportData();
-    var months = ['1月','2月','3月','4月','5月','6月'];
+    var months = ['Jan','Feb','Mar','Apr','May','Jun'];
     var max = Math.max.apply(null, data.trainingCompletion);
 
     document.getElementById('trendChart').innerHTML = data.trainingCompletion.map(function(v, i) {
