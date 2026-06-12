@@ -1464,5 +1464,22 @@
 
     })();
   </script>
+
+  <script src="app/frontend-auth.js"></script>
+  <script>
+    var user = getCurrentUser();
+    if (user) {
+      var loginBtn = document.querySelector('.topbar-right .btn-primary');
+      var userMenu = document.getElementById('userMenu');
+      if (loginBtn) loginBtn.style.display = 'none';
+      if (userMenu) {
+        userMenu.style.display = 'flex';
+        var avatar = userMenu.querySelector('.user-avatar');
+        var name = userMenu.querySelector('.user-name');
+        if (avatar) avatar.textContent = user.avatar || user.username.charAt(0).toUpperCase();
+        if (name) name.textContent = user.roleName || user.username;
+      }
+    }
+  </script>
 </body>
 </html>

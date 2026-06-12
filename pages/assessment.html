@@ -140,6 +140,11 @@
       transition: background 0.15s;
     }
     .user-menu:hover { background: rgba(0,0,0,0.04); }
+    .user-dropdown { position: absolute; top: 56px; right: 24px; background: #fff; border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.12); min-width: 200px; padding: 8px; z-index: 1100; display: none; }
+    .user-dropdown.show { display: block; animation: fadeIn 0.2s ease; }
+    .user-dropdown a { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 8px; font-size: 0.875rem; color: #334155; text-decoration: none; transition: all 0.15s; }
+    .user-dropdown a:hover { background: #f1f5f9; color: #1a365d; }
+    .user-dropdown a i { font-size: 1rem; color: #94a3b8; width: 20px; text-align: center; }
     .user-avatar {
       width: 32px; height: 32px;
       border-radius: 50%;
@@ -226,117 +231,58 @@
     .breadcrumb a:hover { color: var(--deep-blue); }
     .breadcrumb i { font-size: 0.75rem; color: #94a3b8; }
 
-    /* ---- 角色上下文横幅 ---- */
-    .role-banner {
+    /* ---- 内联指标条 ---- */
+    .metric-bar {
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      background: linear-gradient(135deg, var(--deep-blue) 0%, #1e3a5f 40%, #2a4a73 100%);
-      border-radius: 16px;
-      padding: 20px 28px;
+      gap: 0;
       margin-bottom: 24px;
-      color: #fff;
-      box-shadow: 0 4px 20px rgba(26,54,93,0.2);
-      flex-wrap: wrap;
-      gap: 16px;
-      position: relative;
+      background: #fff;
+      border-radius: 12px;
+      border: 1px solid #e2e8f0;
       overflow: hidden;
     }
-    .role-banner::before {
-      content: '';
-      position: absolute;
-      top: -50%; right: -10%;
-      width: 300px; height: 300px;
-      background: radial-gradient(circle, rgba(200,149,108,0.15) 0%, transparent 70%);
-      border-radius: 50%;
-      pointer-events: none;
-    }
-    .role-banner::after {
-      content: '';
-      position: absolute;
-      bottom: -30%; left: 5%;
-      width: 200px; height: 200px;
-      background: radial-gradient(circle, rgba(200,149,108,0.1) 0%, transparent 70%);
-      border-radius: 50%;
-      pointer-events: none;
-    }
-    .role-banner-left {
+    .metric-item {
+      flex: 1;
       display: flex;
       align-items: center;
-      gap: 16px;
-      position: relative;
-      z-index: 1;
+      gap: 12px;
+      padding: 14px 20px;
     }
-    .role-banner-icon {
-      width: 52px; height: 52px;
-      background: linear-gradient(135deg, var(--amber) 0%, var(--amber-light) 100%);
-      border-radius: 14px;
+    .metric-item + .metric-item { border-left: 1px solid #f1f5f9; }
+    .metric-icon {
+      width: 36px; height: 36px;
+      border-radius: 8px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.5rem;
-      color: var(--deep-blue);
+      font-size: 1rem;
       flex-shrink: 0;
-      box-shadow: 0 4px 16px rgba(200,149,108,0.35);
     }
-    .role-banner-info h2 {
-      font-size: 1.2rem;
+    .metric-info { display: flex; flex-direction: column; gap: 1px; }
+    .metric-val {
+      font-size: 1.15rem;
       font-weight: 700;
+      color: #0f172a;
+      font-family: 'Playfair Display', serif;
+      line-height: 1.2;
+    }
+    .metric-lbl {
+      font-size: 0.7rem;
+      color: #94a3b8;
       letter-spacing: 0.3px;
     }
-    .role-banner-info p {
-      font-size: 0.8rem;
-      color: rgba(255,255,255,0.7);
-      margin-top: 2px;
-    }
-    .role-banner-right {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      position: relative;
-      z-index: 1;
-    }
-    .role-switcher {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      background: rgba(255,255,255,0.12);
-      border-radius: 10px;
-      padding: 3px;
+    .role-banner-stat .lbl {
+      font-size: 0.7rem;
+      color: rgba(255,255,255,0.6);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
     .role-btn {
-      padding: 7px 16px;
-      font-size: 0.78rem;
-      font-weight: 500;
-      color: rgba(255,255,255,0.7);
-      border-radius: 8px;
-      transition: all 0.2s;
-      white-space: nowrap;
-      background: transparent;
-      border: none;
-      cursor: pointer;
-      font-family: inherit;
-    }
-    .role-btn:hover { color: #fff; background: rgba(255,255,255,0.1); }
-    .role-btn.active {
       background: rgba(255,255,255,0.22);
       color: #fff;
       font-weight: 600;
       box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-    }
-    .role-banner-meta {
-      display: flex;
-      gap: 24px;
-      position: relative;
-      z-index: 1;
-    }
-    .role-banner-stat {
-      text-align: center;
-    }
-    .role-banner-stat .val {
-      font-size: 1.4rem;
-      font-weight: 700;
-      font-family: 'Playfair Display', serif;
     }
     .role-banner-stat .lbl {
       font-size: 0.7rem;
@@ -395,10 +341,9 @@
       box-shadow: 0 4px 14px rgba(76,175,122,0.3);
     }
     .step-ring.current {
-      background: linear-gradient(135deg, var(--amber) 0%, var(--amber-light) 100%);
-      color: #fff;
-      box-shadow: 0 0 0 6px rgba(200,149,108,0.15), 0 4px 14px rgba(200,149,108,0.3);
-      animation: stepPulse 2s infinite;
+      background: #f8fafc;
+      color: #94a3b8;
+      border: 2px solid #cbd5e1;
     }
     .step-ring.pending {
       background: #f8fafc;
@@ -409,10 +354,6 @@
       background: linear-gradient(135deg, #e05d5d 0%, #e87a7a 100%);
       color: #fff;
       box-shadow: 0 4px 14px rgba(224,93,93,0.3);
-    }
-    @keyframes stepPulse {
-      0%, 100% { box-shadow: 0 0 0 6px rgba(200,149,108,0.15), 0 4px 14px rgba(200,149,108,0.3); }
-      50% { box-shadow: 0 0 0 12px rgba(200,149,108,0.05), 0 4px 14px rgba(200,149,108,0.3); }
     }
     .step-info {
       text-align: center;
@@ -1353,60 +1294,8 @@
 </head>
 <body>
 
-  <!-- Topbar -->
-  <header class="topbar" id="topbar">
-    <div class="topbar-left">
-      <button class="menu-toggle" id="menuToggle" aria-label="Toggle Menu">
-        <i class="ri-menu-line"></i>
-      </button>
-      <a href="../index.html" class="brand">
-        <div class="brand-logo"><i class="ri-eye-line"></i></div>
-        <span class="brand-text">Insight <span>System</span></span>
-      </a>
-      <div class="topbar-nav">
-        <a href="../index.html">Home</a>
-        <a href="about.html">About Us</a>
-        <a href="news.html">News & Announcements</a>
-        <div class="nav-dropdown">
-          <a href="#" class="nav-dropdown-toggle">E-Learning <i class="ri-arrow-down-s-line"></i></a>
-          <div class="nav-dropdown-menu">
-                    <a href="knowledge.html">Knowledge Matrix</a>
-                    <a href="skill.html">Skill Matrix</a>
-                    <a href="workshop.html">Workshop</a>
-                    <a href="assessment.html">Assessment & Certification</a>
-
-                </div>
-            </div>
-            <div class="nav-dropdown">
-                <a href="#" class="nav-dropdown-toggle">Insight CA System <i class="ri-arrow-down-s-line"></i></a>
-                <div class="nav-dropdown-menu">
-                    <a href="my-skills.html">Profile Management</a>
-                    <a href="reports.html">Data & Reports</a>
-                    <a href="my-learning.html">Course Grades</a>
-                    <a href="course-learn.html">Course Learning</a>
-                </div>
-            </div>
-            <div class="nav-dropdown">
-                <a href="#" class="nav-dropdown-toggle">Insight HSSE Management <i class="ri-arrow-down-s-line"></i></a>
-          <div class="nav-dropdown-menu">
-            <a href="ptw.html">PTW Work Permit</a>
-            <a href="compliance.html">HSSE Passport</a>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="topbar-right">
-      <div class="search-box">
-        <i class="ri-search-line"></i>
-        <input type="text" placeholder="Search tasks, records...">
-      </div>
-      <div class="user-menu">
-        <div class="user-avatar" id="userAvatarSmall">L</div>
-        <span class="user-name" id="userNameSmall">Assessor Li</span>
-        <i class="ri-arrow-down-s-line" style="color:#94a3b8"></i>
-      </div>
-    </div>
-  </header>
+  <!-- Dynamic Topbar (rendered by frontend-auth.js) -->
+  <div id="topbar-root"></div>
   <!-- Main Content Area -->
   <main class="main-content">
     <div class="content-wrapper">
@@ -1428,37 +1317,27 @@
         </button>
       </div>
 
-      <!-- 角色上下文横幅 -->
-      <div class="role-banner" id="roleBanner">
-        <div class="role-banner-left">
-          <div class="role-banner-icon" id="roleBannerIcon">
-            <i class="ri-file-check-line"></i>
-          </div>
-          <div class="role-banner-info">
-            <h2 id="roleBannerTitle">Assessor Dashboard</h2>
-            <p id="roleBannerDesc">Responsible for initial review and assessment of skill evidence</p>
+      <!-- 关键指标 -->
+      <div class="metric-bar" id="roleBanner">
+        <div class="metric-item">
+          <div class="metric-icon" style="background:rgba(245,158,11,0.1);color:#f59e0b;"><i class="ri-time-line"></i></div>
+          <div class="metric-info">
+            <div class="metric-val" id="bannerStatPending">7</div>
+            <div class="metric-lbl">Pending</div>
           </div>
         </div>
-        <div class="role-banner-right">
-          <div class="role-banner-meta" id="roleBannerMeta">
-            <div class="role-banner-stat">
-              <div class="val" id="bannerStatPending">7</div>
-              <div class="lbl">Pending</div>
-            </div>
-            <div class="role-banner-stat">
-              <div class="val" id="bannerStatToday">3</div>
-              <div class="lbl">Completed Today</div>
-            </div>
-            <div class="role-banner-stat">
-              <div class="val" id="bannerStatRate">94%</div>
-              <div class="lbl">Pass Rate</div>
-            </div>
+        <div class="metric-item">
+          <div class="metric-icon" style="background:rgba(59,130,246,0.1);color:#3b82f6;"><i class="ri-check-double-line"></i></div>
+          <div class="metric-info">
+            <div class="metric-val" id="bannerStatToday">3</div>
+            <div class="metric-lbl">Completed Today</div>
           </div>
-          <div class="role-switcher" id="roleSwitcher">
-            <button class="role-btn" data-role="candidate">Candidate</button>
-            <button class="role-btn active" data-role="assessor">Assessor</button>
-            <button class="role-btn" data-role="iv">Internal Verifier</button>
-            <button class="role-btn" data-role="ev">External Verifier</button>
+        </div>
+        <div class="metric-item">
+          <div class="metric-icon" style="background:rgba(34,197,94,0.1);color:#22c55e;"><i class="ri-bar-chart-line"></i></div>
+          <div class="metric-info">
+            <div class="metric-val" id="bannerStatRate">94%</div>
+            <div class="metric-lbl">Pass Rate</div>
           </div>
         </div>
       </div>
@@ -1469,7 +1348,7 @@
         <div class="verify-flow-horizontal">
           <div class="verify-step-node">
             <div class="step-ring current" id="flowStep1">
-              <i class="ri-search-eye-line"></i>
+              <i class="ri-eye-line"></i>
             </div>
             <div class="step-info">
               <div class="name">Assessor Review</div>
@@ -2377,13 +2256,18 @@
   <!-- Toast -->
   <div class="toast" id="toast"></div>
 
+  <script src="../app/frontend-auth.js"></script>
+  <script>
+    initFrontendPage('assessment', { protected: true, search: true });
+  </script>
   <script>
     (function() {
       'use strict';
       const $=s=>document.querySelector(s),$$=s=>document.querySelectorAll(s);
 
       // ---- 角色Status ----
-      let currentRole = 'assessor';
+      var user = getCurrentUser();
+      let currentRole = user ? getRoleView(user.role) : 'candidate';
       const roleConfig = {
         candidate: {
           name: 'John Engineer', avatar: 'J', icon: 'ri-user-line',
@@ -2439,24 +2323,6 @@
         }
       };
 
-      // ==================== Mobile Menu ====================
-      const topbarNav = document.querySelector('.topbar-nav');
-      const menuToggle = $('#menuToggle');
-
-      menuToggle.addEventListener('click', () => {
-          topbarNav.classList.toggle('mobile-open');
-      });
-
-      // Mobile submenu toggle (hover on desktop, click on mobile)
-      topbarNav.querySelectorAll('.nav-dropdown-toggle, .nav-sub-toggle').forEach(btn => {
-          btn.addEventListener('click', function(e) {
-              if (window.innerWidth > 1200) return;
-              e.preventDefault();
-              const menu = this.nextElementSibling;
-              if (menu) menu.classList.toggle('open');
-          });
-      });
-
       // ---- Toast ----
       let toastTimer;
       window.showToast = function(msg) {
@@ -2468,31 +2334,10 @@
       };
 
       // ---- 角色切换 ----
-      $('#roleSwitcher').addEventListener('click', function(e) {
-        const btn = e.target.closest('.role-btn');
-        if (!btn) return;
-        const role = btn.dataset.role;
-        if (role === currentRole) return;
-        currentRole = role;
-        applyRole(role);
-      });
-
       function applyRole(role) {
         const cfg = roleConfig[role];
 
-        // Role switcher buttons
-        $$('.role-btn').forEach(b => b.classList.remove('active'));
-        const activeBtn = document.querySelector(`.role-btn[data-role="${role}"]`);
-        if (activeBtn) activeBtn.classList.add('active');
-
-        // Topbar user
-        $('#userAvatarSmall').textContent = cfg.avatar;
-        $('#userNameSmall').textContent = cfg.name;
-
-        // Role banner
-        $('#roleBannerTitle').textContent = cfg.title;
-        $('#roleBannerDesc').textContent = cfg.desc;
-        $('#roleBannerIcon i').className = cfg.icon;
+        // Role banner stats
         $('#bannerStatPending').textContent = cfg.bannerStats.pending;
         $('#bannerStatToday').textContent = cfg.bannerStats.today;
         $('#bannerStatRate').textContent = cfg.bannerStats.rate;
@@ -2545,10 +2390,10 @@
 
         // Step 1
         const s1 = $('#flowStep1');
-        s1.className = 'step-ring ' + (fs.step1 || '');
+        s1.className = 'step-ring ' + (fs.step1 || 'pending');
         s1.innerHTML = fs.step1 === 'completed' ? '<i class="ri-check-line"></i>' :
-                       fs.step1 === 'current' ? '<i class="ri-search-eye-line"></i>' :
-                       '<i class="ri-search-eye-line"></i>';
+                       fs.step1 === 'current' ? '<i class="ri-eye-line"></i>' :
+                       '<i class="ri-eye-line"></i>';
 
         // Step 2
         const s2 = $('#flowStep2');
@@ -2845,9 +2690,14 @@
       });
 
       // ---- Initialization ----
-      applyRole('assessor');
+      applyRole(currentRole);
 
     })();
   </script>
-  </body>
+  
+<script src="../app/admin-auth.js"></script>
+<script>
+(function() { injectAdminEntry(); var user = getCurrentUser(); if (user) { var avatarEls = document.querySelectorAll(".user-avatar, .avatar"); avatarEls.forEach(function(el) { if (el && !el.querySelector("img")) el.textContent = user.avatar || user.username.charAt(0).toUpperCase(); }); } })();
+</script>
+</body>
 </html>

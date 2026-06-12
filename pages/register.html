@@ -555,5 +555,10 @@
             alert('Registration submitted. Pending admin approval.');
         });
     </script>
+
+<script src="../app/admin-auth.js"></script>
+<script>
+(function() { injectAdminEntry(); var user = getCurrentUser(); if (user) { var avatarEls = document.querySelectorAll(".user-avatar, .avatar"); avatarEls.forEach(function(el) { if (el && !el.querySelector("img")) el.textContent = user.avatar || user.username.charAt(0).toUpperCase(); }); } })();
+</script>
 </body>
 </html>

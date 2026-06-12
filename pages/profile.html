@@ -136,6 +136,11 @@
       transition: background 0.15s;
     }
     .user-menu:hover { background: rgba(0,0,0,0.04); }
+    .user-dropdown { position: absolute; top: 56px; right: 24px; background: #fff; border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.12); min-width: 200px; padding: 8px; z-index: 1100; display: none; }
+    .user-dropdown.show { display: block; animation: fadeIn 0.2s ease; }
+    .user-dropdown a { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 8px; font-size: 0.875rem; color: #334155; text-decoration: none; transition: all 0.15s; }
+    .user-dropdown a:hover { background: #f1f5f9; color: #1a365d; }
+    .user-dropdown a i { font-size: 1rem; color: #94a3b8; width: 20px; text-align: center; }
     .user-avatar {
       width: 32px; height: 32px;
       border-radius: 50%;
@@ -531,57 +536,8 @@
 </head>
 <body>
 
-  <!-- Topbar -->
-  <header class="topbar" id="topbar">
-    <div class="topbar-left">
-      <a href="../index.html" class="brand">
-        <div class="brand-logo"><i class="ri-eye-line"></i></div>
-        <span class="brand-text">Insight <span>System</span></span>
-      </a>
-      <nav class="topbar-nav">
-        <a href="../index.html">Home</a>
-        <a href="about.html">About Us</a>
-        <a href="news.html">News & Announcements</a>
-        <div class="nav-dropdown">
-            <a href="#" class="nav-dropdown-toggle">E-Learning <i class="ri-arrow-down-s-line"></i></a>
-            <div class="nav-dropdown-menu">
-                    <a href="knowledge.html">Knowledge Matrix</a>
-                    <a href="skill.html">Skill Matrix</a>
-                    <a href="workshop.html">Workshop</a>
-                    <a href="assessment.html">Assessment & Certification</a>
-
-                </div>
-            </div>
-            <div class="nav-dropdown">
-                <a href="#" class="nav-dropdown-toggle">Insight CA System <i class="ri-arrow-down-s-line"></i></a>
-                <div class="nav-dropdown-menu">
-                    <a href="my-skills.html">Profile Management</a>
-                    <a href="reports.html">Data & Reports</a>
-                    <a href="my-learning.html">Course Grades</a>
-                    <a href="course-learn.html">Course Learning</a>
-                </div>
-            </div>
-            <div class="nav-dropdown">
-                <a href="#" class="nav-dropdown-toggle">Insight HSSE Management <i class="ri-arrow-down-s-line"></i></a>
-            <div class="nav-dropdown-menu">
-                <a href="ptw.html">PTW Work Permit</a>
-                <a href="compliance.html">HSSE Passport</a>
-            </div>
-        </div>
-      </nav>
-    </div>
-    <div class="topbar-right">
-      <div class="search-box">
-        <i class="ri-search-line"></i>
-        <input type="text" placeholder="Search...">
-      </div>
-      <div class="user-menu">
-        <div class="user-avatar">J</div>
-        <span class="user-name">John Engineer</span>
-        <i class="ri-arrow-down-s-line" style="color:#94a3b8"></i>
-      </div>
-    </div>
-  </header>
+  <!-- Topbar injected by auth system -->
+  <div id="topbar-root"></div>
 
 
   <!-- Main Content Area -->
@@ -660,7 +616,7 @@
 
         <!-- Right Content Area -->
         <div class="profile-content">
-          <div class="content-card">
+          <div class="content-card tab-panel" data-panel="profile">
             <div class="content-card-title">Profile</div>
             <form id="profileForm">
               <div class="form-grid">
@@ -718,17 +674,109 @@
               </div>
             </form>
           </div>
+
+        <!-- Progress Tab -->
+        <div class="content-card tab-panel" data-panel="learning" style="display:none;">
+          <div class="content-card-title">Learning Progress</div>
+          <div style="padding:16px 0;">
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:20px;">
+              <div style="background:#f8fafc;border-radius:10px;padding:16px;text-align:center;"><div style="font-size:1.3rem;font-weight:700;color:#1a202c;">8</div><div style="font-size:0.72rem;color:#94a3b8;margin-top:2px;">Enrolled Courses</div></div>
+              <div style="background:#f8fafc;border-radius:10px;padding:16px;text-align:center;"><div style="font-size:1.3rem;font-weight:700;color:#1a202c;">4</div><div style="font-size:0.72rem;color:#94a3b8;margin-top:2px;">Completed</div></div>
+              <div style="background:#f8fafc;border-radius:10px;padding:16px;text-align:center;"><div style="font-size:1.3rem;font-weight:700;color:#1a202c;">18%</div><div style="font-size:0.72rem;color:#94a3b8;margin-top:2px;">Overall Progress</div></div>
+            </div>
+            <div style="text-align:right;"><a href="my-learning.html" style="display:inline-flex;align-items:center;gap:6px;padding:8px 18px;font-size:0.825rem;font-weight:500;border-radius:8px;background:linear-gradient(135deg,#c8956c,#d4a574);color:#fff;text-decoration:none;"><i class="ri-arrow-right-line"></i> View Full Report</a></div>
+          </div>
+        </div>
+
+        <!-- Skill Profile Tab -->
+        <div class="content-card tab-panel" data-panel="skills" style="display:none;">
+          <div class="content-card-title">Skill Profile</div>
+          <div style="padding:16px 0;">
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:20px;">
+              <div style="background:#f8fafc;border-radius:10px;padding:16px;text-align:center;"><div style="font-size:1.3rem;font-weight:700;color:#1a202c;">5</div><div style="font-size:0.72rem;color:#94a3b8;margin-top:2px;">Certified Skills</div></div>
+              <div style="background:#f8fafc;border-radius:10px;padding:16px;text-align:center;"><div style="font-size:1.3rem;font-weight:700;color:#1a202c;">3</div><div style="font-size:0.72rem;color:#94a3b8;margin-top:2px;">In Review</div></div>
+              <div style="background:#f8fafc;border-radius:10px;padding:16px;text-align:center;"><div style="font-size:1.3rem;font-weight:700;color:#1a202c;">65%</div><div style="font-size:0.72rem;color:#94a3b8;margin-top:2px;">Completion Rate</div></div>
+            </div>
+            <div style="text-align:right;"><a href="my-skills.html" style="display:inline-flex;align-items:center;gap:6px;padding:8px 18px;font-size:0.825rem;font-weight:500;border-radius:8px;background:linear-gradient(135deg,#c8956c,#d4a574);color:#fff;text-decoration:none;"><i class="ri-arrow-right-line"></i> View Skill Profile</a></div>
+          </div>
+        </div>
+
+        <!-- My Registrations Tab -->
+        <div class="content-card tab-panel" data-panel="signup" style="display:none;">
+          <div class="content-card-title">My Registrations</div>
+          <div style="padding:16px 0;">
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:20px;">
+              <div style="background:#f8fafc;border-radius:10px;padding:16px;text-align:center;"><div style="font-size:1.3rem;font-weight:700;color:#1a202c;">2</div><div style="font-size:0.72rem;color:#94a3b8;margin-top:2px;">Registered Workshops</div></div>
+              <div style="background:#f8fafc;border-radius:10px;padding:16px;text-align:center;"><div style="font-size:1.3rem;font-weight:700;color:#1a202c;">1</div><div style="font-size:0.72rem;color:#94a3b8;margin-top:2px;">Attended</div></div>
+              <div style="background:#f8fafc;border-radius:10px;padding:16px;text-align:center;"><div style="font-size:1.3rem;font-weight:700;color:#1a202c;">Pass</div><div style="font-size:0.72rem;color:#94a3b8;margin-top:2px;">Latest Result</div></div>
+            </div>
+            <div style="text-align:right;"><a href="my-workshops.html" style="display:inline-flex;align-items:center;gap:6px;padding:8px 18px;font-size:0.825rem;font-weight:500;border-radius:8px;background:linear-gradient(135deg,#c8956c,#d4a574);color:#fff;text-decoration:none;"><i class="ri-arrow-right-line"></i> View Registrations</a></div>
+          </div>
+        </div>
+
+        <!-- Appeal Records Tab -->
+        <div class="content-card tab-panel" data-panel="appeal" style="display:none;">
+          <div class="content-card-title">Appeal Records</div>
+          <div style="padding:24px 0;text-align:center;color:#94a3b8;">
+            <i class="ri-inbox-line" style="font-size:2rem;display:block;margin-bottom:8px;color:#cbd5e1;"></i>
+            <p style="font-size:0.85rem;">No appeal records found.</p>
+          </div>
+        </div>
+
+        <!-- Change Password Tab -->
+        <div class="content-card tab-panel" data-panel="password" style="display:none;">
+          <div class="content-card-title">Change Password</div>
+          <form id="passwordForm">
+            <div class="form-grid">
+              <div class="form-group">
+                <label class="form-label">Current Password</label>
+                <div class="form-input-wrap">
+                  <input type="password" class="form-input" id="inputCurrentPw" placeholder="Enter current password" required>
+                  <button type="button" class="input-action" onclick="var i=document.getElementById('inputCurrentPw');i.type=i.type==='password'?'text':'password';this.innerHTML=i.type==='password'?'<i class=\\\'ri-eye-line\\\'></i>':'<i class=\\\'ri-eye-off-line\\\'></i>';" title="Toggle visibility"><i class="ri-eye-line"></i></button>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="form-label">New Password</label>
+                <div class="form-input-wrap">
+                  <input type="password" class="form-input" id="inputNewPw" placeholder="Enter new password" required>
+                  <button type="button" class="input-action" onclick="var i=document.getElementById('inputNewPw');i.type=i.type==='password'?'text':'password';this.innerHTML=i.type==='password'?'<i class=\\\'ri-eye-line\\\'></i>':'<i class=\\\'ri-eye-off-line\\\'></i>';" title="Toggle visibility"><i class="ri-eye-line"></i></button>
+                </div>
+              </div>
+              <div class="form-group" style="grid-column:1/-1;">
+                <label class="form-label">Confirm New Password</label>
+                <div class="form-input-wrap">
+                  <input type="password" class="form-input" id="inputConfirmPw" placeholder="Confirm new password" required>
+                  <button type="button" class="input-action" onclick="var i=document.getElementById('inputConfirmPw');i.type=i.type==='password'?'text':'password';this.innerHTML=i.type==='password'?'<i class=\\\'ri-eye-line\\\'></i>':'<i class=\\\'ri-eye-off-line\\\'></i>';" title="Toggle visibility"><i class="ri-eye-line"></i></button>
+                </div>
+              </div>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-top:20px;padding-top:16px;border-top:1px solid #f1f5f9;">
+              <p style="font-size:0.78rem;color:#94a3b8;margin:0;"><i class="ri-information-line" style="margin-right:4px;"></i>Password must be at least 8 characters, including uppercase, lowercase, and numbers.</p>
+              <div style="display:flex;align-items:center;gap:12px;">
+                <button type="submit" class="btn-save" id="btnChangePw"><i class="ri-lock-line"></i> Update Password</button>
+                <span id="pwError" style="color:#e05d5d;font-size:0.8rem;display:none;"></span>
+                <span id="pwSuccess" style="color:#22c55e;font-size:0.8rem;display:none;"></span>
+              </div>
+            </div>
+          </form>
         </div>
       </div>
-
     </div>
   </main>
+
+  <script src="../app/frontend-auth.js"></script>
+  <script>initFrontendPage('profile', { protected: true, search: false });</script>
 
   <script>
     (function() {
       'use strict';
 
-      // DOM 元素
+      // ---- Tab切换 ----
+      function switchTab(tabId) {
+        document.querySelectorAll('.tab-panel').forEach(p => p.style.display = 'none');
+        var panel = document.querySelector('.tab-panel[data-panel="' + tabId + '"]');
+        if (panel) panel.style.display = 'block';
+      }
 
       // ---- Left Menu切换 ----
       const menuItems = document.querySelectorAll('.menu-item');
@@ -736,7 +784,7 @@
         item.addEventListener('click', () => {
           menuItems.forEach(m => m.classList.remove('active'));
           item.classList.add('active');
-          // 实际项目中这里会切换右侧内容
+          switchTab(item.dataset.tab);
         });
       });
 
@@ -807,6 +855,24 @@
         saveBtn.setAttribute('disabled', 'true');
       });
 
+      // ---- Change Password ----
+      document.getElementById('passwordForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        var cur = document.getElementById('inputCurrentPw').value;
+        var pwd = document.getElementById('inputNewPw').value;
+        var confirm = document.getElementById('inputConfirmPw').value;
+        var errEl = document.getElementById('pwError');
+        var okEl = document.getElementById('pwSuccess');
+        errEl.style.display = 'none';
+        okEl.style.display = 'none';
+        if (pwd.length < 8) { errEl.textContent = 'Password must be at least 8 characters'; errEl.style.display = 'block'; return; }
+        if (pwd !== confirm) { errEl.textContent = 'Passwords do not match'; errEl.style.display = 'block'; return; }
+        okEl.textContent = 'Password updated successfully'; okEl.style.display = 'block';
+        document.getElementById('inputCurrentPw').value = '';
+        document.getElementById('inputNewPw').value = '';
+        document.getElementById('inputConfirmPw').value = '';
+      });
+
       // ---- Search框交互 ----
       const searchInput = document.querySelector('.search-box input');
       if (searchInput) {
@@ -820,5 +886,10 @@
 
     })();
   </script>
-  </body>
+  
+<script src="../app/admin-auth.js"></script>
+<script>
+(function() { injectAdminEntry(); var user = getCurrentUser(); if (user) { var avatarEls = document.querySelectorAll(".user-avatar, .avatar"); avatarEls.forEach(function(el) { if (el && !el.querySelector("img")) el.textContent = user.avatar || user.username.charAt(0).toUpperCase(); }); } })();
+</script>
+</body>
 </html>

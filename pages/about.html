@@ -23,6 +23,12 @@
     .topbar-right { display:flex; align-items:center; gap:16px; }
     .user-menu { display:flex; align-items:center; gap:8px; cursor:pointer; }
     .user-avatar { width:32px; height:32px; border-radius:50%; background:linear-gradient(135deg,#c8956c,#d4a574); display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700; color:#fff; }
+    .user-name { font-size:0.875rem; font-weight:500; color:#334155; }
+    .user-dropdown { position: absolute; top: 56px; right: 24px; background: #fff; border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.12); min-width: 200px; padding: 8px; z-index: 1100; display: none; }
+    .user-dropdown.show { display: block; animation: fadeIn 0.2s ease; }
+    .user-dropdown a { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 8px; font-size: 0.875rem; color: #334155; text-decoration: none; transition: all 0.15s; }
+    .user-dropdown a:hover { background: #f1f5f9; color: #1a365d; }
+    .user-dropdown a i { font-size: 1rem; color: #94a3b8; width: 20px; text-align: center; }
 
     /* ---- Navigation Dropdown ---- */
     .nav-dropdown { position: relative; }
@@ -200,51 +206,8 @@
   </style>
 </head>
 <body>
-  <header class="topbar">
-    <div style="display:flex;align-items:center;gap:24px;">
-      <a href="../index.html" class="brand">
-        <div class="brand-logo"><i class="ri-eye-line"></i></div>
-        <span class="brand-text">Insight <span>System</span></span>
-      </a>
-      <nav class="topbar-nav">
-        <a href="../index.html">Home</a>
-        <a href="about.html" class="active">About Us</a>
-        <a href="news.html">News &amp; Announcements</a>
-        <div class="nav-dropdown">
-            <a href="#" class="nav-dropdown-toggle">E-Learning <i class="ri-arrow-down-s-line"></i></a>
-            <div class="nav-dropdown-menu">
-                    <a href="knowledge.html">Knowledge Matrix</a>
-                    <a href="skill.html">Skill Matrix</a>
-                    <a href="workshop.html">Workshop</a>
-                    <a href="assessment.html">Assessment & Certification</a>
-
-                </div>
-            </div>
-            <div class="nav-dropdown">
-                <a href="#" class="nav-dropdown-toggle">Insight CA System <i class="ri-arrow-down-s-line"></i></a>
-                <div class="nav-dropdown-menu">
-                    <a href="my-skills.html">Profile Management</a>
-                    <a href="reports.html">Data & Reports</a>
-                    <a href="my-learning.html">Course Grades</a>
-                    <a href="course-learn.html">Course Learning</a>
-                </div>
-            </div>
-            <div class="nav-dropdown">
-                <a href="#" class="nav-dropdown-toggle">Insight HSSE Management <i class="ri-arrow-down-s-line"></i></a>
-            <div class="nav-dropdown-menu">
-                <a href="ptw.html">PTW Work Permit</a>
-                <a href="compliance.html">HSSE Passport</a>
-            </div>
-        </div>
-      </nav>
-    </div>
-    <div class="topbar-right">
-      <div class="user-menu">
-        <div class="user-avatar">J</div>
-        <span style="font-size:14px;color:#334155;">John Engineer</span>
-      </div>
-    </div>
-  </header>
+  <!-- Dynamic Topbar (rendered by frontend-auth.js) -->
+  <div id="topbar-root"></div>
 
   <main class="main-content">
     <div class="page-header">
@@ -371,5 +334,14 @@
       <div class="footer-bottom">© 2026 Insight System. All Rights Reserved.</div>
     </footer>
   </main>
+<script src="../app/frontend-auth.js"></script>
+<script>
+  initFrontendPage('about', { protected: false, search: false });
+</script>
+
+<script src="../app/admin-auth.js"></script>
+<script>
+(function() { injectAdminEntry(); var user = getCurrentUser(); if (user) { var avatarEls = document.querySelectorAll(".user-avatar, .avatar"); avatarEls.forEach(function(el) { if (el && !el.querySelector("img")) el.textContent = user.avatar || user.username.charAt(0).toUpperCase(); }); } })();
+</script>
 </body>
 </html>

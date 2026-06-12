@@ -273,61 +273,16 @@
     .filter-bar { flex-direction: column; }
     .filter-bar select, .filter-bar input { width: 100%; }
   }
+  .user-dropdown { position: absolute; top: 56px; right: 24px; background: #fff; border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.12); min-width: 200px; padding: 8px; z-index: 1100; display: none; }
+  .user-dropdown.show { display: block; animation: fadeIn 0.2s ease; }
+  .user-dropdown a { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 8px; font-size: 0.875rem; color: #334155; text-decoration: none; transition: all 0.15s; }
+  .user-dropdown a:hover { background: #f1f5f9; color: #1a365d; }
+  .user-dropdown a i { font-size: 1rem; color: #94a3b8; width: 20px; text-align: center; }
 </style>
 </head>
 <body>
 
-<!-- Topbar -->
-<header class="topbar">
-  <div class="topbar-left">
-    <div class="hamburger" id="menuToggle">
-      <span></span><span></span><span></span>
-    </div>
-    <a href="../index.html" class="brand">
-      <div class="brand-logo"><i class="ri-eye-line"></i></div>
-      <span class="brand-text">Insight <span>System</span></span>
-    </a>
-    <div class="topbar-nav">
-      <a href="../index.html">Home</a>
-      <a href="about.html">About Us</a>
-      <a href="news.html">News & Announcements</a>
-      <div class="nav-dropdown">
-        <a href="#" class="nav-dropdown-toggle">E-Learning <i class="ri-arrow-down-s-line"></i></a>
-        <div class="nav-dropdown-menu">
-                    <a href="knowledge.html">Knowledge Matrix</a>
-                    <a href="skill.html">Skill Matrix</a>
-                    <a href="workshop.html">Workshop</a>
-                    <a href="assessment.html">Assessment & Certification</a>
-
-                </div>
-            </div>
-            <div class="nav-dropdown">
-                <a href="#" class="nav-dropdown-toggle">Insight CA System <i class="ri-arrow-down-s-line"></i></a>
-                <div class="nav-dropdown-menu">
-                    <a href="my-skills.html">Profile Management</a>
-                    <a href="reports.html">Data & Reports</a>
-                    <a href="my-learning.html">Course Grades</a>
-                    <a href="course-learn.html">Course Learning</a>
-                </div>
-            </div>
-            <div class="nav-dropdown">
-                <a href="#" class="nav-dropdown-toggle">Insight HSSE Management <i class="ri-arrow-down-s-line"></i></a>
-        <div class="nav-dropdown-menu">
-          <a href="ptw.html">PTW Work Permit</a>
-          <a href="compliance.html">HSSE Passport</a>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="topbar-right">
-    <div class="search-box">
-      <input type="text" placeholder="Search...">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-    </div>
-    <div class="user-avatar">J</div>
-    <span class="user-name">John Engineer</span>
-  </div>
-</header>
+<div id="topbar-root"></div>
 <!-- Main Content Area -->
 <div class="main-wrap">
   <div class="main-inner">
@@ -403,6 +358,8 @@
   </div>
 </div>
 
+<script src="../app/frontend-auth.js"></script>
+<script>initFrontendPage('workshop', { protected: true, search: true });</script>
 <script>
 // 数据
 const workshops = [
@@ -643,30 +600,6 @@ function goToday() {
   renderCalendar();
 }
 
-    // ==================== DOM References ====================
-    const $ = (s) => document.querySelector(s);
-    const $$ = (s) => document.querySelectorAll(s);
-
-    const mainContent = $('#mainContent');
-
-    // ==================== Mobile Menu ====================
-    const topbarNav = document.querySelector('.topbar-nav');
-    const menuToggle = $('#menuToggle');
-
-    menuToggle.addEventListener('click', () => {
-        topbarNav.classList.toggle('mobile-open');
-    });
-
-    // Mobile submenu toggle (hover on desktop, click on mobile)
-    topbarNav.querySelectorAll('.nav-dropdown-toggle, .nav-sub-toggle').forEach(btn => {
-        btn.addEventListener('click', function(e) {
-            if (window.innerWidth > 1200) return;
-            e.preventDefault();
-            const menu = this.nextElementSibling;
-            if (menu) menu.classList.toggle('open');
-        });
-    });
-
 // Apply事件
 document.getElementById('timeFilter').addEventListener('change', renderCards);
 document.getElementById('locFilter').addEventListener('change', renderCards);
@@ -676,5 +609,10 @@ document.getElementById('kwFilter').addEventListener('input', renderCards);
 renderCards();
 renderMyList();
 </script>
-  </body>
+  
+<script src="../app/admin-auth.js"></script>
+<script>
+(function() { injectAdminEntry(); var user = getCurrentUser(); if (user) { var avatarEls = document.querySelectorAll(".user-avatar, .avatar"); avatarEls.forEach(function(el) { if (el && !el.querySelector("img")) el.textContent = user.avatar || user.username.charAt(0).toUpperCase(); }); } })();
+</script>
+</body>
 </html>

@@ -6,12 +6,12 @@
   <title>News Detail - Insight System</title>
   <meta name="description" content="Insight System News Details for Oil & Gas">
 
-  <!-- 字体 -->
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Playfair+Display:ital,wght@0,600;0,700;1,500&display=swap" rel="stylesheet">
 
-  <!-- 图标 -->
+  <!-- Icons -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css">
 
   <style>
@@ -197,6 +197,11 @@
       transition: background 0.15s;
     }
     .user-menu:hover { background: rgba(0,0,0,0.04); }
+    .user-dropdown { position: absolute; top: 56px; right: 24px; background: #fff; border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.12); min-width: 200px; padding: 8px; z-index: 1100; display: none; }
+    .user-dropdown.show { display: block; animation: fadeIn 0.2s ease; }
+    .user-dropdown a { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 8px; font-size: 0.875rem; color: #334155; text-decoration: none; transition: all 0.15s; }
+    .user-dropdown a:hover { background: #f1f5f9; color: #1a365d; }
+    .user-dropdown a i { font-size: 1rem; color: #94a3b8; width: 20px; text-align: center; }
     .user-avatar {
       width: 32px; height: 32px;
       border-radius: 50%;
@@ -887,59 +892,8 @@
 </head>
 <body>
 
-  <!-- Topbar -->
-  <header class="topbar" id="topbar">
-    <div class="topbar-left">
-      <button class="menu-toggle" id="menuToggle" aria-label="Toggle Menu">
-        <i class="ri-menu-line"></i>
-      </button>
-      <a href="../index.html" class="brand">
-        <div class="brand-logo"><i class="ri-eye-line"></i></div>
-        <span class="brand-text">Insight <span>System</span></span>
-      </a>
-      <nav class="topbar-nav">
-        <a href="../index.html">Home</a>
-        <a href="about.html">About Us</a>
-        <a href="news.html" class="active">News & Announcements</a>
-        <div class="nav-dropdown">
-            <a href="#" class="nav-dropdown-toggle">E-Learning <i class="ri-arrow-down-s-line"></i></a>
-            <div class="nav-dropdown-menu">
-                    <a href="knowledge.html">Knowledge Matrix</a>
-                    <a href="skill.html">Skill Matrix</a>
-                    <a href="workshop.html">Workshop</a>
-                    <a href="assessment.html">Assessment & Certification</a>
-                </div>
-            </div>
-            <div class="nav-dropdown">
-                <a href="#" class="nav-dropdown-toggle">Insight CA System <i class="ri-arrow-down-s-line"></i></a>
-                <div class="nav-dropdown-menu">
-                    <a href="my-skills.html">Profile Management</a>
-                    <a href="reports.html">Data & Reports</a>
-                    <a href="my-learning.html">Course Grades</a>
-                    <a href="course-learn.html">Course Learning</a>
-                </div>
-            </div>
-            <div class="nav-dropdown">
-                <a href="#" class="nav-dropdown-toggle">Insight HSSE Management <i class="ri-arrow-down-s-line"></i></a>
-            <div class="nav-dropdown-menu">
-                <a href="ptw.html">PTW Work Permit</a>
-                <a href="compliance.html">HSSE Passport</a>
-            </div>
-        </div>
-      </nav>
-    </div>
-    <div class="topbar-right">
-      <div class="search-box">
-        <i class="ri-search-line"></i>
-        <input type="text" placeholder="Search news, announcements...">
-      </div>
-      <div class="user-menu">
-        <div class="user-avatar">J</div>
-        <span class="user-name">John Engineer</span>
-        <i class="ri-arrow-down-s-line" style="color:#94a3b8"></i>
-      </div>
-    </div>
-  </header>
+  <!-- Dynamic Topbar (rendered by frontend-auth.js) -->
+  <div id="topbar-root"></div>
 
   <!-- Main Content Area -->
   <main class="main-content">
@@ -999,54 +953,54 @@
 
             <!-- Article Body -->
             <div class="article-body">
-              <p>为进一步提升全员安全意识和应急处置能力，确保油气生产运营安全平稳，Company Safety Training Dept正式发布《2026年度HSE安全培训计划》。本年度培训计划围绕"预防为主、全员参与、持续改进"的核心理念，系统规划了六大培训模块，覆盖公司全体员工及承包商人员。</p>
+              <p>To further enhance the safety awareness and emergency response capabilities of all personnel, and to ensure safe and stable oil and gas production operations, the Company Safety Training Department has officially released the <em>2026 Annual HSE Safety Training Plan</em>. Centered on the core philosophy of &ldquo;prevention first, full participation, continuous improvement,&rdquo; this year&rsquo;s training plan systematically outlines six major training modules covering all employees and contractor personnel.</p>
 
-              <h2>一、培训总体目标</h2>
-              <p>2026年度HSE安全培训旨在实现以下核心目标：</p>
+              <h2>I. Overall Training Objectives</h2>
+              <p>The 2026 HSE Safety Training aims to achieve the following core objectives:</p>
               <ul>
-                <li>全员HSE培训覆盖率达到<strong>100%</strong>，关键岗位人员持证上岗率达到<strong>100%</strong></li>
-                <li>重大安全事故零发生，一般事故率同比下降<strong>15%</strong></li>
-                <li>员工安全知识考核合格率不低于<strong>95%</strong></li>
-                <li>应急响应演练参与率不低于<strong>90%</strong></li>
+                <li>Achieve <strong>100%</strong> HSE training coverage for all employees, with <strong>100%</strong> certification rate for key positions</li>
+                <li>Zero major safety incidents, with a year-over-year reduction of <strong>15%</strong> in general incident rates</li>
+                <li>Employee safety knowledge assessment pass rate no lower than <strong>95%</strong></li>
+                <li>Emergency response drill participation rate no lower than <strong>90%</strong></li>
               </ul>
 
-              <h2>二、六大培训模块</h2>
+              <h2>II. Six Training Modules</h2>
 
-              <h3>1. 井控安全培训</h3>
-              <p>针对钻井、完井、修井等作业环节，开展井控设备操作、井喷预防与应急处置专项培训。培训对象包括钻井工程师、井队操作人员及现场监督员，培训时长为40学时，采用理论授课与模拟演练相结合的方式。</p>
+              <h3>1. Well Control Safety Training</h3>
+              <p>Targeting drilling, completion, and workover operations, this module provides specialized training on well control equipment operation, blowout prevention, and emergency response. Trainees include drilling engineers, rig operators, and field supervisors. The program spans 40 class hours and combines theoretical instruction with simulation exercises.</p>
 
-              <h3>2. 海上作业安全</h3>
-              <p>面向海上平台作业人员，重点培训海上求生、消防灭火、直升机水下逃生（HUET）、受限空间作业安全等内容。所有海上作业人员须完成年度复训并通�过考核后方可登平台作业。</p>
+              <h3>2. Offshore Operations Safety</h3>
+              <p>Designed for offshore platform personnel, this module focuses on marine survival, firefighting, helicopter underwater escape training (HUET), and confined space entry safety. All offshore personnel must complete annual refresher training and pass the assessment before boarding platforms.</p>
 
-              <h3>3. 应急响应与救援</h3>
-              <p>组织各区域应急队伍开展综合应急演练，包括火灾爆炸、油气泄漏、人员受伤、自然灾害等场景的应急响应。天津基地、湛江基地、上海基地将分别于6月、8月、10月举办区域性应急演练竞赛。</p>
+              <h3>3. Emergency Response &amp; Rescue</h3>
+              <p>Regional emergency response teams will conduct comprehensive drills covering scenarios such as fire and explosion, oil and gas leaks, personnel injury, and natural disasters. The Tianjin, Zhanjiang, and Shanghai bases will host regional emergency drill competitions in June, August, and October respectively.</p>
 
-              <h3>4. 危险作业许可管理</h3>
-              <p>强化作业许可（PTW）制度执行培训，涵盖动火作业、受限空间作业、高处作业、吊装作业等高风险作业的审批流程、安全措施及监护要求。培训将结合Insight System PTW模块进行线上实操演练。</p>
+              <h3>4. Hazardous Work Permit Management</h3>
+              <p>This module strengthens the execution of Permit to Work (PTW) system training, covering the approval process, safety measures, and supervision requirements for high-risk operations including hot work, confined space entry, working at heights, and lifting operations. Training will incorporate hands-on online exercises using the Insight System PTW module.</p>
 
-              <h3>5. 职业健康与防护</h3>
-              <p>开展职业健康知识普及，包括噪声防护、化学品暴露控制、人机工程学、心理健康等内容。同时组织全员职业健康体检，建立个人职业健康档案。</p>
+              <h3>5. Occupational Health &amp; Protection</h3>
+              <p>Occupational health knowledge promotion covering noise protection, chemical exposure control, ergonomics, and mental health. Comprehensive occupational health check-ups will be organized for all employees, with individual health records established.</p>
 
-              <h3>6. 环境保护与合规</h3>
-              <p>围绕国家环保法规及行业标准，培训内容包括废弃物管理、溢油防控、碳排放管理、生态修复等。配合公司绿色低碳发展战略，新增碳足迹核算与减排技术专项培训。</p>
+              <h3>6. Environmental Protection &amp; Compliance</h3>
+              <p>Aligned with national environmental regulations and industry standards, training covers waste management, oil spill prevention and control, carbon emission management, and ecological restoration. In support of the company&rsquo;s green and low-carbon development strategy, new specialized training modules on carbon footprint accounting and emission reduction technologies have been added.</p>
 
-              <h2>三、培训时间安排</h2>
-              <p>本年度培训自<strong>2026年5月</strong>正式启动，至<strong>2026年12月</strong>结束，共分三个阶段推进：</p>
+              <h2>III. Training Schedule</h2>
+              <p>This year&rsquo;s training program will commence in <strong>May 2026</strong> and conclude in <strong>December 2026</strong>, progressing through three phases:</p>
               <ol>
-                <li><strong>第一阶段（5-6月）：</strong>基础安全知识培训与考核，覆盖全员</li>
-                <li><strong>第二阶段（7-9月）：</strong>专项技能培训与应急演练，聚焦关键岗位</li>
-                <li><strong>第三阶段（10-12月）：</strong>综合能力评估与优秀案例分享</li>
+                <li><strong>Phase 1 (May&ndash;Jun):</strong> Basic safety knowledge training and assessment, covering all employees</li>
+                <li><strong>Phase 2 (Jul&ndash;Sep):</strong> Specialized skills training and emergency drills, focusing on key positions</li>
+                <li><strong>Phase 3 (Oct&ndash;Dec):</strong> Comprehensive capability evaluation and best practice sharing</li>
               </ol>
 
               <blockquote>
-                安全是企业发展的生命线。每一位员工都是安全生产的第一责任人，希望大家积极参与培训，将安全理念内化于心、外化于行，共同构筑企业安全防线。
+                Safety is the lifeline of enterprise development. Every employee is the primary person responsible for workplace safety. We encourage everyone to actively participate in training, internalize safety principles, and put them into practice &mdash; together building a strong safety culture for the company.
               </blockquote>
 
-              <h2>四、报名与考核</h2>
-              <p>各区域单位请于<strong>4月30日前</strong>通过Insight System"培训管理"模块完成参训人员报名。培训结束后将组织统一考核，考核成绩纳入个人年度绩效评估及Skill Profile。对于考核优秀者，公司将颁发"HSE安全标兵"荣誉证书并给予相应奖励。</p>
+              <h2>IV. Registration &amp; Assessment</h2>
+              <p>Regional units should complete participant registration through the Insight System&rsquo;s Training Management module <strong>before April 30</strong>. A unified assessment will be conducted after training, with results incorporated into individual annual performance evaluations and Skill Profiles. Outstanding performers will receive the &ldquo;HSE Safety Champion&rdquo; certificate of honor and corresponding rewards.</p>
 
-              <p>如有疑问，请联系Safety Training Dept：电话 010-8888-6666，邮箱 safety-training@company.com。</p>
-            </div>
+              <p>For inquiries, please contact the Safety Training Department: Tel 010-8888-6666, Email safety-training@company.com.</p>
+</div>
 
             <!-- Share Bar -->
             <div class="article-share">
@@ -1096,19 +1050,19 @@
                 <div class="related-item" onclick="window.location.href='news-detail.html'">
                   <div class="related-date">Apr 12, 2026</div>
                   <div class="related-title">Advanced Training Program for Drilling Engineers – Registration Open</div>
-                  <div class="related-excerpt">由CNPC工程技术研究院主办的高级研修班将于6月在北京举行，面向具有5年以上工作经验的钻井工程师。</div>
+                  <div class="related-excerpt">An advanced training course hosted by CNPC Engineering Technology Research Institute will be held in Beijing this June, open to drilling engineers with 5+ years of experience.</div>
                   <span class="related-link">Read More <i class="ri-arrow-right-line"></i></span>
                 </div>
                 <div class="related-item" onclick="window.location.href='news-detail.html'">
                   <div class="related-date">Apr 08, 2026</div>
                   <div class="related-title">E-Learning Platform Adds 12 New Courses</div>
-                  <div class="related-excerpt">Knowledge Matrix模块新增腐蚀工程、海底管道设计、LNG工艺技术等12门课程，均已上线。</div>
+                  <div class="related-excerpt">The Knowledge Matrix module has added 12 new courses including Corrosion Engineering, Subsea Pipeline Design, and LNG Process Technology, all now available online.</div>
                   <span class="related-link">Read More <i class="ri-arrow-right-line"></i></span>
                 </div>
                 <div class="related-item" onclick="window.location.href='news-detail.html'">
                   <div class="related-date">Mar 28, 2026</div>
                   <div class="related-title">Emergency Response Drill Training Successfully Completed</div>
-                  <div class="related-excerpt">天津基地举办了为期三天的应急响应实操培训，来自华北、华东区域的86名候选人参加并通过考核。</div>
+                  <div class="related-excerpt">The Tianjin base hosted a three-day emergency response hands-on training, with 86 candidates from North China and East China regions participating and passing the assessment.</div>
                   <span class="related-link">Read More <i class="ri-arrow-right-line"></i></span>
                 </div>
               </div>
@@ -1124,15 +1078,15 @@
             <div class="sidebar-card-body">
               <div class="tag-cloud">
                 <span>HSE</span>
-                <span>安全培训</span>
-                <span>井控安全</span>
-                <span>海上作业</span>
-                <span>应急响应</span>
-                <span>职业健康</span>
-                <span>环保合规</span>
-                <span>油气勘探</span>
-                <span>数字化转型</span>
-                <span>技能认证</span>
+                <span>Safety Training</span>
+                <span>Well Control</span>
+                <span>Offshore Ops</span>
+                <span>Emergency Response</span>
+                <span>Occupational Health</span>
+                <span>Environmental Compliance</span>
+                <span>Oil &amp; Gas Exploration</span>
+                <span>Digital Transformation</span>
+                <span>Skills Certification</span>
               </div>
             </div>
           </div>
@@ -1155,7 +1109,7 @@
             <div class="related-card-body">
               <div class="related-card-date"><i class="ri-calendar-line"></i> Apr 22, 2026</div>
               <div class="related-card-title">CNPC Announces Major Deepwater O&G Exploration Breakthrough</div>
-              <div class="related-card-excerpt">中国海洋石油总公司宣布在南海深水区域成功钻探新井，测试日产油气当量超千立方米。</div>
+              <div class="related-card-excerpt">CNOOC has announced a successful new deepwater well in the South China Sea, with tested daily production exceeding 1,000 cubic meters of oil equivalent.</div>
               <span class="related-card-link">Read Full Article <i class="ri-arrow-right-line"></i></span>
             </div>
           </div>
@@ -1166,7 +1120,7 @@
             <div class="related-card-body">
               <div class="related-card-date"><i class="ri-calendar-line"></i> Apr 18, 2026</div>
               <div class="related-card-title">NEA Releases Revised O&G Pipeline Integrity Management Standards</div>
-              <div class="related-card-excerpt">新版规范增加了智能检测、数字化运维等内容，对管道全生命周期管理提出更高要求。</div>
+              <div class="related-card-excerpt">The revised standards add intelligent inspection and digital operation &amp; maintenance requirements, raising the bar for pipeline lifecycle management.</div>
               <span class="related-card-link">Read Full Article <i class="ri-arrow-right-line"></i></span>
             </div>
           </div>
@@ -1177,7 +1131,7 @@
             <div class="related-card-body">
               <div class="related-card-date"><i class="ri-calendar-line"></i> Apr 10, 2026</div>
               <div class="related-card-title">Global O&G Digital Transformation White Paper Released</div>
-              <div class="related-card-excerpt">国际石油工程师协会(SPE)联合多家能源企业发布白皮书，指出AI与数字孪生技术将重塑油气生产运营模式。</div>
+              <div class="related-card-excerpt">The Society of Petroleum Engineers (SPE), together with several energy companies, released a white paper stating that AI and digital twin technologies will reshape oil and gas production operations.</div>
               <span class="related-card-link">Read Full Article <i class="ri-arrow-right-line"></i></span>
             </div>
           </div>
@@ -1190,28 +1144,15 @@
   <!-- Toast Notification -->
   <div class="toast" id="toast"></div>
 
+  <script src="../app/frontend-auth.js"></script>
+  <script>
+    initFrontendPage('news', { protected: false, search: true });
+  </script>
   <script>
     (function() {
     // ==================== DOM References ====================
     const $ = (s) => document.querySelector(s);
     const $$ = (s) => document.querySelectorAll(s);
-
-    // ==================== Mobile Menu ====================
-    const topbarNav = document.querySelector('.topbar-nav');
-    const menuToggle = $('#menuToggle');
-
-    menuToggle.addEventListener('click', () => {
-        topbarNav.classList.toggle('mobile-open');
-    });
-
-    topbarNav.querySelectorAll('.nav-dropdown-toggle, .nav-sub-toggle').forEach(btn => {
-        btn.addEventListener('click', function(e) {
-            if (window.innerWidth > 1200) return;
-            e.preventDefault();
-            const menu = this.nextElementSibling;
-            if (menu) menu.classList.toggle('open');
-        });
-    });
 
     const toast = document.getElementById('toast');
 
@@ -1252,18 +1193,12 @@
         }
       });
 
-      // ---- Search Box Interaction ----
-      const topSearchInput = document.querySelector('.search-box input');
-      if (topSearchInput) {
-        topSearchInput.addEventListener('focus', () => {
-          topSearchInput.parentElement.style.width = '320px';
-        });
-        topSearchInput.addEventListener('blur', () => {
-          if (!topSearchInput.value) topSearchInput.parentElement.style.width = '';
-        });
-      }
-
     })();
   </script>
-  </body>
+  
+<script src="../app/admin-auth.js"></script>
+<script>
+(function() { injectAdminEntry(); var user = getCurrentUser(); if (user) { var avatarEls = document.querySelectorAll(".user-avatar, .avatar"); avatarEls.forEach(function(el) { if (el && !el.querySelector("img")) el.textContent = user.avatar || user.username.charAt(0).toUpperCase(); }); } })();
+</script>
+</body>
 </html>

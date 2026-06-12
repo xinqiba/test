@@ -30,6 +30,11 @@
     .topbar-right{display:flex;align-items:center;gap:12px}
     .user-menu{display:flex;align-items:center;gap:8px;padding:6px;border-radius:8px;cursor:pointer}
     .user-menu:hover{background:rgba(0,0,0,0.04)}
+    .user-dropdown { position: absolute; top: 56px; right: 24px; background: #fff; border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.12); min-width: 200px; padding: 8px; z-index: 1100; display: none; }
+    .user-dropdown.show { display: block; animation: fadeIn 0.2s ease; }
+    .user-dropdown a { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 8px; font-size: 0.875rem; color: #334155; text-decoration: none; transition: all 0.15s; }
+    .user-dropdown a:hover { background: #f1f5f9; color: #1a365d; }
+    .user-dropdown a i { font-size: 1rem; color: #94a3b8; width: 20px; text-align: center; }
     .user-avatar{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--amber),var(--amber-light));display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:700;color:var(--deep-blue)}
     .user-name{font-size:0.875rem;font-weight:500;color:#334155}
 
@@ -69,25 +74,26 @@
     .view-panel{display:none}
     .view-panel.active{display:block;animation:fadeInUp 0.3s ease}
 
-    /* Cards & Stats */
-    .stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px}
-    .stat-card{background:#fff;border-radius:12px;padding:20px;border:1px solid #e2e8f0;transition:all 0.2s}
+    /* Cards & Stats - refined compact layout */
+    .stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:24px}
+    .stat-card{background:#fff;border-radius:12px;padding:16px 18px;border:1px solid #e2e8f0;transition:all 0.2s;display:flex;align-items:center;gap:14px}
     .stat-card:hover{box-shadow:0 4px 16px rgba(0,0,0,0.06)}
-    .stat-card .stat-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.25rem;margin-bottom:12px}
-    .stat-card .stat-value{font-size:1.5rem;font-weight:700;color:#0f172a;font-family:'Playfair Display',serif}
-    .stat-card .stat-label{font-size:0.78rem;color:#94a3b8;margin-top:2px}
+    .stat-card .stat-icon{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1rem;margin-bottom:0;flex-shrink:0}
+    .stat-card .stat-info{display:flex;flex-direction:column;gap:1px}
+    .stat-card .stat-value{font-size:1.25rem;font-weight:700;color:#0f172a;font-family:'Playfair Display',serif;line-height:1.2}
+    .stat-card .stat-label{font-size:0.72rem;color:#94a3b8;margin-top:0}
 
-    /* Portfolio */
-    .portfolio-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:24px}
-    .portfolio-card{background:#fff;border-radius:12px;border:1px solid #e2e8f0;padding:20px;cursor:pointer;transition:all 0.2s}
-    .portfolio-card:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,0.08);border-color:var(--amber)}
-    .portfolio-card.selected{border-color:var(--amber);box-shadow:0 0 0 3px rgba(200,149,108,0.15)}
-    .portfolio-card .pf-header{display:flex;align-items:center;gap:12px;margin-bottom:14px}
-    .portfolio-card .pf-icon{width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.25rem;color:#fff}
-    .portfolio-card .pf-name{font-weight:600;color:#0f172a;font-size:0.9rem}
-    .portfolio-card .pf-ver{font-size:0.7rem;color:#94a3b8}
-    .portfolio-card .pf-meta{display:flex;gap:16px;font-size:0.78rem;color:#64748b}
-    .pf-progress{height:4px;background:#e2e8f0;border-radius:2px;margin-top:12px;overflow:hidden}
+    /* Portfolio - clean minimal cards */
+    .portfolio-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:24px}
+    .portfolio-card{background:#fff;border-radius:10px;border:1px solid #e2e8f0;padding:16px 18px;cursor:pointer;transition:all 0.2s}
+    .portfolio-card:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,0.08);border-color:var(--pf-color,var(--amber))}
+    .portfolio-card.selected{border-color:var(--pf-color,var(--amber));box-shadow:0 0 0 3px rgba(200,149,108,0.15)}
+    .portfolio-card .pf-header{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+    .portfolio-card .pf-badge{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+    .portfolio-card .pf-name{font-weight:600;color:#0f172a;font-size:0.875rem}
+    .portfolio-card .pf-ver{font-size:0.68rem;color:#94a3b8;margin-top:1px}
+    .portfolio-card .pf-meta{display:flex;gap:14px;font-size:0.75rem;color:#64748b;margin-bottom:10px}
+    .pf-progress{height:3px;background:#e2e8f0;border-radius:2px;overflow:hidden}
     .pf-progress-fill{height:100%;border-radius:2px;transition:width 0.6s ease}
 
     /* Competence units table */
@@ -178,46 +184,7 @@
 </head>
 <body>
 
-<nav class="topbar">
-  <div class="topbar-left">
-    <button class="menu-toggle" id="menuToggle"><i class="ri-menu-line"></i></button>
-    <div class="brand"><div class="brand-logo"><i class="ri-eye-line"></i></div><div class="brand-text">Insight <span>System</span></div></div>
-    <div class="topbar-nav">
-            <a href="../index.html">Home</a>
-            <a href="about.html">About Us</a>
-            <a href="news.html">News & Announcements</a>
-            <div class="nav-dropdown">
-                <a href="#" class="nav-dropdown-toggle">E-Learning <i class="ri-arrow-down-s-line"></i></a>
-                <div class="nav-dropdown-menu">
-                    <a href="knowledge.html">Knowledge Matrix</a>
-                    <a href="skill.html">Skill Matrix</a>
-                    <a href="workshop.html">Workshop</a>
-                    <a href="assessment.html">Assessment & Certification</a>
-
-                </div>
-            </div>
-            <div class="nav-dropdown">
-                <a href="#" class="nav-dropdown-toggle">Insight CA System <i class="ri-arrow-down-s-line"></i></a>
-                <div class="nav-dropdown-menu">
-                    <a href="my-skills.html">Profile Management</a>
-                    <a href="reports.html">Data & Reports</a>
-                    <a href="my-learning.html">Course Grades</a>
-                    <a href="course-learn.html">Course Learning</a>
-                </div>
-            </div>
-            <div class="nav-dropdown">
-                <a href="#" class="nav-dropdown-toggle">Insight HSSE Management <i class="ri-arrow-down-s-line"></i></a>
-                <div class="nav-dropdown-menu">
-                    <a href="ptw.html">PTW Work Permit</a>
-                    <a href="compliance.html">HSSE Passport</a>
-                </div>
-            </div>
-        </div>
-  </div>
-  <div class="topbar-right">
-    <div class="user-menu"><div class="user-avatar" id="userAvatar">J</div><span class="user-name" id="userNameDisplay">John Engineer</span></div>
-  </div>
-</nav>
+<div id="topbar-root"></div>
 
 <main class="main-content" id="mainContent">
   <div class="page-header">
@@ -228,21 +195,14 @@
     <button class="btn btn-primary btn-sm" id="btnUploadEvidence" onclick="openUploadModal()"><i class="ri-upload-2-line"></i> Upload Evidence</button>
   </div>
 
-  <!-- Role Tabs (inside page content area) -->
-  <div class="page-tabs" id="roleSwitcher">
-    <button class="page-tab active" data-role="candidate">Candidate</button>
-    <button class="page-tab" data-role="assessor">Assessor</button>
-    <button class="page-tab" data-role="iv">Internal Verifier</button>
-    <button class="page-tab" data-role="ev">External Verifier</button>
-  </div>
 
   <!-- Candidate View -->
   <div class="view-panel active" id="view-candidate">
     <div class="stats-row">
-      <div class="stat-card"><div class="stat-icon" style="background:rgba(34,197,94,0.1);color:#22c55e;"><i class="ri-check-double-line"></i></div><div class="stat-value" id="statAchieved">5</div><div class="stat-label">Certified Skills</div></div>
-      <div class="stat-card"><div class="stat-icon" style="background:rgba(245,158,11,0.1);color:#f59e0b;"><i class="ri-time-line"></i></div><div class="stat-value" id="statPending">3</div><div class="stat-label">Pending Evidence</div></div>
-      <div class="stat-card"><div class="stat-icon" style="background:rgba(59,130,246,0.1);color:#3b82f6;"><i class="ri-file-list-3-line"></i></div><div class="stat-value" id="statUploaded">8</div><div class="stat-label">Uploaded Evidence</div></div>
-      <div class="stat-card"><div class="stat-icon" style="background:rgba(200,149,108,0.1);color:var(--amber);"><i class="ri-message-3-line"></i></div><div class="stat-value" id="statMessages">2</div><div class="stat-label">Unread Messages</div></div>
+      <div class="stat-card"><div class="stat-icon" style="background:rgba(34,197,94,0.1);color:#22c55e;"><i class="ri-check-double-line"></i></div><div class="stat-info"><div class="stat-value" id="statAchieved">5</div><div class="stat-label">Certified Skills</div></div></div>
+      <div class="stat-card"><div class="stat-icon" style="background:rgba(245,158,11,0.1);color:#f59e0b;"><i class="ri-time-line"></i></div><div class="stat-info"><div class="stat-value" id="statPending">3</div><div class="stat-label">Pending Evidence</div></div></div>
+      <div class="stat-card"><div class="stat-icon" style="background:rgba(59,130,246,0.1);color:#3b82f6;"><i class="ri-file-list-3-line"></i></div><div class="stat-info"><div class="stat-value" id="statUploaded">8</div><div class="stat-label">Uploaded Evidence</div></div></div>
+      <div class="stat-card"><div class="stat-icon" style="background:rgba(200,149,108,0.1);color:var(--amber);"><i class="ri-message-3-line"></i></div><div class="stat-info"><div class="stat-value" id="statMessages">2</div><div class="stat-label">Unread Messages</div></div></div>
     </div>
 
     <h3 style="margin-bottom:14px;font-size:1rem;color:#0f172a;">Portfolios</h3>
@@ -344,6 +304,10 @@
 
 <div class="toast" id="toast"></div>
 
+<script src="../app/frontend-auth.js"></script>
+<script>
+  initFrontendPage('skill', { protected: true, search: false });
+</script>
 <script>
 (function(){
   'use strict';
@@ -384,50 +348,14 @@
     ]
   };
 
-  let currentRole='candidate',selectedPortfolio='oim';
-
-  // Role switch
-  const roleNames={candidate:'John Engineer',assessor:'Assessor Li',iv:'Verifier Wang',ev:'Standard Verifier Chen'};
-  const roleAvatars={candidate:'J',assessor:'L',iv:'W',ev:'C'};
-  $('#roleSwitcher').addEventListener('click',function(e){
-    if(!e.target.classList.contains('page-tab'))return;
-    currentRole=e.target.dataset.role;
-    $$('.page-tab').forEach(b=>b.classList.remove('active'));
-    e.target.classList.add('active');
-    $$('.view-panel').forEach(p=>p.classList.remove('active'));
-    $('#view-'+currentRole).classList.add('active');
-    $('#userAvatar').textContent=roleAvatars[currentRole];
-    $('#userNameDisplay').textContent=roleNames[currentRole];
-    $('#btnUploadEvidence').style.display=currentRole==='candidate'?'':'none';
-    if(currentRole==='candidate')renderPortfolios();
-    if(currentRole==='assessor')renderAssessorView();
-    if(currentRole==='iv')renderIVView();
-    if(currentRole==='ev')renderEVView();
-    updateTitle();
-  });
+  var user = getCurrentUser();
+  let currentRole = user ? getRoleView(user.role) : 'candidate';
+  let selectedPortfolio = 'oim';
 
   function updateTitle(){
     const titles={candidate:'Skill Matrix',assessor:'Assessor Dashboard',iv:'Internal Verification',ev:'External Verifier Reports'};
     $('#pageTitle').textContent=titles[currentRole];
   }
-
-  // ==================== Mobile Menu ====================
-  const topbarNav = document.querySelector('.topbar-nav');
-  const menuToggleBtn = $('#menuToggle');
-
-  menuToggleBtn.addEventListener('click', () => {
-      topbarNav.classList.toggle('mobile-open');
-  });
-
-  // Mobile submenu toggle (hover on desktop, click on mobile)
-  topbarNav.querySelectorAll('.nav-dropdown-toggle, .nav-sub-toggle').forEach(btn => {
-      btn.addEventListener('click', function(e) {
-          if (window.innerWidth > 1200) return;
-          e.preventDefault();
-          const menu = this.nextElementSibling;
-          if (menu) menu.classList.toggle('open');
-      });
-  });
 
   // Toast
   let tt;function showToast(m){const t=$('#toast');t.textContent=m;t.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('show'),2500);}
@@ -437,10 +365,10 @@
     const grid=$('#portfolioGrid');
     grid.innerHTML=PORTFOLIOS.map(p=>{
       const pct=Math.round(p.achieved/p.units*100);
-      return `<div class="portfolio-card ${selectedPortfolio===p.id?'selected':''}" data-pf="${p.id}" onclick="window._selectPF('${p.id}')">
-        <div class="pf-header"><div class="pf-icon" style="background:${p.color}"><i class="${p.icon}"></i></div>
+      return `<div class="portfolio-card ${selectedPortfolio===p.id?'selected':''}" data-pf="${p.id}" onclick="window._selectPF('${p.id}')" style="--pf-color:${p.color}">
+        <div class="pf-header"><span class="pf-badge" style="background:${p.color}"></span>
           <div><div class="pf-name">${p.name}</div>${p.vers.length?`<div class="pf-ver">${p.vers.join(' · ')}</div>`:''}</div></div>
-        <div class="pf-meta"><span>${p.units}  units</span><span>${p.achieved} Achieved</span></div>
+        <div class="pf-meta"><span>${p.units} units</span><span>${p.achieved} Achieved</span></div>
         <div class="pf-progress"><div class="pf-progress-fill" style="width:${pct}%;background:${p.color}"></div></div>
       </div>`;
     }).join('');
@@ -456,7 +384,7 @@
       <h3 style="margin-bottom:10px;font-size:0.95rem;color:#0f172a;">Unit Details</h3>
       <table class="units-table"><thead><tr><th>Code</th><th>Unit Name</th><th>Status</th><th>Evidence</th><th>Date</th><th>Actions</th></tr></thead>
       <tbody>${units.map(u=>`<tr>
-        <td style="font-family:monospace;font-size:0.78rem;">${u.code}</td><td>${u.name}</td>
+        <td style="font-weight:500;color:#64748b;">${u.code}</td><td>${u.name}</td>
         <td><span class="status-dot ${u.status==='achieved'?'achieved':u.status==='pending'?'pending':'not-started'}"></span>${u.status==='achieved'?'Achieved':u.status==='pending'?'In Review':'Not Started'}</td>
         <td>${u.evidence||'-'}</td><td>${u.date||'-'}</td>
         <td>${u.status==='not-started'?`<button class="btn btn-primary btn-sm" onclick="openUploadModal()"><i class="ri-upload-2-line"></i> Upload</button>`:u.status==='pending'?'<span style="color:#f59e0b;font-size:0.78rem;">In Review</span>':'<span style="color:#22c55e;font-size:0.78rem;"><i class="ri-check-line"></i> Certified</span>'}</td>
@@ -554,9 +482,23 @@
     showToast(`Filters applied: ${c||'All Customers'} / ${r||'All Regions'} / ${p||'All Portfolios'}${sort?' · Certified first':''}`);
   });
 
-  // Init
-  renderPortfolios();renderDiscussion();
+  // Init based on login role
+  $$('.view-panel').forEach(p=>p.classList.remove('active'));
+  var targetPanel = $('#view-'+currentRole);
+  if (targetPanel) targetPanel.classList.add('active');
+  $('#btnUploadEvidence').style.display=currentRole==='candidate'?'':'none';
+  updateTitle();
+  if(currentRole==='candidate')renderPortfolios();
+  if(currentRole==='assessor')renderAssessorView();
+  if(currentRole==='iv')renderIVView();
+  if(currentRole==='ev')renderEVView();
+  renderDiscussion();
 })();
+</script>
+
+<script src="../app/admin-auth.js"></script>
+<script>
+(function() { injectAdminEntry(); var user = getCurrentUser(); if (user) { var avatarEls = document.querySelectorAll(".user-avatar, .avatar"); avatarEls.forEach(function(el) { if (el && !el.querySelector("img")) el.textContent = user.avatar || user.username.charAt(0).toUpperCase(); }); } })();
 </script>
 </body>
 </html>

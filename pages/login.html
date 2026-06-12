@@ -430,6 +430,18 @@
                     <button type="submit" class="btn-login">Sign In</button>
                 </form>
 
+                <!-- Quick Login Demo Buttons -->
+                <div style="margin-top:24px;padding-top:20px;border-top:1px solid #e2e8f0;">
+                    <p style="font-size:0.75rem;color:#888;text-align:center;margin-bottom:12px;">演示账号快捷登录</p>
+                    <div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center;">
+                        <button type="button" class="quick-login-btn" data-user="admin" style="padding:6px 12px;border:1px solid #e0e0e0;border-radius:4px;background:#fff;font-size:0.75rem;cursor:pointer;color:#666;transition:all 0.2s;">系统管理员</button>
+                        <button type="button" class="quick-login-btn" data-user="manager" style="padding:6px 12px;border:1px solid #e0e0e0;border-radius:4px;background:#fff;font-size:0.75rem;cursor:pointer;color:#666;transition:all 0.2s;">企业管理员</button>
+                        <button type="button" class="quick-login-btn" data-user="assessor" style="padding:6px 12px;border:1px solid #e0e0e0;border-radius:4px;background:#fff;font-size:0.75rem;cursor:pointer;color:#666;transition:all 0.2s;">评估师</button>
+                        <button type="button" class="quick-login-btn" data-user="verifier" style="padding:6px 12px;border:1px solid #e0e0e0;border-radius:4px;background:#fff;font-size:0.75rem;cursor:pointer;color:#666;transition:all 0.2s;">验证员</button>
+                        <button type="button" class="quick-login-btn" data-user="user" style="padding:6px 12px;border:1px solid #e0e0e0;border-radius:4px;background:#fff;font-size:0.75rem;cursor:pointer;color:#666;transition:all 0.2s;">普通学员</button>
+                    </div>
+                </div>
+
                 <div class="form-footer">
                     Don't have an account? <a href="register.html">Enterprise Registration</a>
                 </div>
@@ -437,7 +449,21 @@
         </div>
     </div>
 
+    <script src="../app/admin-auth.js"></script>
     <script>
+        // Auto-redirect if already logged in
+        (function() {
+            var user = getCurrentUser();
+            if (user) {
+                if (isAdmin(user.role)) {
+                    window.location.href = 'admin/index.html';
+                } else {
+                    window.location.href = '../index.html';
+                }
+                return;
+            }
+        })();
+
         // Password show/hide toggle
         document.getElementById('togglePassword').addEventListener('click', function() {
             const passwordInput = document.getElementById('password');
@@ -460,11 +486,54 @@
             document.querySelector('.captcha-image').textContent = code;
         }
 
-        // Form submit
+        // Form submit with auth
         document.getElementById('loginForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            // 这里添加Login逻辑
-            alert('Login feature under development...');
+            var username = document.getElementById('username').value.trim();
+            var password = document.getElementById('password').value;
+            var errorEl = document.getElementById('loginError');
+
+            if (!errorEl) {
+                errorEl = document.createElement('div');
+                errorEl.id = 'loginError';
+                errorEl.style.cssText = 'color:#e05d5d;font-size:0.875rem;margin-top:12px;text-align:center;display:none;';
+                document.getElementById('loginForm').appendChild(errorEl);
+            }
+
+            var user = login(username, password);
+            if (user) {
+                var params = new URLSearchParams(location.search);
+                var redirect = params.get('redirect');
+                if (redirect) {
+                    window.location.href = decodeURIComponent(redirect);
+                } else if (isAdmin(user.role)) {
+                    window.location.href = 'admin/index.html';
+                } else {
+                    window.location.href = '../index.html';
+                }
+            } else {
+                errorEl.textContent = '账号或密码错误';
+                errorEl.style.display = 'block';
+            }
+        });
+
+        // Quick login buttons
+        document.querySelectorAll('.quick-login-btn').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                var username = this.dataset.user;
+                var user = login(username, '123456');
+                if (user) {
+                    var params = new URLSearchParams(location.search);
+                    var redirect = params.get('redirect');
+                    if (redirect) {
+                        window.location.href = decodeURIComponent(redirect);
+                    } else if (isAdmin(user.role)) {
+                        window.location.href = 'admin/index.html';
+                    } else {
+                        window.location.href = '../index.html';
+                    }
+                }
+            });
         });
     </script>
 </body>

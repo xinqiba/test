@@ -166,6 +166,11 @@
       transition: background 0.15s;
     }
     .user-menu:hover { background: rgba(0,0,0,0.04); }
+    .user-dropdown { position: absolute; top: 56px; right: 24px; background: #fff; border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.12); min-width: 200px; padding: 8px; z-index: 1100; display: none; }
+    .user-dropdown.show { display: block; animation: fadeIn 0.2s ease; }
+    .user-dropdown a { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 8px; font-size: 0.875rem; color: #334155; text-decoration: none; transition: all 0.15s; }
+    .user-dropdown a:hover { background: #f1f5f9; color: #1a365d; }
+    .user-dropdown a i { font-size: 1rem; color: #94a3b8; width: 20px; text-align: center; }
     .user-avatar {
       width: 32px; height: 32px;
       border-radius: 50%;
@@ -797,60 +802,7 @@
 </head>
 <body>
 
-  <!-- Top Navigation Bar -->
-  <header class="topbar" id="topbar">
-    <div class="topbar-left">
-      <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
-        <i class="ri-menu-line"></i>
-      </button>
-      <a href="../index.html" class="brand">
-        <div class="brand-logo"><i class="ri-eye-line"></i></div>
-        <span class="brand-text">Insight <span>System</span></span>
-      </a>
-      <nav class="topbar-nav">
-        <a href="../index.html">Home</a>
-        <a href="about.html">About Us</a>
-        <a href="news.html">News & Announcements</a>
-        <div class="nav-dropdown">
-            <a href="#" class="nav-dropdown-toggle">E-Learning <i class="ri-arrow-down-s-line"></i></a>
-            <div class="nav-dropdown-menu">
-                    <a href="knowledge.html">Knowledge Matrix</a>
-                    <a href="skill.html">Skill Matrix</a>
-                    <a href="workshop.html">Workshop</a>
-                    <a href="assessment.html">Assessment & Certification</a>
-
-                </div>
-            </div>
-            <div class="nav-dropdown">
-                <a href="#" class="nav-dropdown-toggle">Insight CA System <i class="ri-arrow-down-s-line"></i></a>
-                <div class="nav-dropdown-menu">
-                    <a href="my-skills.html">Profile Management</a>
-                    <a href="reports.html">Data & Reports</a>
-                    <a href="my-learning.html">Course Grades</a>
-                    <a href="course-learn.html">Course Learning</a>
-                </div>
-            </div>
-            <div class="nav-dropdown">
-                <a href="#" class="nav-dropdown-toggle">Insight HSSE Management <i class="ri-arrow-down-s-line"></i></a>
-            <div class="nav-dropdown-menu">
-                <a href="ptw.html" class="active">PTW Work Permit</a>
-                <a href="compliance.html">HSSE Passport</a>
-            </div>
-        </div>
-      </nav>
-    </div>
-    <div class="topbar-right">
-      <div class="search-box">
-        <i class="ri-search-line"></i>
-        <input type="text" placeholder="Search PTW number, work type...">
-      </div>
-      <div class="user-menu">
-        <div class="user-avatar">J</div>
-        <span class="user-name">John Engineer</span>
-        <i class="ri-arrow-down-s-line" style="color:#94a3b8"></i>
-      </div>
-    </div>
-  </header>
+  <div id="topbar-root"></div>
 
   <!-- Main Content Area -->
   <main class="main-content">
@@ -1232,6 +1184,8 @@
     </div>
   </div>
 
+  <script src="../app/frontend-auth.js"></script>
+  <script>initFrontendPage('ptw', { protected: true, search: true });</script>
   <script>
     (function() {
       'use strict';
@@ -1241,24 +1195,6 @@
     const $$ = (s) => document.querySelectorAll(s);
 
     const mainContent = $('#mainContent');
-
-    // ==================== Mobile Menu ====================
-    const topbarNav = document.querySelector('.topbar-nav');
-    const menuToggle = document.getElementById('menuToggle');
-
-    menuToggle.addEventListener('click', () => {
-        topbarNav.classList.toggle('mobile-open');
-    });
-
-    // Mobile submenu expand/collapse (desktop hover, mobile click)
-    topbarNav.querySelectorAll('.nav-dropdown-toggle, .nav-sub-toggle').forEach(btn => {
-        btn.addEventListener('click', function(e) {
-            if (window.innerWidth > 1200) return;
-            e.preventDefault();
-            const menu = this.nextElementSibling;
-            if (menu) menu.classList.toggle('open');
-        });
-    });
 
       // ---- Tab Switching ----
       const tabBtns = document.querySelectorAll('.tab-btn');
@@ -1490,5 +1426,10 @@
 
     })();
   </script>
-  </body>
+  
+<script src="../app/admin-auth.js"></script>
+<script>
+(function() { injectAdminEntry(); var user = getCurrentUser(); if (user) { var avatarEls = document.querySelectorAll(".user-avatar, .avatar"); avatarEls.forEach(function(el) { if (el && !el.querySelector("img")) el.textContent = user.avatar || user.username.charAt(0).toUpperCase(); }); } })();
+</script>
+</body>
 </html>

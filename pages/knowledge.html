@@ -404,7 +404,7 @@
         .timeline-item { position: relative; padding-bottom: 20px; }
         .timeline-item:last-child { padding-bottom: 0; }
         .timeline-dot {
-            position: absolute; left: -20px; top: 4px;
+            position: absolute; left: -22px; top: 4px;
             width: 12px; height: 12px; border-radius: 50%; border: 2px solid var(--amber); background: #fff;
         }
         .timeline-item.completed-tl .timeline-dot { background: #22c55e; border-color: #22c55e; }
@@ -501,64 +501,8 @@
 </head>
 <body>
 
-<!-- Topbar -->
-<nav class="topbar">
-    <div class="topbar-left">
-        <button class="menu-toggle" id="menuToggle" aria-label="Menu"><i class="ri-menu-line"></i></button>
-        <div class="brand">
-            <div class="brand-logo"><i class="ri-eye-line"></i></div>
-            <div class="brand-text">Insight <span>System</span></div>
-        </div>
-        <div class="topbar-nav">
-            <a href="../index.html">Home</a>
-            <a href="about.html">About Us</a>
-            <a href="news.html">News & Announcements</a>
-            <div class="nav-dropdown">
-                <a href="#" class="nav-dropdown-toggle">E-Learning <i class="ri-arrow-down-s-line"></i></a>
-                <div class="nav-dropdown-menu">
-                    <a href="knowledge.html">Knowledge Matrix</a>
-                    <a href="skill.html">Skill Matrix</a>
-                    <a href="workshop.html">Workshop</a>
-                    <a href="assessment.html">Assessment & Certification</a>
-
-                </div>
-            </div>
-            <div class="nav-dropdown">
-                <a href="#" class="nav-dropdown-toggle">Insight CA System <i class="ri-arrow-down-s-line"></i></a>
-                <div class="nav-dropdown-menu">
-                    <a href="my-skills.html">Profile Management</a>
-                    <a href="reports.html">Data & Reports</a>
-                    <a href="my-learning.html">Course Grades</a>
-                    <a href="course-learn.html">Course Learning</a>
-                </div>
-            </div>
-            <div class="nav-dropdown">
-                <a href="#" class="nav-dropdown-toggle">Insight HSSE Management <i class="ri-arrow-down-s-line"></i></a>
-                <div class="nav-dropdown-menu">
-                    <a href="ptw.html">PTW Work Permit</a>
-                    <a href="compliance.html">HSSE Passport</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="topbar-right">
-        <div class="search-box">
-            <input type="text" placeholder="Search courses..." id="globalSearch">
-            <i class="ri-search-line"></i>
-        </div>
-        <div class="user-menu" id="userMenuBtn">
-            <div class="user-avatar">J</div>
-            <span class="user-name">John Engineer</span>
-            <i class="ri-arrow-down-s-line" style="font-size:0.75rem;color:#94a3b8;"></i>
-        </div>
-        <div class="user-dropdown" id="userDropdown">
-            <a href="my-learning.html"><i class="ri-history-line"></i> My Progress</a>
-            <a href="my-skills.html"><i class="ri-medal-line"></i> My Competency Matrix</a>
-            <a href="profile.html"><i class="ri-user-line"></i> Profile</a>
-            <a href="login.html"><i class="ri-logout-box-line"></i> Logout</a>
-        </div>
-    </div>
-</nav>
+<!-- Dynamic Topbar (rendered by frontend-auth.js) -->
+<div id="topbar-root"></div>
 
 
 <!-- Main Content Area -->
@@ -684,20 +628,24 @@
 <!-- Toast -->
 <div class="toast" id="toast"></div>
 
+<script src="../app/frontend-auth.js"></script>
+<script>
+    initFrontendPage('knowledge', { protected: true, search: true });
+</script>
 <script>
 (function() {
     'use strict';
 
     // ==================== Data Layer ====================
     const DISCIPLINES = [
-        { id: 6,  name: 'Introduction to Oil & Gas', nameCN: 'Oil & Gas Introduction',       icon: 'ri-oil-line',          cssClass: 'disc-intro',      color: '#64748b', subjects: [] },
-        { id: 1,  name: 'Wells Engineering',            nameCN: 'Wells Engineering',         icon: 'ri-drill-line',        cssClass: 'disc-wells',      color: '#3b82f6', subjects: [] },
-        { id: 2,  name: 'Health Safety Environment',    nameCN: 'HSE Management',    icon: 'ri-shield-star-line',  cssClass: 'disc-hse',        color: '#f97316', subjects: [] },
-        { id: 3,  name: 'Mechanical Engineering',       nameCN: 'Mechanical Engineering',       icon: 'ri-tools-line',        cssClass: 'disc-mechanical', color: '#22c55e', subjects: [] },
-        { id: 4,  name: 'Instrumentation and Controls', nameCN: 'Instrumentation & Controls',     icon: 'ri-cpu-line',          cssClass: 'disc-ic',         color: '#ef4444', subjects: [] },
-        { id: 5,  name: 'Process Facilities',           nameCN: 'Process Facilities & Gas Treatment', icon: 'ri-flask-line',     cssClass: 'disc-process',    color: '#06b6d4', subjects: [] },
-        { id: 93, name: 'Electrical',                   nameCN: 'Electrical Engineering',       icon: 'ri-flashlight-line',   cssClass: 'disc-electrical', color: '#f59e0b', subjects: [] },
-        { id: 389,name: 'BTEC Competences',             nameCN: 'BTEC Competences',   icon: 'ri-certificate-line',  cssClass: 'disc-btec',       color: '#8b5cf6', subjects: [] }
+        { id: 6,  name: 'Introduction to Oil & Gas', nameCN: 'Oil & Gas Introduction',       icon: 'ri-book-open-line',          cssClass: 'disc-intro',      color: '#64748b', subjects: [] },
+        { id: 1,  name: 'Wells Engineering',            nameCN: 'Wells Engineering',         icon: 'ri-book-open-line',        cssClass: 'disc-wells',      color: '#3b82f6', subjects: [] },
+        { id: 2,  name: 'Health Safety Environment',    nameCN: 'HSE Management',    icon: 'ri-book-open-line',  cssClass: 'disc-hse',        color: '#f97316', subjects: [] },
+        { id: 3,  name: 'Mechanical Engineering',       nameCN: 'Mechanical Engineering',       icon: 'ri-book-open-line',        cssClass: 'disc-mechanical', color: '#22c55e', subjects: [] },
+        { id: 4,  name: 'Instrumentation and Controls', nameCN: 'Instrumentation & Controls',     icon: 'ri-book-open-line',          cssClass: 'disc-ic',         color: '#ef4444', subjects: [] },
+        { id: 5,  name: 'Process Facilities',           nameCN: 'Process Facilities & Gas Treatment', icon: 'ri-book-open-line',     cssClass: 'disc-process',    color: '#06b6d4', subjects: [] },
+        { id: 93, name: 'Electrical',                   nameCN: 'Electrical Engineering',       icon: 'ri-book-open-line',   cssClass: 'disc-electrical', color: '#f59e0b', subjects: [] },
+        { id: 389,name: 'BTEC Competences',             nameCN: 'BTEC Competences',   icon: 'ri-book-open-line',  cssClass: 'disc-btec',       color: '#8b5cf6', subjects: [] }
     ];
 
     // Subject & Unit data per discipline
@@ -865,31 +813,6 @@
     const $$ = (s) => document.querySelectorAll(s);
 
     const mainContent = $('#mainContent');
-
-    // ==================== Mobile Menu ====================
-    const topbarNav = document.querySelector('.topbar-nav');
-    const menuToggle = $('#menuToggle');
-
-    menuToggle.addEventListener('click', () => {
-        topbarNav.classList.toggle('mobile-open');
-    });
-
-    // Mobile submenu toggle (hover on desktop, click on mobile)
-    topbarNav.querySelectorAll('.nav-dropdown-toggle, .nav-sub-toggle').forEach(btn => {
-        btn.addEventListener('click', function(e) {
-            if (window.innerWidth > 1200) return;
-            e.preventDefault();
-            const menu = this.nextElementSibling;
-            if (menu) menu.classList.toggle('open');
-        });
-    });
-
-    // User Menu
-    $('#userMenuBtn').addEventListener('click', (e) => {
-        e.stopPropagation();
-        $('#userDropdown').classList.toggle('show');
-    });
-    document.addEventListener('click', () => $('#userDropdown').classList.remove('show'));
 
     // ==================== Toast ====================
     let toastTimer;
@@ -1577,7 +1500,12 @@
     $('#btnMyProgress').addEventListener('click', () => switchView('progress'));
 
     // Global Search
-    $('#globalSearch').addEventListener('input', function() {
+    var globalSearch = $('#globalSearch');
+    if (!globalSearch) {
+      // Try to find the search box from the dynamic topbar
+      globalSearch = document.querySelector('.topbar-right .search-box input');
+    }
+    if (globalSearch) globalSearch.addEventListener('input', function() {
         const query = this.value.toLowerCase().trim();
         if (!query) { renderDisciplines(); return; }
         // Search units
@@ -1618,6 +1546,11 @@
 
     init();
 })();
+</script>
+
+<script src="../app/admin-auth.js"></script>
+<script>
+(function() { injectAdminEntry(); var user = getCurrentUser(); if (user) { var avatarEls = document.querySelectorAll(".user-avatar, .avatar"); avatarEls.forEach(function(el) { if (el && !el.querySelector("img")) el.textContent = user.avatar || user.username.charAt(0).toUpperCase(); }); } })();
 </script>
 </body>
 </html>

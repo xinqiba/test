@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>技能审核 - Insight</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css">
+  <link rel="stylesheet" href="../../styles/admin.css">
+  <style>
+    .review-list { list-style: none; }
+    .review-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 16px;
+      border-bottom: 1px solid var(--border-color);
+    }
+    .review-item:last-child { border-bottom: none; }
+    .review-avatar {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-weight: 600;
+    }
+    .review-info { flex: 1; }
+    .review-info .name { font-weight: 500; font-size: 0.9375rem; }
+    .review-info .meta { font-size: 0.8125rem; color: var(--text-secondary); margin-top: 2px; }
+    .review-preview {
+      width: 100%;
+      min-height: 200px;
+      background: #f1f5f9;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+    }
+    .evidence-type-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+    }
+    .evidence-type-badge.doc { background: rgba(91,155,213,0.15); color: #5b9bd5; }
+    .evidence-type-badge.img { background: rgba(76,175,122,0.15); color: #4caf7a; }
+    .evidence-type-badge.video { background: rgba(230,162,60,0.15); color: #e6a23c; }
+    .checklist-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 0;
+      font-size: 0.875rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+  </style>
+</head>
+<body>
+  <div class="mobile-overlay" id="mobileOverlay" onclick="toggleMobileSidebar()"></div>
+
+  <aside class="admin-sidebar" id="sidebar">
+    <div class="sidebar-header"><div class="sidebar-logo">Insight Admin</div></div>
+    <div class="sidebar-toggle" onclick="toggleSidebar()"><i class="ri-arrow-left-s-line" id="toggleIcon"></i></div>
+    <nav class="sidebar-nav"></nav>
+    <div class="sidebar-footer"><a href="../../index.html" class="back-to-front"><i class="ri-arrow-left-line"></i><span>返回前台</span></a></div>
+  </aside>
+
+  <header class="admin-topbar">
+    <div class="topbar-left">
+      <button class="btn-icon" onclick="toggleMobileSidebar()" style="display:none;" id="mobileMenuBtn"><i class="ri-menu-line"></i></button>
+      <nav class="breadcrumb"><a href="index.html">首页</a> / <span class="current">技能审核</span></nav>
+    </div>
+    <div class="topbar-right">
+      <div class="role-switcher" id="roleSwitcher"></div>
+      <div class="user-menu"><div class="user-avatar" id="userAvatar"></div></div>
+    </div>
+  </header>
+
+  <main class="admin-content">
+    <div class="stat-grid">
+      <div class="stat-card"><div class="stat-icon orange"><i class="ri-time-line"></i></div><div><div class="stat-value" id="pendingCount">5</div><div class="stat-label">待审核</div></div></div>
+      <div class="stat-card"><div class="stat-icon green"><i class="ri-check-line"></i></div><div><div class="stat-value" id="todayCount">8</div><div class="stat-label">今日已审核</div></div></div>
+      <div class="stat-card"><div class="stat-icon blue"><i class="ri-timer-line"></i></div><div><div class="stat-value">2.5<span style="font-size:0.875rem;">h</span></div><div class="stat-label">平均审核时长</div></div></div>
+      <div class="stat-card"><div class="stat-icon red"><i class="ri-award-line"></i></div><div><div class="stat-value">42</div><div class="stat-label">本月通过数</div></div></div>
+    </div>
+
+    <div class="filter-bar">
+      <div class="search-box"><i class="ri-search-line"></i><input type="text" class="filter-input" placeholder="搜索学员或技能..." id="searchInput" style="width:200px;"></div>
+      <select class="filter-select" id="statusFilter"><option value="">全部状态</option><option>待审核</option><option>已通过</option><option>已驳回</option></select>
+      <select class="filter-select" id="disciplineFilter"><option value="">全部学科</option></select>
+    </div>
+
+    <div class="admin-card" style="padding:0;">
+      <div id="reviewList"></div>
+    </div>
+  </main>
+
+  <!-- Review Modal -->
+  <div class="modal-overlay" id="reviewModal">
+    <div class="modal" style="max-width:800px;">
+      <div class="modal-header"><div class="modal-title">审核详情</div><button class="modal-close" onclick="closeModal('reviewModal')"><i class="ri-close-line"></i></button></div>
+      <div class="modal-body">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+          <div><div style="font-weight:500;margin-bottom:8px;">证据预览</div><div class="review-preview" id="evidencePreview"><i class="ri-file-text-line" style="font-size:2rem;margin-right:8px;"></i> 证据文件预览区域</div></div>
+          <div>
+            <div style="font-weight:500;margin-bottom:8px;">技能标准对照</div>
+            <div id="checklistContent">
+              <div class="checklist-item"><input type="checkbox"> 掌握井控基本原理</div>
+              <div class="checklist-item"><input type="checkbox"> 能正确操作防喷器</div>
+              <div class="checklist-item"><input type="checkbox"> 具备井控应急处置能力</div>
+            </div>
+            <div style="margin-top:16px;">
+              <label style="font-weight:500;font-size:0.875rem;display:block;margin-bottom:4px;">评估意见</label>
+              <textarea style="width:100%;padding:8px 12px;border:1px solid var(--border-color);border-radius:6px;min-height:100px;resize:vertical;"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeModal('reviewModal')">取消</button>
+        <button class="btn btn-danger" onclick="alert('已驳回')"><i class="ri-close-circle-line"></i> 驳回</button>
+        <button class="btn btn-primary" onclick="alert('已通过')"><i class="ri-check-circle-line"></i> 通过</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="../../app/admin-auth.js"></script>
+  <script src="../../app/admin-data.js"></script>
+  <script>
+    if (!checkAdminAuth()) throw new Error('Not authenticated');
+    renderSidebar('skills-review');
+    renderRoleSwitcher();
+    renderUserAvatar();
+
+    function toggleSidebar() {
+      var sidebar = document.getElementById('sidebar');
+      var icon = document.getElementById('toggleIcon');
+      sidebar.classList.toggle('collapsed');
+      icon.className = sidebar.classList.contains('collapsed') ? 'ri-arrow-right-s-line' : 'ri-arrow-left-s-line';
+      localStorage.setItem('sidebarCollapsed', sidebar.classList.contains('collapsed'));
+    }
+    if (localStorage.getItem('sidebarCollapsed') === 'true') { document.getElementById('sidebar').classList.add('collapsed'); document.getElementById('toggleIcon').className = 'ri-arrow-right-s-line'; }
+    function toggleMobileSidebar() {
+      var sidebar = document.getElementById('sidebar');
+      var overlay = document.getElementById('mobileOverlay');
+      sidebar.classList.toggle('mobile-open'); overlay.classList.toggle('active');
+    }
+    function checkMobile() { var btn = document.getElementById('mobileMenuBtn'); btn.style.display = window.innerWidth <= 992 ? 'inline-flex' : 'none'; }
+    window.addEventListener('resize', checkMobile); checkMobile();
+    function closeModal(id) { document.getElementById(id).classList.remove('active'); }
+    function openModal(id) { document.getElementById(id).classList.add('active'); }
+
+    var reviews = generateEvidenceReviews();
+    var filtered = reviews;
+
+    function renderReviews() {
+      var list = document.getElementById('reviewList');
+      var user = getCurrentUser();
+      list.innerHTML = filtered.map(function(r) {
+        var typeClass = r.type === '文档' ? 'doc' : r.type === '图片' ? 'img' : 'video';
+        var statusClass = r.status === '待审核' ? 'badge-warning' : r.status === '已通过' ? 'badge-success' : 'badge-danger';
+        return '<div class="review-item"><div class="review-avatar">' + r.employeeName.charAt(0) + '</div><div class="review-info"><div class="name">' + r.employeeName + ' — ' + r.skillName + '</div><div class="meta">' + r.discipline + ' · ' + r.uploadTime + ' · <span class="evidence-type-badge ' + typeClass + '"><i class="ri-file-line"></i> ' + r.type + '</span></div></div><span class="badge ' + statusClass + '">' + r.status + '</span><button class="btn btn-sm btn-secondary" onclick="openModal(\'reviewModal\')" ' + (r.status !== '待审核' ? 'disabled' : '') + '>审核</button></div>';
+      }).join('');
+      if (!filtered.length) list.innerHTML = '<div style="text-align:center;padding:60px 20px;color:var(--text-secondary);"><i class="ri-inbox-line" style="font-size:2rem;display:block;margin-bottom:8px;"></i>暂无待审核记录</div>';
+    }
+
+    function filterReviews() {
+      var search = document.getElementById('searchInput').value.toLowerCase();
+      var status = document.getElementById('statusFilter').value;
+      filtered = reviews.filter(function(r) {
+        return (!search || r.employeeName.includes(search) || r.skillName.includes(search)) && (!status || r.status === status);
+      });
+      renderReviews();
+    }
+
+    document.getElementById('searchInput').addEventListener('input', filterReviews);
+    document.getElementById('statusFilter').addEventListener('change', filterReviews);
+
+    // Populate discipline filter
+    MOCK_DISCIPLINES.forEach(function(d) {
+      var opt = document.createElement('option');
+      opt.value = d.name; opt.textContent = d.name;
+      document.getElementById('disciplineFilter').appendChild(opt);
+    });
+
+    renderReviews();
+  </script>
+</body>
+</html>
