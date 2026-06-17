@@ -1188,43 +1188,6 @@
     }
     .role-section-header i { color: var(--amber); }
 
-    /* ---- Verification Stats Bar ---- */
-    .verification-stats-bar {
-      display: flex;
-      gap: 12px;
-      margin-bottom: 20px;
-      flex-wrap: wrap;
-    }
-    .v-stat-chip {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 16px;
-      background: #fff;
-      border-radius: 10px;
-      border: 1px solid #e2e8f0;
-      font-size: 0.8rem;
-      color: #334155;
-      white-space: nowrap;
-      transition: all 0.2s;
-    }
-    .v-stat-chip:hover { border-color: var(--amber); }
-    .v-stat-dot {
-      width: 10px; height: 10px;
-      border-radius: 50%;
-      flex-shrink: 0;
-    }
-    .v-stat-dot.green { background: #4caf7a; }
-    .v-stat-dot.amber { background: var(--amber); }
-    .v-stat-dot.blue { background: #5b9bd5; }
-    .v-stat-dot.red { background: #e05d5d; }
-    .v-stat-dot.gray { background: #94a3b8; }
-    .v-stat-count {
-      font-weight: 700;
-      color: #0f172a;
-      margin-left: 4px;
-    }
-
     /* ============================================
        Responsive
        ============================================ */
@@ -1285,7 +1248,6 @@
       .role-banner-right { flex-direction: column; width: 100%; }
       .role-banner-meta { gap: 16px; flex-wrap: wrap; }
       .role-btn { padding: 6px 12px; font-size: 0.72rem; }
-      .verification-stats-bar { flex-direction: column; }
       .feedback-section { flex-direction: column; }
     }
     /* 隐藏类 */
@@ -1378,22 +1340,6 @@
               <div class="date" id="flowDate3">2 pending final review</div>
             </div>
           </div>
-        </div>
-      </div>
-
-      <!-- 统计卡片 -->
-      <div class="verification-stats-bar" id="verificationStatsBar">
-        <div class="v-stat-chip">
-          <div class="v-stat-dot amber"></div> Pending <span class="v-stat-count" id="chipPending">7</span>
-        </div>
-        <div class="v-stat-chip">
-          <div class="v-stat-dot blue"></div> In Review <span class="v-stat-count" id="chipVerifying">5</span>
-        </div>
-        <div class="v-stat-chip">
-          <div class="v-stat-dot green"></div> Verified <span class="v-stat-count" id="chipVerified">86</span>
-        </div>
-        <div class="v-stat-chip">
-          <div class="v-stat-dot red"></div> Rejected <span class="v-stat-count" id="chipRejected">8</span>
         </div>
       </div>
 
