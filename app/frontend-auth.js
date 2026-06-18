@@ -11,8 +11,7 @@
 // ==================== Menu Configuration ====================
 var FRONTEND_MENU = [
   { id: 'home', label: 'Home', href: '../index.html' },
-  { id: 'about', label: 'About Us', href: 'about.html' },
-  { id: 'news', label: 'News & Announcements', href: 'news.html' },
+  { id: 'news', label: 'News', href: 'news.html' },
   {
     id: 'e-learning', label: 'E-Learning', children: [
       { id: 'knowledge', label: 'Knowledge Matrix', href: 'knowledge.html' },

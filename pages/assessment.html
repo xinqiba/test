@@ -272,24 +272,6 @@
       color: #94a3b8;
       letter-spacing: 0.3px;
     }
-    .role-banner-stat .lbl {
-      font-size: 0.7rem;
-      color: rgba(255,255,255,0.6);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-    .role-btn {
-      background: rgba(255,255,255,0.22);
-      color: #fff;
-      font-weight: 600;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-    }
-    .role-banner-stat .lbl {
-      font-size: 0.7rem;
-      color: rgba(255,255,255,0.6);
-      margin-top: 2px;
-    }
-
     /* ---- Three-Tier Verification流程横幅 ---- */
     .verification-summary {
       background: #fff;
@@ -1188,6 +1170,121 @@
     }
     .role-section-header i { color: var(--amber); }
 
+    /* ---- Inline Mini Verification Steps (table column) ---- */
+    .mini-verify-steps {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      min-width: 140px;
+    }
+    .mini-step {
+      width: 26px; height: 26px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.65rem;
+      font-weight: 700;
+      flex-shrink: 0;
+      transition: all 0.3s;
+    }
+    .mini-step.completed {
+      background: linear-gradient(135deg, #4caf7a 0%, #66c595 100%);
+      color: #fff;
+    }
+    .mini-step.current {
+      background: linear-gradient(135deg, var(--amber) 0%, var(--amber-light) 100%);
+      color: #fff;
+      box-shadow: 0 0 0 3px rgba(200,149,108,0.15);
+    }
+    .mini-step.pending {
+      background: #f1f5f9;
+      color: #94a3b8;
+      border: 1.5px solid #e2e8f0;
+    }
+    .mini-connector {
+      width: 20px; height: 2px;
+      background: #e2e8f0;
+      flex-shrink: 0;
+      border-radius: 1px;
+    }
+    .mini-connector.completed { background: #4caf7a; }
+    .mini-connector.in-progress {
+      background: linear-gradient(90deg, #4caf7a 0%, var(--amber) 50%, #e2e8f0 100%);
+    }
+
+    /* ---- Expandable Task Detail Rows ---- */
+    .task-row { cursor: default; }
+    .task-detail { display: none; }
+    .task-detail.expanded { display: table-row; animation: fadeInUp 0.3s ease; }
+    .task-detail td {
+      padding: 0;
+      background: #fafcfd;
+      border-bottom: 2px solid #e2e8f0;
+    }
+    .task-detail-inner {
+      padding: 20px 24px;
+    }
+    .detail-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    .detail-col {
+      min-width: 0;
+    }
+    .btn-expand {
+      color: #5b9bd5;
+      background: rgba(91,155,213,0.08);
+      transition: all 0.2s;
+    }
+    .btn-expand:hover { background: rgba(91,155,213,0.18); }
+    .btn-expand.expanded i { transform: rotate(180deg); }
+    .btn-expand i { transition: transform 0.25s ease; }
+
+    /* ---- Role Banner (used by JS dynamic injection) ---- */
+    .role-banner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 24px;
+      background: linear-gradient(135deg, var(--deep-blue) 0%, var(--deep-blue-light) 100%);
+      border-radius: 14px;
+      margin-bottom: 24px;
+      color: #fff;
+      gap: 16px;
+    }
+    .role-banner-left { display: flex; align-items: center; gap: 14px; }
+    .role-banner-right { display: flex; align-items: center; gap: 20px; }
+    .role-banner-meta { display: flex; gap: 24px; }
+    .role-banner-stat { text-align: center; }
+    .role-banner-stat .val {
+      font-size: 1.35rem;
+      font-weight: 700;
+      font-family: 'Playfair Display', serif;
+    }
+    .role-banner-stat .lbl {
+      font-size: 0.7rem;
+      color: rgba(255,255,255,0.6);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .role-btn {
+      background: rgba(255,255,255,0.22);
+      color: #fff;
+      font-weight: 600;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      padding: 8px 18px;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      border: none;
+      font-family: inherit;
+      transition: all 0.2s;
+    }
+    .role-btn:hover { background: rgba(255,255,255,0.32); }
+    .role-switcher { display: flex; gap: 6px; }
+
     /* ============================================
        Responsive
        ============================================ */
@@ -1249,6 +1346,9 @@
       .role-banner-meta { gap: 16px; flex-wrap: wrap; }
       .role-btn { padding: 6px 12px; font-size: 0.72rem; }
       .feedback-section { flex-direction: column; }
+      .detail-grid { grid-template-columns: 1fr; }
+      .mini-verify-steps { min-width: 100px; }
+      .mini-connector { width: 12px; }
     }
     /* 隐藏类 */
     .hidden { display: none !important; }
@@ -1377,15 +1477,14 @@
 
       <!-- Tab 导航 -->
       <div class="tabs-bar" id="assessmentTabs">
-        <button class="tab-btn active" data-tab="tasks">Assessment Tasks</button>
-        <button class="tab-btn" data-tab="verify">Three-Tier Verification</button>
+        <button class="tab-btn active" data-tab="tasks">Verification Tasks</button>
         <button class="tab-btn" data-tab="appeal">Appeals</button>
         <button class="tab-btn" data-tab="cert">Certification Results</button>
       </div>
 
-      <!-- Assessment Tasks Tab -->
+      <!-- Verification Tasks Tab (merged: tasks + three-tier verification) -->
       <div class="tab-panel active" id="panel-tasks">
-        <div class="role-section-header"><i class="ri-task-line"></i> Pending Evidence Review</div>
+        <div class="role-section-header"><i class="ri-task-line"></i> Verification Tasks & Progress</div>
         <div class="card">
           <table class="data-table">
             <thead>
@@ -1394,12 +1493,14 @@
                 <th>Skill</th>
                 <th>Submitted</th>
                 <th>Status</th>
-                <th>Evidence</th>
+                <th>Verification Progress</th>
                 <th>Actions</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
+
+              <!-- Task 1: Li Mingyuan — Drilling Operations (IV阶段) -->
+              <tr class="task-row" data-task="drilling-1">
                 <td>
                   <div class="user-info">
                     <div class="user-info-avatar">L</div>
@@ -1411,21 +1512,84 @@
                 </td>
                 <td>Drilling Operations</td>
                 <td>2026-04-22 14:30</td>
-                <td><span class="badge badge-pending"><i class="ri-time-line"></i> Pending Review</span></td>
+                <td><span class="badge badge-in-verification"><i class="ri-loader-4-line"></i> In Verification</span></td>
                 <td>
-                  <div class="action-group">
-                    <button class="btn-sm btn-preview" onclick="openPreviewModal('Drilling_Operations_Demo.mp4')"><i class="ri-eye-line"></i> Preview</button>
-                    <button class="btn-sm btn-evidence" onclick="openEvidenceModal('Li Mingyuan', 'Drilling Operations', 'OIM v3', 'Drilling Dept 1', '2026-04-22', 'drilling')"><i class="ri-folder-check-line"></i> Review Evidence</button>
+                  <div class="mini-verify-steps">
+                    <div class="mini-step completed" title="Assessor Review — JAssessor · 04-22"><i class="ri-check-line"></i></div>
+                    <div class="mini-connector completed"></div>
+                    <div class="mini-step current" title="Internal Verification — Verifier Wang · Pending">2</div>
+                    <div class="mini-connector"></div>
+                    <div class="mini-step pending" title="External Verifier — Unassigned">3</div>
                   </div>
                 </td>
                 <td>
                   <div class="action-group">
+                    <button class="btn-sm btn-expand" onclick="toggleTaskDetail(this, 'drilling-1')"><i class="ri-arrow-down-s-line"></i> Details</button>
+                    <button class="btn-sm btn-evidence" onclick="openEvidenceModal('Li Mingyuan', 'Drilling Operations', 'OIM v3', 'Drilling Dept 1', '2026-04-22', 'drilling')"><i class="ri-folder-check-line"></i> Review</button>
                     <button class="btn-sm btn-pass" data-min-role="assessor" onclick="openActionModal('pass', 'Li Mingyuan', 'Drilling Operations')"><i class="ri-check-line"></i> Pass</button>
-                    <button class="btn-sm btn-reject" data-min-role="assessor" onclick="openActionModal('reject', 'Li Mingyuan', 'Drilling Operations')"><i class="ri-close-line"></i> Rejected</button>
                   </div>
                 </td>
               </tr>
-              <tr>
+              <tr class="task-detail" id="detail-drilling-1">
+                <td colspan="6">
+                  <div class="task-detail-inner">
+                    <div class="detail-grid">
+                      <div class="detail-col">
+                        <div class="evidence-section-title"><i class="ri-folder-check-line"></i> Submitted Evidence</div>
+                        <div class="evidence-files">
+                          <div class="evidence-file">
+                            <div class="evidence-file-info">
+                              <i class="ri-video-line"></i>
+                              <div>
+                                <div class="evidence-file-name">Drilling_Operations_Demo.mp4</div>
+                                <div class="evidence-file-meta">128 MB · Submitted on 2026-04-22</div>
+                              </div>
+                            </div>
+                            <div class="evidence-actions">
+                              <button class="btn-sm btn-preview" onclick="openPreviewModal('Drilling_Operations_Demo.mp4')"><i class="ri-eye-line"></i> Preview</button>
+                              <button class="btn-sm btn-download"><i class="ri-download-line"></i> Download</button>
+                            </div>
+                          </div>
+                          <div class="evidence-file">
+                            <div class="evidence-file-info">
+                              <i class="ri-file-pdf-line"></i>
+                              <div>
+                                <div class="evidence-file-name">Drilling_Operations_Assessment_v3.pdf</div>
+                                <div class="evidence-file-meta">2.4 MB · Submitted on 2026-04-22</div>
+                              </div>
+                            </div>
+                            <div class="evidence-actions">
+                              <button class="btn-sm btn-preview" onclick="openPreviewModal('Drilling_Operations_Assessment_v3.pdf')"><i class="ri-eye-line"></i> Preview</button>
+                              <button class="btn-sm btn-download"><i class="ri-download-line"></i> Download</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="detail-col">
+                        <div class="evidence-section-title"><i class="ri-message-3-line"></i> Verification Feedback</div>
+                        <div class="feedback-history">
+                          <div class="feedback-msg">
+                            <div class="feedback-msg-avatar">J</div>
+                            <div class="feedback-msg-content">
+                              Passed initial review. The candidate demonstrated solid Drilling Operations capability. The practical video covers all key steps. Assessment score: 85/100. Please proceed to IV review.
+                              <div class="feedback-msg-time">JAssessor · 2026-04-22 15:10</div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="feedback-section" style="margin-top:12px;">
+                          <div class="feedback-input-wrap">
+                            <textarea class="feedback-input" placeholder="Add verification feedback..." rows="2"></textarea>
+                            <button class="feedback-send" onclick="showToast('Feedback sent')"><i class="ri-send-plane-line"></i> Send</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- Task 2: Wang Jianguo — Equipment Maintenance (All Pass) -->
+              <tr class="task-row" data-task="maintenance-2">
                 <td>
                   <div class="user-info">
                     <div class="user-info-avatar">W</div>
@@ -1437,21 +1601,78 @@
                 </td>
                 <td>Equipment Maintenance</td>
                 <td>2026-04-21 09:15</td>
-                <td><span class="badge badge-in-verification"><i class="ri-loader-4-line"></i> In Verification</span></td>
+                <td><span class="badge badge-verified"><i class="ri-check-double-line"></i> Verified</span></td>
                 <td>
-                  <div class="action-group">
-                    <button class="btn-sm btn-preview" onclick="openPreviewModal('Equipment_Maintenance_Report.pdf')"><i class="ri-eye-line"></i> Preview</button>
-                    <button class="btn-sm btn-evidence" onclick="openEvidenceModal('Wang Jianguo', 'Equipment Maintenance', 'OP Tech L2', 'Maintenance Dept', '2026-04-21', 'maintenance')"><i class="ri-folder-check-line"></i> Review Evidence</button>
+                  <div class="mini-verify-steps">
+                    <div class="mini-step completed" title="Assessor Review — JAssessor · 04-21"><i class="ri-check-line"></i></div>
+                    <div class="mini-connector completed"></div>
+                    <div class="mini-step completed" title="Internal Verification — Verifier Wang · 04-22"><i class="ri-check-line"></i></div>
+                    <div class="mini-connector completed"></div>
+                    <div class="mini-step completed" title="External Verifier — Standard Verifier Chen · 04-23"><i class="ri-check-line"></i></div>
                   </div>
                 </td>
                 <td>
                   <div class="action-group">
-                    <button class="btn-sm btn-pass" data-min-role="assessor" onclick="openActionModal('pass', 'Wang Jianguo', 'Equipment Maintenance')"><i class="ri-check-line"></i> Pass</button>
-                    <button class="btn-sm btn-reject" data-min-role="assessor" onclick="openActionModal('reject', 'Wang Jianguo', 'Equipment Maintenance')"><i class="ri-close-line"></i> Rejected</button>
+                    <button class="btn-sm btn-expand" onclick="toggleTaskDetail(this, 'maintenance-2')"><i class="ri-arrow-down-s-line"></i> Details</button>
+                    <button class="btn-sm btn-evidence" onclick="openEvidenceModal('Wang Jianguo', 'Equipment Maintenance', 'OP Tech L2', 'Maintenance Dept', '2026-04-21', 'maintenance')"><i class="ri-folder-check-line"></i> Review</button>
                   </div>
                 </td>
               </tr>
-              <tr>
+              <tr class="task-detail" id="detail-maintenance-2">
+                <td colspan="6">
+                  <div class="task-detail-inner">
+                    <div class="detail-grid">
+                      <div class="detail-col">
+                        <div class="evidence-section-title"><i class="ri-folder-check-line"></i> Submitted Evidence</div>
+                        <div class="evidence-files">
+                          <div class="evidence-file">
+                            <div class="evidence-file-info">
+                              <i class="ri-file-pdf-line"></i>
+                              <div>
+                                <div class="evidence-file-name">Equipment_Maintenance_Report.pdf</div>
+                                <div class="evidence-file-meta">1.8 MB · Submitted on 2026-04-21</div>
+                              </div>
+                            </div>
+                            <div class="evidence-actions">
+                              <button class="btn-sm btn-preview" onclick="openPreviewModal('Equipment_Maintenance_Report.pdf')"><i class="ri-eye-line"></i> Preview</button>
+                              <button class="btn-sm btn-download"><i class="ri-download-line"></i> Download</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="detail-col">
+                        <div class="evidence-section-title"><i class="ri-message-3-line"></i> Verification Feedback</div>
+                        <div class="feedback-history">
+                          <div class="feedback-msg">
+                            <div class="feedback-msg-avatar">J</div>
+                            <div class="feedback-msg-content">
+                              Initial review passed. Standard maintenance procedures followed, complete inspection data.
+                              <div class="feedback-msg-time">JAssessor · 2026-04-21 10:30</div>
+                            </div>
+                          </div>
+                          <div class="feedback-msg">
+                            <div class="feedback-msg-avatar">W</div>
+                            <div class="feedback-msg-content">
+                              Internal review passed. Assessment standards applied consistently.
+                              <div class="feedback-msg-time">Verifier Wang · 2026-04-22 09:15</div>
+                            </div>
+                          </div>
+                          <div class="feedback-msg">
+                            <div class="feedback-msg-avatar">C</div>
+                            <div class="feedback-msg-content">
+                              Final review passed. Meets industry standards. Certification effective.
+                              <div class="feedback-msg-time">Standard Verifier Chen · 2026-04-23 11:00</div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- Task 3: Chen Zhiqiang — HSE Safety Skills (初审中) -->
+              <tr class="task-row" data-task="hse-3">
                 <td>
                   <div class="user-info">
                     <div class="user-info-avatar">C</div>
@@ -1465,19 +1686,60 @@
                 <td>2026-04-20 16:45</td>
                 <td><span class="badge badge-pending"><i class="ri-time-line"></i> Pending Review</span></td>
                 <td>
-                  <div class="action-group">
-                    <button class="btn-sm btn-preview" onclick="openPreviewModal('HSE_Training_Cert.pdf')"><i class="ri-eye-line"></i> Preview</button>
-                    <button class="btn-sm btn-evidence" onclick="openEvidenceModal('Chen Zhiqiang', 'HSE Safety Skills', 'PSMS v2', 'HSE Dept', '2026-04-20', 'hse')"><i class="ri-folder-check-line"></i> Review Evidence</button>
+                  <div class="mini-verify-steps">
+                    <div class="mini-step current" title="Assessor Review — JAssessor · In Progress">1</div>
+                    <div class="mini-connector"></div>
+                    <div class="mini-step pending" title="Internal Verification — Unassigned">2</div>
+                    <div class="mini-connector"></div>
+                    <div class="mini-step pending" title="External Verifier — Unassigned">3</div>
                   </div>
                 </td>
                 <td>
                   <div class="action-group">
+                    <button class="btn-sm btn-expand" onclick="toggleTaskDetail(this, 'hse-3')"><i class="ri-arrow-down-s-line"></i> Details</button>
+                    <button class="btn-sm btn-evidence" onclick="openEvidenceModal('Chen Zhiqiang', 'HSE Safety Skills', 'PSMS v2', 'HSE Dept', '2026-04-20', 'hse')"><i class="ri-folder-check-line"></i> Review</button>
                     <button class="btn-sm btn-pass" data-min-role="assessor" onclick="openActionModal('pass', 'Chen Zhiqiang', 'HSE Safety Skills')"><i class="ri-check-line"></i> Pass</button>
-                    <button class="btn-sm btn-reject" data-min-role="assessor" onclick="openActionModal('reject', 'Chen Zhiqiang', 'HSE Safety Skills')"><i class="ri-close-line"></i> Rejected</button>
                   </div>
                 </td>
               </tr>
-              <tr>
+              <tr class="task-detail" id="detail-hse-3">
+                <td colspan="6">
+                  <div class="task-detail-inner">
+                    <div class="detail-grid">
+                      <div class="detail-col">
+                        <div class="evidence-section-title"><i class="ri-folder-check-line"></i> Submitted Evidence</div>
+                        <div class="evidence-files">
+                          <div class="evidence-file">
+                            <div class="evidence-file-info">
+                              <i class="ri-file-pdf-line"></i>
+                              <div>
+                                <div class="evidence-file-name">HSE_Training_Cert.pdf</div>
+                                <div class="evidence-file-meta">0.6 MB · Submitted on 2026-04-20</div>
+                              </div>
+                            </div>
+                            <div class="evidence-actions">
+                              <button class="btn-sm btn-preview" onclick="openPreviewModal('HSE_Training_Cert.pdf')"><i class="ri-eye-line"></i> Preview</button>
+                              <button class="btn-sm btn-download"><i class="ri-download-line"></i> Download</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="detail-col">
+                        <div class="evidence-section-title"><i class="ri-message-3-line"></i> Verification Feedback</div>
+                        <div class="feedback-section">
+                          <div class="feedback-input-wrap">
+                            <textarea class="feedback-input" placeholder="Add assessment comments..." rows="2"></textarea>
+                            <button class="feedback-send" onclick="showToast('Feedback sent')"><i class="ri-send-plane-line"></i> Send</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- Task 4: Zhao Haiyan — Electrical Safety (终审中) -->
+              <tr class="task-row" data-task="electrical-4">
                 <td>
                   <div class="user-info">
                     <div class="user-info-avatar">Z</div>
@@ -1491,19 +1753,89 @@
                 <td>2026-04-19 11:20</td>
                 <td><span class="badge badge-in-verification"><i class="ri-loader-4-line"></i> In Verification</span></td>
                 <td>
-                  <div class="action-group">
-                    <button class="btn-sm btn-preview" onclick="openPreviewModal('Electrical_Safety_Assessment.pdf')"><i class="ri-eye-line"></i> Preview</button>
-                    <button class="btn-sm btn-evidence" onclick="openEvidenceModal('Zhao Haiyan', 'Electrical Safety Operation', 'OP Tech L3', 'Electrical Engineering Dept', '2026-04-19', 'electrical')"><i class="ri-folder-check-line"></i> Review Evidence</button>
+                  <div class="mini-verify-steps">
+                    <div class="mini-step completed" title="Assessor Review — JAssessor · 04-19"><i class="ri-check-line"></i></div>
+                    <div class="mini-connector completed"></div>
+                    <div class="mini-step completed" title="Internal Verification — Verifier Wang · 04-20"><i class="ri-check-line"></i></div>
+                    <div class="mini-connector in-progress"></div>
+                    <div class="mini-step current" title="External Verifier — Standard Verifier Chen · In Progress">3</div>
                   </div>
                 </td>
                 <td>
                   <div class="action-group">
+                    <button class="btn-sm btn-expand" onclick="toggleTaskDetail(this, 'electrical-4')"><i class="ri-arrow-down-s-line"></i> Details</button>
+                    <button class="btn-sm btn-evidence" onclick="openEvidenceModal('Zhao Haiyan', 'Electrical Safety Operation', 'OP Tech L3', 'Electrical Engineering Dept', '2026-04-19', 'electrical')"><i class="ri-folder-check-line"></i> Review</button>
                     <button class="btn-sm btn-pass" data-min-role="assessor" onclick="openActionModal('pass', 'Zhao Haiyan', 'Electrical Safety Operation')"><i class="ri-check-line"></i> Pass</button>
-                    <button class="btn-sm btn-reject" data-min-role="assessor" onclick="openActionModal('reject', 'Zhao Haiyan', 'Electrical Safety Operation')"><i class="ri-close-line"></i> Rejected</button>
                   </div>
                 </td>
               </tr>
-              <tr>
+              <tr class="task-detail" id="detail-electrical-4">
+                <td colspan="6">
+                  <div class="task-detail-inner">
+                    <div class="detail-grid">
+                      <div class="detail-col">
+                        <div class="evidence-section-title"><i class="ri-folder-check-line"></i> Submitted Evidence</div>
+                        <div class="evidence-files">
+                          <div class="evidence-file">
+                            <div class="evidence-file-info">
+                              <i class="ri-file-pdf-line"></i>
+                              <div>
+                                <div class="evidence-file-name">Electrical_Safety_Assessment.pdf</div>
+                                <div class="evidence-file-meta">3.1 MB · Submitted on 2026-04-19</div>
+                              </div>
+                            </div>
+                            <div class="evidence-actions">
+                              <button class="btn-sm btn-preview" onclick="openPreviewModal('Electrical_Safety_Assessment.pdf')"><i class="ri-eye-line"></i> Preview</button>
+                              <button class="btn-sm btn-download"><i class="ri-download-line"></i> Download</button>
+                            </div>
+                          </div>
+                          <div class="evidence-file">
+                            <div class="evidence-file-info">
+                              <i class="ri-image-line"></i>
+                              <div>
+                                <div class="evidence-file-name">High_Pressure_Ops_Photos.zip</div>
+                                <div class="evidence-file-meta">15 MB · Submitted on 2026-04-19</div>
+                              </div>
+                            </div>
+                            <div class="evidence-actions">
+                              <button class="btn-sm btn-preview" onclick="openPreviewModal('High_Pressure_Ops_Photos.zip')"><i class="ri-eye-line"></i> Preview</button>
+                              <button class="btn-sm btn-download"><i class="ri-download-line"></i> Download</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="detail-col">
+                        <div class="evidence-section-title"><i class="ri-message-3-line"></i> Verification Feedback</div>
+                        <div class="feedback-history">
+                          <div class="feedback-msg">
+                            <div class="feedback-msg-avatar">J</div>
+                            <div class="feedback-msg-content">
+                              Initial review passed. Electrical Safety Operation standards met, complete assessment records.
+                              <div class="feedback-msg-time">JAssessor · 2026-04-19 14:20</div>
+                            </div>
+                          </div>
+                          <div class="feedback-msg">
+                            <div class="feedback-msg-avatar">W</div>
+                            <div class="feedback-msg-content">
+                              Internal review passed. Recommend EV focus on safety compliance of high-voltage operations.
+                              <div class="feedback-msg-time">Verifier Wang · 2026-04-20 16:45</div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="feedback-section" style="margin-top:12px;">
+                          <div class="feedback-input-wrap">
+                            <textarea class="feedback-input" placeholder="Add final review feedback..." rows="2"></textarea>
+                            <button class="feedback-send" onclick="showToast('Feedback sent')"><i class="ri-send-plane-line"></i> Send</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- Task 5: Liu Siyuan — Completion Technology (待初审) -->
+              <tr class="task-row" data-task="completion-5">
                 <td>
                   <div class="user-info">
                     <div class="user-info-avatar">L</div>
@@ -1517,326 +1849,60 @@
                 <td>2026-04-18 08:50</td>
                 <td><span class="badge badge-submitted"><i class="ri-upload-2-line"></i> Submitted</span></td>
                 <td>
-                  <div class="action-group">
-                    <button class="btn-sm btn-preview" onclick="openPreviewModal('Completion_Technology_Analysis.pdf')"><i class="ri-eye-line"></i> Preview</button>
-                    <button class="btn-sm btn-evidence" onclick="openEvidenceModal('Liu Siyuan', 'Completion Technology', 'OIM v4', 'Wells Engineering Dept', '2026-04-18', 'completion')"><i class="ri-folder-check-line"></i> Review Evidence</button>
+                  <div class="mini-verify-steps">
+                    <div class="mini-step pending" title="Assessor Review — Unassigned">1</div>
+                    <div class="mini-connector"></div>
+                    <div class="mini-step pending" title="Internal Verification — Unassigned">2</div>
+                    <div class="mini-connector"></div>
+                    <div class="mini-step pending" title="External Verifier — Unassigned">3</div>
                   </div>
                 </td>
                 <td>
                   <div class="action-group">
+                    <button class="btn-sm btn-expand" onclick="toggleTaskDetail(this, 'completion-5')"><i class="ri-arrow-down-s-line"></i> Details</button>
+                    <button class="btn-sm btn-evidence" onclick="openEvidenceModal('Liu Siyuan', 'Completion Technology', 'OIM v4', 'Wells Engineering Dept', '2026-04-18', 'completion')"><i class="ri-folder-check-line"></i> Review</button>
                     <button class="btn-sm btn-pass" data-min-role="assessor" onclick="openActionModal('pass', 'Liu Siyuan', 'Completion Technology')"><i class="ri-check-line"></i> Pass</button>
-                    <button class="btn-sm btn-reject" data-min-role="assessor" onclick="openActionModal('reject', 'Liu Siyuan', 'Completion Technology')"><i class="ri-close-line"></i> Rejected</button>
                   </div>
                 </td>
               </tr>
+              <tr class="task-detail" id="detail-completion-5">
+                <td colspan="6">
+                  <div class="task-detail-inner">
+                    <div class="detail-grid">
+                      <div class="detail-col">
+                        <div class="evidence-section-title"><i class="ri-folder-check-line"></i> Submitted Evidence</div>
+                        <div class="evidence-files">
+                          <div class="evidence-file">
+                            <div class="evidence-file-info">
+                              <i class="ri-file-pdf-line"></i>
+                              <div>
+                                <div class="evidence-file-name">Completion_Technology_Analysis.pdf</div>
+                                <div class="evidence-file-meta">2.9 MB · Submitted on 2026-04-18</div>
+                              </div>
+                            </div>
+                            <div class="evidence-actions">
+                              <button class="btn-sm btn-preview" onclick="openPreviewModal('Completion_Technology_Analysis.pdf')"><i class="ri-eye-line"></i> Preview</button>
+                              <button class="btn-sm btn-download"><i class="ri-download-line"></i> Download</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="detail-col">
+                        <div class="evidence-section-title"><i class="ri-message-3-line"></i> Verification Feedback</div>
+                        <div class="feedback-section">
+                          <div class="feedback-input-wrap">
+                            <textarea class="feedback-input" placeholder="Add assessment comments..." rows="2"></textarea>
+                            <button class="feedback-send" onclick="showToast('Feedback sent')"><i class="ri-send-plane-line"></i> Send</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+
             </tbody>
           </table>
-        </div>
-      </div>
-
-      <!-- Three-Tier Verification Tab -->
-      <div class="tab-panel" id="panel-verify">
-        <div class="role-section-header"><i class="ri-check-double-line"></i> Verification Progress</div>
-        <div class="verify-flow">
-
-          <!-- 验证项1：在复核中 -->
-          <div class="verify-item" data-role-section="iv">
-            <div class="verify-header">
-              <div class="verify-skill-name">
-                <i class="ri-oil-line" style="color:var(--amber);margin-right:6px;"></i>Drilling Operations - Li Mingyuan
-              </div>
-              <div class="verify-meta">
-                <span class="badge badge-in-verification"><i class="ri-loader-4-line"></i> In Verification</span>
-                <span>Submitted: 2026-04-22</span>
-                <span>Portfolio: OIM v3</span>
-              </div>
-            </div>
-            <div class="verify-steps">
-              <div class="step">
-                <div class="step-circle completed"><i class="ri-check-line"></i></div>
-                <div class="step-label">Assessor Review</div>
-                <div class="step-desc">JAssessor · 04-22</div>
-              </div>
-              <div class="step-connector completed"></div>
-              <div class="step">
-                <div class="step-circle current">2</div>
-                <div class="step-label">Internal Verification</div>
-                <div class="step-desc">Verifier Wang · Pending</div>
-              </div>
-              <div class="step-connector in-progress"></div>
-              <div class="step">
-                <div class="step-circle pending">3</div>
-                <div class="step-label">External Verifier Final Review</div>
-                <div class="step-desc">Unassigned</div>
-              </div>
-            </div>
-            <!-- Evidence Review区 -->
-            <div class="evidence-review" id="evidenceReview1">
-              <div class="evidence-section-title"><i class="ri-folder-check-line"></i> Submitted Evidence</div>
-              <div class="evidence-files">
-                <div class="evidence-file">
-                  <div class="evidence-file-info">
-                    <i class="ri-video-line"></i>
-                    <div>
-                      <div class="evidence-file-name">Drilling_Operations_Demo.mp4</div>
-                      <div class="evidence-file-meta">128 MB · Submitted on 2026-04-22</div>
-                    </div>
-                  </div>
-                  <div class="evidence-actions">
-                    <button class="btn-sm btn-preview" onclick="openPreviewModal('Drilling_Operations_Demo.mp4')"><i class="ri-eye-line"></i> Preview</button>
-                    <button class="btn-sm btn-download"><i class="ri-download-line"></i> Download</button>
-                  </div>
-                </div>
-                <div class="evidence-file">
-                  <div class="evidence-file-info">
-                    <i class="ri-file-pdf-line"></i>
-                    <div>
-                      <div class="evidence-file-name">Drilling_Operations_Assessment_v3.pdf</div>
-                      <div class="evidence-file-meta">2.4 MB · Submitted on 2026-04-22</div>
-                    </div>
-                  </div>
-                  <div class="evidence-actions">
-                    <button class="btn-sm btn-preview" onclick="openPreviewModal('Drilling_Operations_Assessment_v3.pdf')"><i class="ri-eye-line"></i> Preview</button>
-                    <button class="btn-sm btn-download"><i class="ri-download-line"></i> Download</button>
-                  </div>
-                </div>
-              </div>
-              <div class="evidence-section-title"><i class="ri-message-3-line"></i> Verification Feedback</div>
-              <div class="feedback-history">
-                <div class="feedback-msg">
-                  <div class="feedback-msg-avatar">J</div>
-                  <div class="feedback-msg-content">
-                    Passed initial review. The candidate demonstrated solid Drilling Operations capability. The practical video covers all key steps. Assessment score: 85/100. Please proceed to IV review.
-                    <div class="feedback-msg-time">JAssessor · 2026-04-22 15:10</div>
-                  </div>
-                </div>
-              </div>
-              <div class="feedback-section">
-                <div class="feedback-input-wrap">
-                  <textarea class="feedback-input" placeholder="Add verification feedback..." rows="2"></textarea>
-                  <button class="feedback-send" onclick="showToast('Feedback sent')"><i class="ri-send-plane-line"></i> Send</button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- 验证项2：已AllPass -->
-          <div class="verify-item">
-            <div class="verify-header">
-              <div class="verify-skill-name">
-                <i class="ri-tools-line" style="color:var(--amber);margin-right:6px;"></i>Equipment Maintenance - Wang Jianguo
-              </div>
-              <div class="verify-meta">
-                <span class="badge badge-verified"><i class="ri-check-double-line"></i> Verified</span>
-                <span>Submitted: 2026-04-21</span>
-                <span>Portfolio: OP Tech L2</span>
-              </div>
-            </div>
-            <div class="verify-steps">
-              <div class="step">
-                <div class="step-circle completed"><i class="ri-check-line"></i></div>
-                <div class="step-label">Assessor Review</div>
-                <div class="step-desc">JAssessor · 04-21</div>
-              </div>
-              <div class="step-connector completed"></div>
-              <div class="step">
-                <div class="step-circle completed"><i class="ri-check-line"></i></div>
-                <div class="step-label">Internal Verification</div>
-                <div class="step-desc">Verifier Wang · 04-22</div>
-              </div>
-              <div class="step-connector completed"></div>
-              <div class="step">
-                <div class="step-circle completed"><i class="ri-check-line"></i></div>
-                <div class="step-label">External Verifier Final Review</div>
-                <div class="step-desc">Standard Verifier Chen · 04-23</div>
-              </div>
-            </div>
-            <div class="evidence-review">
-              <div class="evidence-section-title"><i class="ri-folder-check-line"></i> Submitted Evidence</div>
-              <div class="evidence-files">
-                <div class="evidence-file">
-                  <div class="evidence-file-info">
-                    <i class="ri-file-pdf-line"></i>
-                    <div>
-                      <div class="evidence-file-name">Equipment_Maintenance_Report.pdf</div>
-                      <div class="evidence-file-meta">1.8 MB · Submitted on 2026-04-21</div>
-                    </div>
-                  </div>
-                  <div class="evidence-actions">
-                    <button class="btn-sm btn-preview" onclick="openPreviewModal('Equipment_Maintenance_Report.pdf')"><i class="ri-eye-line"></i> Preview</button>
-                    <button class="btn-sm btn-download"><i class="ri-download-line"></i> Download</button>
-                  </div>
-                </div>
-              </div>
-              <div class="feedback-history">
-                <div class="feedback-msg">
-                  <div class="feedback-msg-avatar">J</div>
-                  <div class="feedback-msg-content">
-                    Initial review passed. Standard maintenance procedures followed, complete inspection data.
-                    <div class="feedback-msg-time">JAssessor · 2026-04-21 10:30</div>
-                  </div>
-                </div>
-                <div class="feedback-msg">
-                  <div class="feedback-msg-avatar">W</div>
-                  <div class="feedback-msg-content">
-                    Internal review passed. Assessment standards applied consistently.
-                    <div class="feedback-msg-time">Verifier Wang · 2026-04-22 09:15</div>
-                  </div>
-                </div>
-                <div class="feedback-msg">
-                  <div class="feedback-msg-avatar">C</div>
-                  <div class="feedback-msg-content">
-                    Final review passed. Meets industry standards. Certification effective.
-                    <div class="feedback-msg-time">Standard Verifier Chen · 2026-04-23 11:00</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- 验证项3：初审中 -->
-          <div class="verify-item">
-            <div class="verify-header">
-              <div class="verify-skill-name">
-                <i class="ri-shield-line" style="color:var(--amber);margin-right:6px;"></i>HSE Safety Skills - Chen Zhiqiang
-              </div>
-              <div class="verify-meta">
-                <span class="badge badge-pending"><i class="ri-time-line"></i> Pending Review</span>
-                <span>Submitted: 2026-04-20</span>
-                <span>Portfolio: PSMS v2</span>
-              </div>
-            </div>
-            <div class="verify-steps">
-              <div class="step">
-                <div class="step-circle current">1</div>
-                <div class="step-label">Assessor Review</div>
-                <div class="step-desc">JAssessor · In Progress</div>
-              </div>
-              <div class="step-connector"></div>
-              <div class="step">
-                <div class="step-circle pending">2</div>
-                <div class="step-label">Internal Verification</div>
-                <div class="step-desc">Unassigned</div>
-              </div>
-              <div class="step-connector"></div>
-              <div class="step">
-                <div class="step-circle pending">3</div>
-                <div class="step-label">External Verifier Final Review</div>
-                <div class="step-desc">Unassigned</div>
-              </div>
-            </div>
-            <div class="evidence-review">
-              <div class="evidence-section-title"><i class="ri-folder-check-line"></i> Submitted Evidence</div>
-              <div class="evidence-files">
-                <div class="evidence-file">
-                  <div class="evidence-file-info">
-                    <i class="ri-file-pdf-line"></i>
-                    <div>
-                      <div class="evidence-file-name">HSE_Training_Cert.pdf</div>
-                      <div class="evidence-file-meta">0.6 MB · Submitted on 2026-04-20</div>
-                    </div>
-                  </div>
-                  <div class="evidence-actions">
-                    <button class="btn-sm btn-preview" onclick="openPreviewModal('HSE_Training_Cert.pdf')"><i class="ri-eye-line"></i> Preview</button>
-                    <button class="btn-sm btn-download"><i class="ri-download-line"></i> Download</button>
-                  </div>
-                </div>
-              </div>
-              <div class="feedback-section">
-                <div class="feedback-input-wrap">
-                  <textarea class="feedback-input" placeholder="Add assessment comments..." rows="2"></textarea>
-                  <button class="feedback-send" onclick="showToast('Feedback sent')"><i class="ri-send-plane-line"></i> Send</button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- 验证项4：终审中 -->
-          <div class="verify-item" data-role-section="ev">
-            <div class="verify-header">
-              <div class="verify-skill-name">
-                <i class="ri-flashlight-line" style="color:var(--amber);margin-right:6px;"></i>Electrical Safety Operation - Zhao Haiyan
-              </div>
-              <div class="verify-meta">
-                <span class="badge badge-in-verification"><i class="ri-loader-4-line"></i> In Verification</span>
-                <span>Submitted: 2026-04-19</span>
-                <span>Portfolio: OP Tech L3</span>
-              </div>
-            </div>
-            <div class="verify-steps">
-              <div class="step">
-                <div class="step-circle completed"><i class="ri-check-line"></i></div>
-                <div class="step-label">Assessor Review</div>
-                <div class="step-desc">JAssessor · 04-19</div>
-              </div>
-              <div class="step-connector completed"></div>
-              <div class="step">
-                <div class="step-circle completed"><i class="ri-check-line"></i></div>
-                <div class="step-label">Internal Verification</div>
-                <div class="step-desc">Verifier Wang · 04-20</div>
-              </div>
-              <div class="step-connector in-progress"></div>
-              <div class="step">
-                <div class="step-circle current">3</div>
-                <div class="step-label">External Verifier Final Review</div>
-                <div class="step-desc">Standard Verifier Chen · In Progress</div>
-              </div>
-            </div>
-            <div class="evidence-review">
-              <div class="evidence-section-title"><i class="ri-folder-check-line"></i> Submitted Evidence</div>
-              <div class="evidence-files">
-                <div class="evidence-file">
-                  <div class="evidence-file-info">
-                    <i class="ri-file-pdf-line"></i>
-                    <div>
-                      <div class="evidence-file-name">Electrical_Safety_Assessment.pdf</div>
-                      <div class="evidence-file-meta">3.1 MB · Submitted on 2026-04-19</div>
-                    </div>
-                  </div>
-                  <div class="evidence-actions">
-                    <button class="btn-sm btn-preview" onclick="openPreviewModal('Electrical_Safety_Assessment.pdf')"><i class="ri-eye-line"></i> Preview</button>
-                    <button class="btn-sm btn-download"><i class="ri-download-line"></i> Download</button>
-                  </div>
-                </div>
-                <div class="evidence-file">
-                  <div class="evidence-file-info">
-                    <i class="ri-image-line"></i>
-                    <div>
-                      <div class="evidence-file-name">High_Pressure_Ops_Photos.zip</div>
-                      <div class="evidence-file-meta">15 MB · Submitted on 2026-04-19</div>
-                    </div>
-                  </div>
-                  <div class="evidence-actions">
-                    <button class="btn-sm btn-preview" onclick="openPreviewModal('High_Pressure_Ops_Photos.zip')"><i class="ri-eye-line"></i> Preview</button>
-                    <button class="btn-sm btn-download"><i class="ri-download-line"></i> Download</button>
-                  </div>
-                </div>
-              </div>
-              <div class="feedback-history">
-                <div class="feedback-msg">
-                  <div class="feedback-msg-avatar">J</div>
-                  <div class="feedback-msg-content">
-                    Initial review passed. Electrical Safety Operation standards met, complete assessment records.
-                    <div class="feedback-msg-time">JAssessor · 2026-04-19 14:20</div>
-                  </div>
-                </div>
-                <div class="feedback-msg">
-                  <div class="feedback-msg-avatar">W</div>
-                  <div class="feedback-msg-content">
-                    Internal review passed. Recommend EV focus on safety compliance of high-voltage operations.
-                    <div class="feedback-msg-time">Verifier Wang · 2026-04-20 16:45</div>
-                  </div>
-                </div>
-              </div>
-              <div class="feedback-section">
-                <div class="feedback-input-wrap">
-                  <textarea class="feedback-input" placeholder="Add final review feedback..." rows="2"></textarea>
-                  <button class="feedback-send" onclick="showToast('Feedback sent')"><i class="ri-send-plane-line"></i> Send</button>
-                </div>
-              </div>
-            </div>
-          </div>
-
         </div>
       </div>
 
@@ -2304,7 +2370,7 @@
         // Flow visualization
         updateFlowVisualization(role);
 
-        // Nav badge
+        // Nav badge (safe — element may not exist)
         const badge = $('#navAssessBadge');
         if (badge) badge.textContent = cfg.badge;
 
@@ -2316,10 +2382,14 @@
           ev: { pending: 2, verifying: 4, verified: 52, rejected: 1 }
         };
         const c = chips[role];
-        $('#chipPending').textContent = c.pending;
-        $('#chipVerifying').textContent = c.verifying;
-        $('#chipVerified').textContent = c.verified;
-        $('#chipRejected').textContent = c.rejected;
+        const chipPending = $('#chipPending');
+        const chipVerifying = $('#chipVerifying');
+        const chipVerified = $('#chipVerified');
+        const chipRejected = $('#chipRejected');
+        if (chipPending) chipPending.textContent = c.pending;
+        if (chipVerifying) chipVerifying.textContent = c.verifying;
+        if (chipVerified) chipVerified.textContent = c.verified;
+        if (chipRejected) chipRejected.textContent = c.rejected;
 
         // Button visibility
         if (role === 'candidate') {
@@ -2400,6 +2470,28 @@
           if (target) target.classList.add('active');
         });
       });
+
+      // ---- Expandable Task Detail Rows ----
+      window.toggleTaskDetail = function(btn, taskId) {
+        const detailRow = document.getElementById('detail-' + taskId);
+        if (!detailRow) return;
+        const isExpanded = detailRow.classList.contains('expanded');
+        // Close all other expanded rows
+        document.querySelectorAll('.task-detail.expanded').forEach(row => {
+          row.classList.remove('expanded');
+        });
+        document.querySelectorAll('.btn-expand.expanded').forEach(b => {
+          b.classList.remove('expanded');
+          const icon = b.querySelector('i');
+          if (icon) icon.className = 'ri-arrow-down-s-line';
+        });
+        if (!isExpanded) {
+          detailRow.classList.add('expanded');
+          btn.classList.add('expanded');
+          const icon = btn.querySelector('i');
+          if (icon) icon.className = 'ri-arrow-up-s-line';
+        }
+      };
 
       // ---- File Preview模态框 ----
       window.openPreviewModal = function(fileName) {
